@@ -4,7 +4,6 @@
 
 
 ```shell
-sudo dpkg-reconfigure keyboard-configuration # configure keyboard
 sudo ./cmds/installer-prepare.sh
 ```
 

@@ -7,7 +7,6 @@ cmd_init() {
   mkdir -p target
   cp -R config target
   genfstab -U /mnt/installer | sudo tee target/config/etc.pre/fstab
-  sudo debconf-get-selections | grep ^keyboard-configuration > target/config/keyboard.debconf
   hex_lvm_id="$(sudo blkid -o value -s UUID "$HEX_DEV_LVM")"
   echo -e "CRYPTED\tUUID=$hex_lvm_id\tnone\tluks,initramfs" > target/config/etc.pre/crypttab
 }

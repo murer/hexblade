@@ -77,7 +77,7 @@ sudo mount --bind /boot/efi /mnt/installer/boot/efi
 You can configure things while strap is running
 
 ```shell
-./cmds/config-init.sh
+./cmds/config.sh all
 ```
 
 Edit files in ```target/config``` to configure username, password, etc.

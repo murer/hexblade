@@ -1,5 +1,7 @@
 #!/bin/bash -xe
 
+[[ "x$UID" == "x0" ]]
+
 apt-get -y update
 apt-get -y install \
   software-properties-common

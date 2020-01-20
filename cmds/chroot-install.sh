@@ -14,7 +14,7 @@ cat target/config/keyboard.debconf | arch-chroot /mnt/installer debconf-set-sele
 arch-chroot /mnt/installer dpkg-reconfigure -f non-interactive keyboard-configuration
 
 [[ -d "/mnt/installer/home/$(cat target/config/user/user.txt)" ]] || \
-  sudo arch-chroot /mnt/installer useradd -u 1000 -m -G adm,cdrom,sudo,dip,plugdev -s /bin/bash "$(cat target/config/user/user.txt)" -p "$(cat target/config/user/pass.txt)" || true
+  arch-chroot /mnt/installer useradd -u 1000 -m -G adm,cdrom,sudo,dip,plugdev -s /bin/bash "$(cat target/config/user/user.txt)" -p "$(cat target/config/user/pass.txt)" || true
 
 arch-chroot /mnt/installer apt-get -y update
 arch-chroot /mnt/installer apt-get -y upgrade
@@ -29,6 +29,11 @@ network:
   version: 2
   renderer: NetworkManager
 EOF
+
+rm -rf "/mnt/installer/home/$(cat target/config/user/user.txt)/hex"
+cp -R "." "/mnt/installer/home/$(cat target/config/user/user.txt)/hex"
+arch-chroot /mnt/installer chown -R "$(cat target/config/user/user.txt):$(cat target/config/user/user.txt)" "/home/$(cat target/config/user/user.txt)"
+
 arch-chroot /mnt/installer apt-get -y install linux-image-generic linux-headers-generic
 arch-chroot /mnt/installer apt-get -y install cryptsetup lvm2
 arch-chroot /mnt/installer apt-get -y install grub-efi

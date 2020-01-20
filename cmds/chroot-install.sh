@@ -10,8 +10,8 @@ cp -R target/config/etc.pre/* /mnt/installer/etc
 arch-chroot /mnt/installer ln -sf /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime
 arch-chroot /mnt/installer locale-gen en_US.UTF-8
 arch-chroot /mnt/installer dpkg-reconfigure -f non-interactive tzdata
-cat target/config/keyboard.debconf | arch-chroot /mnt/installer debconf-set-selections
-arch-chroot /mnt/installer dpkg-reconfigure -f non-interactive keyboard-configuration
+#cat target/config/keyboard.debconf | arch-chroot /mnt/installer debconf-set-selections
+arch-chroot /mnt/installer dpkg-reconfigure keyboard-configuration
 
 [[ -d "/mnt/installer/home/$(cat target/config/user/user.txt)" ]] || \
   arch-chroot /mnt/installer useradd -u 1000 -m -G adm,cdrom,sudo,dip,plugdev -s /bin/bash "$(cat target/config/user/user.txt)" -p "$(cat target/config/user/pass.txt)" || true

@@ -23,6 +23,11 @@ cmd_hostname() {
   " > target/config/etc.pre/hosts
 }
 
+cmd_grub() {
+  hex_grub_dev="${hex_grub_dev?'hex_grub_dev'}"
+  echo "$hex_grub_dev" > target/config/grub.dev
+}
+
 cmd_user() {
   set +x
   hex_user="${hex_user?'user'}"
@@ -33,6 +38,7 @@ cmd_user() {
 }
 
 cmd_all() {
+  read -p 'Grub Install Device: ' hex_dev_grub
   read -p 'Hostname: ' hex_hostname
   read -p 'User: ' hex_user
   read -sp 'Pass: ' hex_pass

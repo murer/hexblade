@@ -14,5 +14,3 @@ apt-get install -y \
   debootstrap debconf-utils \
   arch-install-scripts \
   vim curl wget
-
-sudo dpkg-reconfigure keyboard-configuration

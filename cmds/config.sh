@@ -7,7 +7,7 @@ cmd_init() {
   mkdir -p target
   cp -R config target
   genfstab -U /mnt/installer | sudo tee target/config/etc.pre/fstab
-  debconf-get-selections | grep ^keyboard-configuration > target/config/keyboard.debconf
+  sudo debconf-get-selections | grep ^keyboard-configuration > target/config/keyboard.debconf
   hex_lvm_id="$(sudo blkid -o value -s UUID "$HEX_DEV_LVM")"
   echo -e "CRYPTED\tUUID=$hex_lvm_id\tnone\tluks,initramfs" > target/config/etc.pre/crypttab
 }
@@ -37,6 +37,12 @@ cmd_all() {
   read -p 'Hostname: ' hex_hostname
   read -p 'User: ' hex_user
   read -sp 'Pass: ' hex_pass
+  read -sp 'Pass (Again): ' hex_pass_again
+
+  if [[ "x$hex_pass" != "x$hex_pass_again" ]]; then
+    echo "wrong pass"
+    false
+  fi
 
   cmd_init
   cmd_hostname

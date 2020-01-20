@@ -2,8 +2,10 @@
 
 ## Prepare install (live) env
 
+
 ```shell
-./cmds/installer-prepare.sh
+sudo dpkg-reconfigure keyboard-configuration # configure keyboard
+sudo ./cmds/installer-prepare.sh
 ```
 
 ## Partition

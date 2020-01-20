@@ -3,8 +3,8 @@
 [[ "x$UID" != "x0" ]]
 
 cmd_init() {
-  rm -rf target || true
-  mkdir target
+  rm -rf target/config || true
+  mkdir -p target
   cp -R config target
   genfstab -U /mnt/installer | sudo tee /mnt/installer/etc/fstab
   hex_lvm_id="$(sudo blkid -o value -s UUID "$HEX_DEV_LVM")"

@@ -9,6 +9,8 @@ apt-add-repository universe
 apt-get install -y \
   gdisk fdisk gpart \
   cryptsetup \
-  debootstrap \
+  debootstrap debconf-utils \
   arch-install-scripts \
   vim curl wget
+
+sudo dpkg-reconfigure keyboard-configuration

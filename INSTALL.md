@@ -46,9 +46,10 @@ sudo mkfs.ext4 -L ROOT /dev/mapper/MAIN-ROOT
 sudo mkswap -L SWAP /dev/mapper/MAIN-SWAP
 ```
 
-## Mount ROOT
+## Mount SWAP and ROOT2
 
 ```shell
+sudo swapon /dev/mapper/MAIN-SWAP
 sudo mkdir -p /mnt/installer
 sudo mount /dev/mapper/MAIN-ROOT /mnt/installer
 sudo rm -rf /mnt/installer/boot/efi || true
@@ -91,4 +92,14 @@ Edit files in ```target/config``` to configure username, password, etc.
 
 ```shell
 sudo umount -R /mnt/installer
+```
+
+## Reboot into the system
+
+Connect to the internet using command line ```nmcli```
+
+Clone repository and execute:
+
+```shell
+./packages/install-all.sh
 ```

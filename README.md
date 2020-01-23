@@ -96,7 +96,9 @@ Edit files in ```target/config``` to configure username, password, etc.
 
 ***MAKE SURE STRAP IS FINISHED***
 
+```shell
 ./cmds/chroot-install.sh
+```
 
 ## Umount
 

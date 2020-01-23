@@ -50,6 +50,7 @@ cmd_all() {
   fi
 
   cmd_init
+  cmd_grub
   cmd_hostname
   cmd_user
 }

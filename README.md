@@ -8,7 +8,7 @@ Download live source, and boot into it.
 
 ***WE WILL NOT PERFORM UBUNTU REGULAR INSTALLATION***
 
-It is more like install [Install From Linux](https://help.ubuntu.com/community/Installation/FromLinux)
+It is more like [Install From Linux](https://help.ubuntu.com/community/Installation/FromLinux)
 
 You need to configure internet access on live system
 

@@ -20,7 +20,7 @@ sudo ./cmds/installer-prepare.sh
 
 Create 2 partitions with ```gdisk /dev/sdX```:
 
-User ```o``` to create a empty gpt table if necessary
+Use ```o``` to create a empty gpt table if necessary
 
 ```text
 Number  Start (sector)    End (sector)  Size       Code  Name

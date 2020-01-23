@@ -25,7 +25,7 @@ User ```o``` to create a empty gpt table if necessary
 ```text
 Number  Start (sector)    End (sector)  Size       Code  Name
    1            2048          821247   400.0 MiB   EF00  EFI System
-   2          821248       147621887   70.0 GiB    8300  Linux filesystem
+   9          821248       147621887   70.0 GiB    8300  Linux filesystem
 ```
 
 ## Export configs

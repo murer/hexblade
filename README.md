@@ -83,7 +83,7 @@ You can configure things while strap is running
 
 Edit files in ```target/config``` to configure username, password, etc.
 
-## Install packages
+## Install hex basic packages
 
 *** MAKE SURE STRAP IS FINISHED ***
 
@@ -100,6 +100,8 @@ sudo umount -R /mnt/installer
 Connect to the internet using command line ```nmcli```
 
 Clone repository and execute:
+
+Install optional packages
 
 ```shell
 ./packages/install-all.sh

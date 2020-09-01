@@ -16,7 +16,7 @@ You need to configure internet access on live system
 sudo ./cmds/installer-prepare.sh
 ```
 
-## Partition
+## Partition GPT
 
 Create 2 partitions with ```gdisk /dev/sdX```:
 
@@ -26,6 +26,17 @@ Use ```o``` to create a empty gpt table if necessary
 Number  Start (sector)    End (sector)  Size       Code  Name
    1            2048          821247   400.0 MiB   EF00  EFI System
    9          821248       147621887   70.0 GiB    8300  Linux filesystem
+```
+
+## Partition DOS (BIOS)
+
+Create 2 partitions with ```fdisk /dev/sdX```:
+
+Use ```o``` to create a empty mbr table if necessary
+
+```text
+Device     Boot Start       End   Sectors  Size Id Type
+/dev/sda1        2048 268435455 268433408  128G 83 Linux
 ```
 
 ## Export configs

@@ -114,6 +114,12 @@ Edit files in ```target/config``` to configure username, password, etc.
 ./cmds/chroot-install.sh
 ```
 
+## Install grub
+
+```shell
+./cmds/boot.sh
+```
+
 ## Umount
 
 ```shell

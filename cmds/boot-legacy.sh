@@ -5,7 +5,7 @@
 cd "$(dirname "$0")/.."
 pwd
 
-arch-chroot /mnt/installer apt-get -y install grub
+arch-chroot /mnt/installer apt -y install grub
 
 cp -R target/config/etc.post/* /mnt/installer/etc
 sudo arch-chroot /mnt/installer update-grub

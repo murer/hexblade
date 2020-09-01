@@ -3,7 +3,7 @@
 cd "$(dirname "$0")"
 pwd
 
-sudo apt-get -y install xorg i3 xautolock arandr
+sudo apt -y install xorg i3 xautolock arandr
 
 if [ ! -f /etc/i3.original.tar.gz ]; then
 	cd /etc

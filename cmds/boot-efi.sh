@@ -2,7 +2,7 @@
 
 [[ "x$UID" == "x0" ]]
 
-arch-chroot /mnt/installer apt-get -y install grub-efi
+arch-chroot /mnt/installer apt -y install grub-efi
 
 cp -R target/config/etc.post/* /mnt/installer/etc
 sudo arch-chroot /mnt/installer update-grub

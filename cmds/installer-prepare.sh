@@ -2,13 +2,13 @@
 
 [[ "x$UID" == "x0" ]]
 
-apt-get -y update
-apt-get -y install \
+apt -y update
+apt -y install \
   software-properties-common
 
 apt-add-repository universe
 
-apt-get install -y \
+apt install -y \
   gdisk fdisk gpart \
   cryptsetup \
   debootstrap debconf-utils \

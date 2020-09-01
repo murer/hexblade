@@ -1,3 +1,3 @@
 #!/bin/bash -xe
 
-sudo apt-get install -y pavucontrol # reboot required ?! :(
+sudo apt install -y pavucontrol # reboot required ?! :(

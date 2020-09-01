@@ -62,11 +62,14 @@ sudo mkswap -L SWAP /dev/mapper/MAIN-SWAP
 sudo swapon /dev/mapper/MAIN-SWAP
 sudo mkdir -p /mnt/installer
 sudo mount /dev/mapper/MAIN-ROOT /mnt/installer
-sudo rm -rf /mnt/installer/boot/efi || true
-sudo mkdir -p /mnt/installer/boot/efi
 ```
 
 ## Mount EFI
+
+```shell
+sudo rm -rf /mnt/installer/boot/efi || true
+sudo mkdir -p /mnt/installer/boot/efi
+```
 
 ```shell
 # Use this if EFI IS NOT already mounted on your installer env

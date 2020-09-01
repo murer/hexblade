@@ -3,7 +3,7 @@
 cd "$(dirname "$0")"
 pwd
 
-sudo apt-get -y install openbox nitrogen tint2 xscreensaver gmrun arandr pcmanfm libnotify-bin
+sudo apt -y install openbox nitrogen tint2 xscreensaver gmrun arandr pcmanfm libnotify-bin
 
 if [ ! -f /etc/X11/openbox.original.tar.gz ]; then
 	cd /etc/X11

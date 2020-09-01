@@ -4,8 +4,6 @@
 
 if [[ -d /mnt/installer/boot/efi ]]; then
   arch-chroot /mnt/installer apt -y install grub-efi
-else
-  arch-chroot /mnt/installer apt -y install grub
 fi
 
 cp -R target/config/etc.post/* /mnt/installer/etc

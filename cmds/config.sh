@@ -38,7 +38,7 @@ cmd_user() {
 }
 
 cmd_all() {
-  read -p 'Grub Install Device: ' hex_dev_grub
+  read -p 'Grub Install Device: ' hex_grub_dev
   read -p 'Hostname: ' hex_hostname
   read -p 'User: ' hex_user
   read -sp 'Pass: ' hex_pass

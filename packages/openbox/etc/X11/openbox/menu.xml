@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openbox_menu xmlns="http://openbox.org/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://openbox.org/ file:///usr/share/openbox/menu.xsd">
+<menu id="root-menu" label="Openbox 3">
+  <item label="Run...">
+    <action name="Execute">
+      <command>gmrun</command>
+    </action>
+  </item>
+  <separator/>
+  <item label="Terminal">
+    <action name="Execute">
+      <command>lxterminal</command>
+    </action>
+  </item>
+  <item label="Home">
+    <action name="Execute">
+      <execute>pcmanfm</execute>
+    </action>
+  </item>
+  <separator label="Browser"/>
+  <item label="Chrome">
+    <action name="Execute">
+      <command>google-chrome</command>
+    </action>
+  </item>
+  <item label="Firefox">
+    <action name="Execute">
+      <command>firefox</command>
+    </action>
+  </item>
+  <!--separator label="Places"/-->
+  <separator label="Settings"/>
+  <menu id="settings" label="Settings">
+    <separator label="Configs"/>
+    <item label="Monitors">
+      <action name="Execute">
+        <execute>arandr</execute>
+      </action>
+    </item>
+    <item label="Edit Hosts">
+      <action name="Execute">
+        <execute>gksudo gedit /etc/hosts</execute>
+      </action>
+    </item>
+    <item label="Edit Grub">
+      <action name="Execute">
+        <execute>gksudo gedit /etc/default/grub</execute>
+      </action>
+    </item>
+    <item label="Tint2 RC">
+      <action name="Execute">
+        <command>gedit ~/.config/tint2/tint2rc</command>
+      </action>
+    </item>
+    <item label="gmrun RC">
+      <action name="Execute">
+      <command>gedit ~/.gmrunrc</command>
+      </action>
+    </item>
+    <item label="Gtk3 Theme rc">
+      <action name="Execute">
+        <execute>gedit .config/gtk-3.0/settings.ini</execute>
+      </action>
+    </item>
+    <item label="Gtk2 Theme rc">
+      <action name="Execute">
+        <execute>gedit .gtkrc-2.0</execute>
+      </action>
+      </item>
+    <item label="Edit Fstab">
+      <action name="Execute">
+        <execute>gksudo gedit /etc/fstab</execute>
+      </action>
+    </item>
+    <menu id="obConfig" label="Openbox">
+      <item label="Edit menu.xml">
+        <action name="Execute">
+          <command>gedit ~/.config/openbox/menu.xml</command>
+        </action>
+      </item>
+      <item label="Edit rc.xml">
+        <action name="Execute">
+          <command>gedit ~/.config/openbox/rc.xml</command>
+        </action>
+      </item>
+      <item label="Edit autostart">
+        <action name="Execute">
+          <command>gedit ~/.config/openbox/autostart</command>
+        </action>
+      </item>
+      <separator/>
+      <item label="GUI Menu Editor">
+        <action name="Execute">
+          <command>obmenu</command>
+        </action>
+      </item>
+      <item label="GUI Config Tool">
+        <action name="Execute">
+          <command>obconf</command>
+        </action>
+      </item>
+      <separator/>
+      <item label="Reconfigure">
+        <action name="Reconfigure"/>
+      </item>
+      <item label="Restart">
+        <action name="Restart"/>
+      </item>
+    </menu>
+    <separator label="Settings"/>
+    <item label="Edit Default Applications">
+      <action name="Execute">
+        <command>terminator --command="sudo update-alternatives --all"</command>
+      </action>
+    </item>
+    <item label="Power Management">
+      <action name="Execute">
+        <command>xfce4-power-manager-settings</command>
+      </action>
+    </item>
+    <item label="Choose Wallpaper">
+      <action name="Execute">
+        <command>nitrogen</command>
+      </action>
+    </item>
+    <separator label="Tools"/>
+    <item label="GParted">
+      <action name="Execute">
+        <command>gksudo gparted</command>
+      </action>
+    </item>
+    <item label="Synaptic Package Manager">
+      <action name="Execute">
+        <command>gksudo synaptic</command>
+      </action>
+    </item>
+    </menu>
+  <separator/>
+  <menu id="obShutdownMenu" label="Shutdown">
+	<item label="Reboot">
+		<action name="Execute">
+			<command>gksudo reboot</command>
+		</action>
+	</item>
+	<item label="Halt">
+		<action name="Execute">
+			<command>gksudo "halt -p"</command>
+		</action>
+	</item>
+
+  </menu>
+  <item label="Lock">
+    <action name="Execute">
+         <command>xscreensaver-command -lock</command>
+    </action>
+  </item>
+  <item label="Logout">
+    <action name="Exit" />
+  </item>
+</menu>
+</openbox_menu>
+

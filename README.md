@@ -130,6 +130,12 @@ sudo umount -R /mnt/installer
 
 Connect to the internet using command line ```nmcli```
 
+```shell
+nmcli device wifi rescan
+nmcli device wifi list
+nmcli device wifi connect wifiname password wifipassword
+```
+
 Clone repository and execute:
 
 Install optional packages

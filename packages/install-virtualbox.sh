@@ -27,6 +27,7 @@ sudo apt install -y virtualbox-6.1 dkms
 
 sudo usermod -aG vboxusers "$USER"
 
+# Install usb 30 support extention: https://www.virtualbox.org/wiki/Downloads
 wget --progress=dot -e dotbytes=64K -c \
   -O target/virtualbox/Oracle_VM_VirtualBox_Extension_Pack.vbox-extpack \
   'https://download.virtualbox.org/virtualbox/6.1.14/Oracle_VM_VirtualBox_Extension_Pack-6.1.14.vbox-extpack'

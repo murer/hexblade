@@ -42,7 +42,7 @@
                   'Active' - where the active window is -->
   </placement>
   <theme>
-    <name>Cyclism</name>
+    <name>Artwiz-boxed</name>
     <titleLayout>NLIMC</titleLayout>
     <!--
       available characters are NDSLIMC, each can occur at most once.
@@ -178,14 +178,14 @@
   </dock>
   <keyboard>
     <chainQuitKey>C-g</chainQuitKey>
- <keybind key="C-Menu">
-    <action name="ShowMenu">
-      <menu>root-menu</menu>
-    </action>
-  </keybind>
-  <keybind key="C-F10">
-    <action name="ToggleMaximizeFull"/>
-  </keybind>
+    <keybind key="C-Menu">
+      <action name="ShowMenu">
+        <menu>root-menu</menu>
+      </action>
+    </keybind>
+    <keybind key="C-F10">
+      <action name="ToggleMaximizeFull"/>
+    </keybind>
     <!-- Keybindings for desktop switching -->
     <keybind key="C-A-Left">
       <action name="GoToDesktop">

@@ -2,7 +2,7 @@
 
 [[ "x$UID" != "x0" ]]
 
-sudo apt-get install -y \
+sudo apt install -y \
     apt-transport-https \
     ca-certificates \
     curl \
@@ -15,8 +15,8 @@ curl -fsSL https://www.virtualbox.org/download/oracle_vbox_2016.asc | sudo apt-k
 echo "deb http://download.virtualbox.org/virtualbox/debian $(lsb_release -cs) contrib" | sudo tee /etc/apt/sources.list.d/virtualbox.list
 echo "# deb-src http://download.virtualbox.org/virtualbox/debian $(lsb_release -cs) contrib" | sudo tee -a /etc/apt/sources.list.d/virtualbox.list
 
-sudo apt-get -y update
+sudo apt -y update
 sudo apt-cache search virtualbox | grep ^virtualbox
-sudo apt-get install -y virtualbox-6.1 dkms
+sudo apt install -y virtualbox-6.1 dkms
 
 sudo usermod -aG vboxusers "$USER"

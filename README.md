@@ -75,6 +75,8 @@ sudo mkswap -L SWAP /dev/mapper/MAIN-SWAP
 sudo swapon /dev/mapper/MAIN-SWAP
 sudo mkdir -p /mnt/installer
 sudo mount /dev/mapper/MAIN-ROOT /mnt/installer
+sudo mkdir -p /mnt/installer/boot
+sudo mount /dev/mapper/MAIN-BOOT /mnt/installer/boot
 ```
 
 ## Mount EFI

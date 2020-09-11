@@ -336,9 +336,14 @@
       </action>
     </keybind>
     <!-- Keybindings for running applications -->
-    <keybind key="A-F2">
+    <keybind key="W-r">
       <action name="Execute">
         <command>gmrun</command>
+      </action>
+    </keybind>
+    <keybind key="W-Return">
+      <action name="Execute">
+        <command>lxterminal</command>
       </action>
     </keybind>
     <!-- Launch gnome-screenshot when Print is pressed -->
@@ -736,7 +741,7 @@
   # order that they appear in this list
 
 
-    # each rule element can be left out or set to 'default' to specify to not 
+    # each rule element can be left out or set to 'default' to specify to not
     # change that attribute of the window
 
     <decor>yes</decor>

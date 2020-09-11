@@ -61,9 +61,10 @@ sudo cryptsetup -v -y --type luks --cipher aes-xts-plain64 --hash sha256 luksFor
 sudo cryptsetup open "$HEX_DEV_LVM" CRYPTED
 sudo pvcreate /dev/mapper/CRYPTED
 sudo vgcreate MAIN /dev/mapper/CRYPTED
-sudo lvcreate -L 2G BOOT -n BOOT
+sudo lvcreate -L 2G MAIN -n BOOT
 sudo lvcreate -L 8G MAIN -n SWAP
 sudo lvcreate -l '100%FREE' MAIN -n ROOT
+sudo mkfs.ext4 -L BOOT /dev/mapper/MAIN-BOOT
 sudo mkfs.ext4 -L ROOT /dev/mapper/MAIN-ROOT
 sudo mkswap -L SWAP /dev/mapper/MAIN-SWAP
 ```

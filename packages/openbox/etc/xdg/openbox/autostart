@@ -16,7 +16,7 @@
 
 
 #Starts Nitogen and restore wallpaper from previous session
-nitrogen --restore &
+#nitrogen --restore &
 
 # start up the tint2 task bar
 tint2 &

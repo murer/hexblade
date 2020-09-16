@@ -18,6 +18,8 @@
 #Starts Nitogen and restore wallpaper from previous session
 #nitrogen --restore &
 
+[[ -z "$BG" ]] && "$BG" -solid "#222222"
+
 # start up the tint2 task bar
 tint2 &
 

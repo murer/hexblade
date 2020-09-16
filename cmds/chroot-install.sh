@@ -21,8 +21,9 @@ arch-chroot /mnt/installer apt -y install ubuntu-standard \
   language-pack-en-base \
   software-properties-common \
   vim wget curl openssl git vim \
-  nmap netcat pv zip connect-proxy tcpdump bc
-arch-chroot /mnt/installer apt -y install network-manager
+  nmap netcat pv zip connect-proxy tcpdump bc \
+  network-manager
+
 sudo tee /mnt/installer/etc/netplan/01-netcfg.yaml <<-EOF
 network:
   version: 2

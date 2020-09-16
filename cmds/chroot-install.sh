@@ -20,8 +20,8 @@ arch-chroot /mnt/installer apt -y upgrade
 arch-chroot /mnt/installer apt -y install ubuntu-standard \
   language-pack-en-base \
   software-properties-common \
-  vim wget curl openssl git \
-  nmap netcat pv zip connect-proxy tcpdump zip pv bc
+  vim wget curl openssl git vim \
+  nmap netcat pv zip connect-proxy tcpdump bc
 arch-chroot /mnt/installer apt -y install network-manager
 sudo tee /mnt/installer/etc/netplan/01-netcfg.yaml <<-EOF
 network:

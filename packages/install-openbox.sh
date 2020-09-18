@@ -24,5 +24,4 @@ fi
 
 sudo cp -Rv openbox/etc/xdg/openbox/* /etc/xdg/openbox
 
-cp -v openbox/home/xinitrc ~/.xinitrc
-cp -v openbox/home/xinitrc ~/.xsessionrc
+[[ "x$UID" != "x0" ]] && cp -v openbox/home/xinitrc ~/.xinitrc

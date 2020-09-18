@@ -14,5 +14,4 @@ fi
 
 sudo cp -TRv i3/etc/i3 /etc/i3
 
-cp -v i3/home/xinitrc ~/.xinitrc
-cp -v i3/home/xinitrc ~/.xsessionrc
+[[ "x$UID" != "x0" ]] && cp -v i3/home/xinitrc ~/.xinitrc

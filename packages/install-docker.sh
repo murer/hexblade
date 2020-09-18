@@ -1,7 +1,5 @@
 #!/bin/bash -xe
 
-[[ "x$UID" != "x0" ]]
-
 sudo apt install -y \
     apt-transport-https \
     ca-certificates \
@@ -22,4 +20,4 @@ sudo apt install -y docker-ce docker-ce-cli containerd.io
 
 sudo docker run hello-world
 
-sudo usermod -aG docker "$USER"
+[[ "x$UID" != "x0" ]] && sudo usermod -aG docker "$USER"

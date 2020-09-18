@@ -3,7 +3,7 @@
 cd "$(dirname "$0")"
 pwd
 
-sudo apt -y install lxdm
+sudo apt -y install --no-install-recommends lxdm
 
 if [ ! -f /etc/lxdm.original.tar.gz ]; then
 	cd /etc

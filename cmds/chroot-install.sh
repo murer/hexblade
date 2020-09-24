@@ -22,7 +22,7 @@ arch-chroot /mnt/installer apt -y install ubuntu-standard \
   software-properties-common \
   vim wget curl openssl git vim \
   nmap netcat pv zip connect-proxy tcpdump bc \
-  network-manager
+  network-manager net-tools
 
 sudo tee /mnt/installer/etc/netplan/01-netcfg.yaml <<-EOF
 network:

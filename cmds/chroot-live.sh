@@ -5,4 +5,10 @@
 cd "$(dirname "$0")/.."
 pwd
 
-arch-chroot /mnt/installer ln -sf /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime
+arch-chroot /mnt/installer apt-get install -y \
+    casper \
+    lupin-casper \
+    discover \
+    laptop-detect \
+    os-prober \
+    locales

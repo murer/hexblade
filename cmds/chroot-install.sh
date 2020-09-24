@@ -15,7 +15,7 @@ arch-chroot /mnt/installer dpkg-reconfigure keyboard-configuration
 [[ -d "/mnt/installer/home/$(cat target/config/user/user.txt)" ]] || \
   arch-chroot /mnt/installer useradd -u 1000 -m -G adm,cdrom,sudo,dip,plugdev -s /bin/bash "$(cat target/config/user/user.txt)" -p "$(cat target/config/user/pass.txt)" || true
 
-arch-chroot /mnt/installer apt -y update
+arch-chroot /mnt/installer apt -y update || true
 #arch-chroot /mnt/installer apt -y upgrade
 arch-chroot /mnt/installer apt -y install ubuntu-standard \
   language-pack-en-base \

@@ -54,8 +54,8 @@ sed -i '/discover/d' image/casper/filesystem.manifest-desktop
 sed -i '/laptop-detect/d' image/casper/filesystem.manifest-desktop
 sed -i '/os-prober/d' image/casper/filesystem.manifest-desktop
 
-mksquashfs chroot image/casper/filesystem.squashfs
-printf $(du -sx --block-size=1 chroot | cut -f1) > image/casper/filesystem.size
+mksquashfs installer image/casper/filesystem.squashfs
+printf $(du -sx --block-size=1 installer | cut -f1) > image/casper/filesystem.size
 
 cat > image/README.diskdefines <<-EOF
 #define DISKNAME hex

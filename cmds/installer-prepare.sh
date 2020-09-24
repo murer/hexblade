@@ -19,4 +19,5 @@ apt install -y \
   xorriso \
   grub-pc-bin \
   grub-efi-amd64-bin \
-  mtools
+  mtools \
+  squashfs-tools

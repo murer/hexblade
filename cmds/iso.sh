@@ -80,10 +80,16 @@ grub-mkstandalone \
    --fonts="" \
    "boot/grub/grub.cfg=isolinux/grub.cfg"
 
+cd -
+cd /mnt/image/isolinux
+
 dd if=/dev/zero of=efiboot.img bs=1M count=10
 mkfs.vfat efiboot.img
 LC_CTYPE=C mmd -i efiboot.img efi efi/boot
 LC_CTYPE=C mcopy -i efiboot.img ./bootx64.efi ::efi/boot/
+
+cd -
+cd /mnt/image
 
 grub-mkstandalone \
    --format=i386-pc \

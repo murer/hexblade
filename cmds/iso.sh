@@ -4,5 +4,5 @@
 
 cd /mnt
 mkdir -p image/{casper,isolinux,install}
-sudo cp chroot/boot/vmlinuz-**-**-generic image/casper/vmlinuz
-sudo cp chroot/boot/initrd.img-**-**-generic image/casper/initrd
+sudo cp installer/boot/vmlinuz-**-**-generic image/casper/vmlinuz
+sudo cp installer/boot/initrd.img-**-**-generic image/casper/initrd

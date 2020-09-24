@@ -12,3 +12,10 @@ arch-chroot /mnt/installer apt-get install -y \
     laptop-detect \
     os-prober \
     locales
+
+arch-chroot /mnt/installer apt-get install -y \
+        ubiquity \
+        ubiquity-casper \
+        ubiquity-frontend-gtk \
+        ubiquity-slideshow-ubuntu \
+        ubiquity-ubuntu-artwork

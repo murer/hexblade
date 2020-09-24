@@ -3,60 +3,6 @@
 [[ "x$UID" == "x0" ]]
 
 cd /mnt
-rm -rf  iso image || true
-mkdir -p iso image/{casper,isolinux,install}
-cp installer/boot/vmlinuz-**-**-generic image/casper/vmlinuz
-cp installer/boot/initrd.img-**-**-generic image/casper/initrd
-
-touch image/ubuntu
-
-cat > image/isolinux/grub.cfg <<-EOF
-
-search --set=root --file /ubuntu
-
-insmod all_video
-
-set default="0"
-set timeout=30
-
-menuentry "Try Ubuntu FS without installing" {
-   linux /casper/vmlinuz boot=casper quiet splash ---
-   initrd /casper/initrd
-}
-
-menuentry "Install Ubuntu FS" {
-   linux /casper/vmlinuz boot=casper only-ubiquity quiet splash ---
-   initrd /casper/initrd
-}
-
-menuentry "Check disc for defects" {
-   linux /casper/vmlinuz boot=casper integrity-check quiet splash ---
-   initrd /casper/initrd
-}
-
-menuentry "Test memory Memtest86+ (BIOS)" {
-   linux16 /install/memtest86+
-}
-
-menuentry "Test memory Memtest86 (UEFI, long load time)" {
-   insmod part_gpt
-   insmod search_fs_uuid
-   insmod chain
-   loopback loop /install/memtest86
-   chainloader (loop,gpt1)/efi/boot/BOOTX64.efi
-}
-EOF
-
-arch-chroot /mnt/installer dpkg-query -W --showformat='${Package} ${Version}\n' | tee image/casper/filesystem.manifest
-cp -v image/casper/filesystem.manifest image/casper/filesystem.manifest-desktop
-sed -i '/ubiquity/d' image/casper/filesystem.manifest-desktop
-sed -i '/casper/d' image/casper/filesystem.manifest-desktop
-sed -i '/discover/d' image/casper/filesystem.manifest-desktop
-sed -i '/laptop-detect/d' image/casper/filesystem.manifest-desktop
-sed -i '/os-prober/d' image/casper/filesystem.manifest-desktop
-
-mksquashfs installer image/casper/filesystem.squashfs
-printf $(du -sx --block-size=1 installer | cut -f1) > image/casper/filesystem.size
 
 cat > image/README.diskdefines <<-EOF
 #define DISKNAME hex

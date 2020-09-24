@@ -3,8 +3,8 @@
 [[ "x$UID" == "x0" ]]
 
 cd /mnt
-rm -rf  image || true
-mkdir -p image/{casper,isolinux,install,iso}
+rm -rf  iso image || true
+mkdir -p iso image/{casper,isolinux,install}
 cp installer/boot/vmlinuz-**-**-generic image/casper/vmlinuz
 cp installer/boot/initrd.img-**-**-generic image/casper/initrd
 

@@ -6,6 +6,9 @@ cmd_init() {
   rm -rf target/config || true
   mkdir -p target
   cp -R config target
+}
+
+cmd_fstab() {
   genfstab -U /mnt/installer | sudo tee target/config/etc.pre/fstab
   hex_lvm_id="$(sudo blkid -o value -s UUID "$HEX_DEV_LVM")"
   echo -e "CRYPTED\tUUID=$hex_lvm_id\tnone\tluks,initramfs" > target/config/etc.pre/crypttab
@@ -50,9 +53,27 @@ cmd_all() {
   fi
 
   cmd_init
+  cmd_fstab
   cmd_grub
   cmd_hostname
   cmd_user
+}
+
+cmd_live() {
+  read -p 'Hostname: ' hex_hostname
+  read -p 'User: ' hex_user
+  read -sp 'Pass: ' hex_pass
+  read -sp 'Pass (Again): ' hex_pass_again
+
+  if [[ "x$hex_pass" != "x$hex_pass_again" ]]; then
+    echo "wrong pass"
+    false
+  fi
+
+  cmd_init
+  cmd_hostname
+  cmd_user
+
 }
 
 cd "$(dirname "$0")/.."; _cmd="${1?"cmd is required"}"; shift; "cmd_${_cmd}" "$@"

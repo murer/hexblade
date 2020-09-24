@@ -13,4 +13,10 @@ apt install -y \
   cryptsetup \
   debootstrap debconf-utils \
   arch-install-scripts \
-  vim curl wget
+  vim curl wget \
+  binutils \
+  squashfs-tools \
+  xorriso \
+  grub-pc-bin \
+  grub-efi-amd64-bin \
+  mtools

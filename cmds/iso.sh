@@ -2,9 +2,11 @@
 
 [[ "x$UID" == "x0" ]]
 
-cd /mnt
+rm -rf /mnt/iso || true
+mkdir /mnt/iso
+cd /mnt/image
 
-cat > image/README.diskdefines <<-EOF
+cat > README.diskdefines <<-EOF
 #define DISKNAME hex
 #define TYPE  binary
 #define TYPEbinary  1
@@ -15,9 +17,6 @@ cat > image/README.diskdefines <<-EOF
 #define TOTALNUM  0
 #define TOTALNUM0  1
 EOF
-
-cd -
-cd /mnt/image
 
 grub-mkstandalone \
    --format=x86_64-efi \

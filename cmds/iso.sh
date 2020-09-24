@@ -4,7 +4,7 @@
 
 cd /mnt
 rm -rf  image || true
-mkdir -p image/{casper,isolinux,install}
+mkdir -p image/{casper,isolinux,install,iso}
 cp installer/boot/vmlinuz-**-**-generic image/casper/vmlinuz
 cp installer/boot/initrd.img-**-**-generic image/casper/initrd
 
@@ -114,7 +114,7 @@ xorriso \
    -e EFI/efiboot.img \
    -no-emul-boot \
    -append_partition 2 0xef isolinux/efiboot.img \
-   -output "../hex.iso" \
+   -output "../iso/hex.iso" \
    -graft-points \
       "." \
       /boot/grub/bios.img=isolinux/bios.img \

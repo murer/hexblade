@@ -20,4 +20,6 @@ apt install -y \
   grub-pc-bin \
   grub-efi-amd64-bin \
   mtools \
-  squashfs-tools
+  squashfs-tools \
+  net-tools \
+  nmap

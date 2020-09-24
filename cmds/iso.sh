@@ -69,6 +69,9 @@ cat > image/README.diskdefines <<-EOF
 #define TOTALNUM0  1
 EOF
 
+cd -
+cd /mnt/image
+
 grub-mkstandalone \
    --format=x86_64-efi \
    --output=isolinux/bootx64.efi \
@@ -76,7 +79,6 @@ grub-mkstandalone \
    --fonts="" \
    "boot/grub/grub.cfg=isolinux/grub.cfg"
 
-cd isolinux
 dd if=/dev/zero of=efiboot.img bs=1M count=10
 mkfs.vfat efiboot.img
 LC_CTYPE=C mmd -i efiboot.img efi efi/boot

@@ -2,13 +2,13 @@
 
 [[ "x$UID" == "x0" ]]
 
-apt -y update -o Dpkg::Progress-Fancy="0"
-apt -y install -o Dpkg::Progress-Fancy="0" \
+apt -y update
+apt -y install \
   software-properties-common
 
 apt-add-repository universe
 
-apt install -y -o Dpkg::Progress-Fancy="0" \
+apt install -y \
   gdisk fdisk gpart \
   cryptsetup \
   debootstrap debconf-utils \

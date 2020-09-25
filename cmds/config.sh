@@ -42,7 +42,7 @@ cmd_user() {
   set -x
 }
 
-cmd_crypt() {
+cmd_install() {
   read -p 'Crypt Partition: ' hex_dev_lvm
   read -p 'Grub Install Device: ' hex_grub_dev
   read -p 'Hostname: ' hex_hostname

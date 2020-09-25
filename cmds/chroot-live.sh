@@ -18,4 +18,5 @@ arch-chroot /mnt/installer apt install -y \
         ubiquity-casper \
         ubiquity-frontend-gtk \
         ubiquity-slideshow-ubuntu \
-        ubiquity-ubuntu-artwork
+        ubiquity-ubuntu-artwork \
+        upower

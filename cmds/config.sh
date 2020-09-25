@@ -10,8 +10,10 @@ cmd_init() {
 
 cmd_fstab() {
   genfstab -U /mnt/installer | sudo tee target/config/etc.pre/fstab
-  hex_lvm_id="$(sudo blkid -o value -s UUID "$HEX_DEV_LVM")"
-  echo -e "CRYPTED\tUUID=$hex_lvm_id\tnone\tluks,initramfs" > target/config/etc.pre/crypttab
+  if [[ "x$hex_dev_lvm" != "x" ]]; then
+    hex_lvm_id="$(sudo blkid -o value -s UUID "$hex_dev_lvm")"
+    echo -e "CRYPTED\tUUID=$hex_lvm_id\tnone\tluks,initramfs" > target/config/etc.pre/crypttab
+  fi
 }
 
 cmd_hostname() {
@@ -40,7 +42,8 @@ cmd_user() {
   set -x
 }
 
-cmd_all() {
+cmd_crypt() {
+  read -p 'Crypt Partition: ' hex_dev_lvm
   read -p 'Grub Install Device: ' hex_grub_dev
   read -p 'Hostname: ' hex_hostname
   read -p 'User: ' hex_user

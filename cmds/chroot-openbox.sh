@@ -5,17 +5,13 @@
 cd "$(dirname "$0")/.."
 pwd
 
-arch-chroot /mnt/installer apt install -y \
-    casper \
-    lupin-casper \
-    discover \
-    laptop-detect \
-    os-prober \
-    locales
+hex_user="$(cat target/config/user/user.txt)"
 
-arch-chroot /mnt/installer apt install -y \
-        ubiquity \
-        ubiquity-casper \
-        ubiquity-frontend-gtk \
-        ubiquity-slideshow-ubuntu \
-        ubiquity-ubuntu-artwork
+rm -rf "/mnt/installer/home/$hex_user/hex"
+cp -R "." "/mnt/installer/home/$hex_user/hex"
+arch-chroot -/mnt/installer chown -R "$hex_user:$hex_user" "/home/$hex_user"
+
+arch-chroot \
+  -u "$hex_user:$hex_user" \
+  /mnt/installer \
+  "/home/$hex_user/hex/packages/install-graphics-util.sh"

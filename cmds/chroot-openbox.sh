@@ -11,7 +11,7 @@ rm -rf "/mnt/installer/home/$hex_user/hex"
 cp -R "." "/mnt/installer/home/$hex_user/hex"
 arch-chroot /mnt/installer chown -R "$hex_user:$hex_user" "/home/$hex_user"
 
-echo "$hex_user ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/tmp
+echo "$hex_user ALL=(ALL) NOPASSWD: ALL" > /mnt/installer/etc/sudoers.d/tmp
 
 arch-chroot \
   -u "$hex_user:$hex_user" \

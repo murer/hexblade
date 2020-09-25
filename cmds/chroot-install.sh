@@ -30,8 +30,8 @@ network:
   renderer: NetworkManager
 EOF
 
-rm -rf "/mnt/installer/home/$(cat target/config/user/user.txt)/hex"
-cp -R "." "/mnt/installer/home/$(cat target/config/user/user.txt)/hex"
+rm -rf "/mnt/installer/home/$(cat target/config/user/user.txt)/hexblade"
+cp -R "." "/mnt/installer/home/$(cat target/config/user/user.txt)/hexblade"
 arch-chroot /mnt/installer chown -R "$(cat target/config/user/user.txt):$(cat target/config/user/user.txt)" "/home/$(cat target/config/user/user.txt)"
 
 arch-chroot /mnt/installer apt -y install linux-image-generic linux-headers-generic

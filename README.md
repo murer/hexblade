@@ -1,4 +1,4 @@
-# Hex
+# Hexblade
 
 # Live
 
@@ -46,8 +46,8 @@ Device     Boot Start       End   Sectors  Size Id Type
 ## Export configs
 
 ```shell
-export HEX_DEV_EFI=/dev/sda1
-export HEX_DEV_LVM=/dev/sda9
+export HEXBLADE_DEV_EFI=/dev/sda1
+export HEXBLADE_DEV_LVM=/dev/sda9
 ```
 
 # Format partitions
@@ -55,14 +55,14 @@ export HEX_DEV_LVM=/dev/sda9
  Format EFI if necessary
 
 ```shell
-sudo mkfs.fat -n ESP -F32 "$HEX_DEV_EFI"
+sudo mkfs.fat -n ESP -F32 "$HEXBLADE_DEV_EFI"
 ```
 
 LVM on LUKS
 
 ```shell
-sudo cryptsetup -v -y --type luks --cipher aes-xts-plain64 --hash sha256 luksFormat "$HEX_DEV_LVM"
-sudo cryptsetup open "$HEX_DEV_LVM" CRYPTED
+sudo cryptsetup -v -y --type luks --cipher aes-xts-plain64 --hash sha256 luksFormat "$HEXBLADE_DEV_LVM"
+sudo cryptsetup open "$HEXBLADE_DEV_LVM" CRYPTED
 sudo pvcreate /dev/mapper/CRYPTED
 sudo vgcreate MAIN /dev/mapper/CRYPTED
 sudo lvcreate -L 2G MAIN -n BOOT
@@ -92,7 +92,7 @@ sudo mkdir -p /mnt/installer/boot/efi
 
 ```shell
 # Use this if EFI IS NOT already mounted on your installer env
-sudo mount "$HEX_DEV_EFI" /mnt/installer/boot/efi
+sudo mount "$HEXBLADE_DEV_EFI" /mnt/installer/boot/efi
 
 # Use this if EFI IS already mounted on your installer env
 sudo mount --bind /boot/efi /mnt/installer/boot/efi
@@ -114,7 +114,7 @@ You can configure things while strap is running
 
 Edit files in ```target/config``` to configure username, password, etc.
 
-## Install hex basic packages
+## Install hexblade basic packages
 
 ***MAKE SURE STRAP IS FINISHED***
 

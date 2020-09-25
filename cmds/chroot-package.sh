@@ -1,20 +1,20 @@
 #!/bin/bash -xe
 
-hex_dev_package="${1?'standard or basic'}"
+hexblade_dev_package="${1?'standard or basic'}"
 
 [[ "x$UID" == "x0" ]]
 
 cd "$(dirname "$0")/.."
 pwd
 
-hex_user="$(cat target/config/user/user.txt)"
+hexblade_user="$(cat target/config/user/user.txt)"
 
-rm -rf "/mnt/installer/home/$hex_user/hex"
-cp -R "." "/mnt/installer/home/$hex_user/hex"
-USER="$hex_user" HOME="/home/$hex_user" arch-chroot /mnt/installer chown -R "$hex_user:$hex_user" "/home/$hex_user"
+rm -rf "/mnt/installer/home/$hexblade_user/hexblade"
+cp -R "." "/mnt/installer/home/$hexblade_user/hexblade"
+USER="$hexblade_user" HOME="/home/$hexblade_user" arch-chroot /mnt/installer chown -R "$hexblade_user:$hexblade_user" "/home/$hexblade_user"
 
-echo "$hex_user ALL=(ALL) NOPASSWD: ALL" > /mnt/installer/etc/sudoers.d/tmp
+echo "$hexblade_user ALL=(ALL) NOPASSWD: ALL" > /mnt/installer/etc/sudoers.d/tmp
 
-USER="$hex_user" HOME="/home/$hex_user" arch-chroot -u "$hex_user:$hex_user" /mnt/installer "/home/$hex_user/hex/packages/install-$hex_dev_package.sh"
+USER="$hexblade_user" HOME="/home/$hexblade_user" arch-chroot -u "$hexblade_user:$hexblade_user" /mnt/installer "/home/$hexblade_user/hexblade/packages/install-$hexblade_dev_package.sh"
 
 rm /mnt/installer/etc/sudoers.d/tmp

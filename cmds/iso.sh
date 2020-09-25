@@ -7,7 +7,7 @@ mkdir /mnt/iso
 cd /mnt/image
 
 cat > README.diskdefines <<-EOF
-#define DISKNAME hex
+#define DISKNAME hexblade
 #define TYPE  binary
 #define TYPEbinary  1
 #define ARCH  amd64
@@ -65,7 +65,7 @@ xorriso \
    -e EFI/efiboot.img \
    -no-emul-boot \
    -append_partition 2 0xef isolinux/efiboot.img \
-   -output "../iso/hex.iso" \
+   -output "../iso/hexblade.iso" \
    -graft-points \
       "." \
       /boot/grub/bios.img=isolinux/bios.img \

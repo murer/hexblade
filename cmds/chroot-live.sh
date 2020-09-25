@@ -5,7 +5,7 @@
 cd "$(dirname "$0")/.."
 pwd
 
-arch-chroot /mnt/installer apt $hexblade_apt_argsinstall -y \
+arch-chroot /mnt/installer apt $HEXBLADE_APT_ARGSinstall -y \
     casper \
     lupin-casper \
     discover \
@@ -13,7 +13,7 @@ arch-chroot /mnt/installer apt $hexblade_apt_argsinstall -y \
     os-prober \
     locales
 
-arch-chroot /mnt/installer apt $hexblade_apt_argsinstall -y \
+arch-chroot /mnt/installer apt $HEXBLADE_APT_ARGSinstall -y \
         ubiquity \
         ubiquity-casper \
         ubiquity-frontend-gtk \

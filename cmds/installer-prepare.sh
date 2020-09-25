@@ -2,13 +2,13 @@
 
 [[ "x$UID" == "x0" ]]
 
-apt $hexblade_apt_args-y update
-apt $hexblade_apt_args-y install \
+apt $HEXBLADE_APT_ARGS-y update
+apt $HEXBLADE_APT_ARGS-y install \
   software-properties-common
 
 apt-add-repository universe
 
-apt $hexblade_apt_argsinstall -y \
+apt $HEXBLADE_APT_ARGSinstall -y \
   gdisk fdisk gpart \
   cryptsetup \
   debootstrap debconf-utils \

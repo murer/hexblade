@@ -5,7 +5,7 @@
 [[ -f "target/config/grub.dev" ]]
 
 if [[ -d /mnt/installer/boot/efi ]]; then
-  arch-chroot /mnt/installer apt $hexblade_apt_args-y install grub-efi
+  arch-chroot /mnt/installer apt $HEXBLADE_APT_ARGS-y install grub-efi
 fi
 
 cp -R target/config/etc.post/* /mnt/installer/etc

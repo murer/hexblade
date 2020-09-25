@@ -1,3 +1,3 @@
 #!/bin/bash -xe
 
-sudo apt $hexblade_apt_args-y install firefox gedit lxterminal gedit gnome-screenshot network-manager-gnome
+sudo apt $HEXBLADE_APT_ARGS-y install firefox gedit lxterminal gedit gnome-screenshot network-manager-gnome

@@ -15,9 +15,9 @@ arch-chroot /mnt/installer dpkg-reconfigure keyboard-configuration
 [[ -d "/mnt/installer/home/$(cat target/config/user/user.txt)" ]] || \
   arch-chroot /mnt/installer useradd -u 1000 -m -G adm,cdrom,sudo,dip,plugdev -s /bin/bash "$(cat target/config/user/user.txt)" -p "$(cat target/config/user/pass.txt)" || true
 
-arch-chroot /mnt/installer apt $hexblade_apt_args-y update || true
-#arch-chroot /mnt/installer apt $hexblade_apt_args-y upgrade
-arch-chroot /mnt/installer apt $hexblade_apt_args-y install ubuntu-standard \
+arch-chroot /mnt/installer apt $HEXBLADE_APT_ARGS-y update || true
+#arch-chroot /mnt/installer apt $HEXBLADE_APT_ARGS-y upgrade
+arch-chroot /mnt/installer apt $HEXBLADE_APT_ARGS-y install ubuntu-standard \
   language-pack-en-base \
   software-properties-common \
   vim wget curl openssl git vim \
@@ -34,5 +34,5 @@ rm -rf "/mnt/installer/home/$(cat target/config/user/user.txt)/hexblade"
 cp -R "." "/mnt/installer/home/$(cat target/config/user/user.txt)/hexblade"
 arch-chroot /mnt/installer chown -R "$(cat target/config/user/user.txt):$(cat target/config/user/user.txt)" "/home/$(cat target/config/user/user.txt)"
 
-arch-chroot /mnt/installer apt $hexblade_apt_args-y install linux-image-generic linux-headers-generic
-arch-chroot /mnt/installer apt $hexblade_apt_args-y install cryptsetup lvm2
+arch-chroot /mnt/installer apt $HEXBLADE_APT_ARGS-y install linux-image-generic linux-headers-generic
+arch-chroot /mnt/installer apt $HEXBLADE_APT_ARGS-y install cryptsetup lvm2

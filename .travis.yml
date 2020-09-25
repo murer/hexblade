@@ -8,10 +8,10 @@ env:
 #  - docker
 
 before_install:
- - sudo ./cmds/installer-prepare.sh | cat 
+ - sudo ./cmds/installer-prepare.sh
 
 script:
-  - ./cmds/x.sh build | cat
+  - ./cmds/x.sh build
 
 # deploy:
 #   - provider: releases

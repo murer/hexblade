@@ -11,6 +11,6 @@ wget --progress=dot -e dotbytes=1M -c \
 
 if ! atom -v; then
   sudo dpkg -i target/atom-amd64.deb || true
-  sudo apt install -yf
+  sudo apt $hexblade_apt_argsinstall -yf
   sudo dpkg -i target/atom-amd64.deb
 fi

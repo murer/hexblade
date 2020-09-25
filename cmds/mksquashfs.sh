@@ -20,31 +20,31 @@ set default="0"
 set timeout=30
 
 menuentry "Try Ubuntu FS without installing" {
-   linux /casper/vmlinuz boot=casper quiet splash ---
+   linux /casper/vmlinuz boot=casper verbose nosplash ---
    initrd /casper/initrd
 }
 
 menuentry "Install Ubuntu FS" {
-   linux /casper/vmlinuz boot=casper only-ubiquity quiet splash ---
+   linux /casper/vmlinuz boot=casper only-ubiquity verbose nosplash ---
    initrd /casper/initrd
 }
 
 menuentry "Check disc for defects" {
-   linux /casper/vmlinuz boot=casper integrity-check quiet splash ---
+   linux /casper/vmlinuz boot=casper integrity-check verbose nosplash ---
    initrd /casper/initrd
 }
 
-menuentry "Test memory Memtest86+ (BIOS)" {
-   linux16 /install/memtest86+
-}
-
-menuentry "Test memory Memtest86 (UEFI, long load time)" {
-   insmod part_gpt
-   insmod search_fs_uuid
-   insmod chain
-   loopback loop /install/memtest86
-   chainloader (loop,gpt1)/efi/boot/BOOTX64.efi
-}
+# menuentry "Test memory Memtest86+ (BIOS)" {
+#    linux16 /install/memtest86+
+# }
+#
+# menuentry "Test memory Memtest86 (UEFI, long load time)" {
+#    insmod part_gpt
+#    insmod search_fs_uuid
+#    insmod chain
+#    loopback loop /install/memtest86
+#    chainloader (loop,gpt1)/efi/boot/BOOTX64.efi
+# }
 EOF
 
 arch-chroot /mnt/installer dpkg-query -W --showformat='${Package} ${Version}\n' | tee image/casper/filesystem.manifest

@@ -1,8 +1,8 @@
 #!/bin/bash -xe
 
-[[ "x$UID" == "x0" ]]
-
 hex_dev_package="${1?'standard or basic'}"
+
+[[ "x$UID" == "x0" ]]
 
 cd "$(dirname "$0")/.."
 pwd

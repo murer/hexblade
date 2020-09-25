@@ -6,3 +6,4 @@ pwd
 ./install-graphics-util.sh
 ./install-sound.sh
 ./install-openbox.sh
+./install-lxdm.sh

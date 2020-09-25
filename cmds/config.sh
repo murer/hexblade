@@ -46,8 +46,8 @@ cmd_user() {
 }
 
 cmd_all() {
-  read -p 'Generate fstab (y/n):' hex_dev_fstab
-  read -p 'Crypt Partition (blank if not):' hex_dev_lvm
+  read -p 'Generate fstab (y/n): ' hex_dev_fstab
+  read -p 'Crypt Partition (blank if not): ' hex_dev_lvm
   read -p 'Grub Install Device (blank if not): ' hex_grub_dev
   read -p 'Hostname: ' hex_hostname
   read -p 'User: ' hex_user

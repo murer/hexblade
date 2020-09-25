@@ -9,7 +9,9 @@ cmd_init() {
 }
 
 cmd_fstab() {
-  genfstab -U /mnt/installer | sudo tee target/config/etc.pre/fstab
+  if [[ "x$hex_dev_fstab" == "xy" ]]; then
+    genfstab -U /mnt/installer | sudo tee target/config/etc.pre/fstab
+  fi
   if [[ "x$hex_dev_lvm" != "x" ]]; then
     hex_lvm_id="$(sudo blkid -o value -s UUID "$hex_dev_lvm")"
     echo -e "CRYPTED\tUUID=$hex_lvm_id\tnone\tluks,initramfs" > target/config/etc.pre/crypttab
@@ -29,8 +31,9 @@ cmd_hostname() {
 }
 
 cmd_grub() {
-  hex_grub_dev="${hex_grub_dev?'hex_grub_dev'}"
-  echo "$hex_grub_dev" > target/config/grub.dev
+  if [[ "x$hex_grub_dev" != "x" ]]; then
+    echo "$hex_grub_dev" > target/config/grub.dev
+  fi
 }
 
 cmd_user() {
@@ -42,9 +45,10 @@ cmd_user() {
   set -x
 }
 
-cmd_install() {
-  read -p 'Crypt Partition: ' hex_dev_lvm
-  read -p 'Grub Install Device: ' hex_grub_dev
+cmd_all() {
+  read -p 'Generate fstab (y/n):' hex_dev_fstab
+  read -p 'Crypt Partition (blank if not):' hex_dev_lvm
+  read -p 'Grub Install Device (blank if not): ' hex_grub_dev
   read -p 'Hostname: ' hex_hostname
   read -p 'User: ' hex_user
   read -sp 'Pass: ' hex_pass
@@ -60,23 +64,6 @@ cmd_install() {
   cmd_grub
   cmd_hostname
   cmd_user
-}
-
-cmd_live() {
-  read -p 'Hostname: ' hex_hostname
-  read -p 'User: ' hex_user
-  read -sp 'Pass: ' hex_pass
-  read -sp 'Pass (Again): ' hex_pass_again
-
-  if [[ "x$hex_pass" != "x$hex_pass_again" ]]; then
-    echo "wrong pass"
-    false
-  fi
-
-  cmd_init
-  cmd_hostname
-  cmd_user
-
 }
 
 cd "$(dirname "$0")/.."; _cmd="${1?"cmd is required"}"; shift; "cmd_${_cmd}" "$@"

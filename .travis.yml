@@ -2,7 +2,7 @@ dist: bionic
 language: minimal
 
 env:
-  - DEBIAN_FRONTEND="noninteractive" HEXBLADE_APT_ARGS ='-o Dpkg::Progress-Fancy="0"'
+  - DEBIAN_FRONTEND="noninteractive" HEXBLADE_APT_ARGS='-o Dpkg::Progress-Fancy="0"'
 
 #services:
 #  - docker

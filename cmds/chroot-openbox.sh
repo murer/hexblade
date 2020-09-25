@@ -17,3 +17,5 @@ arch-chroot -u "$hex_user:$hex_user" /mnt/installer "/home/$hex_user/hex/package
 arch-chroot -u "$hex_user:$hex_user" /mnt/installer "/home/$hex_user/hex/packages/install-sound.sh"
 arch-chroot -u "$hex_user:$hex_user" /mnt/installer "/home/$hex_user/hex/packages/install-openbox.sh"
 arch-chroot -u "$hex_user:$hex_user" /mnt/installer "/home/$hex_user/hex/packages/install-lxdm.sh"
+
+rm /mnt/installer/etc/sudoers.d/tmp

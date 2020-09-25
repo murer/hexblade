@@ -5,7 +5,7 @@ language: minimal
 #  - docker
 
 before_install:
- - echo 'Dpkg::Progress-Fancy "1";' | sudo tee /etc/apt/apt.conf.d/99progressbar
+ - echo 'Dpkg::Progress-Fancy "0";' | sudo tee /etc/apt/apt.conf.d/99progressbar
  - sudo ./cmds/installer-prepare.sh
 
 script:

@@ -2,7 +2,7 @@ dist: bionic
 language: minimal
 
 env:
-  - DEBIAN_FRONTEND noninteractive
+  - DEBIAN_FRONTEND="noninteractive"
 
 #services:
 #  - docker

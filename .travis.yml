@@ -8,7 +8,8 @@ env:
 #  - docker
 
 before_install:
- - echo 'Dpkg::Progress-Fancy "0";' | sudo tee /etc/apt/apt.conf.d/99progressbar
+ - echo 'Dpkg::Progress-Fancy "0";' | sudo tee -a /etc/apt/apt.conf
+ - sudo cat /etc/apt/apt.conf
  - sudo ./cmds/installer-prepare.sh
 
 script:

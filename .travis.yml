@@ -4,7 +4,7 @@ language: minimal
 #  - docker
 
 before_install:
- - ./cmds/installer-prepare.sh
+ - sudo ./cmds/installer-prepare.sh
 
 script:
   - ./cmds/x.sh build

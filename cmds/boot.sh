@@ -2,6 +2,8 @@
 
 [[ "x$UID" == "x0" ]]
 
+[[ -f "target/config/grub.dev" ]]
+
 if [[ -d /mnt/installer/boot/efi ]]; then
   arch-chroot /mnt/installer apt -y install grub-efi
 fi

@@ -1,6 +1,6 @@
 # Hex
 
-# Live 
+# Live
 
 https://itnext.io/how-to-create-a-custom-ubuntu-live-from-scratch-dd3b3f213f81
 
@@ -120,6 +120,12 @@ Edit files in ```target/config``` to configure username, password, etc.
 
 ```shell
 ./cmds/chroot-install.sh
+```
+
+## Install packages
+
+```shell
+./cmds/chroot-package.sh standard
 ```
 
 ## Install grub

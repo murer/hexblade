@@ -19,7 +19,9 @@ deploy:
     edge: true
     tag_name: edge
     on:
-      branch: master
+      branches:
+        only:
+          - master
 
 #
 #   - provider: releases

@@ -18,6 +18,7 @@ cmd_config_params() {
 }
 
 cmd_script() {
+  sudo mkdir /mnt/installer
   sudo cmds/strap.sh
   cmd_config_params | cmds/config.sh all
   sudo cmds/chroot-install.sh

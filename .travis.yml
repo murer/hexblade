@@ -8,7 +8,7 @@ before_install:
  - ./ci/ci.sh before_install
 
 script:
-  - sudo ./ci/ci.sh script
+  - ./ci/ci.sh script
   # - sudo ./cmds/chroot-installer.sh
   # - sudo ./cmds/chroot-package.sh basic
   # - sudo ./cmds/chroot-live.sh

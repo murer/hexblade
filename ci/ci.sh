@@ -31,7 +31,7 @@ cmd_chroot_install() {
 }
 
 cmd_chroot_packages() {
-  sudo cmds/chroot-packages.sh
+  sudo cmds/chroot-package.sh basic
 }
 
 cmd_chroot_live() {

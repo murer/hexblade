@@ -17,6 +17,7 @@ deploy:
     prerelease: true
     file: target/iso/*
     edge: true
+    tag_name: edge
     on:
       branch: master
 

@@ -8,16 +8,16 @@ env:
 #  - docker
 
 before_install:
- - sudo ./cmds/installer-prepare.sh
+ - sudo ci/ci.sh before_install
 
 script:
   - sudo mkdir /mnt/installer
-  - sudo ./cmds/strap.sh
-  - sudo ./cmds/chroot-installer.sh
-  - sudo ./cmds/chroot-package.sh basic
-  - sudo ./cmds/chroot-live.sh
-  - sudo ./cmds/mksquashfs.sh
-  - sudo ./cmds/iso.sh
+  # - sudo ./cmds/strap.sh
+  # - sudo ./cmds/chroot-installer.sh
+  # - sudo ./cmds/chroot-package.sh basic
+  # - sudo ./cmds/chroot-live.sh
+  # - sudo ./cmds/mksquashfs.sh
+  # - sudo ./cmds/iso.sh
 
 # deploy:
 #   - provider: releases

@@ -17,11 +17,9 @@ deploy:
     prerelease: true
     file: target/iso/*
     edge: true
-    tag_name: edge
     on:
-      branches:
-        only:
-          - master
+      tags: true
+      condition: $TRAVIS_TAG == edge
 
 #
 #   - provider: releases

@@ -71,4 +71,7 @@ xorriso \
       /boot/grub/bios.img=isolinux/bios.img \
       /EFI/efiboot.img=isolinux/efiboot.img
 
+file ../iso/hexblade.iso
+du -hs ../iso/hexblade.iso
+
 cd -

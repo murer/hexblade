@@ -26,6 +26,11 @@ cmd_script() {
   sudo cmds/chroot-live.sh
   sudo cmds/mksquashfs.sh
   sudo cmds/iso.sh
+  
+  rm -rf target/iso || true
+  cp -R /mnt/iso target
+  file target/iso/*
+  du -hs target/iso/*
 }
 
 cd "$(dirname "$0")/.."; _cmd="${1?"cmd is required"}"; shift; "cmd_${_cmd}" "$@"

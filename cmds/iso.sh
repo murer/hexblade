@@ -2,6 +2,9 @@
 
 [[ "x$UID" == "x0" ]]
 
+cd "$(dirname "$0")/.."
+rm -rf target/iso || true
+
 rm -rf /mnt/iso || true
 mkdir /mnt/iso
 cd /mnt/image
@@ -71,7 +74,9 @@ xorriso \
       /boot/grub/bios.img=isolinux/bios.img \
       /EFI/efiboot.img=isolinux/efiboot.img
 
-file ../iso/hexblade.iso
-du -hs ../iso/hexblade.iso
-
 cd -
+
+cp -R /mnt/iso target
+file target/iso/*
+du -hs target/iso/*
+

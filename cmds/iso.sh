@@ -2,9 +2,6 @@
 
 [[ "x$UID" == "x0" ]]
 
-cd "$(dirname "$0")/.."
-rm -rf target/iso || true
-
 rm -rf /mnt/iso || true
 mkdir /mnt/iso
 cd /mnt/image
@@ -76,7 +73,4 @@ xorriso \
 
 cd -
 
-cp -R /mnt/iso target
-file target/iso/*
-du -hs target/iso/*
 

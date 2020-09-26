@@ -10,16 +10,16 @@ before_install:
 script:
   - ./ci/ci.sh script
 
-# deploy:
-#   - provider: releases
-#     overwrite: true
-#     draft: false
-#     prerelease: true
-#     file: build/pack/*
-#     edge: true
-#     on:
-#       tags: true
-#       condition: $TRAVIS_TAG == edge
+deploy:
+  - provider: releases
+    overwrite: true
+    draft: false
+    prerelease: true
+    file: target/iso/*
+    edge: true
+    on:
+      branch: master
+
 #
 #   - provider: releases
 #     overwrite: false

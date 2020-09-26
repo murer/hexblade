@@ -8,12 +8,12 @@ before_install:
  - ./ci/ci.sh before_install
 
 script:
-  - ./ci/ci.sh script
-  # - sudo ./cmds/chroot-installer.sh
-  # - sudo ./cmds/chroot-package.sh basic
-  # - sudo ./cmds/chroot-live.sh
-  # - sudo ./cmds/mksquashfs.sh
-  # - sudo ./cmds/iso.sh
+  - ./ci/ci.sh strap
+  - ./ci/ci.sh config
+  - ./ci/ci.sh chroot_install
+  - ./ci/ci.sh chroot_packages
+  - ./ci/ci.sh chroot_live
+  - ./ci/ci.sh iso_live
 
 # deploy:
 #   - provider: releases

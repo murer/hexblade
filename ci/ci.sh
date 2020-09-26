@@ -17,13 +17,28 @@ cmd_config_params() {
   echo "hexblade"
 }
 
-cmd_script() {
+cmd_strap() {
   sudo mkdir /mnt/installer
   sudo cmds/strap.sh
+}
+
+cmd_script() {
   cmd_config_params | cmds/config.sh all
+}
+
+cmd_chroot_install() {
   sudo cmds/chroot-install.sh
+}
+
+cmd_chroot_packages() {
   sudo cmds/chroot-packages.sh
+}
+
+cmd_chroot_live() {
   sudo cmds/chroot-live.sh
+}
+
+cmd_iso_live() {
   sudo cmds/mksquashfs.sh
   sudo cmds/iso.sh
 }

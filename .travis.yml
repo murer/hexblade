@@ -8,7 +8,7 @@ env:
 #  - docker
 
 before_install:
- - sudo ci/ci.sh before_install
+ - sudo ./ci/ci.sh before_install
 
 script:
   - sudo mkdir /mnt/installer

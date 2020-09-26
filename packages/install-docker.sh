@@ -1,6 +1,6 @@
 #!/bin/bash -xe
 
-sudo apt install -y \
+sudo apt $HEXBLADE_APT_ARGS install -y \
     apt-transport-https \
     ca-certificates \
     curl \
@@ -14,9 +14,9 @@ sudo add-apt-repository \
    $(lsb_release -cs) \
    stable"
 
-sudo apt -y update
+sudo apt $HEXBLADE_APT_ARGS -y update
 
-sudo apt install -y docker-ce docker-ce-cli containerd.io
+sudo apt $HEXBLADE_APT_ARGS install -y docker-ce docker-ce-cli containerd.io
 
 sudo docker run hello-world
 

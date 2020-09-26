@@ -1,0 +1,46 @@
+dist: bionic
+language: minimal
+
+#services:
+#  - docker
+
+before_install:
+ - ./ci/ci.sh before_install
+
+script:
+  - ./ci/ci.sh script
+
+deploy:
+  - provider: releases
+    overwrite: true
+    draft: false
+    prerelease: true
+    file: target/iso/*
+    edge: true
+    on:
+      branch: master
+
+#
+#   - provider: releases
+#     overwrite: false
+#     draft: false
+#     prerelease: false
+#     file: build/pack/*
+#     edge: true
+#     on:
+#       tags: true
+#       condition: $TRAVIS_TAG =~ ^[0-9]+\.[0-9]+\.[0-9]+$
+#
+#   - provider: script
+#     edge: true
+#     script: ./ci/ci.sh deploy_docker latest
+#     on:
+#       tags: true
+#       condition: $TRAVIS_TAG =~ ^[0-9]+\.[0-9]+\.[0-9]+$
+#
+#   - provider: script
+#     script: ./ci/ci.sh deploy_docker
+#     edge: true
+#     on:
+#       tags: true
+#       condition: $TRAVIS_TAG == edge

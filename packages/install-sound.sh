@@ -1,3 +1,3 @@
 #!/bin/bash -xe
 
-sudo apt install -y pavucontrol # reboot required ?! :(
+sudo apt $HEXBLADE_APT_ARGS install -y pavucontrol # reboot required ?! :(

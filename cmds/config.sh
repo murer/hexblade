@@ -46,7 +46,14 @@ cmd_user() {
   set -x
 }
 
+cmd_apt_mirror() {
+  if [[ "x$hexblade_apt_mirror" != "x" ]]; then
+    sed -i.original "s/us\./$hexblade_apt_mirror./g" target/config/etc.pre/apt/sources.list
+  fi
+}
+
 cmd_all() {
+  read -p 'Change apt mirror (us): ' hexblade_apt_mirror
   read -p 'Generate fstab (y/n): ' hexblade_dev_fstab
   read -p 'Crypt Partition (blank if not): ' hexblade_dev_lvm
   read -p 'Grub Install Device (blank if not): ' hexblade_grub_dev
@@ -61,6 +68,7 @@ cmd_all() {
   fi
 
   cmd_init
+  cmd_apt_mirror
   cmd_fstab
   cmd_grub
   cmd_hostname

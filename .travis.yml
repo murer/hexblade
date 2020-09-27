@@ -18,7 +18,8 @@ deploy:
     file: target/iso/*
     edge: true
     on:
-      branch: master
+      tags: true
+      condition: $TRAVIS_TAG == edge
 
 #
 #   - provider: releases

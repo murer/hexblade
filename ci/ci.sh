@@ -8,6 +8,7 @@ cmd_before_install() {
 }
 
 cmd_config_params() {
+  echo "us"
   echo "n"
   echo ""
   echo ""

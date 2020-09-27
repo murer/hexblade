@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/murer/hexblade.svg?branch=master)](https://travis-ci.org/murer/hexblade)
 
-[Screenshot](https://github.com/murer/hexblade/raw/master/Docs/Hexblade_Login.png)
+<img src="https://github.com/murer/hexblade/raw/master/Docs/Hexblade_Login.png" width="300"/>
 
 ## Prepare install (live) env
 

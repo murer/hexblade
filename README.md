@@ -1,5 +1,7 @@
 # Hexblade
 
+That is my own Linux on top of Ubuntu
+
 [![Build Status](https://travis-ci.org/murer/hexblade.svg?branch=master)](https://travis-ci.org/murer/hexblade)
 
 <img src="https://github.com/murer/hexblade/raw/master/Docs/Hexblade_Login.png" width="300"/>

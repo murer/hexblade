@@ -10,9 +10,7 @@ Download [Hexblade](https://github.com/murer/hexblade/releases/download/edge/hex
 
 Or you can use the [Ubuntu 18.04](http://releases.ubuntu.com/18.04/) live if you want.
 
-***WE WILL NOT PERFORM UBUNTU REGULAR INSTALLATION***
-
-It is more like [Install From Linux](https://help.ubuntu.com/community/Installation/FromLinux)
+## Configure internet access
 
 You need to configure internet access on live system
 
@@ -20,7 +18,21 @@ You need to configure internet access on live system
 sudo ./cmds/installer-prepare.sh
 ```
 
-## Partition GPT
+## Regular installation
+
+If you want to install just like any other ubuntu version:
+
+```shell
+sudo ubiquity
+```
+
+## Manual Process
+
+It is more like [Install From Linux](https://help.ubuntu.com/community/Installation/FromLinux)
+
+This process is about to install Hexblade on with full fisk encryption (including /boot)
+
+### Partition GPT
 
 Create 2 partitions with ```gdisk /dev/sdX```:
 
@@ -32,7 +44,7 @@ Number  Start (sector)    End (sector)  Size       Code  Name
    9          821248       147621887   70.0 GiB    8300  Linux filesystem
 ```
 
-## Partition DOS (BIOS)
+### Partition DOS (BIOS)
 
 Create 2 partitions with ```fdisk /dev/sdX```:
 
@@ -50,7 +62,7 @@ export HEXBLADE_DEV_EFI=/dev/sda1
 export HEXBLADE_DEV_LVM=/dev/sda9
 ```
 
-# Format partitions
+### Format partitions
 
  Format EFI if necessary
 
@@ -73,7 +85,7 @@ sudo mkfs.ext4 -L ROOT /dev/mapper/MAIN-ROOT
 sudo mkswap -L SWAP /dev/mapper/MAIN-SWAP
 ```
 
-## Mount SWAP and ROOT
+### Mount SWAP and ROOT
 
 ```shell
 sudo swapon /dev/mapper/MAIN-SWAP
@@ -98,7 +110,7 @@ sudo mount "$HEXBLADE_DEV_EFI" /mnt/installer/boot/efi
 sudo mount --bind /boot/efi /mnt/installer/boot/efi
 ```
 
-## Strap
+### Strap
 
 ```shell
 ./cmds/strap.sh
@@ -114,7 +126,7 @@ You can configure things while strap is running
 
 Edit files in ```target/config``` to configure username, password, etc.
 
-## Install hexblade basic packages
+### Install hexblade basic packages
 
 ***MAKE SURE STRAP IS FINISHED***
 
@@ -122,25 +134,25 @@ Edit files in ```target/config``` to configure username, password, etc.
 ./cmds/chroot-install.sh
 ```
 
-## Install packages
+### Install packages
 
 ```shell
 ./cmds/chroot-package.sh standard
 ```
 
-## Install grub
+### Install grub
 
 ```shell
 ./cmds/boot.sh
 ```
 
-## Umount
+### Umount
 
 ```shell
 sudo umount -R /mnt/installer
 ```
 
-## Reboot into the system
+### Reboot into the system
 
 Connect to the internet using command line ```nmcli```
 

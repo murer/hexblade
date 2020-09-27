@@ -15,6 +15,7 @@ cmd_fstab() {
   if [[ "x$hexblade_dev_lvm" != "x" ]]; then
     hexblade_lvm_id="$(sudo blkid -o value -s UUID "$hexblade_dev_lvm")"
     echo -e "CRYPTED\tUUID=$hexblade_lvm_id\tnone\tluks,initramfs" > target/config/etc.pre/crypttab
+    cp -R target/config/etc.crypt/* target/config/etc.post
   fi
 }
 

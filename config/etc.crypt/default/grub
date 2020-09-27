@@ -11,6 +11,8 @@ GRUB_CMDLINE_LINUX_DEFAULT="verbose nosplash"
 #GRUB_CMDLINE_LINUX_DEFAULT="quiet splash"
 GRUB_CMDLINE_LINUX=""
 
+GRUB_ENABLE_CRYPTODISK=y
+
 # Uncomment to enable BadRAM filtering, modify to suit your needs
 # This works with Linux (no patch required) and with any kernel that obtains
 # the memory map information from GRUB (GNU Mach, kernel of FreeBSD ...)

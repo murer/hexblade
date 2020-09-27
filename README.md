@@ -1,14 +1,10 @@
 # Hexblade
 
-# Live
-
-https://itnext.io/how-to-create-a-custom-ubuntu-live-from-scratch-dd3b3f213f81
-
 ## Prepare install (live) env
 
-I have tested with [Ubuntu 18.04](http://releases.ubuntu.com/18.04/)
+Download [Hexblade live](https://github.com/murer/hexblade/releases/download/edge/hexblade.iso), and boot into it.
 
-Download live source, and boot into it.
+Or you can use the [Ubuntu 18.04](http://releases.ubuntu.com/18.04/) live if you want.
 
 ***WE WILL NOT PERFORM UBUNTU REGULAR INSTALLATION***
 

@@ -4,7 +4,7 @@
 
 ## Prepare install (live) env
 
-Download [Hexblade live](https://github.com/murer/hexblade/releases/download/edge/hexblade.iso), and boot into it.
+Download [Hexblade](https://github.com/murer/hexblade/releases/download/edge/hexblade.iso) live and boot into it.
 
 Or you can use the [Ubuntu 18.04](http://releases.ubuntu.com/18.04/) live if you want.
 

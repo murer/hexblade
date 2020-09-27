@@ -19,12 +19,12 @@ insmod all_video
 set default="0"
 set timeout=30
 
-menuentry "Try Ubuntu FS without installing" {
+menuentry "Hexblade Live" {
    linux /casper/vmlinuz boot=casper verbose nosplash ---
    initrd /casper/initrd
 }
 
-menuentry "Install Ubuntu FS" {
+menuentry "Install Hexblade" {
    linux /casper/vmlinuz boot=casper only-ubiquity verbose nosplash ---
    initrd /casper/initrd
 }

@@ -18,6 +18,7 @@ cmd_config_params() {
 }
 
 cmd_script() {
+  sudo rm -rf /mnt/installer || true
   sudo mkdir /mnt/installer
   sudo cmds/strap.sh
   cmd_config_params | cmds/config.sh all
@@ -26,7 +27,7 @@ cmd_script() {
   sudo cmds/chroot-live.sh
   sudo cmds/mksquashfs.sh
   sudo cmds/iso.sh
-  
+
   rm -rf target/iso || true
   cp -R /mnt/iso target
   file target/iso/*

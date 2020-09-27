@@ -2,6 +2,8 @@
 
 [![Build Status](https://travis-ci.org/murer/hexblade.svg?branch=master)](https://travis-ci.org/murer/hexblade)
 
+[Screenshot](https://github.com/murer/hexblade/raw/master/Docs/Hexblade_Login.png)
+
 ## Prepare install (live) env
 
 Download [Hexblade](https://github.com/murer/hexblade/releases/download/edge/hexblade.iso) live and boot into it.

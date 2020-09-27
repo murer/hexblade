@@ -1,5 +1,7 @@
 #!/bin/bash -xe
 
+# https://itnext.io/how-to-create-a-custom-ubuntu-live-from-scratch-dd3b3f213f81
+
 [[ "x$UID" == "x0" ]]
 
 cd "$(dirname "$0")/.."

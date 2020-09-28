@@ -1,6 +1,6 @@
 # Hexblade
 
-<img src="https://github.com/murer/hexblade/raw/master/Docs/Hexblade_Login.png" width="280" />
+<img src="https://github.com/murer/hexblade/raw/master/docs/Hexblade_Login.png" width="280" />
 
 That is my own Linux on top of Ubuntu
 
@@ -33,4 +33,4 @@ Or you can install manually
 
 This process is about to install Hexblade with **full disk encryption** (including ``/boot``)
 
-Follow these steps: [INSTALL_MANUAL.md](https://github.com/murer/hexblade/blob/master/Docs/INSTALL_MANUAL.md)
+Follow these steps: [INSTALL_MANUAL.md](https://github.com/murer/hexblade/blob/master/docs/INSTALL_MANUAL.md)

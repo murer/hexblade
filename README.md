@@ -32,7 +32,7 @@ sudo ubiquity
 
 It is more like [Install From Linux](https://help.ubuntu.com/community/Installation/FromLinux)
 
-This process is about to install Hexblade on with full fisk encryption (including /boot)
+This process is about to install Hexblade with full disk encryption (including /boot)
 
 ### Partition GPT
 

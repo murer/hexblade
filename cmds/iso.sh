@@ -2,9 +2,9 @@
 
 [[ "x$UID" == "x0" ]]
 
-rm -rf /mnt/iso || true
-mkdir /mnt/iso
-cd /mnt/image
+rm -rf /mnt/hexblade/iso || true
+mkdir /mnt/hexblade/iso
+cd /mnt/hexblade/image
 
 cat > README.diskdefines <<-EOF
 #define DISKNAME hexblade

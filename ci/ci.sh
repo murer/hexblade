@@ -19,7 +19,7 @@ cmd_config_params() {
 }
 
 cmd_script() {
-  sudo rm -rf /mnt/hexblade/installer || true
+  sudo rm -rf /mnt/hexblade || true
   sudo mkdir -p  /mnt/hexblade/installer
   sudo cmds/strap.sh
   cmd_config_params | cmds/config.sh all
@@ -30,7 +30,7 @@ cmd_script() {
   sudo cmds/iso.sh
 
   rm -rf target/iso || true
-  cp -R /mnt/iso target
+  cp -R /mnt/hexblade/iso target
   file target/iso/*
   du -hs target/iso/*
 }

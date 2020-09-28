@@ -3,6 +3,11 @@
 export DEBIAN_FRONTEND="noninteractive"
 export HEXBLADE_APT_ARGS='-o Dpkg::Progress-Fancy="0"'
 
+cmd_clean() {
+  rm -rf target || true
+  sudo rm -rf /mnt/hexblade || true
+}
+
 cmd_prepare() {
   sudo cmds/installer-prepare.sh
 }

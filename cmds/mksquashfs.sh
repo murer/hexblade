@@ -2,7 +2,7 @@
 
 [[ "x$UID" == "x0" ]]
 
-cd /mnt
+cd /mnt/hexblade
 rm -rf  image || true
 mkdir -p image/{casper,isolinux,install}
 cp installer/boot/vmlinuz-**-**-generic image/casper/vmlinuz
@@ -47,7 +47,7 @@ menuentry "Check disc for defects" {
 # }
 EOF
 
-arch-chroot /mnt/installer dpkg-query -W --showformat='${Package} ${Version}\n' | tee image/casper/filesystem.manifest
+arch-chroot /mnt/hexblade/installer dpkg-query -W --showformat='${Package} ${Version}\n' | tee image/casper/filesystem.manifest
 cp -v image/casper/filesystem.manifest image/casper/filesystem.manifest-desktop
 sed -i '/ubiquity/d' image/casper/filesystem.manifest-desktop
 sed -i '/casper/d' image/casper/filesystem.manifest-desktop

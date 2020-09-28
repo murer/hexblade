@@ -91,25 +91,25 @@ sudo mkswap -L SWAP /dev/mapper/MAIN-SWAP
 
 ```shell
 sudo swapon /dev/mapper/MAIN-SWAP
-sudo mkdir -p /mnt/installer
-sudo mount /dev/mapper/MAIN-ROOT /mnt/installer
-sudo mkdir -p /mnt/installer/boot
-sudo mount /dev/mapper/MAIN-BOOT /mnt/installer/boot
+sudo mkdir -p /mnt/hexblade/installer
+sudo mount /dev/mapper/MAIN-ROOT /mnt/hexblade/installer
+sudo mkdir -p /mnt/hexblade/installer/boot
+sudo mount /dev/mapper/MAIN-BOOT /mnt/hexblade/installer/boot
 ```
 
 ## Mount EFI
 
 ```shell
-sudo rm -rf /mnt/installer/boot/efi || true
-sudo mkdir -p /mnt/installer/boot/efi
+sudo rm -rf /mnt/hexblade/installer/boot/efi || true
+sudo mkdir -p /mnt/hexblade/installer/boot/efi
 ```
 
 ```shell
 # Use this if EFI IS NOT already mounted on your installer env
-sudo mount "$HEXBLADE_DEV_EFI" /mnt/installer/boot/efi
+sudo mount "$HEXBLADE_DEV_EFI" /mnt/hexblade/installer/boot/efi
 
 # Use this if EFI IS already mounted on your installer env
-sudo mount --bind /boot/efi /mnt/installer/boot/efi
+sudo mount --bind /boot/efi /mnt/hexblade/installer/boot/efi
 ```
 
 ### Strap
@@ -151,7 +151,7 @@ Edit files in ```target/config``` to configure username, password, etc.
 ### Umount
 
 ```shell
-sudo umount -R /mnt/installer
+sudo umount -R /mnt/hexblade/installer
 ```
 
 ### Reboot into the system

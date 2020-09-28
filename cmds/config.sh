@@ -10,7 +10,7 @@ cmd_init() {
 
 cmd_fstab() {
   if [[ "x$hexblade_dev_fstab" == "xy" ]]; then
-    genfstab -U /mnt/installer | sudo tee target/config/etc.pre/fstab
+    genfstab -U /mnt/hexblade/installer | sudo tee target/config/etc.pre/fstab
   fi
   if [[ "x$hexblade_dev_lvm" != "x" ]]; then
     hexblade_lvm_id="$(sudo blkid -o value -s UUID "$hexblade_dev_lvm")"

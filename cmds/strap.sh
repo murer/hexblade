@@ -2,7 +2,7 @@
 
 [[ "x$UID" == "x0" ]]
 
-debootstrap bionic /mnt/installer
+debootstrap bionic /mnt/hexblade/installer
 
 # debootstrap \
 #     --arch=amd64 \

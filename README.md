@@ -48,7 +48,7 @@ Number  Start (sector)    End (sector)  Size       Code  Name
 
 ### Partition DOS (BIOS)
 
-Create 2 partitions with ```fdisk /dev/sdX```:
+Create 1 partition with ```fdisk /dev/sdX```:
 
 Use ```o``` to create a empty mbr table if necessary
 

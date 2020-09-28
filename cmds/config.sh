@@ -17,6 +17,7 @@ cmd_fstab() {
     echo -e "CRYPTED\tUUID=$hexblade_lvm_id\tnone\tluks,initramfs" > target/config/etc.pre/crypttab
     cp -R target/config/etc.crypt/* target/config/etc.post
   fi
+  rm -rf target/config/etc.crypt
 }
 
 cmd_hostname() {

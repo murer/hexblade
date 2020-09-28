@@ -20,7 +20,7 @@ cmd_config_params() {
 
 cmd_script() {
   sudo rm -rf /mnt/hexblade/installer || true
-  sudo mkdir /mnt/hexblade/installer
+  sudo mkdir -p  /mnt/hexblade/installer
   sudo cmds/strap.sh
   cmd_config_params | cmds/config.sh all
   sudo cmds/chroot-install.sh

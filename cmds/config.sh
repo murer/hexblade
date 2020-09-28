@@ -49,6 +49,7 @@ cmd_user() {
 cmd_apt_mirror() {
   if [[ "x$hexblade_apt_mirror" != "x" ]]; then
     sed -i.original "s/us\./$hexblade_apt_mirror./g" target/config/etc.pre/apt/sources.list
+    echo "$hexblade_apt_mirror" > target/config/aptmirror.txt
   fi
 }
 

@@ -1,6 +1,6 @@
 # Hexblade
 
-<img src="https://github.com/murer/hexblade/raw/master/Docs/HexbladeGitHub.png" width="280" />
+<img src="https://github.com/murer/hexblade/raw/master/Docs/Hexblade_Login.png" width="280" />
 
 That is my own Linux on top of Ubuntu
 

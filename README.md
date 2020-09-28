@@ -30,7 +30,7 @@ You need to configuring internet access on live system
 
 ### Hexblade Source
 
-There should exists a clone on ``$HOME/hexblade``. If it was not there, clone it:
+There should exist a clone on ``$HOME/hexblade``. If it was not there, clone it:
 
 ```shell
 cd "$HOME"
@@ -174,7 +174,7 @@ nmcli device wifi list
 nmcli device wifi connect wifiname password wifipassword
 ```
 
-There should exists a clone on ``$HOME/hexblade``. If it was not there, clone it:
+There should exist a clone on ``$HOME/hexblade``. If it was not there, clone it:
 
 ```shell
 cd "$HOME"

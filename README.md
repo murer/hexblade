@@ -1,38 +1,48 @@
 # Hexblade
 
-That is my own Linux on top of Ubuntu
+<img src="https://github.com/murer/hexblade/raw/master/Docs/HexbladeGitHub.png" width="280" />
 
-![Hexblade](https://github.com/murer/hexblade/raw/master/Docs/HexbladeGitHub.png)
+That is my own Linux on top of Ubuntu
 
 [![Build Status](https://travis-ci.org/murer/hexblade.svg?branch=master)](https://travis-ci.org/murer/hexblade)
 
-## Prepare install (live) env
+# Live
 
 Download [Hexblade](https://github.com/murer/hexblade/releases/download/edge/hexblade.iso) live and boot into it.
 
-Or you can use the [Ubuntu 18.04](http://releases.ubuntu.com/18.04/) live if you want.
+# Install
 
-## Configure internet access
-
-You need to configure internet access on live system
-
-```shell
-sudo ./cmds/installer-prepare.sh
-```
-
-## Regular installation
-
-If you want to install just like any other ubuntu version:
+You can install using Ubuntu Installer on the [Hexblade](https://github.com/murer/hexblade/releases/download/edge/hexblade.iso) live
 
 ```shell
 sudo ubiquity
 ```
 
-## Manual Process
+Or you can install manually
 
-It is more like [Install From Linux](https://help.ubuntu.com/community/Installation/FromLinux)
+## Manual Installation
 
-This process is about to install Hexblade with full disk encryption (including /boot)
+This process is about to install Hexblade with **full disk encryption** (including ``/boot``)
+
+You should follow these steps on the [Hexblade](https://github.com/murer/hexblade/releases/download/edge/hexblade.iso) live or [Ubuntu 18.04](http://releases.ubuntu.com/18.04/) live
+
+You need to configuring internet access on live system
+
+### Hexblade Source
+
+There should exists a clone on ``$HOME/hexblade``. If it was not there, clone it:
+
+```shell
+cd "$HOME"
+git clone https://github.com/murer/hexblade
+cd hexblade
+```
+
+### Install required packages on live system
+
+```shell
+sudo ./cmds/installer-prepare.sh
+```
 
 ### Partition GPT
 
@@ -156,7 +166,7 @@ sudo umount -R /mnt/hexblade/installer
 
 ### Reboot into the system
 
-Connect to the internet using command line ```nmcli```
+You can connect to the internet using command line ```nmcli``` if you do not install any graphical way to do this
 
 ```shell
 nmcli device wifi rescan
@@ -164,10 +174,23 @@ nmcli device wifi list
 nmcli device wifi connect wifiname password wifipassword
 ```
 
-Clone repository and execute:
+There should exists a clone on ``$HOME/hexblade``. If it was not there, clone it:
+
+```shell
+cd "$HOME"
+git clone https://github.com/murer/hexblade
+cd hexblade
+```
 
 Install optional packages
 
 ```shell
-./packages/install-all.sh
+ls packages
+# sample: ./packages/install-docker.sh
+```
+
+You can remove the Hexblade Source
+
+```shell
+rm -rf "$HOME/hexblade"
 ```

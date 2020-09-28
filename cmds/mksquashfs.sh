@@ -29,11 +29,11 @@ menuentry "Install Hexblade" {
    initrd /casper/initrd
 }
 
-menuentry "Check disc for defects" {
-   linux /casper/vmlinuz boot=casper integrity-check verbose nosplash ---
-   initrd /casper/initrd
-}
-
+# menuentry "Check disc for defects" {
+#    linux /casper/vmlinuz boot=casper integrity-check verbose nosplash ---
+#    initrd /casper/initrd
+# }
+#
 # menuentry "Test memory Memtest86+ (BIOS)" {
 #    linux16 /install/memtest86+
 # }

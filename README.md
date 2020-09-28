@@ -2,6 +2,8 @@
 
 That is my own Linux on top of Ubuntu
 
+![Hexblade](https://github.com/murer/hexblade/raw/master/Docs/HexbladeGitHub.png)
+
 [![Build Status](https://travis-ci.org/murer/hexblade.svg?branch=master)](https://travis-ci.org/murer/hexblade)
 
 ## Prepare install (live) env

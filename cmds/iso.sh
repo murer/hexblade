@@ -72,3 +72,8 @@ xorriso \
       /EFI/efiboot.img=isolinux/efiboot.img
 
 cd -
+
+cd /mnt/hexblade/iso
+date > released.txt
+sha256sum -b * > SHA256
+cd -

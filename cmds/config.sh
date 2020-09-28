@@ -55,8 +55,8 @@ cmd_apt_mirror() {
 cmd_all() {
   read -p 'Change apt mirror (us): ' hexblade_apt_mirror
   read -p 'Generate fstab (y/n): ' hexblade_dev_fstab
-  read -p 'Crypt Partition (blank if not): ' hexblade_dev_lvm
-  read -p 'Grub Install Device (blank if not): ' hexblade_grub_dev
+  read -p 'Crypt Partition (blank): ' hexblade_dev_lvm
+  read -p 'Grub Install Device (blank): ' hexblade_grub_dev
   read -p 'Hostname: ' hexblade_hostname
   read -p 'User: ' hexblade_user
   read -sp 'Pass: ' hexblade_pass

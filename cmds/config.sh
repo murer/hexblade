@@ -17,6 +17,7 @@ cmd_fstab() {
     echo -e "CRYPTED\tUUID=$hexblade_lvm_id\tnone\tluks,initramfs" > target/config/etc.pre/crypttab
     cp -R target/config/etc.crypt/* target/config/etc.post
   fi
+  rm -rf target/config/etc.crypt
 }
 
 cmd_hostname() {
@@ -49,14 +50,15 @@ cmd_user() {
 cmd_apt_mirror() {
   if [[ "x$hexblade_apt_mirror" != "x" ]]; then
     sed -i.original "s/us\./$hexblade_apt_mirror./g" target/config/etc.pre/apt/sources.list
+    echo "$hexblade_apt_mirror" > target/config/aptmirror.txt
   fi
 }
 
 cmd_all() {
   read -p 'Change apt mirror (us): ' hexblade_apt_mirror
   read -p 'Generate fstab (y/n): ' hexblade_dev_fstab
-  read -p 'Crypt Partition (blank if not): ' hexblade_dev_lvm
-  read -p 'Grub Install Device (blank if not): ' hexblade_grub_dev
+  read -p 'Crypt Partition (blank): ' hexblade_dev_lvm
+  read -p 'Grub Install Device (blank): ' hexblade_grub_dev
   read -p 'Hostname: ' hexblade_hostname
   read -p 'User: ' hexblade_user
   read -sp 'Pass: ' hexblade_pass

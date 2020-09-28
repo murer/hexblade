@@ -130,6 +130,10 @@ Edit files in ```target/config``` to configure username, password, etc.
 
 ### Install packages
 
+This step is optional. If you do not install any packages you will end up with a text only system.
+
+Or you can go for [standard](../packages/install-standard.sh) or [basic](../packages/install-basic.sh):
+
 ```shell
 ./cmds/chroot-package.sh standard
 ```

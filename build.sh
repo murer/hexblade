@@ -25,7 +25,7 @@ cmd_build_live_basic() {
   sudo cmds/iso.sh
 
   rm -rf target/iso || true
-  cp -R /mnt/hexblade/iso target
+  cp /mnt/hexblade/iso/hexblade.iso target/iso/hexblade.iso
   file target/iso/*
   du -hs target/iso/*
 

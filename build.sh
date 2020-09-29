@@ -1,7 +1,7 @@
 #!/bin/bash -xe
 
 export DEBIAN_FRONTEND="noninteractive"
-export HEXBLADE_APT_ARGS='-o Dpkg::Progress-Fancy="0"'
+#export HEXBLADE_APT_ARGS='-o Dpkg::Progress-Fancy="0"'
 
 cmd_clean() {
   rm -rf target || true

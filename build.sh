@@ -62,5 +62,9 @@ cmd_build_live() {
   cmd_build_checksum
 }
 
+cmd_build_docker() {
+  docker build -t hexblade/hexblade:dev .
+}
+
 
 cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; "cmd_${_cmd}" "$@"

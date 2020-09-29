@@ -79,9 +79,7 @@ cmd_all() {
 
   cmd_apt_mirror
   cmd_fstab
-  cmd_grub
   cmd_hostname
-  cmd_user
 }
 
 cd "$(dirname "$0")/.."; _cmd="${1?"cmd is required"}"; shift; "cmd_${_cmd}" "$@"

@@ -70,9 +70,9 @@ cmd_ask() {
   priv_ask 'Grub Install Device (blank): ' hexblade_grub_dev
   priv_ask 'Hostname: ' hexblade_hostname
   priv_ask 'User: ' hexblade_user
-  priv_ask 'Pass: ' hexblade_pass -s
+  read -sp 'Pass: ' hexblade_pass
   echo ""
-  priv_ask 'Pass (Again): ' hexblade_pass_again -s
+  read -sp 'Pass (Again): ' hexblade_pass_again
   echo ""
 
   source target/config/params.txt
@@ -81,6 +81,7 @@ cmd_ask() {
     false
   fi
 
+  echo "hexblade_pass=\"$(openssl passwd -6 "$hexblade_pass_again")\"" >> "target/config/params.txt"
   set -x
 }
 

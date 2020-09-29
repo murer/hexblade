@@ -21,13 +21,13 @@ cmd_build_live_init() {
   mkdir -p target/iso
   sudo cmds/strap.sh
   sudo cmds/chroot-install.sh
+  sudo cmds/chroot-live.sh
 }
 
 cmd_build_live_text() {
   [[ -f "/mnt/hexblade/installer/etc/apt/sources.list" ]] || cmd_build_live_init
-  # sudo cmds/chroot-live.sh
-  # sudo cmds/mksquashfs.sh
-  # sudo cmds/iso.sh
+  sudo cmds/mksquashfs.sh
+  sudo cmds/iso.sh
 
   cp /mnt/hexblade/iso/hexblade.iso target/iso/hexblade-text.iso
   file target/iso/hexblade-text.iso
@@ -37,7 +37,6 @@ cmd_build_live_text() {
 cmd_build_live_basic() {
   [[ -f "/mnt/hexblade/installer/etc/apt/sources.list" ]] || cmd_build_live_init
   sudo cmds/chroot-package.sh basic
-  sudo cmds/chroot-live.sh
   sudo cmds/chroot-package.sh ubiquity
   sudo cmds/mksquashfs.sh
   sudo cmds/iso.sh

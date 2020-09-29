@@ -22,7 +22,7 @@ cmd_script() {
   # sudo rm -rf /mnt/hexblade || true
   # sudo mkdir -p  /mnt/hexblade/installer
   # sudo cmds/strap.sh
-  # cmd_config_params | cmds/config.sh all
+  cmd_config_params | cmds/config.sh all
   # sudo cmds/chroot-install.sh
   # sudo cmds/chroot-package.sh basic
   # sudo cmds/chroot-live.sh

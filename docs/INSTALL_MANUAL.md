@@ -104,15 +104,7 @@ sudo mount "$HEXBLADE_DEV_EFI" /mnt/hexblade/installer/boot/efi
 sudo mount --bind /boot/efi /mnt/hexblade/installer/boot/efi
 ```
 
-### Strap
-
-```shell
-./cmds/strap.sh
-```
-
 ## Configure
-
-You can configure things while strap is running
 
 ```shell
 ./cmds/config.sh all
@@ -120,9 +112,13 @@ You can configure things while strap is running
 
 Edit files in ```target/config``` to configure username, password, etc.
 
-### Install hexblade basic packages
+### Strap
 
-***MAKE SURE STRAP IS FINISHED***
+```shell
+./cmds/strap.sh
+```
+
+### Install hexblade basic packages
 
 ```shell
 ./cmds/chroot-install.sh

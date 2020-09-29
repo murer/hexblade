@@ -5,10 +5,10 @@ language: minimal
 #  - docker
 
 before_install:
- - bash -xeo pipefail -c './ci/ci.sh before_install | cat'
+ - bash -xeo pipefail -c './ci/ci.sh before_install 1> >(cat) 2> >(cat 1>&2)'
 
 script:
-  - bash -xeo pipefail -c './ci/ci.sh script | cat'
+  - bash -xeo pipefail -c './ci/ci.sh script 1> >(cat) 2> >(cat 1>&2)'
 
 deploy:
   - provider: releases

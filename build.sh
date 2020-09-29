@@ -51,6 +51,7 @@ cmd_build_checksum() {
   date > released.txt
   sha256sum -b * > SHA256
   file *
+  cat SHA256
   du -hs *
   cd -
 }

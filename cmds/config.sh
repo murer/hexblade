@@ -32,25 +32,9 @@ cmd_hostname() {
   " > target/config/etc.pre/hosts
 }
 
-cmd_grub() {
-  if [[ "x$hexblade_grub_dev" != "x" ]]; then
-    echo "$hexblade_grub_dev" > target/config/grub.dev
-  fi
-}
-
-cmd_user() {
-  set +x
-  hexblade_user="${hexblade_user?'user'}"
-  hexblade_pass="${hexblade_pass?'pass'}"
-  echo "$hexblade_user" > target/config/user/user.txt
-  openssl passwd -6 "$hexblade_pass" > target/config/user/pass.txt
-  set -x
-}
-
 cmd_apt_mirror() {
   if [[ "x$hexblade_apt_mirror" != "x" ]]; then
     sed -i.original "s/us\./$hexblade_apt_mirror./g" target/config/etc.pre/apt/sources.list
-    echo "$hexblade_apt_mirror" > target/config/aptmirror.txt
   fi
 }
 
@@ -89,7 +73,9 @@ cmd_all() {
   cmd_init
   cmd_ask
 
+  set +x
   source target/config/params.txt
+  set -x
 
   cmd_apt_mirror
   cmd_fstab

@@ -42,12 +42,12 @@ priv_ask() {
   tmp_prompt="${1?'prompt'}" && shift
   tmp_file="${1?'file'}" && shift
   read "$@" -p "$tmp_prompt" tmp_value
-  echo "$tmp_file=\"$tmp_value\"" >> "target/config/params.txt"
+  echo "$tmp_file='$tmp_value'" >> "target/config/params.txt"
 }
 
 cmd_ask() {
   rm target/config/params.txt || true
-  set +x
+  set -x
   priv_ask 'Change apt mirror (us): ' hexblade_apt_mirror
   priv_ask 'Generate fstab (y/n): ' hexblade_dev_fstab
   priv_ask 'Crypt Partition (blank): ' hexblade_dev_lvm
@@ -65,7 +65,7 @@ cmd_ask() {
     false
   fi
 
-  echo "hexblade_pass=\"$(openssl passwd -6 "$hexblade_pass_again")\"" >> "target/config/params.txt"
+  echo "hexblade_pass='$(openssl passwd -6 "$hexblade_pass_again")'" >> "target/config/params.txt"
   set -x
 }
 

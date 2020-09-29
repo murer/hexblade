@@ -12,22 +12,12 @@ cmd_prepare() {
   sudo cmds/installer-prepare.sh
 }
 
-cmd_config_params() {
-  echo "us"
-  echo "n"
-  echo ""
-  echo ""
-  echo "hexblade"
-  echo "ubuntu"
-  echo "hexblade"
-  echo "hexblade"
+cmd_config() {
+  cmds/config.sh all
 }
 
-cmd_build() {
-  sudo rm -rf /mnt/hexblade || true
-  sudo mkdir -p  /mnt/hexblade/installer
+cmd_build_live_basic() {
   sudo cmds/strap.sh
-  cmd_config_params | cmds/config.sh all
   sudo cmds/chroot-install.sh
   #sudo cmds/chroot-package.sh basic
   sudo cmds/chroot-live.sh
@@ -38,6 +28,11 @@ cmd_build() {
   cp -R /mnt/hexblade/iso target
   file target/iso/*
   du -hs target/iso/*
+
+  cd target/iso
+  date > released.txt
+  sha256sum -b * > SHA256
+  cd -
 }
 
 cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; "cmd_${_cmd}" "$@"

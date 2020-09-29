@@ -7,14 +7,15 @@ hexblade_dev_package="${1?'standard or basic'}"
 cd "$(dirname "$0")/.."
 pwd
 
-hexblade_user="$(cat target/config/user/user.txt)"
+set +x
+source target/config/params.txt || true
+set -x
 
-rm -rf "/mnt/hexblade/installer/home/$hexblade_user/hexblade"
-cp -R "." "/mnt/hexblade/installer/home/$hexblade_user/hexblade"
+rsync -vah packages/ "/mnt/hexblade/installer/home/$hexblade_user/hexblade/packages/"
+
 USER="$hexblade_user" HOME="/home/$hexblade_user" arch-chroot /mnt/hexblade/installer chown -R "$hexblade_user:$hexblade_user" "/home/$hexblade_user"
+USER="$hexblade_user" HOME="/home/$hexblade_user" arch-chroot /mnt/hexblade/installer "/home/$hexblade_user/hexblade/packages/install-$hexblade_dev_package.sh"
 
-echo "$hexblade_user ALL=(ALL) NOPASSWD: ALL" > /mnt/hexblade/installer/etc/sudoers.d/tmp
-
-USER="$hexblade_user" HOME="/home/$hexblade_user" arch-chroot -u "$hexblade_user:$hexblade_user" /mnt/hexblade/installer "/home/$hexblade_user/hexblade/packages/install-$hexblade_dev_package.sh"
-
-rm /mnt/hexblade/installer/etc/sudoers.d/tmp
+#echo "$hexblade_user ALL=(ALL) NOPASSWD: ALL" > /mnt/hexblade/installer/etc/sudoers.d/tmp
+#arch-chroot /mnt/hexblade/installer sudo -u "$hexblade_user" "/home/$hexblade_user/hexblade/packages/install-$hexblade_dev_package.sh"
+#rm /mnt/hexblade/installer/etc/sudoers.d/tmp

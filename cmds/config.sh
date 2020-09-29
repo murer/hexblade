@@ -54,22 +54,42 @@ cmd_apt_mirror() {
   fi
 }
 
-cmd_all() {
-  read -p 'Change apt mirror (us): ' hexblade_apt_mirror
-  read -p 'Generate fstab (y/n): ' hexblade_dev_fstab
-  read -p 'Crypt Partition (blank): ' hexblade_dev_lvm
-  read -p 'Grub Install Device (blank): ' hexblade_grub_dev
-  read -p 'Hostname: ' hexblade_hostname
-  read -p 'User: ' hexblade_user
-  read -sp 'Pass: ' hexblade_pass
-  read -sp 'Pass (Again): ' hexblade_pass_again
+priv_ask() {
+  tmp_prompt="${1?'prompt'}" && shift
+  tmp_file="${1?'file'}" && shift
+  read "$@" -p "$tmp_prompt" tmp_value
+  echo "$tmp_file=\"$tmp_value\"" >> "target/config/params.txt"
+}
 
+cmd_ask() {
+  rm target/config/params.txt || true
+  set +x
+  priv_ask 'Change apt mirror (us): ' hexblade_apt_mirror
+  priv_ask 'Generate fstab (y/n): ' hexblade_dev_fstab
+  priv_ask 'Crypt Partition (blank): ' hexblade_dev_lvm
+  priv_ask 'Grub Install Device (blank): ' hexblade_grub_dev
+  priv_ask 'Hostname: ' hexblade_hostname
+  priv_ask 'User: ' hexblade_user
+  priv_ask 'Pass: ' hexblade_pass -s
+  echo ""
+  priv_ask 'Pass (Again): ' hexblade_pass_again -s
+  echo ""
+
+  source target/config/params.txt
   if [[ "x$hexblade_pass" != "x$hexblade_pass_again" ]]; then
     echo "wrong pass"
     false
   fi
 
+  set -x
+}
+
+cmd_all() {
   cmd_init
+  cmd_ask
+
+  source target/config/params.txt
+
   cmd_apt_mirror
   cmd_fstab
   cmd_grub

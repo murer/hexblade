@@ -20,4 +20,4 @@ sudo apt $HEXBLADE_APT_ARGS install -y docker-ce docker-ce-cli containerd.io
 
 sudo docker run hello-world
 
-[[ "x$UID" != "x0" ]] && sudo usermod -aG docker "$USER"
+[[ "x$USER" != "xroot" ]] && sudo usermod -aG docker "$USER"

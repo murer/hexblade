@@ -6,6 +6,7 @@ export HEXBLADE_APT_ARGS='-o Dpkg::Progress-Fancy="0"'
 cmd_clean() {
   rm -rf target || true
   sudo rm -rf /mnt/hexblade || true
+  ls fsdfdgfd
 }
 
 cmd_prepare() {

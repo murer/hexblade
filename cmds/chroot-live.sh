@@ -14,10 +14,3 @@ arch-chroot /mnt/hexblade/installer apt $HEXBLADE_APT_ARGS install -y \
     laptop-detect \
     os-prober \
     upower
-
-arch-chroot /mnt/hexblade/installer apt $HEXBLADE_APT_ARGS install -y \
-        ubiquity \
-        ubiquity-casper \
-        ubiquity-frontend-gtk \
-        ubiquity-slideshow-ubuntu \
-        ubiquity-ubuntu-artwork \

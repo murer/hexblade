@@ -16,24 +16,44 @@ cmd_config() {
   cmds/config.sh all
 }
 
-cmd_build_live_basic() {
-  # sudo cmds/strap.sh
-  # sudo cmds/chroot-install.sh
-  # #sudo cmds/chroot-package.sh basic
-  # sudo cmds/chroot-live.sh
-  # sudo cmds/mksquashfs.sh
-  # sudo cmds/iso.sh
-
-  rm -rf target/iso || true
+cmd_build_live_init() {
+  rm -rf target/iso
   mkdir -p target/iso
-  cp /mnt/hexblade/iso/hexblade.iso target/iso/hexblade.iso
-  file target/iso/*
-  du -hs target/iso/*
+  sudo cmds/strap.sh
+  sudo cmds/chroot-install.sh
+}
 
+cmd_build_live_text() {
+  [[ -f "/mnt/hexblade/installer/etc/apt/source.list" ]] || cmd_build_live_init
+  sudo cmds/chroot-live.sh
+  sudo cmds/mksquashfs.sh
+  sudo cmds/iso.sh
+
+  cp /mnt/hexblade/iso/hexblade.iso target/iso/hexblade-text.iso
+  file target/iso/hexblade-text.iso
+  du -hs target/iso/hexblade-text.iso
+}
+
+cmd_build_live_basic() {
+  [[ -f "/mnt/hexblade/installer/etc/apt/source.list" ]] || cmd_build_live_init
+  sudo cmds/chroot-package.sh basic
+  sudo cmds/chroot-package.sh ubiquity
+  sudo cmds/mksquashfs.sh
+  sudo cmds/iso.sh
+
+  cp /mnt/hexblade/iso/hexblade.iso target/iso/hexblade.iso
+  file target/iso/hexblade.iso
+  du -hs target/iso/hexblade.iso
+}
+
+cmd_build_checksum() {
   cd target/iso
   date > released.txt
   sha256sum -b * > SHA256
+  file *
+  du -hs *
   cd -
 }
+
 
 cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; "cmd_${_cmd}" "$@"

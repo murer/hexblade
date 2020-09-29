@@ -19,22 +19,11 @@ cmd_config_params() {
 }
 
 cmd_script() {
-  # sudo rm -rf /mnt/hexblade || true
-  # sudo mkdir -p  /mnt/hexblade/installer
-  # sudo cmds/strap.sh
+  ./build.sh clean
   cmd_config_params | cmds/config.sh all
-  # sudo cmds/chroot-install.sh
-  # sudo cmds/chroot-package.sh basic
-  # sudo cmds/chroot-live.sh
-  # sudo cmds/mksquashfs.sh
-  # sudo cmds/iso.sh
-  #
-  # rm -rf target/iso || true
-  # cp -R /mnt/hexblade/iso target
-  # file target/iso/*
-  # du -hs target/iso/*
-
+  ./build.sh build_live_text
   ./build.sh build_live_basic
+  ./build.sh build_checksum
 }
 
 cd "$(dirname "$0")/.."; _cmd="${1?"cmd is required"}"; shift; "cmd_${_cmd}" "$@"

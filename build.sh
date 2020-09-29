@@ -17,14 +17,15 @@ cmd_config() {
 }
 
 cmd_build_live_basic() {
-  sudo cmds/strap.sh
-  sudo cmds/chroot-install.sh
-  #sudo cmds/chroot-package.sh basic
-  sudo cmds/chroot-live.sh
-  sudo cmds/mksquashfs.sh
-  sudo cmds/iso.sh
+  # sudo cmds/strap.sh
+  # sudo cmds/chroot-install.sh
+  # #sudo cmds/chroot-package.sh basic
+  # sudo cmds/chroot-live.sh
+  # sudo cmds/mksquashfs.sh
+  # sudo cmds/iso.sh
 
   rm -rf target/iso || true
+  mkdir -p target/iso
   cp /mnt/hexblade/iso/hexblade.iso target/iso/hexblade.iso
   file target/iso/*
   du -hs target/iso/*

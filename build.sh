@@ -24,7 +24,7 @@ cmd_build_live_init() {
 }
 
 cmd_build_live_text() {
-  [[ -f "/mnt/hexblade/installer/etc/apt/source.list" ]] || cmd_build_live_init
+  [[ -f "/mnt/hexblade/installer/etc/apt/sources.list" ]] || cmd_build_live_init
   sudo cmds/chroot-live.sh
   sudo cmds/mksquashfs.sh
   sudo cmds/iso.sh
@@ -35,7 +35,7 @@ cmd_build_live_text() {
 }
 
 cmd_build_live_basic() {
-  [[ -f "/mnt/hexblade/installer/etc/apt/source.list" ]] || cmd_build_live_init
+  [[ -f "/mnt/hexblade/installer/etc/apt/sources.list" ]] || cmd_build_live_init
   sudo cmds/chroot-package.sh basic
   sudo cmds/chroot-package.sh ubiquity
   sudo cmds/mksquashfs.sh

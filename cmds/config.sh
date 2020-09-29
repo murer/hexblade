@@ -47,7 +47,7 @@ priv_ask() {
 
 cmd_ask() {
   rm target/config/params.txt || true
-  set -x
+  set +x
   priv_ask 'Change apt mirror (us): ' hexblade_apt_mirror
   priv_ask 'Generate fstab (y/n): ' hexblade_dev_fstab
   priv_ask 'Crypt Partition (blank): ' hexblade_dev_lvm

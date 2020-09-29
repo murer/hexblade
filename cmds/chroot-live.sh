@@ -13,7 +13,6 @@ arch-chroot /mnt/hexblade/installer apt $HEXBLADE_APT_ARGS install -y \
     discover \
     laptop-detect \
     os-prober \
-    locales \
     upower
 
 arch-chroot /mnt/hexblade/installer apt $HEXBLADE_APT_ARGS install -y \

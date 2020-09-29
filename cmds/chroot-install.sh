@@ -26,7 +26,7 @@ arch-chroot /mnt/hexblade/installer apt $HEXBLADE_APT_ARGS -y install ubuntu-sta
   software-properties-common \
   vim wget curl openssl git vim \
   nmap netcat pv zip connect-proxy tcpdump bc \
-  network-manager net-tools
+  network-manager net-tools locales
 
 sudo tee /mnt/hexblade/installer/etc/netplan/01-netcfg.yaml <<-EOF
 network:

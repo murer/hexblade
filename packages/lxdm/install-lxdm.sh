@@ -11,5 +11,5 @@ if [ ! -f /etc/lxdm.original.tar.gz ]; then
 	cd -
 fi
 
-sudo cp -Rv lxdm/etc/* /etc/lxdm
-sudo cp -Rv lxdm/Hexblade /usr/share/lxdm/themes
+sudo cp -Rv etc/* /etc/lxdm
+sudo cp -Rv Hexblade /usr/share/lxdm/themes

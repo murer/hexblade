@@ -3,7 +3,7 @@
 cd "$(dirname "$0")"
 pwd
 
-./install-graphics-util.sh
-./install-sound.sh
-./install-openbox.sh
-./install-lxdm.sh
+./graphics/install-graphics.sh
+./sound/install-sound.sh
+./openbox/install-openbox.sh
+./lxdm/install-lxdm.sh

@@ -22,6 +22,6 @@ if [ ! -f /etc/xdg/openbox.original.tar.gz ]; then
 	cd -
 fi
 
-sudo cp -Rv openbox/etc/xdg/openbox/* /etc/xdg/openbox
+sudo cp -Rv etc/xdg/openbox/* /etc/xdg/openbox
 
-cp -v openbox/home/xinitrc ~/.xinitrc
+cp -v home/xinitrc ~/.xinitrc

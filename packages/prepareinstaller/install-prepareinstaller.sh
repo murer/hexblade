@@ -1,6 +1,6 @@
 #!/bin/bash -xe
 
-#apt -y update
+apt -y update
 apt -y install software-properties-common
 
 apt-add-repository universe

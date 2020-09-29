@@ -21,6 +21,7 @@ cmd_build_live_init() {
   mkdir -p target/iso
   sudo cmds/strap.sh
   sudo cmds/chroot-install.sh
+  sudo cmds/chroot-package.sh prepareinstaller
   sudo cmds/chroot-live.sh
 }
 

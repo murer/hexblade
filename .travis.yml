@@ -21,6 +21,16 @@ deploy:
       tags: true
       condition: $TRAVIS_TAG == edge
 
+  - provider: releases
+    overwrite: false
+    draft: false
+    prerelease: false
+    file: target/iso/*
+    edge: true
+    on:
+      tags: true
+      condition: $TRAVIS_TAG =~ ^[0-9]+\.[0-9]+\.[0-9]+$
+
 #
 #   - provider: releases
 #     overwrite: false

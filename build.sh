@@ -4,7 +4,7 @@ export DEBIAN_FRONTEND="noninteractive"
 #export HEXBLADE_APT_ARGS='-o Dpkg::Progress-Fancy="0"'
 
 cmd_clean() {
-  rm -rf target || true
+  sudo rm -rf target || true
   sudo rm -rf /mnt/hexblade || true
 }
 
@@ -65,6 +65,13 @@ cmd_build_live() {
 
 cmd_build_docker() {
   docker build -t hexblade/hexblade:dev .
+}
+
+cmd_build_live_all() {
+  [[ -f "/mnt/hexblade/installer/etc/apt/sources.list" ]] || cmd_build_live_init
+  ls packages | sort | while read k; do
+    sudo cmds/chroot-package.sh "$k"
+  done
 }
 
 

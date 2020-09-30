@@ -1,0 +1,2 @@
+
+xscreensaver -no-splash &

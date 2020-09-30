@@ -4,6 +4,8 @@
 # to run user-specific things.
 #
 
+set -x
+
 ## Openbox autostart
 ## ====================
 ## Note*: some programs, such as 'nm-applet' are run via XDG auto-start.
@@ -14,14 +16,6 @@
 #/usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
 #eval $(gnome-keyring-daemon -s --components=pkcs11,secrets,ssh,gpg) &
 
-
-#Starts Nitogen and restore wallpaper from previous session
-#nitrogen --restore &
-
-xsetroot -solid "#222222"
-
-# start up the tint2 task bar
-tint2 &
-
-# More
-xscreensaver -no-splash &
+ls /etc/xdg/openbox/autostart.d | sort | while read k; do
+  . "/etc/xdg/openbox/autostart.d/$k"
+done

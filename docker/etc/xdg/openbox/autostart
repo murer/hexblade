@@ -1,6 +1,0 @@
-
-set -x
-
-ls /etc/xdg/openbox/autostart.d | sort | while read k; do
-  . "/etc/xdg/openbox/autostart.d/$k"
-done

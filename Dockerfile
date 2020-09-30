@@ -26,5 +26,9 @@ RUN sudo -E /opt/hexblade/packages/openbox/install-openbox.sh
 
 COPY . /opt/hexblade
 
+ENV DISPLAY :99
+EXPOSE 5900
 
 ENV DEBIAN_FRONTEND=
+
+CMD "/opt/hexblade/docker/entrypoint.sh"

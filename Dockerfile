@@ -9,5 +9,8 @@ RUN groupadd -r supersudo && \
 
 RUN mkdir -p /opt/hexblade/packages
 
-COPY packages/install-graphics-util.sh /opt/hexblade/packages
-RUN sudo -u hexblade /opt/hexblade/packages/install-graphics-util.sh
+COPY packages/graphics /opt/hexblade/packages/graphics
+RUN sudo -u hexblade /opt/hexblade/packages/graphics/install-graphics.sh
+
+COPY packages/openbox /opt/hexblade/packages/openbox
+RUN sudo -u hexblade /opt/hexblade/packages/openbox/install-openbox.sh

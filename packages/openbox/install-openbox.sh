@@ -24,4 +24,4 @@ fi
 
 sudo cp -Rv etc/xdg/openbox/* /etc/xdg/openbox
 
-cp -v home/xinitrc ~/.xinitrc
+#cp -v home/xinitrc ~/.xinitrc

@@ -14,4 +14,4 @@ fi
 
 sudo cp -TRv etc/i3 /etc/i3
 
-cp -v home/xinitrc ~/.xinitrc
+#cp -v home/xinitrc ~/.xinitrc

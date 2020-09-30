@@ -34,9 +34,9 @@ cmd_build_live_text() {
   du -hs target/iso/hexblade-text.iso
 }
 
-cmd_build_live_basic() {
+cmd_build_live_standard() {
   [[ -f "/mnt/hexblade/installer/etc/apt/sources.list" ]] || cmd_build_live_init
-  sudo -E cmds/chroot-package.sh basic
+  sudo -E cmds/chroot-package.sh standard
   sudo -E cmds/chroot-package.sh ubiquity
   sudo -E cmds/mksquashfs.sh
   sudo -E cmds/iso.sh
@@ -58,7 +58,7 @@ cmd_build_checksum() {
 
 cmd_build_live() {
   cmd_build_live_text
-  cmd_build_live_basic
+  cmd_build_live_standard
   cmd_build_checksum
 }
 

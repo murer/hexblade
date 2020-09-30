@@ -118,7 +118,7 @@ Edit files in ```target/config``` to configure username, password, etc.
 ./cmds/strap.sh
 ```
 
-### Install hexblade basic packages
+### Install hexblade standard packages
 
 ```shell
 ./cmds/chroot-install.sh
@@ -128,10 +128,10 @@ Edit files in ```target/config``` to configure username, password, etc.
 
 This step is optional. If you do not install any packages you will end up with a text only system.
 
-Or you can go for [basic](../packages/install-basic.sh):
+Or you can go for [standard](../packages/install-standard.sh):
 
 ```shell
-./cmds/chroot-package.sh basic
+./cmds/chroot-package.sh standard
 ```
 
 ### Install grub

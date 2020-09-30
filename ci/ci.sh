@@ -22,7 +22,7 @@ cmd_script() {
   ./build.sh build_docker
   cmd_config_params | cmds/config.sh all
   #./build.sh build_live_text
-  ./build.sh build_live_basic
+  ./build.sh build_live_standard
   ./build.sh build_checksum
 }
 

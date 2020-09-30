@@ -9,7 +9,7 @@ set -x
 [[ "x$hexblade_grub_dev" != "x" ]]
 
 if [[ -d /mnt/hexblade/installer/boot/efi ]]; then
-  arch-chroot /mnt/hexblade/installer apt $HEXBLADE_APT_ARGS -y install grub-efi
+  arch-chroot /mnt/hexblade/installer apt -y install grub-efi
 fi
 
 cp -R target/config/etc.post/* /mnt/hexblade/installer/etc

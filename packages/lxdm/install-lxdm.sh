@@ -3,7 +3,7 @@
 cd "$(dirname "$0")"
 pwd
 
-apt $HEXBLADE_APT_ARGS -y install --no-install-recommends lxdm
+apt -y install --no-install-recommends lxdm
 
 if [ ! -f /etc/lxdm.original.tar.gz ]; then
 	cd /etc

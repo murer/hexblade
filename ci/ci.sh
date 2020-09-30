@@ -1,7 +1,6 @@
 #!/bin/bash -xe
 
 export DEBIAN_FRONTEND="noninteractive"
-#export HEXBLADE_APT_ARGS='-o Dpkg::Progress-Fancy="0"'
 
 cmd_before_install() {
   sudo -E cmds/installer-prepare.sh

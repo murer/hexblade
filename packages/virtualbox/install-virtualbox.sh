@@ -6,7 +6,7 @@ pwd
 rm -rf target/virtualbox || true
 mkdir -p target/virtualbox
 
-apt $HEXBLADE_APT_ARGS install -y \
+apt install -y \
     apt-transport-https \
     ca-certificates \
     curl \
@@ -19,9 +19,9 @@ curl -fsSL https://www.virtualbox.org/download/oracle_vbox_2016.asc | apt-key ad
 echo "deb http://download.virtualbox.org/virtualbox/debian $(lsb_release -cs) contrib" | tee /etc/apt/sources.list.d/virtualbox.list
 echo "# deb-src http://download.virtualbox.org/virtualbox/debian $(lsb_release -cs) contrib" | tee -a /etc/apt/sources.list.d/virtualbox.list
 
-apt $HEXBLADE_APT_ARGS -y update
+apt -y update
 apt-cache search virtualbox | grep ^virtualbox
-apt $HEXBLADE_APT_ARGS install -y virtualbox-6.1 dkms
+apt install -y virtualbox-6.1 dkms
 
 usermod -aG vboxusers "$USER"
 

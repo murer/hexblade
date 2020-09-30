@@ -7,7 +7,7 @@
 cd "$(dirname "$0")/.."
 pwd
 
-arch-chroot /mnt/hexblade/installer apt $HEXBLADE_APT_ARGS install -y \
+arch-chroot /mnt/hexblade/installer apt install -y \
     casper \
     lupin-casper \
     discover \

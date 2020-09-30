@@ -1,6 +1,6 @@
 #!/bin/bash -xe
 
-apt $HEXBLADE_APT_ARGS install -y \
+apt install -y \
         ubiquity \
         ubiquity-casper \
         ubiquity-frontend-gtk \

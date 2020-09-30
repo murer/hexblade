@@ -1,9 +1,6 @@
 
 set -x
 
-xsetroot -solid "#222222"
-
-tint2 &
-
-#x11vnc -display :99 -forever -nopw &
-x11vnc -display :99 -forever -shared -passwd 123 &
+ls /etc/xdg/openbox/autostart.d | sort | while read k; do
+  . "/etc/xdg/openbox/autostart.d/$k"
+done

@@ -1,6 +1,9 @@
 dist: bionic
 language: minimal
 
+services:
+  - docker
+
 #services:
 #  - docker
 

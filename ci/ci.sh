@@ -19,6 +19,7 @@ cmd_config_params() {
 
 cmd_script() {
   ./build.sh clean
+  ./build.sh build_docker
   cmd_config_params | cmds/config.sh all
   #./build.sh build_live_text
   ./build.sh build_live_basic

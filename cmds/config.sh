@@ -42,7 +42,7 @@ priv_ask() {
   tmp_prompt="${1?'prompt'}" && shift
   tmp_file="${1?'file'}" && shift
   read "$@" -p "$tmp_prompt" tmp_value
-  echo "$tmp_file='$tmp_value'" >> "target/config/params.txt"
+  echo "export $tmp_file='$tmp_value'" >> "target/config/params.txt"
 }
 
 cmd_ask() {
@@ -65,7 +65,7 @@ cmd_ask() {
     false
   fi
 
-  echo "hexblade_pass='$(openssl passwd -6 "$hexblade_pass_again")'" >> "target/config/params.txt"
+  echo "export hexblade_pass='$(openssl passwd -6 "$hexblade_pass_again")'" >> "target/config/params.txt"
   set -x
 }
 

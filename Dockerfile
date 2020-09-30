@@ -14,9 +14,9 @@ RUN mkdir -p /opt/hexblade/packages
 USER hexblade
 
 COPY packages/graphics /opt/hexblade/packages/graphics
-RUN sudo /opt/hexblade/packages/graphics/install-graphics.sh
+RUN sudo -E /opt/hexblade/packages/graphics/install-graphics.sh
 
 COPY packages/openbox /opt/hexblade/packages/openbox
-RUN sudo /opt/hexblade/packages/openbox/install-openbox.sh
+RUN sudo -E /opt/hexblade/packages/openbox/install-openbox.sh
 
 ENV DEBIAN_FRONTEND=

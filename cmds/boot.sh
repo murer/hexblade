@@ -14,6 +14,6 @@ fi
 
 cp -R target/config/etc.post/* /mnt/hexblade/installer/etc
 
-sudo arch-chroot /mnt/hexblade/installer update-grub
-sudo arch-chroot /mnt/hexblade/installer grub-install "$hexblade_grub_dev"
-sudo arch-chroot /mnt/hexblade/installer update-initramfs -u -k all
+arch-chroot /mnt/hexblade/installer update-grub
+arch-chroot /mnt/hexblade/installer grub-install "$hexblade_grub_dev"
+arch-chroot /mnt/hexblade/installer update-initramfs -u -k all

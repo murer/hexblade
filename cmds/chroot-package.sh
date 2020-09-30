@@ -1,6 +1,6 @@
 #!/bin/bash -xe
 
-hexblade_dev_package="${1?'standard or basic'}"
+hexblade_dev_package="${1?'basic, firefox, etc'}"
 
 [[ "x$UID" == "x0" ]]
 

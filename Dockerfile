@@ -14,11 +14,17 @@ RUN groupadd -r supersudo && \
 RUN mkdir -p /opt/hexblade/packages
 
 USER hexblade
+ENV HOME /home/hexblade
+ENV USER hexblade
+WORKDIR /home/hexblade
 
 COPY packages/graphics /opt/hexblade/packages/graphics
 RUN sudo -E /opt/hexblade/packages/graphics/install-graphics.sh
 
 COPY packages/openbox /opt/hexblade/packages/openbox
 RUN sudo -E /opt/hexblade/packages/openbox/install-openbox.sh
+
+COPY . /opt/hexblade
+
 
 ENV DEBIAN_FRONTEND=

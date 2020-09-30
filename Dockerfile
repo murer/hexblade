@@ -25,6 +25,7 @@ COPY packages/openbox /opt/hexblade/packages/openbox
 RUN sudo -E /opt/hexblade/packages/openbox/install-openbox.sh
 
 COPY . /opt/hexblade
+RUN sudo cp -Rv /opt/hexblade/docker/etc/xdg /etc
 
 ENV DISPLAY :99
 EXPOSE 5900

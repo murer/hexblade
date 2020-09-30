@@ -1,0 +1,9 @@
+
+set -x
+
+xsetroot -solid "#222222"
+
+tint2 &
+
+#x11vnc -display :99 -forever -nopw &
+x11vnc -display :99 -forever -shared -passwd 123 &

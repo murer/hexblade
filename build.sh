@@ -72,7 +72,9 @@ cmd_clean_docker() {
 }
 
 cmd_run_docker() {
-  docker run -it --rm --label hexblade_dev hexblade/hexblade:dev
+  docker run -it --rm --label hexblade_dev \
+    -p 5900:5900 \
+    hexblade/hexblade:dev
 }
 
 cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; "cmd_${_cmd}" "$@"

@@ -67,12 +67,4 @@ cmd_build_docker() {
   docker build -t hexblade/hexblade:dev .
 }
 
-cmd_build_live_all() {
-  [[ -f "/mnt/hexblade/installer/etc/apt/sources.list" ]] || cmd_build_live_init
-  ls packages | sort | while read k; do
-    sudo -E cmds/chroot-package.sh "$k"
-  done
-}
-
-
 cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; "cmd_${_cmd}" "$@"

@@ -20,9 +20,15 @@ Download [Hexblade](https://github.com/murer/hexblade/releases/download/edge/hex
 
 # Docker
 
+Run container
+
 ```shell
 docker run -it -p 5900:5900 murer/hexblade
+```
 
+Connect using any vnc client
+
+```shell
 # apt-get install xtightvncviewer
 vncviewer localhost:5900
 ```

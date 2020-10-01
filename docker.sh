@@ -21,4 +21,10 @@ cmd_push() {
   docker push "murer/hexblade:$hexblade_docker_version"
 }
 
+cmd_pull() {
+  hexblade_docker_version="${1:-"edge"}"
+  docker pull "murer/hexblade:$hexblade_docker_version"
+  docker tag "murer/hexblade:$hexblade_docker_version" hexblade/hexblade:dev
+}
+
 cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; "cmd_${_cmd}" "$@"

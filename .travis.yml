@@ -41,6 +41,13 @@ deploy:
       tags: true
       condition: $TRAVIS_TAG == edge
 
+  - provider: script
+    script: ./ci/ci.sh docker_deploy
+    edge: true
+    on:
+      tags: true
+      condition: $TRAVIS_TAG =~ ^v[0-9]+\.[0-9]+\.[0-9]+$
+      
 #   - provider: releases
 #     overwrite: false
 #     draft: false

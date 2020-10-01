@@ -31,7 +31,7 @@ cmd_docker_deploy() {
   set +x
   docker login --username "$DOCKERHUB_USER" --password "$DOCKERHUB_PASS"
   set -x
-  ./docker.sh push "$hexblade_docker_image_version"
+  ./docker.sh push "$hexblade_docker_image_version" "$@"
 }
 
 cd "$(dirname "$0")/.."; _cmd="${1?"cmd is required"}"; shift; "cmd_${_cmd}" "$@"

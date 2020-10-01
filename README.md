@@ -11,7 +11,6 @@ That is my own Linux on top of Ubuntu
  * Small and light weight, but functional as any other ubuntu distro
  * ``Openbox`` and ``LXDM`` live iso
  * Full Disk Encryption (including ``/boot``)
- * Text-only live iso (not ready yet)
  * Dockerhub image with ``xfvb`` and ``vnc`` server
  * Installation script for ```atom```, ```chrome```, ```docker```, ```VirtualBox```, etc
 

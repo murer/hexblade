@@ -17,8 +17,8 @@ cmd_run() {
 
 cmd_push() {
   hexblade_docker_version="${1?"version to push"}"
-  docker tag hexblade/hexblade:dev "murer/lhproxy:$hexblade_docker_version"
-  docker push "hexblade/hexblade:dev:$hexblade_docker_version"
+  docker tag hexblade/hexblade:dev "murer/hexblade:$hexblade_docker_version"
+  docker push "murer/hexblade:$hexblade_docker_version"
 }
 
 cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; "cmd_${_cmd}" "$@"

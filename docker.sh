@@ -20,7 +20,7 @@ cmd_push() {
   hexblade_docker_alias="${2}"
   docker tag hexblade/hexblade:dev "murer/hexblade:$hexblade_docker_version"
   docker push "murer/hexblade:$hexblade_docker_version"
-  if [[ "x$hexblade_docker_alias" == "x" ]]; then
+  if [[ "x$hexblade_docker_alias" != "x" ]]; then
     docker tag hexblade/hexblade:dev "murer/hexblade:$hexblade_docker_alias"
     docker push "murer/hexblade:$hexblade_docker_alias"
   fi

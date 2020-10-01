@@ -14,15 +14,15 @@ script:
   - bash -xeo pipefail -c './ci/ci.sh script 1> >(cat) 2> >(cat 1>&2)'
 
 deploy:
-  - provider: releases
-    overwrite: true
-    draft: false
-    prerelease: true
-    file: target/iso/*
-    edge: true
-    on:
-      tags: true
-      condition: $TRAVIS_TAG == edge
+  # - provider: releases
+  #   overwrite: true
+  #   draft: false
+  #   prerelease: true
+  #   file: target/iso/*
+  #   edge: true
+  #   on:
+  #     tags: true
+  #     condition: $TRAVIS_TAG == edge
 
   - provider: releases
     overwrite: false

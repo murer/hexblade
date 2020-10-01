@@ -22,9 +22,8 @@ cmd_script() {
   cmd_config_params | cmds/config.sh all
   ./docker.sh build
 
-  #./build.sh build_live_text
-  ./build.sh build_live_standard
-  ./build.sh build_checksum
+  # ./build.sh build_live_standard
+  # ./build.sh build_checksum
 }
 
 cmd_docker_deploy() {

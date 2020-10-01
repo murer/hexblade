@@ -12,14 +12,29 @@ That is my own Linux on top of Ubuntu
  * ``Openbox`` and ``LXDM`` live iso
  * Full Disk Encryption (including ``/boot``)
  * Text-only live iso (not ready yet)
- * Dockerhub image with ``xfvb`` (not ready yet)
+ * Dockerhub image with ``xfvb`` and ``vnc`` server
  * Installation script for ```atom```, ```chrome```, ```docker```, ```VirtualBox```, etc
 
-# Live
+# Live ISO
 
 Download [Hexblade](https://github.com/murer/hexblade/releases/download/edge/hexblade.iso) live and boot into it.
 
-# Install
+# Docker
+
+Start docker
+
+```shell
+docker run -it -p 5900:5900 murer/hexblade
+```
+
+And connect to it:
+
+```shell
+# apt-get install xtightvncviewer
+vncviewer localhost:5900
+```
+
+# Install Hexblade
 
 You can install using Ubuntu Installer on the [Hexblade](https://github.com/murer/hexblade/releases/download/edge/hexblade.iso) live
 

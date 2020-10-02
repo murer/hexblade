@@ -2,7 +2,9 @@
 
 That is a image you can use to have a desktop inside container.
 
-That would let you run any graphical application without the need to export the screen out. Additionally you can connect using ``vnc`` client any time you need to see the screen.
+That would let you run any graphical application without the need to export the screen out.
+
+Additionally you can connect using ``vnc`` client any time you need to see the screen.
 
 Basically it will start ``hexblade`` desktop inside ``xfvb`` and ``vnc`` server.
 

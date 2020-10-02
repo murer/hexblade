@@ -20,6 +20,8 @@ Download [Hexblade](https://github.com/murer/hexblade/releases/download/edge/hex
 
 # Docker
 
+You can find more about the image on [HEXBLADE_DOCKER.md](https://github.com/murer/hexblade/blob/master/docs/HEXBLADE_DOCKER.md)
+
 Run container
 
 ```shell

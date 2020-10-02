@@ -6,6 +6,8 @@ That would let you run any graphical application without the need to export the 
 
 Basically it will start ``hexblade`` desktop inside ``xfvb`` and ``vnc`` server.
 
+## How to start graphical applications automatically
+
 Any script on ``/etc/xdg/openbox/autostart.d`` will run during the container startup. So you can put a graphical application to run like ``Selenium``, ``Firefox``, games, etc.
 
 ```shell

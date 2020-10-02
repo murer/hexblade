@@ -1,6 +1,6 @@
 # Hexblade Docker Image
 
-<img src="https://github.com/murer/hexblade/raw/master/docs/Hexblade_Login.png" width="280" />
+[<img src="https://github.com/murer/hexblade/raw/master/docs/Hexblade_Login.png" width="280" />](https://github.com/murer/hexblade)
 
 That is a image you can use to have a desktop inside container.
 

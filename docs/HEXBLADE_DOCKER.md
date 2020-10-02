@@ -14,15 +14,19 @@ So you can put any graphical application to run like ``Selenium``, ``Firefox``, 
 
 Add a script on ``/etc/xdg/openbox/autostart.d``
 
+## Start container
+
 ```shell
 docker run -it -p 5900:5900 murer/hexblade
 ```
 
-Connect using any vnc client
+## Connect using any vnc client
 
 ```shell
 # apt-get install xtightvncviewer
 vncviewer localhost:5900
 ```
+
+## Stop the container
 
 If you exit from ``openbox`` the container will stop

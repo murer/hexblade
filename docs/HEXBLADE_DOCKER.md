@@ -1,5 +1,7 @@
 # Hexblade Docker Image
 
+<img src="https://github.com/murer/hexblade/raw/master/docs/Hexblade_Login.png" width="280" />
+
 That is a image you can use to have a desktop inside container.
 
 That would let you run any graphical application without the need to export the screen out.

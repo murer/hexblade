@@ -2,9 +2,9 @@
 
 That is a image you can use to have a desktop inside container.
 
-Basically it will start ``hexblade`` desktop inside ``xfvb`` and ``vnc`` server.
-
 That would let you run any graphical application without the need to export the screen out. Additionally you can connect using ``vnc`` client any time you need to see the screen.
+
+Basically it will start ``hexblade`` desktop inside ``xfvb`` and ``vnc`` server.
 
 Any script on ``/etc/xdg/openbox/autostart.d`` will run during the container startup. So you can put a graphical application to run like ``Selenium``, ``Firefox``, games, etc.
 

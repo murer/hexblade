@@ -20,9 +20,15 @@ Download [Hexblade](https://github.com/murer/hexblade/releases/download/edge/hex
 
 # Docker
 
-You can find more about the image on [HEXBLADE_DOCKER.md](https://github.com/murer/hexblade/blob/master/docs/HEXBLADE_DOCKER.md)
+That is a image you can use to have a desktop inside container.
 
-Run container
+That would let you run any graphical application without the need to export the screen out.
+
+Additionally you can connect using vnc client any time if you need to see the screen.
+
+Basically it will start hexblade desktop inside xfvb and vnc server.
+
+You can find more information about the image on [HEXBLADE_DOCKER.md](https://github.com/murer/hexblade/blob/master/docs/HEXBLADE_DOCKER.md)
 
 ```shell
 docker run -it -p 5900:5900 murer/hexblade

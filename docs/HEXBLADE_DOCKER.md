@@ -8,11 +8,11 @@ Additionally you can connect using ``vnc`` client any time if you need to see th
 
 Basically it will start ``hexblade`` desktop inside ``xfvb`` and ``vnc`` server.
 
+So you can put any graphical application to run like ``Selenium``, ``Firefox``, games, etc.
+
 ## How to start graphical applications automatically
 
-Any script on ``/etc/xdg/openbox/autostart.d`` will run during the container startup. 
-
-So you can put any graphical application to run like ``Selenium``, ``Firefox``, games, etc.
+Add a script on ``/etc/xdg/openbox/autostart.d``
 
 ```shell
 docker run -it -p 5900:5900 murer/hexblade

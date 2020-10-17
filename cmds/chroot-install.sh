@@ -12,7 +12,6 @@ set -x
 cp -R target/config/etc.pre/* /mnt/hexblade/installer/etc
 
 echo unattended-upgrades unattended-upgrades/enable_auto_updates boolean false | arch-chroot /mnt/hexblade/installer debconf-set-selections
-echo grub-pc grub-pc/install_devices_empty boolean true | arch-chroot /mnt/hexblade/installer debconf-set-selections
 
 arch-chroot /mnt/hexblade/installer ln -sf /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime
 arch-chroot /mnt/hexblade/installer locale-gen en_US.UTF-8

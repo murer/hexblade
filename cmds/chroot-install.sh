@@ -11,6 +11,8 @@ set -x
 
 cp -R target/config/etc.pre/* /mnt/hexblade/installer/etc
 
+echo unattended-upgrades unattended-upgrades/enable_auto_updates boolean false | debconf-set-selections
+
 arch-chroot /mnt/hexblade/installer ln -sf /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime
 arch-chroot /mnt/hexblade/installer locale-gen en_US.UTF-8
 arch-chroot /mnt/hexblade/installer dpkg-reconfigure -f non-interactive tzdata

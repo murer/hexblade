@@ -13,6 +13,8 @@ if [[ ! -f VSCode-linux-x64/code ]]; then
   rm vscode.tar.gz
 fi
 
+[[ -f /usr/local/bin/code ]] || ln -s /opt/VSCode-linux-x64/code /usr/local/bin/code
+
 cd -
 
 # https://go.microsoft.com/fwlink/?LinkID=620884

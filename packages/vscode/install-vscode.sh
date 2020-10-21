@@ -5,11 +5,13 @@ pwd
 
 cd /opt
 
-wget --progress=dot -e dotbytes=1M -c \
-  'https://go.microsoft.com/fwlink/?LinkID=620884' \
-  -O vscode.tar.gz
-
-tar xzf vscode.tar.gz
+if [[ ! -f VSCode-linux-x64/code ]]; then
+  wget --progress=dot -e dotbytes=1M -c \
+    'https://go.microsoft.com/fwlink/?LinkID=620884' \
+    -O vscode.tar.gz
+  tar xzf vscode.tar.gz
+  rm vscode.tar.gz
+fi
 
 cd -
 
@@ -25,5 +27,3 @@ cd -
 #   apt install -yf
 #   dpkg -i target/vscode.deb
 # fi
-
-wget

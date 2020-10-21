@@ -7,7 +7,7 @@ cd /opt
 
 wget --progress=dot -e dotbytes=1M -c \
   'https://go.microsoft.com/fwlink/?LinkID=620884' \
-  -O target/vscode.tar.gz
+  -O vscode.tar.gz
 
 tar xzf vscode.tar.gz
 

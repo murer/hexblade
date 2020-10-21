@@ -5,6 +5,7 @@ pwd
 
 ./tools/install-tools.sh
 ./graphics/install-graphics.sh
+./lxterminal/install-lxterminal.sh
 ./firefox/install-firefox.sh
 ./sound/install-sound.sh
 ./openbox/install-openbox.sh

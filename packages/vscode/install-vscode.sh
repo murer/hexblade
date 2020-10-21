@@ -3,14 +3,27 @@
 cd "$(dirname "$0")"
 pwd
 
-mkdir -p target
+cd /opt
 
 wget --progress=dot -e dotbytes=1M -c \
-  'https://go.microsoft.com/fwlink/?LinkID=760868' \
-  -O target/vscode.deb
+  'https://go.microsoft.com/fwlink/?LinkID=620884' \
+  -O target/vscode.tar.gz
 
-# if ! atom -v; then
-#   dpkg -i target/atom-amd64.deb || true
+tar xzf vscode.tar.gz
+
+cd -
+
+# https://go.microsoft.com/fwlink/?LinkID=620884
+
+
+# wget --progress=dot -e dotbytes=1M -c \
+#   'https://go.microsoft.com/fwlink/?LinkID=760868' \
+#   -O target/vscode.deb
+#
+# if ! code -v; then
+#   dpkg -i target/vscode.deb || true
 #   apt install -yf
-#   dpkg -i target/atom-amd64.deb
+#   dpkg -i target/vscode.deb
 # fi
+
+wget

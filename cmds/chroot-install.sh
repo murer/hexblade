@@ -11,6 +11,8 @@ set -x
 
 cp -R target/config/etc.pre/* /mnt/hexblade/installer/etc
 
+echo unattended-upgrades unattended-upgrades/enable_auto_updates boolean false | arch-chroot /mnt/hexblade/installer debconf-set-selections
+
 arch-chroot /mnt/hexblade/installer ln -sf /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime
 arch-chroot /mnt/hexblade/installer locale-gen en_US.UTF-8
 arch-chroot /mnt/hexblade/installer dpkg-reconfigure -f non-interactive tzdata
@@ -26,7 +28,7 @@ arch-chroot /mnt/hexblade/installer apt -y install ubuntu-standard \
   software-properties-common \
   vim wget curl openssl git vim \
   nmap netcat pv zip connect-proxy tcpdump bc \
-  network-manager net-tools locales
+  network-manager net-tools locales debconf-utils
 
 sudo tee /mnt/hexblade/installer/etc/netplan/01-netcfg.yaml <<-EOF
 network:
@@ -40,5 +42,5 @@ rm -rf "/mnt/hexblade/installer/home/$hexblade_user/hexblade/target"
 
 arch-chroot /mnt/hexblade/installer chown -R "$hexblade_user:$hexblade_user" "/home/$hexblade_user"
 
-arch-chroot /mnt/hexblade/installer apt -y install linux-image-generic linux-headers-generic
+DEBIAN_FRONTEND=noninteractive arch-chroot /mnt/hexblade/installer apt -y install linux-image-generic linux-headers-generic
 arch-chroot /mnt/hexblade/installer apt -y install cryptsetup lvm2

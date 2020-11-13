@@ -38,8 +38,8 @@ cmd_build_live_text() {
 cmd_build_live_standard() {
   [[ -f "/mnt/hexblade/installer/etc/apt/sources.list" ]] || cmd_build_live_init
   sudo -E cmds/chroot-package.sh standard
-  sudo -E cmds/chroot-live-vbox-x11.sh
   sudo -E cmds/chroot-package.sh ubiquity
+  sudo -E cmds/chroot-live-vbox-x11.sh
   sudo -E cmds/chroot-live-vbox-dkms.sh
   sudo -E cmds/mksquashfs.sh
   sudo -E cmds/iso.sh

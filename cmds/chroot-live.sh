@@ -13,4 +13,9 @@ arch-chroot /mnt/hexblade/installer apt install -y \
     discover \
     laptop-detect \
     os-prober \
-    upower
+    upower \
+    dkms \
+    virtualbox-guest-utils \
+    virtualbox-guest-x11 \
+    virtualbox-guest-dkms
+

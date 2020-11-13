@@ -54,6 +54,9 @@ sed -i '/casper/d' image/casper/filesystem.manifest-desktop
 sed -i '/discover/d' image/casper/filesystem.manifest-desktop
 sed -i '/laptop-detect/d' image/casper/filesystem.manifest-desktop
 sed -i '/os-prober/d' image/casper/filesystem.manifest-desktop
+sed -i '/virtualbox-guest-utils/d' image/casper/filesystem.manifest-desktop
+sed -i '/virtualbox-guest-x11/d' image/casper/filesystem.manifest-desktop
+sed -i '/virtualbox-guest-dkms/d' image/casper/filesystem.manifest-desktop
 
 mksquashfs installer image/casper/filesystem.squashfs
 printf $(du -sx --block-size=1 installer | cut -f1) > image/casper/filesystem.size

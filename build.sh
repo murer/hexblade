@@ -26,6 +26,7 @@ cmd_build_live_init() {
 
 cmd_build_live_text() {
   [[ -f "/mnt/hexblade/installer/etc/apt/sources.list" ]] || cmd_build_live_init
+  sudo -E cmds/chroot-dkms.sh
   sudo -E cmds/mksquashfs.sh
   sudo -E cmds/iso.sh
 
@@ -38,6 +39,7 @@ cmd_build_live_standard() {
   [[ -f "/mnt/hexblade/installer/etc/apt/sources.list" ]] || cmd_build_live_init
   sudo -E cmds/chroot-package.sh standard
   sudo -E cmds/chroot-package.sh ubiquity
+  sudo -E cmds/chroot-live-dkms.sh
   sudo -E cmds/mksquashfs.sh
   sudo -E cmds/iso.sh
 

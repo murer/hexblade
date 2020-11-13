@@ -15,7 +15,5 @@ arch-chroot /mnt/hexblade/installer apt install -y \
     os-prober \
     upower \
     dkms \
-    virtualbox-guest-utils \
-    virtualbox-guest-x11 \
-    virtualbox-guest-dkms
+    virtualbox-guest-utils
 

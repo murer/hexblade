@@ -43,5 +43,4 @@ rm -rf "/mnt/hexblade/installer/home/$hexblade_user/hexblade/target"
 arch-chroot /mnt/hexblade/installer chown -R "$hexblade_user:$hexblade_user" "/home/$hexblade_user"
 
 DEBIAN_FRONTEND=noninteractive arch-chroot /mnt/hexblade/installer apt -y install "linux-image-$(uname -r)" "linux-headers-$(uname -r)"
-DEBIAN_FRONTEND=noninteractive arch-chroot /mnt/hexblade/installer apt -y install linux-firmware linux-generic-hwe-18.04
 arch-chroot /mnt/hexblade/installer apt -y install cryptsetup lvm2

@@ -5,6 +5,7 @@
 cd /mnt/hexblade
 rm -rf  image || true
 mkdir -p image/{casper,isolinux,install}
+ls installer/boot
 cp installer/boot/vmlinuz-**-**-generic image/casper/vmlinuz
 cp installer/boot/initrd.img-**-**-generic image/casper/initrd
 

@@ -18,7 +18,7 @@ search --set=root --file /ubuntu
 insmod all_video
 
 set default="0"
-set timeout=30
+set timeout=5
 
 menuentry "Hexblade Live" {
    linux /casper/vmlinuz boot=casper verbose nosplash ---

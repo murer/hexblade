@@ -23,7 +23,7 @@ cmd_vm_create() {
 
 cmd_vm_start() {
   vboxmanage startvm hexblade_build --type gui
-    while ! vboxmanage guestcontrol hexblade_build run --username ubuntu --password hexblade -- /usr/bin/whoami; do
+  while ! vboxmanage guestcontrol hexblade_build run --username ubuntu --password hexblade -- /usr/bin/whoami; do
     sleep 5
   done
 }

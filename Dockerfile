@@ -18,6 +18,9 @@ ENV HOME /home/hexblade
 ENV USER hexblade
 WORKDIR /home/hexblade
 
+COPY packages/tools /opt/hexblade/packages/tools
+RUN sudo -E /opt/hexblade/packages/tools/install-tools.sh
+
 COPY packages/graphics /opt/hexblade/packages/graphics
 RUN sudo -E /opt/hexblade/packages/graphics/install-graphics.sh
 

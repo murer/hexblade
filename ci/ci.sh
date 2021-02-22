@@ -24,6 +24,7 @@ cmd_script() {
 
   ./build.sh build_live_standard
   ./build.sh build_checksum
+  ./build.sh test
 }
 
 cmd_docker_deploy() {

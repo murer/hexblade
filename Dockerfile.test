@@ -1,0 +1,5 @@
+FROM hexblade/hexblade:dev
+
+COPY . /opt/hexblade
+
+RUN sudo -E /opt/hexblade/packages/install-all.sh

@@ -21,15 +21,15 @@ cmd_script() {
   ./build.sh clean
   cmd_config_params | cmds/config.sh all
   ./docker.sh build
-  ./docker.sh test 1> /tmp/docker-test-hexblade.log 2>&1 &
+  #./docker.sh test 1> /tmp/docker-test-hexblade.log 2>&1 &
 
   ./build.sh build_live_standard
   ./build.sh build_checksum
 
-  if ! wait %1; then
-    tail -n 200 /tmp/docker-test-hexblade.log
-    false
-  fi
+  # if ! wait %1; then
+  #   tail -n 200 /tmp/docker-test-hexblade.log
+  #   false
+  # fi
 }
 
 cmd_docker_deploy() {

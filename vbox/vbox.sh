@@ -60,8 +60,8 @@ cmd_vm_install() {
   vboxmanage guestcontrol hexblade_build run --username ubuntu --password hexblade -E DEBIAN_FRONTEND="noninteractive" -- /bin/bash -c "echo -e 'us\ny\n\n/dev/sda\nhexblade\nhex\nhex\nhex\n' | /home/ubuntu/hexblade/cmds/config.sh all"
   vboxmanage guestcontrol hexblade_build run --username ubuntu --password hexblade -E DEBIAN_FRONTEND="noninteractive" -- /usr/bin/sudo -E "/home/ubuntu/hexblade/cmds/strap.sh"
   vboxmanage guestcontrol hexblade_build run --username ubuntu --password hexblade -E DEBIAN_FRONTEND="noninteractive" -- /usr/bin/sudo -E "/home/ubuntu/hexblade/cmds/chroot-install.sh"
-  vboxmanage guestcontrol hexblade_build run --username ubuntu --password hexblade -E DEBIAN_FRONTEND="noninteractive" -- /usr/bin/sudo -E "/home/ubuntu/hexblade/packages/standard/standard-install.sh"
-  vboxmanage guestcontrol hexblade_build run --username ubuntu --password hexblade -E DEBIAN_FRONTEND="noninteractive" -- /usr/bin/sudo -E "apt-get -y install dkms virtualbox-guest-utils"
+  vboxmanage guestcontrol hexblade_build run --username ubuntu --password hexblade -E DEBIAN_FRONTEND="noninteractive" -- /usr/bin/sudo -E "/home/ubuntu/hexblade/packages/standard/install-standard.sh"
+  vboxmanage guestcontrol hexblade_build run --username ubuntu --password hexblade -E DEBIAN_FRONTEND="noninteractive" -- /usr/bin/sudo -E "apt-get" -y install dkms virtualbox-guest-utils
   vboxmanage guestcontrol hexblade_build run --username ubuntu --password hexblade -E DEBIAN_FRONTEND="noninteractive" -- /usr/bin/sudo -E "/home/ubuntu/hexblade/cmds/boot.sh"
   vboxmanage guestcontrol hexblade_build run --username ubuntu --password hexblade -E DEBIAN_FRONTEND="noninteractive" -- /bin/sync
   vboxmanage guestcontrol hexblade_build run --username ubuntu --password hexblade -E DEBIAN_FRONTEND="noninteractive" -- /usr/bin/sudo -E "umount" /mnt/hexblade/installer || true

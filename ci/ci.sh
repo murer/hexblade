@@ -4,7 +4,6 @@ export DEBIAN_FRONTEND="noninteractive"
 
 cmd_before_install() {
   sudo -E cmds/installer-prepare.sh
-  sudo -E ./packages/virtualbox/install-virtualbox.sh
 }
 
 cmd_config_params() {
@@ -31,8 +30,6 @@ cmd_script() {
     tail -n 200 /tmp/docker-test-hexblade.log
     false
   fi
-
-  ./vbox/vbox.sh build
 }
 
 cmd_docker_deploy() {

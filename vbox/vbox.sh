@@ -66,7 +66,7 @@ cmd_vm_install() {
 }
 
 cmd_vm_export() {
-  mkdir -p target/ova
+  mkdir -p ../target/ova
   vboxmanage controlvm hexblade_build poweroff
   sleep 5
   vboxmanage modifyvm hexblade_build \
@@ -78,7 +78,7 @@ cmd_vm_export() {
     --device 1 \
     --type dvddrive \
     --medium "emptydrive"
-  vboxmanage export hexblade_build -o target/ova/hexblade.ova
+  vboxmanage export hexblade_build -o ../target/ova/hexblade.ova
 }
 
 cmd_build() {

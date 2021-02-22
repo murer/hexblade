@@ -68,10 +68,10 @@ cmd_vm_install() {
 cmd_vm_export() {
   mkdir -p target/ova
   vboxmanage controlvm hexblade_build poweroff
-  sleep 2
+  sleep 5
   vboxmanage modifyvm hexblade_build \
-    --memory 2048 \
-    --cpus 2
+    --memory 1024 \
+    --cpus 1
   vboxmanage storageattach hexblade_build \
     --storagectl "IDE" \
     --port 0 \

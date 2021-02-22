@@ -21,10 +21,10 @@ cmd_script() {
   ./build.sh clean
   cmd_config_params | cmds/config.sh all
   ./docker.sh build
+  ./docker.sh test
 
   ./build.sh build_live_standard
   ./build.sh build_checksum
-  ./build.sh test
 }
 
 cmd_docker_deploy() {

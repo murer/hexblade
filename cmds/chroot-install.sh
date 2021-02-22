@@ -43,7 +43,8 @@ rm -rf "/mnt/hexblade/installer/home/$hexblade_user/hexblade/target"
 arch-chroot /mnt/hexblade/installer chown -R "$hexblade_user:$hexblade_user" "/home/$hexblade_user"
 
 #DEBIAN_FRONTEND=noninteractive arch-chroot /mnt/hexblade/installer apt -y install "linux-image-5.4.0-54-generic" "linux-headers-5.4.0-54-generic"
-DEBIAN_FRONTEND=noninteractive arch-chroot /mnt/hexblade/installer apt -y install "linux-image-generic" "linux-headers-generic"
-DEBIAN_FRONTEND=noninteractive arch-chroot /mnt/hexblade/installer apt -y install linux-generic-hwe-18.04
+#DEBIAN_FRONTEND=noninteractive arch-chroot /mnt/hexblade/installer apt -y install "linux-image-generic" "linux-headers-generic"
+#DEBIAN_FRONTEND=noninteractive arch-chroot /mnt/hexblade/installer apt -y install linux-generic-hwe-18.04
+DEBIAN_FRONTEND=noninteractive arch-chroot /mnt/hexblade/installer apt -y install --install-recommends linux-generic-hwe-18.04
 
 arch-chroot /mnt/hexblade/installer apt -y install cryptsetup lvm2

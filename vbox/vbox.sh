@@ -9,7 +9,6 @@ cmd_clean() {
   sleep 1
   vboxmanage closemedium "$(pwd)/../target/vbox/hexblade_build/hexblade_build.vdi" --delete || true
   rm -rf "$(pwd)/../target/vbox" || true
-  rm -rf "$(pwd)/../target/ova" || true
 }
 
 cmd_vm_create() {

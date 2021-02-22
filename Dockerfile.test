@@ -1,5 +1,55 @@
 FROM hexblade/hexblade:dev
 
-COPY . /opt/hexblade
+COPY packages/atom /opt/hexblade/packages/atom
+RUN sudo -E /opt/hexblade/packages/atom/install-atom.sh
 
-RUN sudo -E /opt/hexblade/packages/install-all.sh
+COPY packages/chrome /opt/hexblade/packages/chrome
+RUN sudo -E /opt/hexblade/packages/chrome/install-chrome.sh
+
+COPY packages/docker /opt/hexblade/packages/docker
+RUN sudo -E /opt/hexblade/packages/docker/install-docker.sh
+
+COPY packages/firefox /opt/hexblade/packages/firefox
+RUN sudo -E /opt/hexblade/packages/firefox/install-firefox.sh
+
+COPY packages/golang /opt/hexblade/packages/golang
+RUN sudo -E /opt/hexblade/packages/golang/install-golang.sh
+
+COPY packages/graphics /opt/hexblade/packages/graphics
+RUN sudo -E /opt/hexblade/packages/graphics/install-graphics.sh
+
+COPY packages/i3 /opt/hexblade/packages/i3
+RUN sudo -E /opt/hexblade/packages/i3/install-i3.sh
+
+COPY packages/java /opt/hexblade/packages/java
+RUN sudo -E /opt/hexblade/packages/java/install-java.sh
+
+COPY packages/lxterminal /opt/hexblade/packages/lxterminal
+RUN sudo -E /opt/hexblade/packages/lxterminal/install-lxterminal.sh
+
+COPY packages/maven /opt/hexblade/packages/maven
+RUN sudo -E /opt/hexblade/packages/maven/install-maven.sh
+
+COPY packages/openbox /opt/hexblade/packages/openbox
+RUN sudo -E /opt/hexblade/packages/openbox/install-openbox.sh
+
+COPY packages/sound /opt/hexblade/packages/sound
+RUN sudo -E /opt/hexblade/packages/sound/install-sound.sh
+
+COPY packages/tools /opt/hexblade/packages/tools
+RUN sudo -E /opt/hexblade/packages/tools/install-tools.sh
+
+COPY packages/ubiquity /opt/hexblade/packages/ubiquity
+RUN sudo -E /opt/hexblade/packages/ubiquity/install-ubiquity.sh
+
+COPY packages/virtualbox /opt/hexblade/packages/virtualbox
+RUN sudo -E /opt/hexblade/packages/virtualbox/install-virtualbox.sh
+
+COPY packages/vscode /opt/hexblade/packages/vscode
+RUN sudo -E /opt/hexblade/packages/vscode/install-vscode.sh
+
+COPY packages/lxdm /opt/hexblade/packages/lxdm
+RUN sudo -E /opt/hexblade/packages/lxdm/install-lxdm.sh
+
+COPY packages/standard /opt/hexblade/packages/standard
+RUN sudo -E /opt/hexblade/packages/standard/install-standard.sh

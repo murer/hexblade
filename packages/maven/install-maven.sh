@@ -2,7 +2,7 @@
 
 cd /opt
 if [ ! -f apache-maven-3.3.9-bin.tar.gz ]; then
-	wget 'https://repoz.dextra.com.br/repoz/r/pub/maven/apache-maven-3.3.9-bin.tar.gz'
+	wget --progress=dot -e dotbytes=1M 'https://repoz.dextra.com.br/repoz/r/pub/maven/apache-maven-3.3.9-bin.tar.gz'
 fi
 rm -rf apache-maven-3.3.9 | cat
 tar xzf apache-maven-3.3.9-bin.tar.gz

@@ -162,6 +162,7 @@ startup_notifications = 1
 launcher_tooltip = 1
 launcher_item_app = firefox.desktop
 launcher_item_app = /usr/share/applications/lxterminal.desktop
+launcher_item_app = /usr/share/applications/virtualbox.desktop
 launcher_item_app = /usr/share/applications/caja-browser.desktop
 
 #-------------------------------------

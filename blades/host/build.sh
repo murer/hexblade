@@ -3,8 +3,8 @@
 export DEBIAN_FRONTEND="noninteractive"
 
 cmd_deps() {
+    ../../packages/standard/install-standard.sh
     ../../packages/virtualbox/install-virtualbox.sh
-    ../../packages/openbox/install-openbox.sh
 }
 
 cmd_config() {

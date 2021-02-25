@@ -3,6 +3,7 @@
 export DEBIAN_FRONTEND="noninteractive"
 
 cmd_install() {
+    ../../packages/virtualbox/install-virtualbox.sh
     ../../packages/openbox/install-openbox.sh
 
     cp -Rv etc/* /etc

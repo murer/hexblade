@@ -20,4 +20,5 @@ apt install -y \
   squashfs-tools \
   net-tools \
   nmap \
-  git
+  git \
+  socat

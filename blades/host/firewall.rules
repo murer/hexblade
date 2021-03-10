@@ -3,10 +3,14 @@
 :INPUT DROP [14:896]
 :FORWARD DROP [0:0]
 :OUTPUT ACCEPT [147:46032]
+
 -A INPUT -i lo -j ACCEPT
--A INPUT -p tcp -m tcp --dport 22 -m state --state NEW,ESTABLISHED -j ACCEPT
--A INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
 -A OUTPUT -o lo -j ACCEPT
+
+-A INPUT -p tcp -m tcp --dport 22 -m state --state NEW,ESTABLISHED -j ACCEPT
 -A OUTPUT -p tcp -m tcp --sport 22 -m state --state ESTABLISHED -j ACCEPT
+
+-A INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+
 COMMIT
 # Completed on Wed Mar 10 11:15:04 2021

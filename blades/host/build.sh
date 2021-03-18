@@ -3,7 +3,9 @@
 export DEBIAN_FRONTEND="noninteractive"
 
 cmd_deps() {
-    apt install -y pulseaudio-esound-compat
+    apt install -y \
+        pulseaudio-esound-compat \
+	iptables-persistent
     ../../packages/standard/install-standard.sh
     ../../packages/virtualbox/install-virtualbox.sh
 }

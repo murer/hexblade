@@ -3,7 +3,8 @@
 cd "$(dirname "$0")"
 pwd
 
-apt -y install openbox tint2 xscreensaver gmrun arandr caja-seahorse libnotify-bin xinit
+apt -y install openbox tint2 gmrun arandr xinit
+#apt -y install xscreensaver caja-seahorse libnotify-bin 
 #apt -y install nitrogen
 
 if [ ! -f /etc/xdg/tint2.original.tar.gz ]; then

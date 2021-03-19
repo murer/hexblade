@@ -27,8 +27,8 @@ arch-chroot /mnt/hexblade/installer apt -y install ubuntu-standard \
   language-pack-en-base \
   software-properties-common \
   vim wget curl openssl git vim \
-  nmap netcat pv zip connect-proxy tcpdump bc \
-  network-manager net-tools locales debconf-utils
+  nmap pv zip connect-proxy tcpdump bc \
+  network-manager net-tools locales # netcat debconf-utils
 
 sudo tee /mnt/hexblade/installer/etc/netplan/01-netcfg.yaml <<-EOF
 network:
@@ -44,7 +44,7 @@ arch-chroot /mnt/hexblade/installer chown -R "$hexblade_user:$hexblade_user" "/h
 
 #DEBIAN_FRONTEND=noninteractive arch-chroot /mnt/hexblade/installer apt -y install "linux-image-5.4.0-54-generic" "linux-headers-5.4.0-54-generic"
 #DEBIAN_FRONTEND=noninteractive arch-chroot /mnt/hexblade/installer apt -y install "linux-image-generic" "linux-headers-generic"
-#DEBIAN_FRONTEND=noninteractive arch-chroot /mnt/hexblade/installer apt -y install linux-generic-hwe-18.04
-DEBIAN_FRONTEND=noninteractive arch-chroot /mnt/hexblade/installer apt -y install --install-recommends linux-generic-hwe-18.04
+#DEBIAN_FRONTEND=noninteractive arch-chroot /mnt/hexblade/installer apt -y install linux-generic-hwe-20.04
+DEBIAN_FRONTEND=noninteractive arch-chroot /mnt/hexblade/installer apt -y install --install-recommends linux-generic-hwe-20.04
 
 arch-chroot /mnt/hexblade/installer apt -y install cryptsetup lvm2

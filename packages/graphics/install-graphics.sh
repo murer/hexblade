@@ -1,3 +1,4 @@
 #!/bin/bash -xe
 
-apt -y install xterm mousepad xfce4-screenshooter # gnome-screenshot network-manager-gnome
+apt -y install xterm mousepad xfce4-screenshooter
+apt -y install --no-install-recommends network-manager-gnome

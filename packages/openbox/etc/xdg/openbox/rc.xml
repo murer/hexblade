@@ -340,10 +340,9 @@
         <command>lxterminal</command>
       </action>
     </keybind>
-    <!-- Launch gnome-screenshot when Print is pressed -->
     <keybind key="Print">
       <action name="Execute">
-        <command>gnome-screenshot</command>
+        <command>xfce4-screenshooter -f</command>
       </action>
     </keybind>
   </keyboard>

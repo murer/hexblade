@@ -268,16 +268,14 @@
         <command>xscreensaver-command -lock</command>
       </action>
     </keybind>
-    <!-- Take a screenshot of the current window with gnome-screenshot when Alt+Print are pressed -->
     <keybind key="S-Print">
       <action name="Execute">
-        <command>gnome-screenshot -a</command>
+        <command>xfce4-screenshooter -f</command>
       </action>
     </keybind>
-    <!-- Take a screenshot of the current window with gnome-screenshot when Alt+Print are pressed -->
     <keybind key="A-Print">
       <action name="Execute">
-        <command>gnome-screenshot -w</command>
+        <command>xfce4-screenshooter -r</command>
       </action>
     </keybind>
     <!-- Keybindings for window switching -->

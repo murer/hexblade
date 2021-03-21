@@ -270,12 +270,12 @@
     </keybind>
     <keybind key="S-Print">
       <action name="Execute">
-        <command>xfce4-screenshooter -f</command>
+        <command>xfce4-screenshooter -r</command>
       </action>
     </keybind>
     <keybind key="A-Print">
       <action name="Execute">
-        <command>xfce4-screenshooter -r</command>
+        <command>xfce4-screenshooter -w</command>
       </action>
     </keybind>
     <!-- Keybindings for window switching -->

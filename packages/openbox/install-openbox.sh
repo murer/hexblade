@@ -4,7 +4,8 @@ cd "$(dirname "$0")"
 pwd
 
 apt -y install openbox tint2 gmrun arandr xinit
-apt -y install --no-install-suggests xscreensaver libnotify-bin xfce4-notifyd
+apt -y install --no-install-recommends libnotify-bin xfce4-notifyd
+apt -y install --no-install-suggests xscreensaver 
 #apt -y install nitrogen
 
 if [ ! -f /etc/xdg/tint2.original.tar.gz ]; then

@@ -19,5 +19,5 @@ apt install -y \
   mtools \
   squashfs-tools \
   net-tools \
-  nmap \
+  nmap ncat \
   git

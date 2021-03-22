@@ -14,7 +14,7 @@
   </item>
   <item label="Home">
     <action name="Execute">
-      <execute>caja</execute>
+      <execute>pcmanfm</execute>
     </action>
   </item>
   <separator label="Browser"/>

@@ -8,5 +8,6 @@ pwd
 ./lxterminal/install-lxterminal.sh
 ./firefox/install-firefox.sh
 ./sound/install-sound.sh
+./networkmanager/install-networkmanager.sh
 ./openbox/install-openbox.sh
 ./lxdm/install-lxdm.sh

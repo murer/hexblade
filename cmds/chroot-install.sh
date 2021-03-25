@@ -47,4 +47,6 @@ arch-chroot /mnt/hexblade/installer chown -R "$hexblade_user:$hexblade_user" "/h
 #DEBIAN_FRONTEND=noninteractive arch-chroot /mnt/hexblade/installer apt -y install linux-generic-hwe-20.04
 DEBIAN_FRONTEND=noninteractive arch-chroot /mnt/hexblade/installer apt -y install --install-recommends linux-generic-hwe-20.04
 
-arch-chroot /mnt/hexblade/installer apt -y install cryptsetup lvm2
+if [[ "x$hexblade_dev_lvm" != "x" ]]; then
+	arch-chroot /mnt/hexblade/installer apt -y install cryptsetup lvm2
+fi

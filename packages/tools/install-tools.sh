@@ -19,11 +19,7 @@ apt install -y --no-install-recommends \
   mtools \
   squashfs-tools \
   net-tools \
-<<<<<<< HEAD
-  nmap ncat \
-  git
-=======
   nmap \
+  ncat \
   git \
   socat
->>>>>>> blades

@@ -7,7 +7,7 @@ pwd
 ./graphics/install-graphics.sh
 ./lxterminal/install-lxterminal.sh
 ./firefox/install-firefox.sh
-./sound/install-sound.sh
+./pulseaudio/install-pulseaudio.sh
 ./networkmanager/install-networkmanager.sh
 ./openbox/install-openbox.sh
 ./lxdm/install-lxdm.sh

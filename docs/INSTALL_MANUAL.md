@@ -67,7 +67,7 @@ sudo mkfs.fat -n ESP -F32 "$HEXBLADE_DEV_EFI"
 LVM on LUKS
 
 ```shell
-sudo cryptsetup -v -y --type luks --cipher aes-xts-plain64 --hash sha256 luksFormat "$HEXBLADE_DEV_LVM"
+sudo cryptsetup -v -y --type luks1 --cipher aes-xts-plain64 --hash sha256 luksFormat "$HEXBLADE_DEV_LVM"
 sudo cryptsetup open "$HEXBLADE_DEV_LVM" CRYPTED
 sudo pvcreate /dev/mapper/CRYPTED
 sudo vgcreate MAIN /dev/mapper/CRYPTED

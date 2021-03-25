@@ -27,7 +27,7 @@ arch-chroot /mnt/hexblade/installer apt -y install ubuntu-standard \
   language-pack-en-base \
   software-properties-common \
   vim wget curl openssl git vim \
-  nmap pv zip connect-proxy tcpdump bc \
+  nmap ncat pv zip connect-proxy tcpdump bc \
   network-manager net-tools locales # netcat debconf-utils
 
 sudo tee /mnt/hexblade/installer/etc/netplan/01-netcfg.yaml <<-EOF

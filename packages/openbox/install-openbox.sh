@@ -15,7 +15,7 @@ if [ ! -f /etc/xdg/tint2.original.tar.gz ]; then
 	cd -
 fi
 
-cp -Rv tint2/* /etc/xdg/tint2
+cp -Rv etc/xdg/tint2/* /etc/xdg/tint2
 
 if [ ! -f /etc/xdg/openbox.original.tar.gz ]; then
 	cd /etc/xdg

@@ -31,4 +31,4 @@ wget --progress=dot -e dotbytes=64K -c \
   'https://download.virtualbox.org/virtualbox/6.1.18/Oracle_VM_VirtualBox_Extension_Pack-6.1.18.vbox-extpack'
 vboxmanage extpack install \
   target/virtualbox/Oracle_VM_VirtualBox_Extension_Pack.vbox-extpack \
-  --accept-license=33d7284dc4a0ece381196fda3cfe2ed0e1e8e7ed7f27b9a9ebc4ee22e24bd23c
+  --accept-license=33d7284dc4a0ece381196fda3cfe2ed0e1e8e7ed7f27b9a9ebc4ee22e24bd23c || true

@@ -7,6 +7,8 @@ cmd_clean() {
 
 cmd_guest_text() {
     apt -y install virtualbox-guest-dkms virtualbox-guest-utils
+    mkdir -p /var/hexblade/shared
+    chown -R root:vboxsf /var/hexblade
 }
 
 cmd_guest_gui() {

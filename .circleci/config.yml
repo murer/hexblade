@@ -43,10 +43,10 @@ jobs:
 
     # - run: ./build.sh build_checksum
 
-      - persist_to_workspace:
-        root: target
-        paths:
-          - iso 
+    - persist_to_workspace:
+      root: target
+      paths:
+        - iso 
 
 workflows:
   version: 2

@@ -28,4 +28,14 @@ cmd_thunar() {
     apt -y install --no-install-recommends thunar thunar-volman thunar-archive-plugin thunar-media-tags-plugin 
 }
 
+cmd_ubiquity() {
+    apt install -y \
+        ubiquity \
+        ubiquity-casper \
+        ubiquity-frontend-gtk \
+        ubiquity-slideshow-ubuntu \
+        ubiquity-ubuntu-artwork \
+        upower
+}
+
 cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; "cmd_${_cmd}" "$@"

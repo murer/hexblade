@@ -8,6 +8,7 @@ jobs:
     - checkout
     - run: mkdir target/abc -p
     - run: echo ./docker.sh build > target/abc/test.txt
+    - run: ./docker.sh login
     - persist_to_workspace:
         root: target
         paths:
@@ -77,7 +78,7 @@ workflows:
       - docker:
           filters:
             branches:
-              ignore: /.*/
+              only: master
             tags:
               only:
                 - edge

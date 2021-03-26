@@ -20,30 +20,23 @@ jobs:
     - DEBIAN_FRONTEND: noninteractive
   steps:
     - checkout
-    - run: mkdir -p target/iso && echo xx | tee target/iso/aa.txt > target/iso/bb.txt && env
-
-    # - run: ./build.sh clean
-    # - run: ./build.sh prepare
-    # - run: ./build.sh config_params | ./build.sh config
-
-    # - run: rm -rf target/iso && mkdir -p target/iso && sudo -E cmds/strap.sh
-    # - run: sudo -E cmds/chroot-install.sh
-    # - run: sudo -E cmds/chroot-package.sh ./tools/tools.sh install
-    # - run: sudo -E cmds/chroot-live.sh
-     
-    # - run: sudo -E cmds/chroot-package.sh ./templates/standard/standard.sh install
-    # - run: sudo -E cmds/chroot-package.sh ./graphics/graphics.sh ubiquity
-    # - run: sudo -E cmds/chroot-package.sh ./virtualbox/virtualbox.sh guest
-    # - run: sudo -E cmds/mksquashfs.sh
-    # - run: sudo -E cmds/iso.sh
-
-    # - run: |
-    #     cp /mnt/hexblade/iso/hexblade.iso target/iso/hexblade.iso
-    #     file target/iso/hexblade.iso
-    #     du -hs target/iso/hexblade.iso
-
-    # - run: ./build.sh build_checksum
-
+    - run: ./build.sh clean
+    - run: ./build.sh prepare
+    - run: ./build.sh config_params | ./build.sh config
+    - run: rm -rf target/iso || true 
+    - run: mkdir -p target/iso && sudo -E cmds/strap.sh
+    - run: sudo -E cmds/chroot-install.sh
+    - run: sudo -E cmds/chroot-package.sh ./tools/tools.sh install
+    - run: sudo -E cmds/chroot-live.sh
+    - run: sudo -E cmds/chroot-package.sh ./templates/standard/standard.sh install
+    - run: sudo -E cmds/chroot-package.sh ./graphics/graphics.sh ubiquity
+    - run: sudo -E cmds/chroot-package.sh ./virtualbox/virtualbox.sh guest
+    - run: sudo -E cmds/mksquashfs.sh
+    - run: sudo -E cmds/iso.sh
+    - run: cp /mnt/hexblade/iso/hexblade.iso target/iso/hexblade.iso
+    - run: file target/iso/hexblade.iso
+    - run: du -hs target/iso/hexblade.iso
+    - run: ./build.sh build_checksum
     - persist_to_workspace:
         root: target
         paths:

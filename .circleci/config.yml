@@ -9,7 +9,10 @@ jobs:
    machine: true
    steps:
      - checkout
-     - run: echo ./docker.sh build
+     - run: ./build.sh clean
+     - run: cmd_config_params | cmds/config.sh all
+     - run: ./build.sh build_live_standard
+     - run: ./build.sh build_checksum
 
 workflows:
     version: 2

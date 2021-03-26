@@ -34,7 +34,7 @@ cmd_pull() {
 
 cmd_login() {
   set +x
-  echo "${DOCKER_PASS?'DOCKER_PASS'}" | docker login u "${DOCKER_USER?'DOCKER_USER'}" --password-stdin
+  echo "${DOCKER_PASS?'DOCKER_PASS'}" | docker login -u "${DOCKER_USER?'DOCKER_USER'}" --password-stdin
 }
 
 cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; "cmd_${_cmd}" "$@"

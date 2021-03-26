@@ -139,7 +139,7 @@ workflows:
               only:
                 - /^v.*/
 
-      - deploy_iso_edge:
+      - deploy_docker_edge:
           requires:
             - docker
             - iso
@@ -150,7 +150,7 @@ workflows:
               only:
                 - /^edge$/
 
-      - deploy_iso_release:
+      - deploy_docker_release:
           requires:
             - docker
             - iso

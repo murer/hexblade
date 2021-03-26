@@ -75,11 +75,17 @@ workflows:
             branches:
               only:
                 - master
+            tags:
+              only:
+                - edge
       - iso:
           filters:
             branches:
               only: 
                 - master
+            tags:
+              only:
+                - edge
       
       - deploy_iso:
           requires:

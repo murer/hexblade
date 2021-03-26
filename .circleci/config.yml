@@ -46,7 +46,20 @@ jobs:
     - persist_to_workspace:
         root: target
         paths:
-          - iso 
+          - iso
+
+  deploy_iso:
+    machine:
+      image: ubuntu-2004:202101-01
+    environment:
+      - DEBIAN_FRONTEND: noninteractive
+    steps:
+      - checkout
+      - attach_workspace:
+          at: target
+      - find target
+
+
 
 workflows:
   version: 2

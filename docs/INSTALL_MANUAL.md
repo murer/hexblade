@@ -6,7 +6,7 @@ Download [Hexblade](https://github.com/murer/hexblade/releases/download/edge/hex
 
 This process is about to install Hexblade with **full disk encryption** (including ``/boot``)
 
-You should follow these steps on the [Hexblade](https://github.com/murer/hexblade/releases/download/edge/hexblade.iso) live or [Ubuntu 18.04](http://releases.ubuntu.com/18.04/) live
+You should follow these steps on the [Hexblade](https://github.com/murer/hexblade/releases/download/edge/hexblade.iso) live or [Ubuntu 20.04](http://releases.ubuntu.com/20.04/) live
 
 You need to configuring internet access on live system
 

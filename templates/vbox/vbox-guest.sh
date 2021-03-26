@@ -19,7 +19,7 @@ cmd_nogui() {
     ../../packages/sound/sound.sh pavucontrol
     ../../packages/openbox/openbox.sh install
     ../../packages/openbox/openbox.sh lockscreen disable
-    ../../packages/virtualboxguest/virtualboxguest.sh install
+    ../../packages/virtualbox/virtualbox.sh guest
     cmd_pulse
 }
 

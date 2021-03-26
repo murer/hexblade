@@ -5,6 +5,19 @@ cmd_clean() {
   [[ ! -d target ]]
 }
 
+cmd_guest_text() {
+    apt -y install virtualbox-guest-dkms virtualbox-guest-utils
+}
+
+cmd_guest_gui() {
+    apt -y install virtualbox-guest-x11
+}
+
+cmd_guest() {
+    cmd_guest_text
+    cmd_guest_gui
+}
+
 cmd_install() {
   cmd_clean || true
   mkdir -p target/virtualbox

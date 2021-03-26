@@ -4,7 +4,7 @@ jobs:
   machine: true
   steps:
     - checkout
-    - run: ./docker.sh build
+    - run: echo ./docker.sh build
  iso:
   machine:
     image: ubuntu-2004:202101-01
@@ -16,9 +16,7 @@ jobs:
     - run: ./build.sh prepare
     - run: ./build.sh config_params | ./build.sh config
 
-    - run: rm -rf target/iso
-    - run: mkdir -p target/iso
-    - run: sudo -E cmds/strap.sh
+    - run: rm -rf target/iso && mkdir -p target/iso && sudo -E cmds/strap.sh
     - run: sudo -E cmds/chroot-install.sh
     - run: sudo -E cmds/chroot-package.sh tools
     - run: sudo -E cmds/chroot-live.sh
@@ -30,9 +28,10 @@ jobs:
     - run: sudo -E cmds/mksquashfs.sh
     - run: sudo -E cmds/iso.sh
 
-    - run: cp /mnt/hexblade/iso/hexblade.iso target/iso/hexblade.iso
-    - run: file target/iso/hexblade.iso
-    - run: du -hs target/iso/hexblade.iso
+    - run: |
+        cp /mnt/hexblade/iso/hexblade.iso target/iso/hexblade.iso
+        file target/iso/hexblade.iso
+        du -hs target/iso/hexblade.iso
 
     - run: ./build.sh build_checksum
 

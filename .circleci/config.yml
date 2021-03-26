@@ -73,12 +73,12 @@ workflows:
           filters:
             branches:
               only:
-                - main
+                - master
       - iso:
           filters:
             branches:
               only: 
-                - main
+                - master
       
       - deploy_iso:
           requires:
@@ -86,5 +86,5 @@ workflows:
             - iso
           filters:
             branches:
-              only: main
+              only: master
           

@@ -60,6 +60,7 @@ jobs:
     - run: sudo -E ./packages/gh/gh.sh install
     - run: env
     - run: |
+        set +x
         gh release delete "$CIRCLE_TAG" -y || true
         if [[ "x$CICLE_TAG" == "xedge" ]]; then
           gh release create "$CIRCLE_TAG" -t "$CIRCLE_TAG" -n "$CIRCLE_TAG" -p

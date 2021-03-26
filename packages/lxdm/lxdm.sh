@@ -17,4 +17,8 @@ cmd_install() {
 	update-alternatives --set lxdm.conf /etc/lxdm/lxdm-hexblade.conf
 }
 
+cmd_noautologin() {
+	
+}
+
 cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; "cmd_${_cmd}" "$@"

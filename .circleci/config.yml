@@ -13,7 +13,6 @@ jobs:
   steps:
     - checkout
     - run: false
-
     - run: ./build.sh clean
     - run: ./build.sh prepare
     - run: ./build.sh config_params | ./build.sh config
@@ -48,6 +47,5 @@ workflows:
       - iso:
           filters:
             branches:
-              only: 
-                - ubuntu20
+              only: ubuntu20
           

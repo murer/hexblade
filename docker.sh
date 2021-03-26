@@ -32,8 +32,4 @@ cmd_pull() {
   docker tag "murer/hexblade:$hexblade_docker_version" hexblade/hexblade:dev
 }
 
-cmd_test() {
-  docker build -t hexblade/hexblade:test -f Dockerfile.test .
-}
-
 cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; "cmd_${_cmd}" "$@"

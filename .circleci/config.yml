@@ -1,10 +1,17 @@
 version: 2.1
 jobs:
+
  docker:
   machine: true
   steps:
     - checkout
-    - run: echo ./docker.sh build
+    - run: mkdir target/abc -p
+    - run: echo ./docker.sh build > target/abc
+    - persist_to_workspace:
+        root: target
+        paths:
+          - abc 
+
  iso:
   machine:
     image: ubuntu-2004:202101-01

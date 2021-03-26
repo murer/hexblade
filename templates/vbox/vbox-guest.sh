@@ -14,6 +14,7 @@ cmd_nogui() {
     ../../packages/graphics/graphics.sh xfce4-screenshooter
     ../../packages/graphics/graphics.sh pcmanfm
     ../../packages/graphics/graphics.sh firefox
+    ../../packages/chrome/chrome.sh install
     ../../packages/graphics/graphics.sh network-manager-gnome
     ../../packages/sound/sound.sh pavucontrol
     ../../packages/openbox/openbox.sh install

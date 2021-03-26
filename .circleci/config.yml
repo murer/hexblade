@@ -57,7 +57,7 @@ jobs:
     - attach_workspace:
         at: target
     - run: du -hs target/iso/*
-    - run: ./packages/gh/gh.sh install
+    - run: sudo -E ./packages/gh/gh.sh install
     - run: |
         gh release delete edge -y || true
         gh release create edge -t Edge -n Edge -p

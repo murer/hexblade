@@ -7,9 +7,8 @@ jobs:
     steps:
       - checkout
       - run: mkdir target/docker -p
-      - run: echo ./docker.sh build
-      - run: docker pull ubuntu:20.04
-      - run: docker save ubuntu:20.04 | gzip > target/docker/docker-hexblade.tar.gz
+      - run: ./docker.sh build
+      - run: docker save hexblade/hexblade:dev | gzip > target/docker/docker-hexblade.tar.gz
       - persist_to_workspace:
           root: target
           paths:
@@ -103,7 +102,7 @@ workflows:
       - docker:
           filters:
             branches:
-              only: master
+              ignore: /.*/
             tags:
               only:
                 - edge

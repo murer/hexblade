@@ -77,4 +77,25 @@ cmd_build_live() {
   cmd_build_checksum
 }
 
+cmd_github_release() {
+  curl -f \
+    -H 'Expect: ' -H "Authorization: token ebcdabd57a36045e7022cd017e67dc8d96154884" \
+    -H "Accept: application/vnd.github.v3+json" \
+    https://api.github.com/repos/murer/hexblade/releases/tags/test1
+
+  curl -f \
+    -H 'Expect: ' -H "Authorization: token ebcdabd57a36045e7022cd017e67dc8d96154884" \
+    -X DELETE \
+    -H "Accept: application/vnd.github.v3+json" \
+    https://api.github.com/repos/murer/hexblade/releases/test1
+
+
+  curl -f \
+    -H 'Expect: ' -H "Authorization: token ebcdabd57a36045e7022cd017e67dc8d96154884" \
+    -X POST \
+    -H "Accept: application/vnd.github.v3+json" \
+    https://api.github.com/repos/murer/hexblade/releases \
+    -d '{"tag_name":"test1","prelease":true}'
+}
+
 cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; "cmd_${_cmd}" "$@"

@@ -4,7 +4,7 @@ cmd_pavucontrol() {
     apt install -y pavucontrol --no-install-recommends
 }
 
-cmd_install() {
+cmd_pulseaudio() {
     apt install -y pavucontrol pulseaudio
 }
 

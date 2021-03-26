@@ -15,8 +15,8 @@ cmd_install() {
 
     ../graphics/graphics.sh network-manager-gnome
 
-    ../sound/sound.sh install
-    
+    ../sound/sound.sh pulseaudio
+
     ../networkmanager/install-networkmanager.sh
     ../openbox/install-openbox.sh
     ../lxdm/install-lxdm.sh

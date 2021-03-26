@@ -25,6 +25,18 @@ cmd_install() {
 	cp -Rv etc/xdg/openbox/* /etc/xdg/openbox
 }
 
+cmd_lockscreen() {
+	hexblade_lockscreen="${1?'enable or disable'}"
+	if [[ "x$hexblade_lockscreen" == "xenable" ]]; then
+		cp -v etc/xdg/openbox/autostart.d/30-screensaver.sh /etc/xdg/openbox/autostart.d
+	elif [[ "x$hexblade_lockscreen" == "xdisable" ]]; then
+		rm -v /etc/xdg/openbox/autostart.d/30-screensaver.sh || true
+		[[ ! -f /etc/xdg/openbox/autostart.d/30-screensaver.sh ]]
+	else
+		false
+	fi
+}
+
 
 cmd_xinit() {
 	cp -v home/xinitrc ~/.xinitrc

@@ -11,8 +11,8 @@ jobs:
    steps:
      - checkout
      - run: ./build.sh clean
-     - run: ./cmds/installer-prepare.sh
-     - run: ./.circleci/ci.sh config_params | cmds/config.sh all
+     - run: ./build.sh prepare
+     - run: ./build.sh config_params | ./build.sh config
      - run: ./build.sh build_live_standard
      - run: ./build.sh build_checksum
 

@@ -58,11 +58,22 @@ jobs:
         at: target
     - run: du -hs target/iso/*
     - run: sudo -E ./packages/gh/gh.sh install
-    - run: env
-    - run: |
-        gh release delete "$CIRCLE_TAG" -y || true
-        gh release create "$CIRCLE_TAG" -t "$CIRCLE_TAG" -n "$CIRCLE_TAG" -p
-        gh release upload "$CIRCLE_TAG" target/iso/* --clobber
+    - run: gh release delete "$CIRCLE_TAG" -y || true
+    - run: gh release create "$CIRCLE_TAG" -t "$CIRCLE_TAG" -n "$CIRCLE_TAG" -p
+    - run: gh release upload "$CIRCLE_TAG" target/iso/* --clobber
+
+ deploy_iso_release:
+  machine:
+    image: ubuntu-2004:202101-01
+  steps:
+    - checkout
+    - attach_workspace:
+        at: target
+    - run: du -hs target/iso/*
+    - run: sudo -E ./packages/gh/gh.sh install
+    - run: gh release delete "$CIRCLE_TAG" -y || true
+    - run: gh release create "$CIRCLE_TAG" -t "$CIRCLE_TAG" -n "$CIRCLE_TAG"
+    - run: gh release upload "$CIRCLE_TAG" target/iso/* --clobb
 
 
 
@@ -97,4 +108,15 @@ workflows:
             tags:
               only:
                 - /^edge$/
+
+      - deploy_iso_release:
+          requires:
+            - docker
+            - iso
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only:
+                - /^v\d+/
           

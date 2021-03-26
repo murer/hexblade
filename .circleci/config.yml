@@ -73,7 +73,7 @@ jobs:
     - run: sudo -E ./packages/gh/gh.sh install
     - run: gh release delete "$CIRCLE_TAG" -y || true
     - run: gh release create "$CIRCLE_TAG" -t "$CIRCLE_TAG" -n "$CIRCLE_TAG"
-    - run: gh release upload "$CIRCLE_TAG" target/iso/* --clobb
+    - run: gh release upload "$CIRCLE_TAG" target/iso/* --clobber
 
 
 

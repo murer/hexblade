@@ -13,7 +13,25 @@ jobs:
      - run: ./build.sh clean
      - run: ./build.sh prepare
      - run: ./build.sh config_params | ./build.sh config
-     - run: ./build.sh build_live_standard
+
+     - run: rm -rf target/iso
+     - run: mkdir -p target/iso
+     - run: sudo -E cmds/strap.sh
+     - run: sudo -E cmds/chroot-install.sh
+     - run: sudo -E cmds/chroot-package.sh tools
+     - run: sudo -E cmds/chroot-live.sh
+     
+     - run: sudo -E cmds/chroot-package.sh standard
+     - run: sudo -E cmds/chroot-package.sh ubiquity
+     - run: sudo -E cmds/chroot-live-vbox-x11.sh
+     - run: sudo -E cmds/chroot-live-vbox-dkms.sh
+     - run: sudo -E cmds/mksquashfs.sh
+     - run: sudo -E cmds/iso.sh
+     
+     - run: cp /mnt/hexblade/iso/hexblade.iso target/iso/hexblade.iso
+     - run: file target/iso/hexblade.iso
+     - run: du -hs target/iso/hexblade.iso
+
      - run: ./build.sh build_checksum
 
 workflows:

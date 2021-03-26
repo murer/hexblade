@@ -80,13 +80,13 @@ cmd_build_live() {
 cmd_github_release_edge() {
   gh release delete edge -y || true
   gh release create edge -t Edge -n Edge -p
-  gh release upload edge target/iso/SHA256 --clobbe
+  gh release upload edge target/iso/SHA256 --clobber
 }
 
 cmd_github_release_tag() {
   gh release delete edge -y || true
   gh release create edge -t Edge -n Edge -p
-  gh release upload edge target/iso/SHA256 --clobbe
+  gh release upload edge target/iso/SHA256 --clobber
 }
 
 cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; "cmd_${_cmd}" "$@"

@@ -11,6 +11,17 @@ cmd_prepare() {
   sudo -E cmds/installer-prepare.sh
 }
 
+cmd_config_params() {
+  echo "us"
+  echo "n"
+  echo ""
+  echo ""
+  echo "hexblade"
+  echo "ubuntu"
+  echo "hexblade"
+  echo "hexblade"
+}
+
 cmd_config() {
   cmds/config.sh all
 }

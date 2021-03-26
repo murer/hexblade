@@ -10,7 +10,8 @@ pwd
 ./graphics/graphics.sh xfce4-screenshooter
 ./graphics/graphics.sh pcmanfm
 
-./lxterminal/install-lxterminal.sh
+./lxterminal/lxterminal.sh install
+
 ./firefox/install-firefox.sh
 ./pulseaudio/install-pulseaudio.sh
 ./networkmanager/install-networkmanager.sh

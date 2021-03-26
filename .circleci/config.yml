@@ -20,7 +20,7 @@ jobs:
     - DEBIAN_FRONTEND: noninteractive
   steps:
     - checkout
-    - run: mkdir -p target/iso && echo xx | tee target/iso/aa.txt > target/iso/bb.txt
+    - run: mkdir -p target/iso && echo xx | tee target/iso/aa.txt > target/iso/bb.txt && env
 
     # - run: ./build.sh clean
     # - run: ./build.sh prepare

@@ -59,10 +59,14 @@ jobs:
     - run: du -hs target/iso/*
     - run: sudo -E ./packages/gh/gh.sh install
     - run: env
-    # - run: |
-    #     gh release delete edge -y || true
-    #     gh release create edge -t Edge -n Edge -p
-    #     gh release upload edge target/iso/* --clobber
+    - run: |
+        gh release delete "$CIRCLE_TAG" -y || true
+        if [[ "x$CICLE_TAG" == "xedge" ]]; then
+          gh release create "$CIRCLE_TAG" -t "$CIRCLE_TAG" -n "$CIRCLE_TAG" -p
+        else 
+          gh release create "$CIRCLE_TAG" -t "$CIRCLE_TAG" -n "$CIRCLE_TAG"
+        fi
+        gh release upload "$CIRCLE_TAG" target/iso/* --clobber
 
 
 
@@ -96,5 +100,6 @@ workflows:
               ignore: /.*/
             tags:
               only:
-                - edge
+                - /^edge$/
+                - /^v\.\d+\.\d+.\d+$/
           

@@ -17,9 +17,8 @@ cmd_install() {
 
     ../sound/sound.sh pulseaudio
 
-    ../networkmanager/install-networkmanager.sh
-    ../openbox/install-openbox.sh
-    ../lxdm/install-lxdm.sh
+    ../openbox/openbox.sh install
+    ../lxdm/lxdm.sh install
 }
 
 cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; "cmd_${_cmd}" "$@"

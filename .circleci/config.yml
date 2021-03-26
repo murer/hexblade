@@ -89,6 +89,7 @@ workflows:
             tags:
               only:
                 - edge
+                - /^v\d+/
       - iso:
           filters:
             branches:
@@ -97,6 +98,7 @@ workflows:
             tags:
               only:
                 - edge
+                - /^v\d+/
       
       - deploy_iso_edge:
           requires:

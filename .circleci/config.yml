@@ -73,11 +73,12 @@ workflows:
           filters:
             branches:
               only:
-                - ubuntu20
+                - main
       - iso:
           filters:
             branches:
-              only: ubuntu20
+              only: 
+                - main
       
       - deploy_iso:
           requires:
@@ -85,5 +86,5 @@ workflows:
             - iso
           filters:
             branches:
-              only: ubuntu20
+              only: main
           

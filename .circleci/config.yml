@@ -10,7 +10,6 @@ jobs:
       - run: echo ./docker.sh build
       - run: docker pull ubuntu:20.04
       - run: docker save ubuntu:20.04 | gzip > target/docker/docker-hexblade.tar.gz
-      - run: ./docker.sh login
       - persist_to_workspace:
           root: target
           paths:
@@ -81,7 +80,8 @@ jobs:
           at: target
       - run: du -hs target/docker/*
       - run: ./docker.sh login
-      - run: docker import target/docker/docker-hexblade.tar.gz "murer/hexblade:$CIRCLE_TAG"
+      - run: docker import target/docker/docker-hexblade.tar.gz "hexblade/hexblade:dev"
+      - run: ./docker.sh push "$CIRCLE_TAG"
 
 
   deploy_docker_release:
@@ -93,7 +93,8 @@ jobs:
           at: target
       - run: du -hs target/docker/*
       - run: ./docker.sh login
-      - run: docker import target/docker/docker-hexblade.tar.gz "murer/hexblade:$CIRCLE_TAG"
+      - run: docker import target/docker/docker-hexblade.tar.gz "hexblade/hexblade:dev"
+      - run: ./docker.sh push "$CIRCLE_TAG"
 
 workflows:
   version: 2

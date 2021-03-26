@@ -38,10 +38,12 @@ workflows:
     version: 2
     build:
         jobs:
-          filters:
-            branches:
-              only:
-              - master
         - docker
+          filters:
+            branchs:
+              only: master
         - iso
+          filters:
+            branchs:
+              only: master
           

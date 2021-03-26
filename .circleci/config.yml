@@ -56,7 +56,12 @@ jobs:
     - checkout
     - attach_workspace:
         at: target
-    - run: find target
+    - run: du -hs target/iso/*
+    - run: ./packages/gh/gh.sh install
+    - run: |
+        gh release delete edge -y || true
+        gh release create edge -t Edge -n Edge -p
+        gh release upload edge target/iso/SHA256 --clobbe
 
 
 

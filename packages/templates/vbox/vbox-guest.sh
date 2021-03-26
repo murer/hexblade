@@ -3,7 +3,7 @@
 export DEBIAN_FRONTEND="noninteractive"
 
 cmd_pulse() {
-    echo 'export PULSE_SERVER="10.0.2.2:4713"' > /etc/profile.d/pulsereirect.sh
+    echo 'export PULSE_SERVER="10.0.2.2:4713"' > /etc/profile.d/pulseredirect.sh
 }
 
 cmd_nogui() {

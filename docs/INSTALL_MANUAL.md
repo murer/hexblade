@@ -131,7 +131,7 @@ This step is optional. If you do not install any packages you will end up with a
 Or you can go for [standard](../packages/install-standard.sh):
 
 ```shell
-./cmds/chroot-package.sh standard
+./cmds/chroot-shell.sh
 ```
 
 ### Install grub

@@ -56,7 +56,7 @@ jobs:
     - checkout
     - attach_workspace:
         at: target
-    - find target
+    - run: find target
 
 
 

@@ -21,7 +21,7 @@ cmd_nogui() {
 }
 
 cmd_gui() {
-    cmd_nogui.
+    cmd_nogui
     ../../packages/lxdm/lxdm.sh install
 }
 

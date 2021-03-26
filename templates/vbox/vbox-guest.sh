@@ -7,22 +7,22 @@ cmd_pulse() {
 }
 
 cmd_nogui() {
-    ../packages/tools/tools.sh install
-    ../packages/graphics/graphics.sh xterm
-    ../packages/lxterminal/lxterminal.sh install
-    ../packages/graphics/graphics.sh mousepad
-    ../packages/graphics/graphics.sh xfce4-screenshooter
-    ../packages/graphics/graphics.sh pcmanfm
-    ../packages/graphics/graphics.sh firefox
-    ../packages/graphics/graphics.sh network-manager-gnome
-    ../packages/sound/sound.sh pavucontrol
-    ../packages/openbox/openbox.sh install
+    ../../packages/tools/tools.sh install
+    ../../packages/graphics/graphics.sh xterm
+    ../../packages/lxterminal/lxterminal.sh install
+    ../../packages/graphics/graphics.sh mousepad
+    ../../packages/graphics/graphics.sh xfce4-screenshooter
+    ../../packages/graphics/graphics.sh pcmanfm
+    ../../packages/graphics/graphics.sh firefox
+    ../../packages/graphics/graphics.sh network-manager-gnome
+    ../../packages/sound/sound.sh pavucontrol
+    ../../packages/openbox/openbox.sh install
     cmd_pulse
 }
 
 cmd_gui() {
-    cmd_nogui
-    ../packages/lxdm/lxdm.sh install
+    cmd_nogui.
+    ../../packages/lxdm/lxdm.sh install
 }
 
 

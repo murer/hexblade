@@ -18,13 +18,12 @@ jobs:
 
     - run: rm -rf target/iso && mkdir -p target/iso && sudo -E cmds/strap.sh
     - run: sudo -E cmds/chroot-install.sh
-    - run: sudo -E cmds/chroot-package.sh tools
+    - run: sudo -E cmds/chroot-package.sh ./tools/tools.sh install
     - run: sudo -E cmds/chroot-live.sh
      
-    - run: sudo -E cmds/chroot-package.sh standard
-    - run: sudo -E cmds/chroot-package.sh ubiquity
-    - run: sudo -E cmds/chroot-live-vbox-x11.sh
-    - run: sudo -E cmds/chroot-live-vbox-dkms.sh
+    - run: sudo -E cmds/chroot-package.sh ./templates/standard/standard.sh install
+    - run: sudo -E cmds/chroot-package.sh ./graphics/graphics.sh ubiquity
+    - run: sudo -E cmds/chroot-package.sh ./virtualbox/virtualbox.sh guest
     - run: sudo -E cmds/mksquashfs.sh
     - run: sudo -E cmds/iso.sh
 

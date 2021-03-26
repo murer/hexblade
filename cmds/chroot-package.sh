@@ -12,10 +12,9 @@ set -x
 rsync -vah packages/ "/mnt/hexblade/installer/home/$hexblade_user/hexblade/packages/"
 
 arch-chroot /mnt/hexblade/installer chown -R "$hexblade_user:$hexblade_user" "/home/$hexblade_user"
+arch-chroot /mnt/hexblade/installer /bin/bash -xec "cd /home/$hexblade_user/hexblade/packages && $*"
 
-arch-chroot /mnt/hexblade/installer /bin/bash -il
-
-#arch-chroot /mnt/hexblade/installer "/home/$hexblade_user/hexblade/packages/$hexblade_dev_package/install-$hexblade_dev_package.sh"
+# arch-chroot /mnt/hexblade/installer "/home/$hexblade_user/hexblade/packages/$hexblade_dev_package/install-$hexblade_dev_package.sh"
 
 #USER="$hexblade_user" HOME="/home/$hexblade_user" arch-chroot /mnt/hexblade/installer chown -R "$hexblade_user:$hexblade_user" "/home/$hexblade_user"
 #USER="$hexblade_user" HOME="/home/$hexblade_user" arch-chroot /mnt/hexblade/installer "/home/$hexblade_user/hexblade/packages/$hexblade_dev_package/install-$hexblade_dev_package.sh"

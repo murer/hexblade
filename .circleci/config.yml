@@ -12,7 +12,6 @@ jobs:
     - DEBIAN_FRONTEND: noninteractive
   steps:
     - checkout
-    - run: false
     - run: ./build.sh clean
     - run: ./build.sh prepare
     - run: ./build.sh config_params | ./build.sh config

@@ -6,7 +6,7 @@ jobs:
   steps:
     - checkout
     - run: mkdir target/abc -p
-    - run: echo ./docker.sh build > target/abc
+    - run: echo ./docker.sh build > target/abc/test.txt
     - persist_to_workspace:
         root: target
         paths:

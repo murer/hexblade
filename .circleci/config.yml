@@ -58,10 +58,11 @@ jobs:
         at: target
     - run: du -hs target/iso/*
     - run: sudo -E ./packages/gh/gh.sh install
-    - run: |
-        gh release delete edge -y || true
-        gh release create edge -t Edge -n Edge -p
-        gh release upload edge target/iso/* --clobber
+    - run: env
+    # - run: |
+    #     gh release delete edge -y || true
+    #     gh release create edge -t Edge -n Edge -p
+    #     gh release upload edge target/iso/* --clobber
 
 
 
@@ -86,5 +87,8 @@ workflows:
             - iso
           filters:
             branches:
-              only: master
+              ignore: /.*/
+            tags:
+              only:
+                - edge
           

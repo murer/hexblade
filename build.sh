@@ -8,6 +8,7 @@ cmd_clean() {
 }
 
 cmd_prepare() {
+  sudo apt -y update
   sudo -E cmds/installer-prepare.sh
 }
 

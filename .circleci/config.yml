@@ -1,7 +1,12 @@
 version: 2.1
 jobs:
- build:
+ docker:
    machine: true
    steps:
      - checkout
-     - run: ./docker.sh build
+     - run: echo ./docker.sh build
+ iso:
+   machine: true
+   steps:
+     - checkout
+     - run: echo ./docker.sh build

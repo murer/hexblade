@@ -2,7 +2,8 @@ version: 2.1
 jobs:
 
  docker:
-  machine: true
+  machine:
+    image: ubuntu-2004:202101-01
   steps:
     - checkout
     - run: mkdir target/abc -p
@@ -48,16 +49,14 @@ jobs:
         paths:
           - iso
 
-  deploy_iso:
-    machine:
-      image: ubuntu-2004:202101-01
-    environment:
-      - DEBIAN_FRONTEND: noninteractive
-    steps:
-      - checkout
-      - attach_workspace:
-          at: target
-      - find target
+ deploy_iso:
+  machine:
+    image: ubuntu-2004:202101-01
+  steps:
+    - checkout
+    - attach_workspace:
+        at: target
+    - find target
 
 
 

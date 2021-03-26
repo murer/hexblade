@@ -49,7 +49,7 @@ jobs:
         paths:
           - iso
 
- deploy_iso:
+ deploy_iso_edge:
   machine:
     image: ubuntu-2004:202101-01
   steps:
@@ -60,13 +60,8 @@ jobs:
     - run: sudo -E ./packages/gh/gh.sh install
     - run: env
     - run: |
-        set +x
         gh release delete "$CIRCLE_TAG" -y || true
-        if [[ "x$CICLE_TAG" == "xedge" ]]; then
-          gh release create "$CIRCLE_TAG" -t "$CIRCLE_TAG" -n "$CIRCLE_TAG" -p
-        else 
-          gh release create "$CIRCLE_TAG" -t "$CIRCLE_TAG" -n "$CIRCLE_TAG"
-        fi
+        gh release create "$CIRCLE_TAG" -t "$CIRCLE_TAG" -n "$CIRCLE_TAG" -p
         gh release upload "$CIRCLE_TAG" target/iso/* --clobber
 
 
@@ -92,7 +87,7 @@ workflows:
               only:
                 - edge
       
-      - deploy_iso:
+      - deploy_iso_edge:
           requires:
             - docker
             - iso
@@ -102,5 +97,4 @@ workflows:
             tags:
               only:
                 - /^edge$/
-                - /^v\.\d+\.\d+.\d+$/
           

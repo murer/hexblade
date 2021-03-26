@@ -1,44 +1,44 @@
 version: 2.1
 jobs:
  docker:
-   machine: true
-   steps:
-     - checkout
-     - run: ./docker.sh build
+  machine: true
+  steps:
+    - checkout
+    - run: ./docker.sh build
  iso:
-   machine:
+  machine:
     image: ubuntu-2004:202101-01
-   steps:
-     - checkout
-     - run: ./build.sh clean
-     - run: ./build.sh prepare
-     - run: ./build.sh config_params | ./build.sh config
+  environment:
+    - DEBIAN_FRONTEND: noninteractive
+  steps:
+    - checkout
+    - run: ./build.sh clean
+    - run: ./build.sh prepare
+    - run: ./build.sh config_params | ./build.sh config
 
-     - run: rm -rf target/iso
-     - run: mkdir -p target/iso
-     - run: sudo -E cmds/strap.sh
-     - run: sudo -E cmds/chroot-install.sh
-     - run: sudo -E cmds/chroot-package.sh tools
-     - run: sudo -E cmds/chroot-live.sh
+    - run: rm -rf target/iso
+    - run: mkdir -p target/iso
+    - run: sudo -E cmds/strap.sh
+    - run: sudo -E cmds/chroot-install.sh
+    - run: sudo -E cmds/chroot-package.sh tools
+    - run: sudo -E cmds/chroot-live.sh
      
-     - run: sudo -E cmds/chroot-package.sh standard
-     - run: sudo -E cmds/chroot-package.sh ubiquity
-     - run: sudo -E cmds/chroot-live-vbox-x11.sh
-     - run: sudo -E cmds/chroot-live-vbox-dkms.sh
-     - run: sudo -E cmds/mksquashfs.sh
-     - run: sudo -E cmds/iso.sh
+    - run: sudo -E cmds/chroot-package.sh standard
+    - run: sudo -E cmds/chroot-package.sh ubiquity
+    - run: sudo -E cmds/chroot-live-vbox-x11.sh
+    - run: sudo -E cmds/chroot-live-vbox-dkms.sh
+    - run: sudo -E cmds/mksquashfs.sh
+    - run: sudo -E cmds/iso.sh
 
-     - run: cp /mnt/hexblade/iso/hexblade.iso target/iso/hexblade.iso
-     - run: file target/iso/hexblade.iso
-     - run: du -hs target/iso/hexblade.iso
+    - run: cp /mnt/hexblade/iso/hexblade.iso target/iso/hexblade.iso
+    - run: file target/iso/hexblade.iso
+    - run: du -hs target/iso/hexblade.iso
 
-     - run: ./build.sh build_checksum
+    - run: ./build.sh build_checksum
 
 workflows:
     version: 2
     build:
-        environment:
-         - DEBIAN_FRONTEND: noninteractive
         jobs:
             - docker
             - iso

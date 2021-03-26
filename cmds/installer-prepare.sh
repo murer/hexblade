@@ -5,4 +5,4 @@
 cd "$(dirname "$0")/.."
 pwd
 
-./packages/tools/install-tools.sh
+./packages/tools/tools.sh install

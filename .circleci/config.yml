@@ -6,13 +6,15 @@ jobs:
     image: ubuntu-2004:202101-01
   steps:
     - checkout
-    - run: mkdir target/abc -p
-    - run: echo ./docker.sh build > target/abc/test.txt
+    - run: mkdir target/docker -p
+    - run: echo ./docker.sh build
+    - run: docker pull ubuntu:20.04
+    - run: docker save ubuntu:20.04 | gzip > target/docker/docker-hexblade.tar.gz
     - run: ./docker.sh login
     - persist_to_workspace:
         root: target
         paths:
-          - abc 
+          - docker
 
  iso:
   machine:
@@ -68,6 +70,7 @@ jobs:
     - run: gh release delete "$CIRCLE_TAG" -y || true
     - run: gh release create "$CIRCLE_TAG" -t "$CIRCLE_TAG" -n "$CIRCLE_TAG"
     - run: gh release upload "$CIRCLE_TAG" target/iso/* --clobber
+
 
 
 

@@ -12,6 +12,9 @@ cmd_install() {
 	pwd
 	cp -Rv etc/lxdm /etc
 	cp -Rv Hexblade /usr/share/lxdm/themes
+
+	update-alternatives --install /etc/lxdm/default.conf lxdm.conf /etc/lxdm/lxdm-hexblade.conf 30
+	update-alternatives --set lxdm.conf /etc/lxdm/lxdm-hexblade.conf
 }
 
 cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; "cmd_${_cmd}" "$@"

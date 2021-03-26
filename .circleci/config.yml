@@ -77,5 +77,4 @@ workflows:
       - deploy_iso:
           requires:
             - iso
-            - docker
           

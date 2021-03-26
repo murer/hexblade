@@ -42,9 +42,9 @@ workflows:
           filters:
             branches:
               only:
-                - master
+                - ubuntu20
       - iso:
           filters:
             branches:
-              only: master
+              only: ubuntu20
           

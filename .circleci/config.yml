@@ -33,7 +33,7 @@ jobs:
       - run: sudo -E cmds/chroot-package.sh ./templates/standard/standard.sh install
       - run: sudo -E cmds/chroot-package.sh ./lxdm/lxdm.sh autologin ubuntu
       - run: sudo -E cmds/chroot-package.sh ./graphics/graphics.sh ubiquity
-      - run: sudo -E cmds/chroot-package.sh ./cmds/chroot-live-vbox.sh
+      - run: sudo -E cmds/chroot-live-vbox.sh
       - run: sudo -E cmds/mksquashfs.sh
       - run: sudo -E cmds/iso.sh
       - run: cp /mnt/hexblade/iso/hexblade.iso target/iso/hexblade.iso

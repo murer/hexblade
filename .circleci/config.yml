@@ -77,8 +77,7 @@ workflows:
       - docker:
           filters:
             branches:
-              only:
-                - master
+              ignore: /.*/
             tags:
               only:
                 - edge
@@ -86,8 +85,7 @@ workflows:
       - iso:
           filters:
             branches:
-              only: 
-                - master
+              ignore: /.*/
             tags:
               only:
                 - edge

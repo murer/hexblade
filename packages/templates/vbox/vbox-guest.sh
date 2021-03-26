@@ -26,6 +26,8 @@ cmd_nogui() {
 cmd_gui() {
     cmd_nogui
     ../../lxdm/lxdm.sh install
+    ../../lxdm/lxdm.sh autologin "$SUDO_USER"
+    ../../lxdm/lxdm.sh tcplisten disable
 }
 
 

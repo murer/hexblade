@@ -5,10 +5,13 @@ cmd_clean() {
   [[ ! -d target ]]
 }
 
-cmd_guest_text() {
-    apt -y install virtualbox-guest-dkms virtualbox-guest-utils
+cmd_guest_dir() {
     mkdir -p /var/hexblade/shared
     chown -R root:vboxsf /var/hexblade
+}
+
+cmd_guest_text() {
+    apt -y install virtualbox-guest-dkms virtualbox-guest-utils
 }
 
 cmd_guest_gui() {
@@ -17,6 +20,7 @@ cmd_guest_gui() {
 
 cmd_guest() {
     cmd_guest_text
+    cmd_guest_dir
     cmd_guest_gui
 }
 

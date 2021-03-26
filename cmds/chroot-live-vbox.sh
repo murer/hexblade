@@ -5,5 +5,5 @@
 cd "$(dirname "$0")/.."
 pwd
 
+arch-chroot /mnt/hexblade/installer apt install -y virtualbox-guest-dkms
 arch-chroot /mnt/hexblade/installer apt install -y virtualbox-guest-x11
-

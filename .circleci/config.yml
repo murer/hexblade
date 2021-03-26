@@ -42,6 +42,6 @@ workflows:
             branches:
               only:
               - master
-          - docker
-          - iso
+        - docker
+        - iso
           

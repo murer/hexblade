@@ -7,5 +7,5 @@ cmd_install() {
     apt -y install google-chrome-stable
 }
 
-cd "$(dirname "$0")/.."; _cmd="${1?"cmd is required"}"; shift; "cmd_${_cmd}" "$@"
+cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; "cmd_${_cmd}" "$@"
 

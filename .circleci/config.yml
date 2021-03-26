@@ -27,7 +27,7 @@ jobs:
      - run: sudo -E cmds/chroot-live-vbox-dkms.sh
      - run: sudo -E cmds/mksquashfs.sh
      - run: sudo -E cmds/iso.sh
-     
+
      - run: cp /mnt/hexblade/iso/hexblade.iso target/iso/hexblade.iso
      - run: file target/iso/hexblade.iso
      - run: du -hs target/iso/hexblade.iso
@@ -37,6 +37,8 @@ jobs:
 workflows:
     version: 2
     build:
+        environment:
+          DEBIAN_FRONTEND: noninteractive
         jobs:
             - docker
             - iso

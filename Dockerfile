@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM ubuntu:20.04
 
 RUN apt-get -y update
 RUN apt-get -y install sudo
@@ -19,13 +19,18 @@ ENV USER hexblade
 WORKDIR /home/hexblade
 
 COPY packages/tools /opt/hexblade/packages/tools
-RUN sudo -E /opt/hexblade/packages/tools/install-tools.sh
+RUN sudo -E /opt/hexblade/packages/tools/tools.sh install
 
 COPY packages/graphics /opt/hexblade/packages/graphics
-RUN sudo -E /opt/hexblade/packages/graphics/install-graphics.sh
+RUN sudo -E /opt/hexblade/packages/graphics/graphics.sh xterm
+RUN sudo -E /opt/hexblade/packages/graphics/graphics.sh mousepad
+
+COPY packages/lxterminal /opt/hexblade/packages/lxterminal
+RUN sudo -E /opt/hexblade/packages/lxterminal/lxterminal.sh install
 
 COPY packages/openbox /opt/hexblade/packages/openbox
-RUN sudo -E /opt/hexblade/packages/openbox/install-openbox.sh
+RUN sudo -E /opt/hexblade/packages/openbox/openbox.sh install
+RUN sudo -E /opt/hexblade/packages/openbox/openbox.sh lockscreen disable
 
 COPY . /opt/hexblade
 RUN sudo cp -Rv /opt/hexblade/docker/etc/xdg /etc

@@ -68,7 +68,7 @@ jobs:
       - run: du -hs target/iso/*
       - run: sudo -E ./packages/gh/gh.sh install
       - run: gh release delete "$CIRCLE_TAG" -y || true
-      - run: gh release create "$CIRCLE_TAG" -t "$CIRCLE_TAG" -n "$CIRCLE_TAG"
+      - run: gh release create "$CIRCLE_TAG" -t "$CIRCLE_TAG" -n "$CIRCLE_TAG" latest
       - run: gh release upload "$CIRCLE_TAG" target/iso/* --clobber
 
   deploy_docker_edge:

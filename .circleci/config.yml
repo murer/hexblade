@@ -38,10 +38,10 @@ workflows:
   version: 2
   build:
     jobs:
-      - test
-      - deploy:
+      - docker
+      - iso:
         requires:
-          - test
+          - docker
         filters:
           branches:
             only:

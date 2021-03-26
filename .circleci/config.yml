@@ -6,7 +6,8 @@ jobs:
      - checkout
      - run: echo ./docker.sh build
  iso:
-   machine: true
+   machine:
+    image: ubuntu-2004
    steps:
      - checkout
      - run: ./build.sh clean

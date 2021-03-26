@@ -1,78 +1,98 @@
 version: 2.1
 jobs:
 
- docker:
-  machine:
-    image: ubuntu-2004:202101-01
-  steps:
-    - checkout
-    - run: mkdir target/docker -p
-    - run: echo ./docker.sh build
-    - run: docker pull ubuntu:20.04
-    - run: docker save ubuntu:20.04 | gzip > target/docker/docker-hexblade.tar.gz
-    - run: ./docker.sh login
-    - persist_to_workspace:
-        root: target
-        paths:
-          - docker
+  docker:
+    machine:
+      image: ubuntu-2004:202101-01
+    steps:
+      - checkout
+      - run: mkdir target/docker -p
+      - run: echo ./docker.sh build
+      - run: docker pull ubuntu:20.04
+      - run: docker save ubuntu:20.04 | gzip > target/docker/docker-hexblade.tar.gz
+      - run: ./docker.sh login
+      - persist_to_workspace:
+          root: target
+          paths:
+            - docker
 
- iso:
-  machine:
-    image: ubuntu-2004:202101-01
-  environment:
-    - DEBIAN_FRONTEND: noninteractive
-  steps:
-    - checkout
-    - run: ./build.sh clean
-    - run: ./build.sh prepare
-    - run: ./build.sh config_params | ./build.sh config
-    - run: rm -rf target/iso || true 
-    - run: mkdir -p target/iso && sudo -E cmds/strap.sh
-    - run: sudo -E cmds/chroot-install.sh
-    - run: sudo -E cmds/chroot-package.sh ./tools/tools.sh install
-    - run: sudo -E cmds/chroot-live.sh
-    - run: sudo -E cmds/chroot-package.sh ./templates/standard/standard.sh install
-    - run: sudo -E cmds/chroot-package.sh ./graphics/graphics.sh ubiquity
-    - run: sudo -E cmds/chroot-package.sh ./virtualbox/virtualbox.sh guest
-    - run: sudo -E cmds/mksquashfs.sh
-    - run: sudo -E cmds/iso.sh
-    - run: cp /mnt/hexblade/iso/hexblade.iso target/iso/hexblade.iso
-    - run: file target/iso/hexblade.iso
-    - run: du -hs target/iso/hexblade.iso
-    - run: ./build.sh build_checksum
-    - persist_to_workspace:
-        root: target
-        paths:
-          - iso
+  iso:
+    machine:
+      image: ubuntu-2004:202101-01
+    environment:
+      - DEBIAN_FRONTEND: noninteractive
+    steps:
+      - checkout
+      - run: ./build.sh clean
+      - run: ./build.sh prepare
+      - run: ./build.sh config_params | ./build.sh config
+      - run: rm -rf target/iso || true 
+      - run: mkdir -p target/iso && sudo -E cmds/strap.sh
+      - run: sudo -E cmds/chroot-install.sh
+      - run: sudo -E cmds/chroot-package.sh ./tools/tools.sh install
+      - run: sudo -E cmds/chroot-live.sh
+      - run: sudo -E cmds/chroot-package.sh ./templates/standard/standard.sh install
+      - run: sudo -E cmds/chroot-package.sh ./graphics/graphics.sh ubiquity
+      - run: sudo -E cmds/chroot-package.sh ./virtualbox/virtualbox.sh guest
+      - run: sudo -E cmds/mksquashfs.sh
+      - run: sudo -E cmds/iso.sh
+      - run: cp /mnt/hexblade/iso/hexblade.iso target/iso/hexblade.iso
+      - run: file target/iso/hexblade.iso
+      - run: du -hs target/iso/hexblade.iso
+      - run: ./build.sh build_checksum
+      - persist_to_workspace:
+          root: target
+          paths:
+            - iso
 
- deploy_iso_edge:
-  machine:
-    image: ubuntu-2004:202101-01
-  steps:
-    - checkout
-    - attach_workspace:
-        at: target
-    - run: du -hs target/iso/*
-    - run: sudo -E ./packages/gh/gh.sh install
-    - run: gh release delete "$CIRCLE_TAG" -y || true
-    - run: gh release create "$CIRCLE_TAG" -t "$CIRCLE_TAG" -n "$CIRCLE_TAG" -p
-    - run: gh release upload "$CIRCLE_TAG" target/iso/* --clobber
+  deploy_iso_edge:
+    machine:
+      image: ubuntu-2004:202101-01
+    steps:
+      - checkout
+      - attach_workspace:
+          at: target
+      - run: du -hs target/iso/*
+      - run: sudo -E ./packages/gh/gh.sh install
+      - run: gh release delete "$CIRCLE_TAG" -y || true
+      - run: gh release create "$CIRCLE_TAG" -t "$CIRCLE_TAG" -n "$CIRCLE_TAG" -p
+      - run: gh release upload "$CIRCLE_TAG" target/iso/* --clobber
 
- deploy_iso_release:
-  machine:
-    image: ubuntu-2004:202101-01
-  steps:
-    - checkout
-    - attach_workspace:
-        at: target
-    - run: du -hs target/iso/*
-    - run: sudo -E ./packages/gh/gh.sh install
-    - run: gh release delete "$CIRCLE_TAG" -y || true
-    - run: gh release create "$CIRCLE_TAG" -t "$CIRCLE_TAG" -n "$CIRCLE_TAG"
-    - run: gh release upload "$CIRCLE_TAG" target/iso/* --clobber
+  deploy_iso_release:
+    machine:
+      image: ubuntu-2004:202101-01
+    steps:
+      - checkout
+      - attach_workspace:
+          at: target
+      - run: du -hs target/iso/*
+      - run: sudo -E ./packages/gh/gh.sh install
+      - run: gh release delete "$CIRCLE_TAG" -y || true
+      - run: gh release create "$CIRCLE_TAG" -t "$CIRCLE_TAG" -n "$CIRCLE_TAG"
+      - run: gh release upload "$CIRCLE_TAG" target/iso/* --clobber
+
+  deploy_docker_edge:
+    machine:
+      image: ubuntu-2004:202101-01
+    steps:
+      - checkout
+      - attach_workspace:
+          at: target
+      - run: du -hs target/docker/*
+      - run: ./docker.sh login
+      - run: docker import target/docker/docker-hexblade.tar.gz "murer/hexblade:$CIRCLE_TAG"
 
 
-
+  deploy_docker_release:
+    machine:
+      image: ubuntu-2004:202101-01
+    steps:
+      - checkout
+      - attach_workspace:
+          at: target
+      - run: du -hs target/docker/*
+      - run: ./docker.sh login
+      - run: docker import target/docker/docker-hexblade.tar.gz "murer/hexblade:$CIRCLE_TAG"
 
 workflows:
   version: 2
@@ -95,6 +115,28 @@ workflows:
                 - edge
                 - /^v.*/
       
+      - deploy_iso_edge:
+          requires:
+            - docker
+            - iso
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only:
+                - /^edge$/
+
+      - deploy_iso_release:
+          requires:
+            - docker
+            - iso
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only:
+                - /^v.*/
+
       - deploy_iso_edge:
           requires:
             - docker

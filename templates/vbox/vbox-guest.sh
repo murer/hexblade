@@ -18,6 +18,7 @@ cmd_nogui() {
     ../../packages/graphics/graphics.sh network-manager-gnome
     ../../packages/sound/sound.sh pavucontrol
     ../../packages/openbox/openbox.sh install
+    ../../packages/openbox/openbox.sh lockscreen disable
     ../../packages/virtualboxguest/virtualboxguest.sh install
     cmd_pulse
 }

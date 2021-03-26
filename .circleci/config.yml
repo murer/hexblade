@@ -41,9 +41,11 @@ workflows:
         - docker:
           filters:
             branchs:
-              only: master
+              only: 
+              - master
         - iso:
           filters:
             branchs:
-              only: master
+              only: 
+              - master
           

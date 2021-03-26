@@ -73,4 +73,9 @@ workflows:
           filters:
             branches:
               only: ubuntu20
+      
+      - deploy_iso:
+          requires:
+            - iso
+            - docker
           

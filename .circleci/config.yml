@@ -13,6 +13,7 @@ jobs:
       - run: du -hs target/docker/*
       - persist_to_workspace:
           root: target/docker
+          path: .
 
   iso:
     machine:
@@ -42,6 +43,7 @@ jobs:
       # - run: ./build.sh build_checksum
       - persist_to_workspace:
           root: target/iso
+          path: .
 
   deploy_iso_edge:
     machine:

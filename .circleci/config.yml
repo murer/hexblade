@@ -8,12 +8,11 @@ jobs:
       - checkout
       - run: mkdir target/docker -p
       - run: ./docker.sh build
-      - run: docker save hexblade/hexblade:dev | gzip > target/docker/docker-hexblade.tar.gz
+      #- run: docker save hexblade/hexblade:dev | gzip > target/docker/docker-hexblade.tar.gz
+      - run: docker pull ubuntu:20.04 && docker tag ubuntu:20.04 hexblade/hexblade:dev
       - run: du -hs target/docker/*
       - persist_to_workspace:
-          root: target
-          paths:
-            - docker
+          root: target/docker
 
   iso:
     machine:
@@ -42,9 +41,7 @@ jobs:
       # - run: du -hs target/iso/hexblade.iso
       # - run: ./build.sh build_checksum
       - persist_to_workspace:
-          root: target
-          paths:
-            - iso
+          root: target/iso
 
   deploy_iso_edge:
     machine:
@@ -52,7 +49,7 @@ jobs:
     steps:
       - checkout
       - attach_workspace:
-          at: target
+          at: target/iso
       - run: du -hs target/iso/*
       - run: sudo -E ./packages/gh/gh.sh install
       - run: gh release delete "$CIRCLE_TAG" -y || true
@@ -65,7 +62,7 @@ jobs:
     steps:
       - checkout
       - attach_workspace:
-          at: target
+          at: target/iso
       - run: du -hs target/iso/*
       - run: sudo -E ./packages/gh/gh.sh install
       - run: gh release delete "$CIRCLE_TAG" -y || true
@@ -78,7 +75,7 @@ jobs:
     steps:
       - checkout
       - attach_workspace:
-          at: target
+          at: target/docker
       - run: du -hs target/docker/*
       - run: ./docker.sh login
       - run: docker load -i target/docker/docker-hexblade.tar.gz
@@ -91,7 +88,7 @@ jobs:
     steps:
       - checkout
       - attach_workspace:
-          at: target
+          at: target/docker
       - run: du -hs target/docker/*
       - run: ./docker.sh login
       - run: docker load -i target/docker/docker-hexblade.tar.gz

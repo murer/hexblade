@@ -11,9 +11,11 @@ jobs:
       - run: docker pull ubuntu:20.04 && docker tag ubuntu:20.04 hexblade/hexblade:dev
       - run: docker save hexblade/hexblade:dev | gzip > target/wp-docker/docker/docker-hexblade.tar.gz
       - run: du -hs target/wp-docker/docker/*
+      - run: find target
       - persist_to_workspace:
           root: target/wp-docker/
-          path: docker
+          paths: 
+            - docker
 
   iso:
     machine:
@@ -42,9 +44,11 @@ jobs:
       # - run: du -hs target/iso/hexblade.iso
       # - run: ./build.sh build_checksum
       - run: mkdir target/wp-iso && mv -v target/iso target/wp-iso
+      - run: find target
       - persist_to_workspace:
           root: target/wp-iso
-          path: iso
+          paths: 
+            - iso
 
   deploy_iso_edge:
     machine:

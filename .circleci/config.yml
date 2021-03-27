@@ -7,8 +7,7 @@ jobs:
     steps:
       - checkout
       - run: mkdir target/wp-docker/docker -p
-      #- run: ./docker.sh build
-      - run: docker pull ubuntu:20.04 && docker tag ubuntu:20.04 hexblade/hexblade:dev
+      - run: ./docker.sh build
       - run: docker save hexblade/hexblade:dev | gzip > target/wp-docker/docker/docker-hexblade.tar.gz
       - run: du -hs target/wp-docker/docker/*
       - run: find target
@@ -24,25 +23,24 @@ jobs:
       - DEBIAN_FRONTEND: noninteractive
     steps:
       - checkout
-      - run: mkdir target/iso -p && echo xxx > target/iso/xxx.txt
-      # - run: ./build.sh clean
-      # - run: ./build.sh prepare
-      # - run: ./build.sh config_params | ./build.sh config
-      # - run: rm -rf target/iso || true 
-      # - run: mkdir -p target/iso && sudo -E cmds/strap.sh
-      # - run: sudo -E cmds/chroot-install.sh
-      # - run: sudo -E cmds/chroot-package.sh ./tools/tools.sh install
-      # - run: sudo -E cmds/chroot-live.sh
-      # - run: sudo -E cmds/chroot-package.sh ./templates/standard/standard.sh install
-      # - run: sudo -E cmds/chroot-package.sh ./lxdm/lxdm.sh autologin ubuntu
-      # - run: sudo -E cmds/chroot-package.sh ./graphics/graphics.sh ubiquity
-      # - run: sudo -E cmds/chroot-package.sh ./virtualbox/virtualbox.sh guest
-      # - run: sudo -E cmds/mksquashfs.sh
-      # - run: sudo -E cmds/iso.sh
-      # - run: cp /mnt/hexblade/iso/hexblade.iso target/iso/hexblade.iso
-      # - run: file target/iso/hexblade.iso
-      # - run: du -hs target/iso/hexblade.iso
-      # - run: ./build.sh build_checksum
+      - run: ./build.sh clean
+      - run: ./build.sh prepare
+      - run: ./build.sh config_params | ./build.sh config
+      - run: rm -rf target/iso || true 
+      - run: mkdir -p target/iso && sudo -E cmds/strap.sh
+      - run: sudo -E cmds/chroot-install.sh
+      - run: sudo -E cmds/chroot-package.sh ./tools/tools.sh install
+      - run: sudo -E cmds/chroot-live.sh
+      - run: sudo -E cmds/chroot-package.sh ./templates/standard/standard.sh install
+      - run: sudo -E cmds/chroot-package.sh ./lxdm/lxdm.sh autologin ubuntu
+      - run: sudo -E cmds/chroot-package.sh ./graphics/graphics.sh ubiquity
+      - run: sudo -E cmds/chroot-package.sh ./virtualbox/virtualbox.sh guest
+      - run: sudo -E cmds/mksquashfs.sh
+      - run: sudo -E cmds/iso.sh
+      - run: cp /mnt/hexblade/iso/hexblade.iso target/iso/hexblade.iso
+      - run: file target/iso/hexblade.iso
+      - run: du -hs target/iso/hexblade.iso
+      - run: ./build.sh build_checksum
       - run: mkdir target/wp-iso && mv -v target/iso target/wp-iso
       - run: find target
       - persist_to_workspace:

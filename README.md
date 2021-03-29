@@ -1,6 +1,6 @@
 # Hexblade
 
-My own Linux desktop and docker image on top of Ubuntu.
+My own Linux desktop and docker image on top of Ubuntu 20.04.
 
 [<img src="https://github.com/murer/hexblade/raw/master/docs/Hexblade_Login.png" width="280" />](https://github.com/murer/hexblade)
 
@@ -56,3 +56,10 @@ Or you can install manually
 This process is about to install Hexblade with **full disk encryption** (including ``/boot``)
 
 Follow these steps: [INSTALL_MANUAL.md](https://github.com/murer/hexblade/blob/master/docs/INSTALL_MANUAL.md)
+
+## Versions
+
+| Version | On top of | Branch |
+|---------|-----------|--------|
+| 20.x.x | Ubuntu 20.04 | ubuntu20 master |
+| 1.x.x | Ubuntu 18.04 | ubuntu18 |

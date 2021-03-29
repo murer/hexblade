@@ -61,5 +61,5 @@ Follow these steps: [INSTALL_MANUAL.md](https://github.com/murer/hexblade/blob/m
 
 | Version | On top of | Branch |
 |---------|-----------|--------|
-| 20.x.x | Ubuntu 20.04 | ubuntu20 master |
+| 2.x.x | Ubuntu 20.04 | ubuntu20 master |
 | 1.x.x | Ubuntu 18.04 | ubuntu18 |

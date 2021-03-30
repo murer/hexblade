@@ -5,9 +5,21 @@ cmd_clean() {
   [[ ! -d target ]]
 }
 
+cmd_group() {
+  usermod -aG vboxsf "${1?'uername'}"
+}
+
 cmd_guest_dir() {
     mkdir -p /var/hexblade/shared
     chown -R root:vboxsf /var/hexblade
+
+    if [[ "x$hexblade_user" != "x" ]]; then
+      cmd_group "$hexblade_user"
+    elif [[ "x$UID" == "x0" && "x$SUDO_USER" != "x" && "x$SUDO_UID" != "x0" ]]; then
+      cmd_group "$SUDO_USER"
+    elif [[ "x$UID" != "x0" ]]; then
+      cmd_group "$USER"
+    fi 
 }
 
 cmd_guest_text() {

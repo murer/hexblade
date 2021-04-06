@@ -4,7 +4,7 @@ install() {
 	filename="$1"
 	dirname="$2"
 	if [ ! -f "$filename" ]; then
-	        wget --progress=dot -e dotbytes=1M "http://repoz.dextra.com.br/repoz/r/pub/jdk/oracle/$filename"
+	        wget --progress=dot -e dotbytes=1M "https://storage.googleapis.com/dxtpub/repoz/r/pub/jdk/oracle/$filename"
 	fi
 	rm -rf "$dirname" | cat
 	tar xzf "$filename"

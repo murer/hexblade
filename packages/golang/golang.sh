@@ -9,7 +9,7 @@ cmd_install() {
   cd /opt
   if [[ ! -f go/bin/go ]]; then
     wget --progress=dot -e dotbytes=1M -c \
-      'https://golang.org/dl/go1.15.3.linux-amd64.tar.gz' \
+      'https://golang.org/dl/go1.16.3.linux-amd64.tar.gz' \
       -O go.tar.gz
     tar xzf go.tar.gz
     cmd_clean

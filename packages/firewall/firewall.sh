@@ -17,6 +17,12 @@ cmd_clean() {
   " | sed 's/^\s*//g' | sudo iptables-restore
 }
 
+cmd_port_open() {
+  hexblade_port_open="${1?'port to open'}"
+  sudo iptables -A INPUT -p tcp -s 0.0.0.0/0 --dport "$hexblade_port_open" -m state --state NEW,ESTABLISHED -j ACCEPT
+  sudo iptables -A OUTPUT -p tcp -d 0.0.0.0/0 --sport "$hexblade_port_open" -m state --state ESTABLISHED -j ACCEPT
+}
+
 cmd_apply() {
   # Set default chain policies
   sudo iptables -P INPUT DROP
@@ -28,8 +34,7 @@ cmd_apply() {
   sudo iptables -A OUTPUT -o lo -j ACCEPT
 
   # Accept some ports
-  sudo iptables -A INPUT -p tcp -s 0.0.0.0/0 --dport 22 -m state --state NEW,ESTABLISHED -j ACCEPT
-  sudo iptables -A OUTPUT -p tcp -d 0.0.0.0/0 --sport 22 -m state --state ESTABLISHED -j ACCEPT
+  cmd_port_open 22
 
   # Allow established sessions to receive traffic
   sudo iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT

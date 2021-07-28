@@ -1,5 +1,5 @@
 
-function cmd_useradd() {
+function cmd_user_add() {
     hexblade_username="${1?'user name is required'}"
     hexblade_password="$2"
     if [ "x$hexblade_password" == "x" ]; then

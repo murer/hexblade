@@ -5,7 +5,7 @@ cmd_strap() {
   hexblade_apt_mirror="br"
   
   tmp_strap_mirror=""
-  [[ "x$hexblade_apt_mirror" == "x" ]] || tmp_strap_mirror="http://"$hexblade_apt_mirror".archive.ubuntu.com/ubuntu/"
+  [[ "x$hexblade_apt_mirror" == "x" ]] || tmp_strap_mirror="http://${hexblade_apt_mirror}.archive.ubuntu.com/ubuntu/"
 
   sudo debootstrap focal /mnt/hexblade/installer "$tmp_strap_mirror"
 

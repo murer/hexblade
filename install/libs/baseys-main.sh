@@ -48,5 +48,6 @@ cmd_basesys_kernel() {
   #DEBIAN_FRONTEND=noninteractive arch-chroot /mnt/hexblade/installer apt -y install "linux-image-generic" "linux-headers-generic"
   #DEBIAN_FRONTEND=noninteractive arch-chroot /mnt/hexblade/installer apt -y install linux-generic-hwe-20.04
   DEBIAN_FRONTEND=noninteractive arch-chroot /mnt/hexblade/installer apt -y install --install-recommends linux-generic
+  arch-chroot /mnt/hexblade/installer apt -y install cryptsetup lvm2 btrfs-progs
 }
 

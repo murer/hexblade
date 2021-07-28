@@ -7,6 +7,6 @@ cmd_struct_umount() {
   sudo umount -R /mnt/hexblade/installer
 }
 
-cmd_fstab() {
+cmd_struct_fstab() {
   genfstab -U /mnt/hexblade/installer | tee /mnt/hexblade/installer/etc/fstab
 }

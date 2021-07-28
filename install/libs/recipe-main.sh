@@ -28,9 +28,10 @@ cmd_recipe_basic() {
 
   cmd_user_add "$hexblade_recipe_user_name"
 
+  cmd_struct_fstab 
   cmd_boot "$hexblade_recipe_grub_dev"
 
-  #cmd_struct_umount
+  # cmd_struct_umount
 }
 
 cmd_recipe_crypt() {
@@ -62,6 +63,11 @@ cmd_recipe_crypt() {
   cmd_keyboard
 
   cmd_user_add "$hexblade_recipe_user_name"
+  
+  cmd_struct_fstab 
+  cmd_crypt_tab
+
+  cmd_boot "$hexblade_recipe_grub_dev"
 
   #cmd_struct_umount
 }

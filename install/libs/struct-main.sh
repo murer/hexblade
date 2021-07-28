@@ -1,4 +1,4 @@
 
 cmd_struct() {
-  sudo mkdir -p /mnt/hexblade/{installer,secrets}
+  sudo mkdir -p /mnt/hexblade/installer
 }

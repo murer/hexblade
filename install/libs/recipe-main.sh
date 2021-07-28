@@ -51,7 +51,7 @@ cmd_recipe_crypt() {
   ls /dev/mapper/MAINCRYPTED || cmd_crypt_open "$hexblade_recipe_dev"
 
   cmd_struct
-  mount /dev/mapper/MAINCRYPTED /mnt/hexblade/installer
+  mount /dev/mapper/MAINCRYPTED /mnt/hexblade/installer || true
 
   if [[ "x$hexblade_recipe_grub_dev" ]] && [[ -d /sys/firmware/efi ]]; then
     cmd_efi_mount "$hexblade_recipe_grub_dev"

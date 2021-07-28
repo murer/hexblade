@@ -26,7 +26,7 @@ cmd_struct() {
   network:
     version: 2
     renderer: NetworkManager
-  EOF
+EOF
 
   rm -rf "/mnt/hexblade/installer/home/$hexblade_user/hexblade"
   cp -R "." "/mnt/hexblade/installer/home/$hexblade_user/hexblade"

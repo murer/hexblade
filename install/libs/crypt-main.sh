@@ -21,7 +21,7 @@ cmd_crypt_tab() {
   hexblade_crypt_dev="$(cat /mnt/hexblade/config/crypt/MAINCRYPTED.dev)"
   [[ "x$hexblade_crypt_dev" != "x" ]]
   hexblade_crypt_id="$(sudo blkid -o value -s UUID "$hexblade_crypt_dev")"
-  echo -e "MAINCRYPTED\tUUID=$hexblade_crypt_id\tnone\tluks" /mnt/hexblade/installer/etc/crypttab
+  echo -e "MAINCRYPTED\tUUID=$hexblade_crypt_id\tnone\tluks" | tee /mnt/hexblade/installer/etc/crypttab
   echo 'GRUB_ENABLE_CRYPTODISK=y' | tee /mnt/hexblade/installer/etc/default/grub.d/hexblade-crypt.cfg
   
 }

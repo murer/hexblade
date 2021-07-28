@@ -23,12 +23,12 @@ cmd_recipe_basic() {
   
   [[ -d /mnt/hexblade/installer/bin ]] || cmd_basesys_strap
   cmd_basesys_install
+  cmd_struct_fstab 
   cmd_basesys_kernel
   cmd_keyboard
 
   cmd_user_add "$hexblade_recipe_user_name"
 
-  cmd_struct_fstab 
   cmd_boot "$hexblade_recipe_grub_dev"
 
   # cmd_struct_umount
@@ -59,14 +59,13 @@ cmd_recipe_crypt() {
   
   [[ -d /mnt/hexblade/installer/bin ]] || cmd_basesys_strap
   cmd_basesys_install
+  cmd_crypt_tab
+  cmd_struct_fstab 
   cmd_basesys_kernel
   cmd_keyboard
 
   cmd_user_add "$hexblade_recipe_user_name"
   
-  cmd_struct_fstab 
-  cmd_crypt_tab
-
   cmd_boot "$hexblade_recipe_grub_dev"
 
   #cmd_struct_umount

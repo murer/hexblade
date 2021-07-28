@@ -1,7 +1,5 @@
 
 cmd_basesys_strap() {
-  sudo mkdir -p /mnt/hexblade/installer
-
   hexblade_apt_mirror="$(cat /mnt/hexblade/config/basesys/mirror.txt)"
   
   tmp_strap_mirror=""
@@ -26,23 +24,17 @@ cmd_basesys_install() {
   arch-chroot /mnt/hexblade/installer ln -sf /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime
   arch-chroot /mnt/hexblade/installer locale-gen en_US.UTF-8
   DEBIAN_FRONTEND=noninteractive arch-chroot /mnt/hexblade/installer dpkg-reconfigure -f non-interactive tzdata
-  #arch-chroot /mnt/hexblade/installer dpkg-reconfigure keyboard-configuration
 
-  arch-chroot /mnt/hexblade/installer apt -y update || true
-  #arch-chroot /mnt/hexblade/installer apt -y upgrade
+  arch-chroot /mnt/hexblade/installer apt -y update
   DEBIAN_FRONTEND=noninteractive arch-chroot /mnt/hexblade/installer apt -y install ubuntu-standard \
     language-pack-en-base \
     software-properties-common \
     vim wget curl openssl git vim \
     nmap ncat pv zip connect-proxy tcpdump bc \
-    network-manager net-tools locales \
-    linux-generic # netcat debconf-utils
+    network-manager net-tools locales # netcat debconf-utils
 
   echo -e "network:\n  version: 2\n  renderer: NetworkManager" | tee /mnt/hexblade/installer/etc/netplan/01-netcfg.yaml
 
-  #DEBIAN_FRONTEND=noninteractive arch-chroot /mnt/hexblade/installer apt -y install "linux-image-5.4.0-54-generic" "linux-headers-5.4.0-54-generic"
-  #DEBIAN_FRONTEND=noninteractive arch-chroot /mnt/hexblade/installer apt -y install "linux-image-generic" "linux-headers-generic"
-  #DEBIAN_FRONTEND=noninteractive arch-chroot /mnt/hexblade/installer apt -y install linux-generic-hwe-20.04
   #DEBIAN_FRONTEND=noninteractive arch-chroot /mnt/hexblade/installer apt -y install --install-recommends linux-generic
 
   #if [[ "x$hexblade_dev_lvm" != "x" ]]; then
@@ -51,7 +43,10 @@ cmd_basesys_install() {
 
 }
 
-cmd_chroot_init() {
-  cmd_strap
-  cmd_chroot_first
+cmd_basesys_kernel() {
+  #DEBIAN_FRONTEND=noninteractive arch-chroot /mnt/hexblade/installer apt -y install "linux-image-5.4.0-54-generic" "linux-headers-5.4.0-54-generic"
+  #DEBIAN_FRONTEND=noninteractive arch-chroot /mnt/hexblade/installer apt -y install "linux-image-generic" "linux-headers-generic"
+  #DEBIAN_FRONTEND=noninteractive arch-chroot /mnt/hexblade/installer apt -y install linux-generic-hwe-20.04
+  DEBIAN_FRONTEND=noninteractive arch-chroot /mnt/hexblade/installer apt -y install --install-recommends linux-generic
 }
+

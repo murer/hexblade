@@ -13,7 +13,7 @@ cmd_basesys_install() {
   hexblade_apt_mirror="$(cat /mnt/hexblade/config/basesys/mirror.txt)"
   [[ "x$hexblade_apt_mirror" == "x" ]] || hexblade_apt_mirror="${hexblade_apt_mirror}."
 
-  cp -R /mnt/hexblade/config/basesys/etc.pre/* /mnt/hexblade/installer/etc
+  cp -R /mnt/hexblade/config/basesys/etc/* /mnt/hexblade/installer/etc
   sed -i -e "s/HEXBLADE_MIRROR/$hexblade_apt_mirror/g" /mnt/hexblade/installer/etc/apt/sources.list
 
   echo 'LANG="en_US.UTF-8"' | tee /mnt/hexblade/installer/etc/default/locale

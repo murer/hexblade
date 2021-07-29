@@ -15,7 +15,9 @@ function cmd_recipe_localsync_from_backup() {
     cmd_btrfs_subvol_create /dev/mapper/MAINCRYPTED "secrets"
     cmd_btrfs_subvol_create /dev/mapper/MAINCRYPTED "root"
 
+    #cmd_lvm_create /dev/mapper/LOCALCRYPTED
+
     cmd_btrfs_subvol_mount /dev/mapper/MAINCRYPTED secrets /mnt/hexblade/secrets
     cmd_btrfs_subvol_mount /dev/mapper/MAINCRYPTED root /mnt/hexblade/installer
-
+    
 }

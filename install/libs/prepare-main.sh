@@ -21,5 +21,6 @@ cmd_prepare() {
     git \
     socat \
     crudini \
-    htop
+    htop \
+    lvm2
 }

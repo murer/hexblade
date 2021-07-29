@@ -4,7 +4,11 @@ cmd_struct() {
 }
 
 cmd_struct_umount() {
-  sudo umount -R /mnt/hexblade/installer
+  sudo umount -R /mnt/hexblade/installer || true
+  sudo umount -R /mnt/hexblade/secrets || true
+  sudo umount -R /mnt/hexblade/localsync || true
+  sudo umount -R /mnt/hexblade/btrfs/* || true
+  sudo umount -R /mnt/hexblade/backup || true
 }
 
 cmd_struct_fstab() {

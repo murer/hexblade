@@ -8,4 +8,5 @@ function recipe_localsync_from_backup() {
     read -p 'Internal root partiition size (sample: 64GB): ' hexblade_recipe_local_root_size
 
     cmd_crypt_format "$hexblade_recipe_dev"
+    cmd_crypt_format_with_file "$hexblade_recipe_local_dev"
 }

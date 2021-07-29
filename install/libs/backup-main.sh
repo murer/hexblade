@@ -5,6 +5,6 @@ function cmd_backup() {
     rsync -a --delete /mnt/hexblade/installer/ /mnt/hexblade/backup/
 }
 
-function cmd_restore() {
+function cmd_backup_restore() {
     rsync -a --delete /mnt/hexblade/backup/ /mnt/hexblade/installer/
 }

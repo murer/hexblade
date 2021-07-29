@@ -50,3 +50,10 @@ cmd_crypt_initramfs() {
     cp -vR resources/crypt/initramfs-tools/* /mnt/hexblade/installer/usr/share/initramfs-tools
   done
 }
+
+cmd_crypt_localsync() {
+  hexblade_local_root_dev="${1?'hexblade_local_root_dev is required'}"
+  hexblade_local_root_id="$(blkid -o value -s UUID "$hexblade_local_root_dev")"
+  sed -e "s/HEXBLADE_LOCALSYNC_ID/$hexblade_local_root_id/g" resources/crypt/grub.d/08_localsync | tee /mnt/hexblade/installer/etc/grub.d/08_localsync
+  chmod +x /mnt/hexblade/installer/etc/grub.d/08_localsync
+}

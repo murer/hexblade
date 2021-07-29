@@ -1,0 +1,20 @@
+#!/bin/sh
+exec tail -n +3 $0
+# This file provides an easy way to add custom menu entries.  Simply type the
+# menu entries you want to add after this comment.  Be careful not to change
+# the 'exec tail' line above.
+menuentry 'Local Sync' --class gnu-linux --class gnu --class os $menuentry_id_option 'localsync' {
+	load_video
+	gfxmode \$linux_gfx_mode
+	insmod gzio
+	if [ x\$grub_platform = xxen ]; then insmod xzio; insmod lzopio; fi
+	insmod part_msdos
+	insmod cryptodisk
+	insmod luks
+	insmod gcry_rijndael
+	insmod gcry_rijndael
+	insmod gcry_sha256
+	insmod btrfs
+	linux	/@root/boot/vmlinuz root=UUID=HEXBLADE_LOCALSYNC_ID ro  verbose nosplash localsync
+	initrd	/@root/boot/initrd.img
+}

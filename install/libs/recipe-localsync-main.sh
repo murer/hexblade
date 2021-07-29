@@ -8,16 +8,19 @@ function cmd_recipe_localsync_from_backup() {
     read -p 'Internal root partiition size (sample: 64GB): ' hexblade_recipe_local_root_size
 
     cmd_crypt_format "$hexblade_recipe_dev"
-    cmd_crypt_format_with_file "$hexblade_recipe_local_dev" LOCALCRYPTED
 
     cmd_btrfs_format /dev/mapper/MAINCRYPTED MAIN
     cmd_btrfs_subvol_create /dev/mapper/MAINCRYPTED "snapshots"
     cmd_btrfs_subvol_create /dev/mapper/MAINCRYPTED "secrets"
     cmd_btrfs_subvol_create /dev/mapper/MAINCRYPTED "root"
 
-    #cmd_lvm_create /dev/mapper/LOCALCRYPTED
-
     cmd_btrfs_subvol_mount /dev/mapper/MAINCRYPTED secrets /mnt/hexblade/secrets
     cmd_btrfs_subvol_mount /dev/mapper/MAINCRYPTED root /mnt/hexblade/installer
+
+    cmd_crypt_format_with_file "$hexblade_recipe_local_dev" LOCALCRYPTED
+    cmd_lvm_format /dev/mapper/LOCALCRYPTED LOCAL
+    cmd_lvm_add LOCAL SWAP 2G
+    cmd_lvm_add LOCAL ROOT 8G
+    cmd_lvm_add LOCAL DATA '100%FREE'
     
 }

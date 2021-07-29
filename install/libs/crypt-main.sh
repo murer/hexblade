@@ -56,4 +56,11 @@ cmd_crypt_localsync() {
   hexblade_local_root_id="$(blkid -o value -s UUID "$hexblade_local_root_dev")"
   sed -e "s/HEXBLADE_LOCALSYNC_ID/$hexblade_local_root_id/g" resources/crypt/grub.d/08_localsync | tee /mnt/hexblade/installer/etc/grub.d/08_localsync
   chmod +x /mnt/hexblade/installer/etc/grub.d/08_localsync
+
+  (echo -e "UUID=$hexblade_local_root_id\t/\text4\trw,relatime\t0\t0" &&
+  genfstab -U /mnt/hexblade/installer | grep ^UUID= | tail -n +2) | tee /mnt/hexblade/installer/etc/fstab.localsync
+
+  mkdir -p /mnt/hexblade/localsync
+  mount "$hexblade_local_root_dev" /mnt/hexblade/localsync
+  rsync -a --delete  /mnt/hexblade/installer/ /mnt/hexblade/localsync/
 }

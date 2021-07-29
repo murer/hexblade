@@ -1,6 +1,6 @@
 #!/bin/sh 
 
-#set -e
+set -e
 
 PREREQ="btrfs"
 
@@ -40,7 +40,7 @@ if grep "localsync" /proc/cmdline; then
 	grep -v ^MAINCRYPTED /syncdst/etc/crypttab > /syncdst/etc/crypttab.tmp || true
 	mv /syncdst/etc/crypttab.tmp /syncdst/etc/crypttab || true
 
-	sh
+	# sh
 
 	umount /syncdst
 	umount /syncsrc

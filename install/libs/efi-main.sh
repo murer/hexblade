@@ -4,3 +4,9 @@ cmd_efi_mount() {
   mkdir -p /mnt/hexblade/installer/boot/efi
   mount "$hexblade_efi_dev" /mnt/hexblade/installer/boot/efi
 }
+
+cmd_efi_mount_if_needed() {
+  if [[ -d /sys/firmware/efi ]]; then
+    cmd_efi_mount "$@"
+  fi
+}

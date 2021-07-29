@@ -33,8 +33,8 @@ cmd_crypt_format_with_file() {
   if ls "/dev/mapper/$hexblade_crypt_name"; then false; fi
   mkdir -p /mnt/hexblade/secrets/parts
   dd if=/dev/urandom "of=/mnt/hexblade/secrets/parts/key-$hexblade_crypt_name.key" count=4 bs=512
-  blkid -o value -s UUID "$hexblade_crypt_dev" | tee "/mnt/hexblade/secrets/parts/id-$hexblade_crypt_name.id"
   cryptsetup -v -y --type luks1 --cipher aes-xts-plain64 --hash sha256 luksFormat --key-file "/mnt/hexblade/secrets/parts/key-$hexblade_crypt_name.key" "$hexblade_crypt_dev"
+  blkid -o value -s UUID "$hexblade_crypt_dev" | tee "/mnt/hexblade/secrets/parts/id-$hexblade_crypt_name.id"
   cmd_crypt_open_with_file "$hexblade_crypt_dev" "$hexblade_crypt_name"
 }
 

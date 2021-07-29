@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/sh 
 
 PREREQ="btrfs"
 
@@ -21,7 +21,8 @@ mkdir /secrets
 mount -t btrfs -r -o subvol=@secrets /dev/mapper/MAINCRYPTED /secrets
 
 ls /secrets/parts/id-*.id | while read k; do
-        echo "...$k"
+        crypt_part_name="$(echo "$k" | sed 's/.*\/id-\(.*\)\.id/\1/g')"
+        cryptsetup open --key-file "/secrets/parts/key-$crypt_part_name.key" "/dev/disk/by-uuid/$(cat "$k")" "$crypt_part_name"
 done
 
 set +x

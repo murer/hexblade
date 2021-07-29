@@ -2,7 +2,8 @@
 function cmd_lvm_format() {
     hexblade_lvm_dev="${1?'hexblade_lvm_dev'}"
     hexblade_lvm_name="${2?'hexblade_lvm_name'}"
-    pvcreate "$hexblade_lvm_dev"
+    mkfs.ext4 -L "$hexblade_lvm_name" "$hexblade_lvm_dev"
+    pvcreate -f "$hexblade_lvm_dev"
     vgcreate "$hexblade_lvm_name" "$hexblade_lvm_dev"
 }
 

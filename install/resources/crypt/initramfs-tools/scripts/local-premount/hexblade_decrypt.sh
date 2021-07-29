@@ -15,4 +15,10 @@ case "$1" in
         ;;
 esac
 
+mkdir /secrets
+mount -t btrfs -r -o subvol=@secrets /dev/mapper/MAINCRYPTED /secrets
+
+ls /secrets/parts/id-*.id | while read k; do
+done
+
 sh

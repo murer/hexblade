@@ -77,10 +77,8 @@ cmd_recipe_crypt_from_backup() {
   read -p 'Target device (it will be formatted): ' hexblade_recipe_dev
   read -p 'Grub install device: ' hexblade_recipe_grub_dev
 
-  if [[ "x$hexblade_recipe_format" == "xy" ]]; then
-    cmd_crypt_format "$hexblade_recipe_dev"
-    mkfs.ext4 -L ROOT /dev/mapper/MAINCRYPTED
-  fi
+  cmd_crypt_format "$hexblade_recipe_dev"
+  mkfs.ext4 -L ROOT /dev/mapper/MAINCRYPTED
   ls /dev/mapper/MAINCRYPTED || cmd_crypt_open "$hexblade_recipe_dev"
 
   cmd_struct

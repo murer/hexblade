@@ -2,7 +2,9 @@
 function cmd_btrfs_format() {
     hexblade_btrfs_dev="${1?'hexblade_btrfs_dev is required'}"
     hexblade_btrfs_name="${2?'hexblade_btrfs_name is required'}"
+    dd if=/dev/zero "of=$hexblade_btrfs_dev" bs=1M count=32
     mkfs.btrfs -L "$hexblade_btrfs_name" "$hexblade_btrfs_dev"
+    cmd_btrfs_mount "$hexblade_btrfs_dev"
 }
 
 function cmd_btrfs_mount() {

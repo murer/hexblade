@@ -33,6 +33,8 @@ function cmd_recipe_localsync_from_backup() {
     swapon /dev/mapper/LOCAL-SWAP
     
     rsync -a --delete /mnt/hexblade/backup/ /mnt/hexblade/installer/
+
+    cmd_crypt_initramfs
     
     mkdir -p /mnt/hexblade/installer/localdata
     mount /dev/mapper/LOCAL-DATA /mnt/hexblade/installer/localdata

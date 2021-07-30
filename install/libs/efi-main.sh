@@ -10,3 +10,8 @@ cmd_efi_mount_if_needed() {
     cmd_efi_mount "$@"
   fi
 }
+
+cmd_efi_format() {
+  hexblade_efi_dev="${1?'hexblade_efi_dev is required'}"
+  mkfs.fat -n ESP -F32 "$hexblade_efi_dev"
+}

@@ -41,6 +41,12 @@ cmd_basesys_install() {
   #  arch-chroot /mnt/hexblade/installer apt -y install cryptsetup lvm2
   #fi
 
+  if [[ -d /sys/firmware/efi ]]; then
+    arch-chroot /mnt/hexblade/installer apt -y install grub-efi
+  else
+    arch-chroot /mnt/hexblade/installer apt -y install grub-pc
+  fi
+
 }
 
 cmd_basesys_kernel() {

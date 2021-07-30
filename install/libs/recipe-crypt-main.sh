@@ -44,7 +44,8 @@ cmd_recipe_crypt_from_backup() {
   [[ ! -d /mnt/hexblade/installer ]]
   [[ -d /mnt/hexblade/backup/bin ]]
   read -p 'Target device (it will be formatted): ' hexblade_recipe_dev
-  read -p 'Grub install device: ' hexblade_recipe_grub_dev
+  read -p 'EFI Partition (blank): ' hexblade_recipe_efi_part
+  read -p 'Grub install device (blank): ' hexblade_recipe_grub_dev
 
   cmd_crypt_format "$hexblade_recipe_dev"
   mkfs.ext4 -L ROOT /dev/mapper/MAINCRYPTED
@@ -53,14 +54,17 @@ cmd_recipe_crypt_from_backup() {
   cmd_struct
   mount /dev/mapper/MAINCRYPTED /mnt/hexblade/installer || true
  
-  if [[ "x$hexblade_recipe_grub_dev" ]]; then
-    cmd_efi_mount_if_needed "$hexblade_recipe_grub_dev"
+  if [[ "x$hexblade_recipe_efi_part" ]]; then
+    cmd_efi_mount_if_needed "$hexblade_recipe_efi_part"
   fi
 
   cmd_backup_restore
   cmd_crypt_tab
   cmd_struct_fstab
-  cmd_boot "$hexblade_recipe_grub_dev"
+
+  if [[ "x$hexblade_recipe_grub_dev" != "x" ]]; then
+    cmd_boot "$hexblade_recipe_grub_dev"
+  fi
   
   #cmd_struct_umount
 }

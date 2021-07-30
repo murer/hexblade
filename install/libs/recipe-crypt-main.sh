@@ -4,6 +4,7 @@ cmd_recipe_crypt() {
 
   read -p 'Target device: ' hexblade_recipe_dev
   read -p 'Format (y/n): ' hexblade_recipe_format
+  read -p 'EFI Partition (blank): ' hexblade_recipe_efi_part
   read -p 'Grub install device: ' hexblade_recipe_grub_dev
   read -p 'Username: ' hexblade_recipe_user_name
   
@@ -19,8 +20,8 @@ cmd_recipe_crypt() {
   cmd_struct
   mount /dev/mapper/MAINCRYPTED /mnt/hexblade/installer || true
 
-  if [[ "x$hexblade_recipe_grub_dev" ]]; then
-    cmd_efi_mount_if_needed "$hexblade_recipe_grub_dev"
+  if [[ "x$hexblade_recipe_efi_part" ]]; then
+    cmd_efi_mount_if_needed "$hexblade_recipe_efi_part"
   fi
   
   [[ -d /mnt/hexblade/installer/bin ]] || cmd_basesys_strap
@@ -32,7 +33,9 @@ cmd_recipe_crypt() {
 
   cmd_user_add "$hexblade_recipe_user_name"
   
-  cmd_boot "$hexblade_recipe_grub_dev"
+  if [[ "x$hexblade_recipe_grub_dev" != "x" ]]; then
+    cmd_boot "$hexblade_recipe_grub_dev"
+  fi
 
   #cmd_struct_umount
 }

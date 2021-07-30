@@ -1,7 +1,7 @@
 
 function cmd_user_add() {
-    if [[ ! -d "/mnt/hexblade/installer/home/$user" ]]; then
-        hexblade_username="${1?'user name is required'}"
+    hexblade_username="${1?'user name is required'}"
+    if [[ ! -d "/mnt/hexblade/installer/home/$hexblade_username" ]]; then
         hexblade_password="$2"
         if [ "x$hexblade_password" == "x" ]; then
             hexblade_password="$(openssl passwd -6)"

@@ -2,6 +2,7 @@
 
 function cmd_recipe_localsync_from_backup() {
     read -p 'Stick partition (it will be formatted): ' hexblade_recipe_dev
+    read -p 'EFI Partition (blank): ' hexblade_recipe_efi_part
     read -p 'Stick grub install device: ' hexblade_recipe_grub_dev
     read -p 'Internal device (it will be formatted): ' hexblade_recipe_local_dev
     read -p 'Internal swap size (sample: 16GB): ' hexblade_recipe_swap_size
@@ -17,10 +18,6 @@ function cmd_recipe_localsync_from_backup() {
     cmd_btrfs_subvol_mount /dev/mapper/MAINCRYPTED secrets /mnt/hexblade/secrets
     cmd_btrfs_subvol_mount /dev/mapper/MAINCRYPTED root /mnt/hexblade/installer
 
-    if [[ "x$hexblade_recipe_grub_dev" ]]; then
-        cmd_efi_mount_if_needed "$hexblade_recipe_grub_dev"
-    fi
-
     cmd_crypt_format_with_file "$hexblade_recipe_local_dev" LOCALCRYPTED
     cmd_lvm_format /dev/mapper/LOCALCRYPTED LOCAL
     cmd_lvm_add LOCAL SWAP "$hexblade_recipe_swap_size"
@@ -32,7 +29,11 @@ function cmd_recipe_localsync_from_backup() {
     mkfs.ext4 -L DATA /dev/mapper/LOCAL-DATA
     swapon /dev/mapper/LOCAL-SWAP
     
-    rsync -a --delete /mnt/hexblade/backup/ /mnt/hexblade/installer/
+    cmd_backup_restore
+
+    if [[ "x$hexblade_recipe_efi_part" ]]; then
+        cmd_efi_mount_if_needed "$hexblade_recipe_efi_part"
+    fi
  
     mkdir -p /mnt/hexblade/installer/localdata
     mount /dev/mapper/LOCAL-DATA /mnt/hexblade/installer/localdata

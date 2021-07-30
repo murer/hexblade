@@ -54,11 +54,12 @@ cmd_recipe_crypt_from_backup() {
   cmd_struct
   mount /dev/mapper/MAINCRYPTED /mnt/hexblade/installer || true
  
+  cmd_backup_restore
+
   if [[ "x$hexblade_recipe_efi_part" ]]; then
     cmd_efi_mount_if_needed "$hexblade_recipe_efi_part"
   fi
-
-  cmd_backup_restore
+  
   cmd_crypt_tab
   cmd_struct_fstab
 

@@ -5,10 +5,13 @@ cmd_recipe_basic() {
   read -p 'Format (y/n): ' hexblade_recipe_format
   read -p 'EFI Partition (blank): ' hexblade_recipe_efi_part
   read -p 'Grub install device (blank): ' hexblade_recipe_grub_dev
+  read -p 'Hostname: ' hexblade_recipe_hostname
   read -p 'Username: ' hexblade_recipe_user_name
-  
+
   [[ -d /mnt/hexblade/config ]] || cmd_config
   [[ "x$hexblade_recipe_dev" != "x" ]]
+  [[ "x$hexblade_recipe_hostname" != "x" ]]
+  cmd_config_hostname "$hexblade_recipe_hostname"
 
   if [[ "x$hexblade_recipe_format" == "xy" ]]; then
     mkfs.ext4 -L ROOT "$hexblade_recipe_dev"

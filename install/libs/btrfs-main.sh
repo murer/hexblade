@@ -11,7 +11,7 @@ function cmd_btrfs_mount() {
     hexblade_btrfs_dev="${1?'hexblade_btrfs_dev is required'}"
     hexblade_btrfs_id="$(blkid -o value -s UUID "$hexblade_btrfs_dev")"
     mkdir -p "/mnt/hexblade/btrfs/$hexblade_btrfs_id"
-    mount -t btrfs -o compress=lzo "$hexblade_btrfs_dev" "/mnt/hexblade/btrfs/$hexblade_btrfs_id"
+    mount -t btrfs "$hexblade_btrfs_dev" "/mnt/hexblade/btrfs/$hexblade_btrfs_id"
 }
 
 function cmd_btrfs_subvol_create() {
@@ -28,5 +28,5 @@ function cmd_btrfs_subvol_mount() {
     hexblade_btrfs_point="${3?'hexblade_btrfs_point is required'}"
 
     mkdir -p "$hexblade_btrfs_point"
-    mount -t btrfs -o "compress=lzo,subvol=@$hexblade_btrfs_subvol_name" "$hexblade_btrfs_dev" "$hexblade_btrfs_point"
+    mount -t btrfs -o "subvol=@$hexblade_btrfs_subvol_name" "$hexblade_btrfs_dev" "$hexblade_btrfs_point"
 }

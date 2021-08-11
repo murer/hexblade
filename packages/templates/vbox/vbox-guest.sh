@@ -2,10 +2,6 @@
 
 export DEBIAN_FRONTEND="noninteractive"
 
-cmd_pulse() {
-    echo 'export PULSE_SERVER="10.0.2.2:4713"' > /etc/profile.d/pulseredirect.sh
-}
-
 cmd_nogui() {
     ../../tools/tools.sh install
     ../../graphics/graphics.sh xterm
@@ -17,10 +13,10 @@ cmd_nogui() {
     ../../chrome/chrome.sh install
     ../../graphics/graphics.sh network-manager-gnome
     ../../sound/sound.sh pavucontrol
+    ../../sound/sound.sh pulse_server '10.0.2.2:4713'
     ../../openbox/openbox.sh install
     ../../openbox/openbox.sh lockscreen disable
     ../../virtualbox/virtualbox.sh guest
-    cmd_pulse
 }
 
 cmd_gui() {

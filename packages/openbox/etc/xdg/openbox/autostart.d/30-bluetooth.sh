@@ -1,3 +1,3 @@
 
-blueman-applet || true
+blueman-applet || true &
 

@@ -15,8 +15,11 @@ cmd_nogui() {
     ../../sound/sound.sh pavucontrol
     ../../sound/sound.sh pulse_server '10.0.2.2:4713'
     ../../openbox/openbox.sh install
+    ../../openbox/openbox.sh background 000022
     ../../openbox/openbox.sh lockscreen disable
     ../../virtualbox/virtualbox.sh guest
+
+    cp -Rv guest/etc/* /etc
 }
 
 cmd_gui() {

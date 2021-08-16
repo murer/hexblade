@@ -23,6 +23,7 @@ cmd_install() {
 	fi
 
 	cp -Rv etc/xdg/openbox/* /etc/xdg/openbox
+	chmod -v 644 /etc/xdg/openbox/autostart.d/*.sh
 }
 
 cmd_lockscreen() {
@@ -40,6 +41,11 @@ cmd_lockscreen() {
 
 cmd_xinit() {
 	cp -v home/xinitrc ~/.xinitrc
+}
+
+cmd_background() {
+	hexblade_background="${1?'hexblade_background is required, sample: 000022'}"
+	echo "xsetroot -solid \"#$hexblade_background\"" > /etc/X11/openbox/autostart.d/30-background.sh
 }
 
 cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; "cmd_${_cmd}" "$@"

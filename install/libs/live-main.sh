@@ -2,14 +2,27 @@
 # https://github.com/mvallim/live-custom-ubuntu-from-scratch
 
 cmd_live_install() {
-  
-  #arch-chroot /mnt/hexblade/installer apt install -y virtualbox-guest-dkms \
+    
+  arch-chroot /mnt/hexblade/installer apt install -y \
+    casper \
+    lupin-casper \
+    discover \
+    laptop-detect \
+    os-prober \
+    upower \
+    dkms \
+    virtualbox-guest-utils
+
+  #arch-chroot /mnt/hexblade/installer apt install -y \
+  # ubiquity \
+  # ubiquity-casper \
+  # ubiquity-frontend-gtk \
+  # ubiquity-slideshow-ubuntu \
+  # ubiquity-ubuntu-artwork \
+
+  #arch-chroot /mnt/hexblade/installer apt install -y \
+  #  virtualbox-guest-dkms \
   #  virtualbox-guest-x11
-  #  ubiquity \
-  #  ubiquity-casper \
-  #  ubiquity-frontend-gtk \
-  #  ubiquity-slideshow-ubuntu \
-  #  ubiquity-ubuntu-artwork
 
   arch-chroot /mnt/hexblade/installer apt clean
   mkdir -p /mnt/hexblade/image/{casper,isolinux}
@@ -41,18 +54,20 @@ cmd_live_iso() {
   mkdir -p /mnt/hexblade/iso
   cd /mnt/hexblade/image
   grub-mkstandalone \
-    --format=x86_64-efi \
-    --output=isolinux/bootx64.efi \
-    --locales="" \
-    --fonts="" \
-    "boot/grub/grub.cfg=isolinux/grub.cfg"
+   --format=x86_64-efi \
+   --output=isolinux/bootx64.efi \
+   --locales="" \
+   --fonts="" \
+   "boot/grub/grub.cfg=isolinux/grub.cfg"
   cd -
+
   cd /mnt/hexblade/image/isolinux
   dd if=/dev/zero of=efiboot.img bs=1M count=10
   sudo mkfs.vfat efiboot.img
   LC_CTYPE=C mmd -i efiboot.img efi efi/boot
   LC_CTYPE=C mcopy -i efiboot.img ./bootx64.efi ::efi/boot/
   cd -
+  
   cd /mnt/hexblade/image
   grub-mkstandalone \
     --format=i386-pc \
@@ -82,8 +97,6 @@ cmd_live_iso() {
     -no-emul-boot \
     -append_partition 2 0xef isolinux/efiboot.img \
     -output "../iso/hexblade.iso" \
-    -m "isolinux/efiboot.img" \
-    -m "isolinux/bios.img" \
     -graft-points \
         "." \
         /boot/grub/bios.img=isolinux/bios.img \

@@ -1,4 +1,8 @@
 
+function cmd_boot_initramfs() {
+    arch-chroot /mnt/hexblade/installer update-initramfs -u -k all
+}
+
 function cmd_boot() {
 
     hexblade_grub_dev="${1?'hexblade_grub_dev is required'}"
@@ -13,6 +17,6 @@ function cmd_boot() {
 
     arch-chroot /mnt/hexblade/installer update-grub
     arch-chroot /mnt/hexblade/installer grub-install "$hexblade_grub_dev"
-    arch-chroot /mnt/hexblade/installer update-initramfs -u -k all
+    cmd_initramfs
 }
 

@@ -19,6 +19,7 @@ cmd_install() {
 
     ../../openbox/openbox.sh install
     ../../lxdm/lxdm.sh install
+    ../../lxdm/lxdm.sh autologin "ubuntu"
 
     apt install -y \
         virtualbox-guest-utils \

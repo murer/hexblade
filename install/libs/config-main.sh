@@ -11,7 +11,7 @@ function cmd_config() {
 }
 
 function cmd_config_hostname() {
-    hexblade_config_hostname="${1?'hexblade_config_hostname is required'}"
+    hexblade_config_hostname="${1:-hexblade}"
     echo "$hexblade_config_hostname" > /mnt/hexblade/config/basesys/etc/hostname
     echo "127.0.0.1 localhost $hexblade_config_hostname.localdomain $hexblade_config_hostname" > /mnt/hexblade/config/basesys/etc/hosts
     echo "::1 localhost ip6-localhost ip6-loopback" >> /mnt/hexblade/config/basesys/etc/hosts

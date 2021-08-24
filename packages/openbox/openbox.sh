@@ -23,7 +23,9 @@ cmd_install() {
 	fi
 
 	cp -Rv etc/xdg/openbox/* /etc/xdg/openbox
-	chmod -v 644 /etc/xdg/openbox/autostart.d/*.sh
+	find /etc/xdg/openbox /etc/xdg/tint2 -type d -exec chmod -v 755 '{}' \;
+	find /etc/xdg/openbox /etc/xdg/tint2 -type f -exec chmod -v 644 '{}' \;
+	chmod -v 755 /etc/xdg/openbox/autostart
 }
 
 cmd_lockscreen() {
@@ -45,7 +47,7 @@ cmd_xinit() {
 
 cmd_background() {
 	hexblade_background="${1?'hexblade_background is required, sample: 000022'}"
-	echo "xsetroot -solid \"#$hexblade_background\"" > /etc/X11/openbox/autostart.d/30-background.sh
+	echo "xsetroot -solid \"#$hexblade_background\"" > /etc/xdg/openbox/autostart.d/30-background.sh
 }
 
 cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; "cmd_${_cmd}" "$@"

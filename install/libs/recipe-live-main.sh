@@ -1,6 +1,5 @@
 
-cmd_recipe_live() {
-  
+cmd_recipe_live_system() {
   [[ -d /mnt/hexblade/config ]] || cmd_config
 
   cmd_struct
@@ -9,14 +8,32 @@ cmd_recipe_live() {
 
   [[ -d /mnt/hexblade/installer/bin ]] || cmd_basesys_strap
   cmd_basesys_install
-  cmd_struct_fstab 
+  cmd_struct_fstab
   cmd_basesys_kernel
   cmd_keyboard
 
   cmd_user_add "ubuntu"
 
   cmd_live_install
+}
+
+cmd_recipe_live_iso() {
+  
   cmd_live_compress
   cmd_live_iso
+}
+
+cmd_recipe_live_standard() {
+  cp -R ../packages /mnt/hexblade/installer/opt/
+  arch-chroot /mnt/hexblade/installer /opt/packages/templates/live/live.sh install
+  rm -rf /mnt/hexblade/installer/opt/packages
+}
+
+cmd_recipe_live() {
+  
+  cmd_recipe_live_system
+
+
+  cmd_recipe_live_iso
 
 }

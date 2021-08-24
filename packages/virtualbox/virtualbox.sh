@@ -5,8 +5,12 @@ cmd_clean() {
   [[ ! -d target ]]
 }
 
-cmd_group() {
+cmd_guest_group() {
   usermod -aG vboxsf "${1?'uername'}"
+}
+
+cmd_host_group() {
+  usermod -aG vboxusers "${1?'username'}"
 }
 
 cmd_guest_dir() {
@@ -14,11 +18,11 @@ cmd_guest_dir() {
     chown -R root:vboxsf /var/hexblade
 
     if [[ "x$hexblade_user" != "x" ]]; then
-      cmd_group "$hexblade_user"
+      cmd_guest_group "$hexblade_user"
     elif [[ "x$UID" == "x0" && "x$SUDO_USER" != "x" && "x$SUDO_UID" != "x0" ]]; then
-      cmd_group "$SUDO_USER"
+      cmd_guest_group "$SUDO_USER"
     elif [[ "x$UID" != "x0" ]]; then
-      cmd_group "$USER"
+      cmd_guest_group "$USER"
     fi 
 }
 
@@ -57,7 +61,13 @@ cmd_install() {
   apt-cache search virtualbox | grep ^virtualbox
   apt install -y virtualbox-6.1 dkms
 
-  usermod -aG vboxusers "$USER"
+  if [[ "x$hexblade_user" != "x" ]]; then
+    cmd_host_group "$hexblade_user"
+  elif [[ "x$UID" == "x0" && "x$SUDO_USER" != "x" && "x$SUDO_UID" != "x0" ]]; then
+    cmd_host_group "$SUDO_USER"
+  elif [[ "x$UID" != "x0" ]]; then
+   cmd_host_group "$USER"
+  fi
 
   # Install usb 30 support extention: https://www.virtualbox.org/wiki/Downloads
   wget --progress=dot -e dotbytes=64K -c \

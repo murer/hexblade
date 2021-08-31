@@ -13,10 +13,11 @@ cmd_install() {
       gnupg-agent \
       software-properties-common
 
-  curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+  mkdir -p /etc/apt/hardkeys
+  curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor > /etc/apt/hardkeys/docker.gpg
 
-  echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" > /etc/apt/sources.list.d/docker.list
-  echo "# deb-src [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" >> /etc/apt/sources.list.d/docker.list
+  echo "deb [arch=amd64 signed-by=/etc/apt/hardkeys/docker.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" > /etc/apt/sources.list.d/docker.list
+  echo "# deb-src [arch=amd64 signed-by=/etc/apt/hardkeys/docker.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" >> /etc/apt/sources.list.d/docker.list
 
   apt -y update
 

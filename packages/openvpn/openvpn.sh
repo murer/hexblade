@@ -2,8 +2,9 @@
 
 cmd_install() {
 	if ! openvpn --version  | grep "^OpenVPN"; then
-		wget -O - https://swupdate.openvpn.net/repos/repo-public.gpg | apt-key add -
-        	echo "deb http://build.openvpn.net/debian/openvpn/release/2.5 focal main" > /etc/apt/sources.list.d/openvpn-aptrepo.list
+		mkdir -p /etc/apt/hardkeys
+		wget -O - https://swupdate.openvpn.net/repos/repo-public.gpg > /etc/apt/hardkeys/openvpn.gpg
+        	echo "deb [signed-by=/etc/apt/hardkeys/openvpn.gpg] http://build.openvpn.net/debian/openvpn/release/2.5 focal main" > /etc/apt/sources.list.d/openvpn-aptrepo.list
         	apt-get update
 		apt-get install -y openvpn
 	fi

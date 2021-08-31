@@ -51,11 +51,12 @@ cmd_install() {
       gnupg-agent \
       software-properties-common
 
-  curl -fsSL https://www.virtualbox.org/download/oracle_vbox.asc | apt-key add -
-  curl -fsSL https://www.virtualbox.org/download/oracle_vbox_2016.asc | apt-key add -
+  mkdir -p /etc/apt/hardkeys
+  curl -fsSL https://www.virtualbox.org/download/oracle_vbox.asc | gpg --dearmor > /etc/apt/hardkeys/oracle_vbox.gpg
+  curl -fsSL https://www.virtualbox.org/download/oracle_vbox_2016.asc | gpg --dearmor > /etc/apt/hardkeys/oracle_vbox_2016.gpg
 
-  echo "deb http://download.virtualbox.org/virtualbox/debian $(lsb_release -cs) contrib" | tee /etc/apt/sources.list.d/virtualbox.list
-  echo "# deb-src http://download.virtualbox.org/virtualbox/debian $(lsb_release -cs) contrib" | tee -a /etc/apt/sources.list.d/virtualbox.list
+  echo "deb [signed-by=/etc/apt/hardkeys/oracle_vbox.gpg,/etc/apt/hardkeys/oracle_vbox_2016.gpg] http://download.virtualbox.org/virtualbox/debian $(lsb_release -cs) contrib" | tee /etc/apt/sources.list.d/virtualbox.list
+  echo "# deb-src [signed-by=/etc/apt/hardkeys/oracle_vbox.gpg,/etc/apt/hardkeys/oracle_vbox_2016.gpg] http://download.virtualbox.org/virtualbox/debian $(lsb_release -cs) contrib" | tee -a /etc/apt/sources.list.d/virtualbox.list
 
   apt -y update
   apt-cache search virtualbox | grep ^virtualbox

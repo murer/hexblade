@@ -50,4 +50,9 @@ cmd_background() {
 	echo "xsetroot -solid \"#$hexblade_background\"" > /etc/xdg/openbox/autostart.d/30-background.sh
 }
 
+cmd_xhost_user() {
+	hexblade_xhostuser="${1?'username'}"
+	echo "xhost '+SI:localuser:$hexblade_xhostuser'" > /etc/xdg/openbox/autostart.d/20-xhost-user-$hexblade_xhostuser.sh
+}
+
 cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; "cmd_${_cmd}" "$@"

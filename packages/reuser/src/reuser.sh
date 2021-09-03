@@ -1,6 +1,6 @@
 #!/bin/bash -xe
 
-[[ "x$USER" != "xmurer" ]]
+[[ "x$SUDO_USER" != "x" ]]
 [[ "x$USER" != "xroot" ]]
 
 export DISPLAY=:0.0

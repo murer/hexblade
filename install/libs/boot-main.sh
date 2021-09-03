@@ -17,6 +17,6 @@ function cmd_boot() {
 
     arch-chroot /mnt/hexblade/installer update-grub
     arch-chroot /mnt/hexblade/installer grub-install "$hexblade_grub_dev"
-    cmd_initramfs
+    cmd_boot_initramfs
 }
 

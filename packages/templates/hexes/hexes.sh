@@ -1,13 +1,13 @@
 #!/bin/bash -xe
 
 cmd_install() {
-  #../standard/standard.sh install
+  ../standard/standard.sh install
 
-  #../../virtualbox/virtualbox.sh install
-  #../../docker/docker.sh install
+  ../../virtualbox/virtualbox.sh install
+  ../../docker/docker.sh install
 
-  #../../sound/sound.sh tcp
-  #../../lxdm/lxdm.sh tcplisten enable
+  ../../sound/sound.sh tcp
+  ../../lxdm/lxdm.sh tcplisten enable
 
   cp src/hexes-*.sh /usr/local/bin
   chmod +x /usr/local/bin/hexes-*.sh

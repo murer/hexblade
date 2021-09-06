@@ -6,21 +6,19 @@ cmd_software() {
 
 cmd_install() {
   cmd_software
-  cmd_clean
+  cmd_apply_deny
   cmd_apply
   cmd_save
 }
 
-cmd_clean() {
-  # echo "
-  #   *filter
-  #   :INPUT ACCEPT
-  #   :FORWARD ACCEPT
-  #   :OUTPUT ACCEPT
-  #   COMMIT
-  # " | sed 's/^\s*//g' | sudo iptables-restore
+cmd_apply_allow() {
   cat src/allow_all/rules.v4 | sudo iptables-restore
   cat src/allow_all/rules.v6 | sudo ip6tables-restore
+}
+
+cmd_apply_deny() {
+  cat src/deny_all/rules.v4 | sudo iptables-restore
+  cat src/deny_all/rules.v6 | sudo ip6tables-restore
 }
 
 cmd_install_only() {

@@ -7,7 +7,6 @@ cmd_software() {
 cmd_install() {
   cmd_software
   cmd_apply_deny
-  cmd_apply
   cmd_save
 }
 
@@ -21,27 +20,18 @@ cmd_apply_deny() {
   cat src/deny_all/rules.v6 | sudo ip6tables-restore
 }
 
-cmd_install_only() {
+cmd_install_deny() {
   cmd_software
-  echo "
-    *filter
-    :INPUT DROP [0:0]
-    :FORWARD DROP [0:0]
-    :OUTPUT ACCEPT [0:0]
-    -A INPUT -i lo -j ACCEPT
-    -A INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
-    -A OUTPUT -o lo -j ACCEPT
-    COMMIT  
-  " | tee /etc/iptables/rules.v4 /etc/iptables/rules.v6
+  cp -v src/deny_all/* /etc/iptables
 }
 
-cmd_port_open() {
+cmd_port4_open() {
   hexblade_port_open="${1?'port to open'}"
   sudo iptables -A INPUT -p tcp -s 0.0.0.0/0 --dport "$hexblade_port_open" -m state --state NEW,ESTABLISHED -j ACCEPT
   sudo iptables -A OUTPUT -p tcp -d 0.0.0.0/0 --sport "$hexblade_port_open" -m state --state ESTABLISHED -j ACCEPT
 }
 
-cmd_apply() {
+cmd_apply4() {
   # Set default chain policies
   sudo iptables -P INPUT DROP
   sudo iptables -P FORWARD DROP
@@ -59,7 +49,7 @@ cmd_apply() {
 }
 
 cmd_save() {
-  sudo iptables-save | tee /etc/iptables/rules.v4 /etc/iptables/rules.v6
+  sudo netfilter-persistent save
 }
 
 cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; "cmd_${_cmd}" "$@"

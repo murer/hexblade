@@ -1,7 +1,11 @@
 #!/bin/bash -xe
 
-cmd_install() {
+cmd_software() {
   apt install -y iptables-persistent
+}
+
+cmd_install() {
+  cmd_software
   cmd_clean
   cmd_apply
   cmd_save
@@ -15,6 +19,20 @@ cmd_clean() {
     :OUTPUT ACCEPT
     COMMIT
   " | sed 's/^\s*//g' | sudo iptables-restore
+}
+
+cmd_install_only() {
+  cmd_software
+  echo "
+    *filter
+    :INPUT DROP [0:0]
+    :FORWARD DROP [0:0]
+    :OUTPUT ACCEPT [0:0]
+    -A INPUT -i lo -j ACCEPT
+    -A INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+    -A OUTPUT -o lo -j ACCEPT
+    COMMIT  
+  "
 }
 
 cmd_port_open() {

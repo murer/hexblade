@@ -25,6 +25,8 @@ cmd_install() {
         virtualbox-guest-utils \
         virtualbox-guest-dkms \
         virtualbox-guest-x11
+
+    ../../hexes/hexes.sh install
 }
 
 cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; "cmd_${_cmd}" "$@"

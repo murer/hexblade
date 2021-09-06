@@ -1,8 +1,11 @@
 
 cmd_recipe_mem() {
   read -p 'Username: ' hexblade_recipe_user_name
-  
+  read -p 'Hostname (ubuntu to live): ' hexblade_recipe_hostname
+
   [[ -d /mnt/hexblade/config ]] || cmd_config
+  [[ "x$hexblade_recipe_hostname" != "x" ]]
+  cmd_config_hostname "$hexblade_recipe_hostname"
 
   cmd_struct
   findmnt /mnt/hexblade/installer || mount -t tmpfs -o size=6g tmpfs /mnt/hexblade/installer
@@ -17,3 +20,4 @@ cmd_recipe_mem() {
 
   cmd_user_add "$hexblade_recipe_user_name"
 }
+

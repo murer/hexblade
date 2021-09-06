@@ -19,8 +19,8 @@ cmd_clean() {
   #   :OUTPUT ACCEPT
   #   COMMIT
   # " | sed 's/^\s*//g' | sudo iptables-restore
-  find
-  cp -v src/allow_all/rules.v4 | sudo iptables-restore
+  cat src/allow_all/rules.v4 | sudo iptables-restore
+  cat src/allow_all/rules.v6 | sudo ip6tables-restore
 }
 
 cmd_install_only() {

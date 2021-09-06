@@ -52,7 +52,7 @@ cmd_apply() {
   sudo iptables -A OUTPUT -o lo -j ACCEPT
 
   # Accept some ports
-  cmd_port_open 22
+  #cmd_port_open 22
 
   # Allow established sessions to receive traffic
   sudo iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT

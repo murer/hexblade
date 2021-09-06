@@ -3,7 +3,7 @@
 
 cmd_install() {
     ../../tools/tools.sh install
-    #../../firewall/firewall.sh install
+    ../../firewall/firewall.sh install_deny
 
     ../../graphics/graphics.sh xterm
     

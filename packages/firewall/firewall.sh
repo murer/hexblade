@@ -32,7 +32,7 @@ cmd_install_only() {
     -A INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
     -A OUTPUT -o lo -j ACCEPT
     COMMIT  
-  "
+  " | tee /etc/iptables/rules.v4 /etc/iptables/rules.v6
 }
 
 cmd_port_open() {

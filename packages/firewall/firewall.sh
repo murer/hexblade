@@ -12,13 +12,14 @@ cmd_install() {
 }
 
 cmd_clean() {
-  echo "
-    *filter
-    :INPUT ACCEPT
-    :FORWARD ACCEPT
-    :OUTPUT ACCEPT
-    COMMIT
-  " | sed 's/^\s*//g' | sudo iptables-restore
+  # echo "
+  #   *filter
+  #   :INPUT ACCEPT
+  #   :FORWARD ACCEPT
+  #   :OUTPUT ACCEPT
+  #   COMMIT
+  # " | sed 's/^\s*//g' | sudo iptables-restore
+  cp -v src/allow_all/rules.v4 | sudo iptables-restore
 }
 
 cmd_install_only() {

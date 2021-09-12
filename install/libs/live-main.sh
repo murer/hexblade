@@ -47,10 +47,10 @@ cmd_live_compress() {
   rm /mnt/hexblade/image/casper/filesystem.squashfs || true
   mksquashfs /mnt/hexblade/installer /mnt/hexblade/image/casper/filesystem.squashfs
   printf $(du -sx --block-size=1 /mnt/hexblade/installer | cut -f1) > /mnt/hexblade/image/casper/filesystem.size
+  cp resources/live/README.diskdefines /mnt/hexblade/image/README.diskdefines
 }
 
 cmd_live_iso() {
-  cp resources/live/README.diskdefines /mnt/hexblade/image/README.diskdefines
   mkdir -p /mnt/hexblade/iso
   cd /mnt/hexblade/image
   grub-mkstandalone \

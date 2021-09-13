@@ -29,6 +29,11 @@ cmd_recipe_semilive_grub() {
   " | tee /mnt/hexblade/image/isolinux/grub.cfg
 }
 
+cmd_recipe_semilive_initramfs() {
+  cp -vR resources/semilive/initramfs-tools/* /mnt/hexblade/installer/usr/share/initramfs-tools
+  cmd_boot_initramfs
+}
+
 cmd_recipe_semilive() {
 
   read -p 'Root Partition, it will be formatted (/dev/sdb2): ' hexblade_recipe_root_dev
@@ -52,10 +57,13 @@ cmd_recipe_semilive() {
   mount "$hexblade_recipe_efi_dev" /mnt/hexblade/image/EFI
 
   cmd_recipe_live_system
+  
+  #cmd_recipe_semilive_initramfs  
+  #cmd_live_install
   #cmd_recipe_live_standard
 
-  cmd_recipe_semilive_grub "$hexblade_recipe_root_dev"
-  cmd_crypt_tab SEMILIVECRYPTED
+  #cmd_recipe_semilive_grub "$hexblade_recipe_root_dev"
+  #cmd_crypt_tab SEMILIVECRYPTED
 
   #cmd_live_compress
   #cmd_recipe_semilive_efi

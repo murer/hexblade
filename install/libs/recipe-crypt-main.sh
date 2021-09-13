@@ -15,7 +15,7 @@ cmd_recipe_crypt() {
   cmd_config_hostname "$hexblade_recipe_hostname"
 
   if [[ "x$hexblade_recipe_format" == "xy" ]]; then
-    cmd_crypt_format "$hexblade_recipe_dev"
+    cmd_crypt_format "$hexblade_recipe_dev" MAINCRYPTED
     mkfs.ext4 -L ROOT /dev/mapper/MAINCRYPTED
   fi
   ls /dev/mapper/MAINCRYPTED || cmd_crypt_open "$hexblade_recipe_dev"
@@ -29,7 +29,7 @@ cmd_recipe_crypt() {
   
   [[ -d /mnt/hexblade/installer/bin ]] || cmd_basesys_strap
   cmd_basesys_install
-  cmd_crypt_tab
+  cmd_crypt_tab MAINCRYPTED
   cmd_struct_fstab 
   cmd_basesys_kernel
   cmd_keyboard
@@ -50,7 +50,7 @@ cmd_recipe_crypt_from_backup() {
   read -p 'EFI Partition (blank): ' hexblade_recipe_efi_part
   read -p 'Grub install device (blank): ' hexblade_recipe_grub_dev
 
-  cmd_crypt_format "$hexblade_recipe_dev"
+  cmd_crypt_format "$hexblade_recipe_dev" MAINCRYPTED
   mkfs.ext4 -L ROOT /dev/mapper/MAINCRYPTED
   ls /dev/mapper/MAINCRYPTED || cmd_crypt_open "$hexblade_recipe_dev"
 
@@ -63,7 +63,7 @@ cmd_recipe_crypt_from_backup() {
     cmd_efi_mount_if_needed "$hexblade_recipe_efi_part"
   fi
   
-  cmd_crypt_tab
+  cmd_crypt_tab MAINCRYPTED
   cmd_struct_fstab
 
   if [[ "x$hexblade_recipe_grub_dev" != "x" ]]; then

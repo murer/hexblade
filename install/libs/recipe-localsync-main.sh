@@ -38,7 +38,7 @@ function cmd_recipe_localsync_from_backup() {
     mkdir -p /mnt/hexblade/installer/localdata
     mount /dev/mapper/LOCAL-DATA /mnt/hexblade/installer/localdata
 
-    cmd_crypt_tab
+    cmd_crypt_tab MAINCRYPTED
     cmd_struct_fstab
     cmd_crypt_initramfs
     cmd_crypt_localsync /dev/mapper/LOCAL-ROOT

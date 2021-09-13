@@ -40,4 +40,7 @@ cmd_recipe_cryptlive() {
   mkdir -p /mnt/hexblade/cryptefi/EFI/hexblade
   cp /mnt/hexblade/cryptlive/isolinux/bootx64.efi /mnt/hexblade/cryptefi/EFI/hexblade
 
+
+
 }
+

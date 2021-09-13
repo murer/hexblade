@@ -1,7 +1,7 @@
 
 cmd_crypt_format() {
   hexblade_crypt_dev="${1?'hexblade_crypt_dev is required'}"
-  hexblade_crypt_name="${2:-MAINCRYPTED}"
+  hexblade_crypt_name="${2?'hexblade_crypt_name'}" # MAINCRYPTED
   if ls "/dev/mapper/$hexblade_crypt_name"; then false; fi
   cryptsetup -v -y --type luks1 --cipher aes-xts-plain64 --hash sha256 luksFormat "$hexblade_crypt_dev"
   cmd_crypt_open "$hexblade_crypt_dev" "$hexblade_crypt_name"
@@ -9,7 +9,7 @@ cmd_crypt_format() {
 
 cmd_crypt_open() {
   hexblade_crypt_dev="${1?'hexblade_dev_crypt is required'}"
-  hexblade_crypt_name="${2:-MAINCRYPTED}"
+  hexblade_crypt_name="${2?'hexblade_crypt_name'}" # MAINCRYPTED
   if ls "/dev/mapper/$hexblade_crypt_name"; then false; fi
   cryptsetup open "$hexblade_crypt_dev" "$hexblade_crypt_name"
   

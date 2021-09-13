@@ -68,3 +68,16 @@ cmd_recipe_semilive() {
   #cmd_live_compress
   #cmd_recipe_semilive_efi
 }
+
+cmd_recipe_semilive_tmp() {
+  hexblade_recipe_root_dev=/dev/sdb2
+  cmd_recipe_semilive_initramfs  
+  cmd_live_install
+  #cmd_recipe_live_standard
+
+  cmd_recipe_semilive_grub "$hexblade_recipe_root_dev"
+  cmd_crypt_tab SEMILIVECRYPTED
+
+  cmd_live_compress
+  cmd_recipe_semilive_efi
+}

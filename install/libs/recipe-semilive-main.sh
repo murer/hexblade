@@ -4,8 +4,9 @@ cmd_recipe_semilive_efi() {
   grub-mkstandalone \
    --format=x86_64-efi \
    --output=EFI/bootx64.efi \
+   --modules="part_gpt cryptodisk luks lvm ext2" \
    --locales="" \
-   --fonts="part_gpt cryptodisk luks lvm ext2" \
+   --fonts="" \
    "boot/grub/grub.cfg=isolinux/grub.cfg"
   cd -
 }
@@ -20,8 +21,10 @@ cmd_recipe_semilive_grub() {
     set timeout=30
     menuentry \"Hexblade Encrypted Live\" {
       cryptomount -u $hexblade_crypted_id
+      set root=(lvm/SEMILIVE-ROOT)
       linux /casper/vmlinuz boot=casper nopersistent verbose nosplash ---
       initrd /casper/initrd
+      boot
     }
   " | tee /mnt/hexblade/image/isolinux/grub.cfg
 }
@@ -52,6 +55,7 @@ cmd_recipe_semilive() {
   #cmd_recipe_live_standard
 
   cmd_recipe_semilive_grub "$hexblade_recipe_root_dev"
+  cmd_crypt_tab SEMILIVECRYPTED
 
   #cmd_live_compress
   #cmd_recipe_semilive_efi

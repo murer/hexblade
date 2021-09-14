@@ -19,6 +19,12 @@ esac
 
 set -x
 
-sh
+#sh
+
+if grep 'hexsemilivedecrypt=' /proc/cmdline; then
+        hexblade_semilive_decrypt="$(sed 's/.*hexsemilivedecrypt=\([A-Za-z0-9\_\-]\+\).*/\1/g' /proc/cmdline)"
+        cryptsetup open "/dev/disk/by-uuid/$hexblade_semilive_decrypt" SEMILIVECRYPTED
+fi
+
 
 

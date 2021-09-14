@@ -23,7 +23,7 @@ cmd_recipe_semilive_grub() {
     menuentry \"Hexblade Encrypted Live\" {
       cryptomount -u $hexblade_crypted_id
       set root=(lvm/SEMILIVE-ROOT)
-      linux /casper/vmlinuz boot=casper nopersistent verbose nosplash hexdecrypt=$hexblade_crypted_uuid ---
+      linux /casper/vmlinuz boot=casper nopersistent verbose nosplash hexsemilivedecrypt=$hexblade_crypted_uuid ---
       initrd /casper/initrd
       boot
     }
@@ -72,12 +72,12 @@ cmd_recipe_semilive() {
 
 cmd_recipe_semilive_tmp() {
   hexblade_recipe_root_dev=/dev/sdb2
+  #cmd_crypt_tab SEMILIVECRYPTED
   cmd_recipe_semilive_initramfs  
   cmd_live_install
   #cmd_recipe_live_standard
 
   cmd_recipe_semilive_grub "$hexblade_recipe_root_dev"
-  cmd_crypt_tab SEMILIVECRYPTED
 
   cmd_live_compress
   cmd_recipe_semilive_efi

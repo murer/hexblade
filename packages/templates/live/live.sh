@@ -18,6 +18,7 @@ cmd_install() {
     ../../sound/sound.sh pulseaudio
 
     ../../openbox/openbox.sh install
+    ../../openbox/openbox.sh background 002200
     ../../lxdm/lxdm.sh install
     ../../lxdm/lxdm.sh autologin "ubuntu"
 

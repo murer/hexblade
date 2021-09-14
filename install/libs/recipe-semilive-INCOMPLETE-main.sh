@@ -13,7 +13,8 @@ cmd_recipe_semilive_efi() {
 
 cmd_recipe_semilive_grub() {
   hexblade_recipe_root_dev="${1?'hexblade_recipe_root_dev'}"
-  hexblade_crypted_id="$(sudo blkid -o value -s UUID "$hexblade_recipe_root_dev" | tr -d '-')"
+  hexblade_crypted_uuid="$(sudo blkid -o value -s UUID "$hexblade_recipe_root_dev")"
+  hexblade_crypted_id="$(echo "$hexblade_crypted_uuid" | tr -d '-')"
 
   echo "
     insmod all_video
@@ -22,7 +23,7 @@ cmd_recipe_semilive_grub() {
     menuentry \"Hexblade Encrypted Live\" {
       cryptomount -u $hexblade_crypted_id
       set root=(lvm/SEMILIVE-ROOT)
-      linux /casper/vmlinuz boot=casper nopersistent verbose nosplash ---
+      linux /casper/vmlinuz boot=casper nopersistent verbose nosplash hexdecrypt=$hexblade_crypted_uuid ---
       initrd /casper/initrd
       boot
     }

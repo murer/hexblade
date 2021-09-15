@@ -21,7 +21,7 @@ set -x
 
 if ls /dev/disk/by-label/SEMILIVEDATA; then
         mkdir -p /root/semilivedata
-        mount -r /dev/disk/by-label/SEMILIVEDATA /root/semilivedata
+        mount -w /dev/disk/by-label/SEMILIVEDATA /root/semilivedata
 fi
 
 #sh

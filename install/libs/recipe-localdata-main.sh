@@ -38,7 +38,7 @@ function cmd_recipe_localdata_from_backup() {
     cmd_crypt_tab LOCALCRYPTED
     cmd_struct_fstab
     #cmd_crypt_initramfs
-    cmd_crypt_localsync /dev/mapper/LOCAL-ROOT
+    #cmd_crypt_localsync /dev/mapper/LOCAL-ROOT
 
     cmd_boot "$hexblade_recipe_grub_dev"
 }

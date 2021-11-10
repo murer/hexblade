@@ -39,7 +39,7 @@ function cmd_system_tag_restore() {
   cd /semilivedata/ubuntu/bak
   [[ -f "$hexblade_crypt_tag.tar.gz" ]]
   rm -rf latest
-  tar xzpf "$hexblade_crypt_tag.tar.gz" 
+  pv "$hexblade_crypt_tag.tar.gz" | tar xzpf -
   cd -
 }
 

@@ -30,7 +30,11 @@ function cmd_system_backup_restore() {
 function cmd_system_tag_create() {
   hexblade_crypt_tag="${1?'tag like v1.2.3'}"
   cd /semilivedata/ubuntu/bak
-  tar czpf "$hexblade_crypt_tag.tar.gz" latest
+  find latest | wc
+  du -hs latest
+  hexblade_total_size="$(du -bs latest | cut -f1)"
+  tar cpf - latest | pv -s "$hexblade_total_size" | gzip -9 > "$hexblade_crypt_tag.tar.gz"
+  #tar czpf "$hexblade_crypt_tag.tar.gz" latest
   cd -
 }
 
@@ -39,7 +43,7 @@ function cmd_system_tag_restore() {
   cd /semilivedata/ubuntu/bak
   [[ -f "$hexblade_crypt_tag.tar.gz" ]]
   rm -rf latest
-  tar xzpf "$hexblade_crypt_tag.tar.gz" 
+  pv "$hexblade_crypt_tag.tar.gz" | tar xzpf -
   cd -
 }
 

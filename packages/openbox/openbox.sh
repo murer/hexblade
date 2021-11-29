@@ -1,5 +1,9 @@
 #!/bin/bash -xe
 
+cmd_extra() {
+	apt -y install ubuntu-drivers-common desktop-file-utils x11-session-utils x11-apps
+}
+
 cmd_install() {
 	apt -y install openbox tint2 gmrun arandr xinit
 	apt -y install --no-install-recommends libnotify-bin xfce4-notifyd

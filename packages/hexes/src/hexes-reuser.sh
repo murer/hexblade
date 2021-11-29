@@ -11,6 +11,7 @@ cmd_chrome() {
 }
 
 cmd_bash() {
+	cd
 	bash "$@"
 }
 

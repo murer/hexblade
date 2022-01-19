@@ -16,7 +16,7 @@ cmd_create() {
 cmd_hash_gen() {
     local _hex_backup_name="${1?'backup name is required'}"
     local _hex_backup_to_version="${2?'version to create is required'}"
-    ssh -o ConnectTimeout=5 -o ConnectionAttempts=1000 "$_hex_backup_server" bash -xec "\"cd hexblade/backup/$_hex_backup_name/$_hex_backup_to_version; sha256sum -b cursor.sng data.tar.gz.gpg > SHA256\""
+    ssh -o ConnectTimeout=5 -o ConnectionAttempts=1000 "$_hex_backup_server" bash -xec "\"cd hexblade/backup/$_hex_backup_name/$_hex_backup_to_version; sha256sum -b parent.txt cursor.sng data.tar.gz.gpg > SHA256\""
 }
 
 cmd_hash_check() {
@@ -55,6 +55,8 @@ cmd_rcreate() {
         ssh -o ConnectTimeout=5 -o ConnectionAttempts=1000 "$_hex_backup_server" cat "hexblade/backup/$_hex_backup_name/$_hex_backup_from_version/cursor.sng" | sudo tee "rbak/$_hex_backup_to_version/cursor.sng" > /dev/null
     fi
 
+    echo "$_hex_backup_from_version" | ssh -o ConnectTimeout=5 -o ConnectionAttempts=1000 "$_hex_backup_server" bash -xec "cat > hexblade/backup/$_hex_backup_name/$_hex_backup_to_version/parent.txt"
+
     _hex_size="$(sudo du -bs basesys | cut -f1)"
     sudo tar cpgf "rbak/$_hex_backup_to_version/cursor.sng" - --one-file-system basesys | \
         pv -s "$_hex_size" | gzip | \
@@ -79,14 +81,13 @@ cmd_rdelete_bak_force() {
     ssh -o ConnectTimeout=5 -o ConnectionAttempts=1000 "$_hex_backup_server" rm -rvf "hexblade/backup/$_hex_backup_name"
 }
 
-
 cmd_rls_bak() {
-    ssh -o ConnectTimeout=5 -o ConnectionAttempts=1000 "$_hex_backup_server" ls -lrt "hexblade/backup"
+    ssh -o ConnectTimeout=5 -o ConnectionAttempts=1000 "$_hex_backup_server" ls "hexblade/backup" | sort
 }
 
 cmd_rls_ver() {
     local _hex_backup_name="${1?'backup name is required'}"
-    ssh -o ConnectTimeout=5 -o ConnectionAttempts=1000 "$_hex_backup_server" find "hexblade/backup/$_hex_backup_name" -type f -name SHA256
+    ssh -o ConnectTimeout=5 -o ConnectionAttempts=1000 "$_hex_backup_server" find "hexblade/backup/$_hex_backup_name" -type f -name parent.txt
 }
 
 cmd_rpush() {

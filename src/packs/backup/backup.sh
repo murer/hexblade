@@ -20,19 +20,17 @@ cmd_rcreate() {
 
     [[ -f "$HOME/.ssh/id_rsa" ]]
 
-    while ! ssh -o ConnectTimeout=10 "$_hex_backup_server" whoami; do sleep 5; done 
-
     if [[ "x$_hex_backup_from_version" == "x0" ]]; then
-        if ssh "$_hex_backup_server" ls "hexblade/backup/$_hex_backup_name"; then
+        if ssh -o ConnectTimeout=5 -o ConnectionAttempts=1000 "$_hex_backup_server" ls "hexblade/backup/$_hex_backup_name"; then
             echo "backup already exists" 1>&2
             false
         fi
     fi
-    if ssh "$_hex_backup_server" ls "hexblade/backup/$_hex_backup_name/$_hex_backup_to_version"; then
+    if ssh -o ConnectTimeout=5 -o ConnectionAttempts=1000 "$_hex_backup_server" ls "hexblade/backup/$_hex_backup_name/$_hex_backup_to_version"; then
         echo "version already exists" 1>&2
         false
     fi
-    ssh "$_hex_backup_server" mkdir -p "hexblade/backup/$_hex_backup_name/$_hex_backup_to_version"
+    ssh -o ConnectTimeout=5 -o ConnectionAttempts=1000 "$_hex_backup_server" mkdir -p "hexblade/backup/$_hex_backup_name/$_hex_backup_to_version"
     
     cd /mnt/hexblade
     sudo rm -rf "rbak/$_hex_backup_to_version"
@@ -46,31 +44,30 @@ cmd_rcreate() {
     sudo tar cpgf "rbak/$_hex_backup_to_version/cursor.sng" - --one-file-system basesys | \
         pv -s "$_hex_size" | gzip | \
         gpg --batch -c --compress-algo none --passphrase-file "$HOME/.ssh/id_rsa" -o - - | \
-        ssh "$_hex_backup_server" bash -c "cat > hexblade/backup/$_hex_backup_name/$_hex_backup_to_version/data.tar.gz.gpg.tmp"
+        ssh -o ConnectTimeout=5 -o ConnectionAttempts=1000 "$_hex_backup_server" bash -c "cat > hexblade/backup/$_hex_backup_name/$_hex_backup_to_version/data.tar.gz.gpg.tmp"
     
-    ssh "$_hex_backup_server" mv -v "hexblade/backup/$_hex_backup_name/$_hex_backup_to_version/data.tar.gz.gpg.tmp" "hexblade/backup/$_hex_backup_name/$_hex_backup_to_version/data.tar.gz.gpg"
+    ssh -o ConnectTimeout=5 -o ConnectionAttempts=1000 "$_hex_backup_server" mv -v "hexblade/backup/$_hex_backup_name/$_hex_backup_to_version/data.tar.gz.gpg.tmp" "hexblade/backup/$_hex_backup_name/$_hex_backup_to_version/data.tar.gz.gpg"
 
-    while ! scp -o ConnectTimeout=10 "rbak/$_hex_backup_to_version/cursor.sng" "$_hex_backup_server:hexblade/backup/$_hex_backup_name/$_hex_backup_to_version/cursor.sng"; do sleep 5; done
+    scp -o ConnectTimeout=5 -o ConnectionAttempts=1000 "rbak/$_hex_backup_to_version/cursor.sng" "$_hex_backup_server:hexblade/backup/$_hex_backup_name/$_hex_backup_to_version/cursor.sng"
 }
 
 cmd_rdelete_force() {
     _hex_backup_name="${1?'backup name is required'}"
-    while ! ssh -o ConnectTimeout=10 "$_hex_backup_server" whoami; do sleep 5; done 
-    ssh "$_hex_backup_server" rm -rvf "hexblade/backup/$_hex_backup_name"
+    ssh -o ConnectTimeout=5 -o ConnectionAttempts=1000 "$_hex_backup_server" rm -rvf "hexblade/backup/$_hex_backup_name"
 }
 
 cmd_rlist() {
-    ssh "$_hex_backup_server" ls -lrt "hexblade/backup"
+    ssh -o ConnectTimeout=5 -o ConnectionAttempts=1000 "$_hex_backup_server" ls -lrt "hexblade/backup"
 }
 
 cmd_rtags() {
     _hex_backup_name="${1?'backup name is required'}"
-    ssh "$_hex_backup_server" find "hexblade/backup/$_hex_backup_name" -type f
+    ssh -o ConnectTimeout=5 -o ConnectionAttempts=1000 "$_hex_backup_server" find "hexblade/backup/$_hex_backup_name" -type f
 }
 
 cmd_rpush() {
     _hex_backup_name="${1?'backup name is required'}"
-    ssh "$_hex_backup_server" ls "hexblade/backup/$_hex_backup_name"
+    ssh -o ConnectTimeout=5 -o ConnectionAttempts=1000 "$_hex_backup_server" ls "hexblade/backup/$_hex_backup_name"
     cd /mnt/hexblade/basesys
     cd -
 }

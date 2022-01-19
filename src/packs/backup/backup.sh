@@ -96,16 +96,15 @@ cmd_rls_parents() {
     
     local _hex_parent="$_hex_backup_to_version"
     while [[ "x$_hex_parent" != "x0" ]]; do
-        _hex_parent="$(ssh -o ConnectTimeout=5 -o ConnectionAttempts=1000 "$_hex_backup_server" cat "hexblade/backup/$_hex_backup_name/$_hex_parent/parent.txt")"
         echo "$_hex_parent"
+        _hex_parent="$(ssh -o ConnectTimeout=5 -o ConnectionAttempts=1000 "$_hex_backup_server" cat "hexblade/backup/$_hex_backup_name/$_hex_parent/parent.txt")"
     done
 }
 
-cmd_rpush() {
+cmd_rrestore() {
     local _hex_backup_name="${1?'backup name is required'}"
-    ssh -o ConnectTimeout=5 -o ConnectionAttempts=1000 "$_hex_backup_server" ls "hexblade/backup/$_hex_backup_name"
-    cd /mnt/hexblade/basesys
-    cd -
+    local _hex_backup_to_version="${2?'version to restore is required'}"
+    cmd_rls_parents "$_hex_backup_name" "$_hex_backup_to_version" | tac | xxd
 }
 
 cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; "cmd_${_cmd}" "$@"

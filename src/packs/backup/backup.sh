@@ -33,8 +33,10 @@ cmd_rcreate() {
     _hex_size="$(sudo du -bs basesys | cut -f1)"
     sudo tar cpgf "rbak/$_hex_backup_to_version/cursor.sng" - --one-file-system basesys | \
         pv -s "$_hex_size" | gzip | \
-        gpg --batch -c --passphrase-file "$HOME/.ssh/id_rsa" -o - - | \
-        ssh "$_hex_backup_server" bash -c "cat > hexblade/backup/$_hex_backup_name/$_hex_backup_to_version/cursor.sng"
+        gpg --batch -c --compress-algo none --passphrase-file "$HOME/.ssh/id_rsa" -o - - | \
+        ssh "$_hex_backup_server" bash -c "cat > hexblade/backup/$_hex_backup_name/$_hex_backup_to_version/data.tar.gz.gpg.tmp"
+    
+    ssh "$_hex_backup_server" mv -v "hexblade/backup/$_hex_backup_name/$_hex_backup_to_version/data.tar.gz.gpg.tmp" "hexblade/backup/$_hex_backup_name/$_hex_backup_to_version/data.tar.gz.gpg"
 
     scp "rbak/$_hex_backup_to_version/cursor.sng" "$_hex_backup_server:hexblade/backup/$_hex_backup_name/$_hex_backup_to_version/cursor.sng"
 }

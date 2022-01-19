@@ -35,7 +35,7 @@ cmd_basepack() {
     else
         arch-chroot /mnt/hexblade/basesys apt -y install grub-pc
     fi
-    echo 'GRUB_CMDLINE_LINUX_DEFAULT="verbose nosplash"' > /mnt/hexblade/installer/etc/default/grub.d/hexblade-linux-cmdline.cfg
+    echo 'GRUB_CMDLINE_LINUX_DEFAULT="verbose nosplash"' > /mnt/hexblade/basesys/etc/default/grub.d/hexblade-linux-cmdline.cfg
 }
 
 cmd_kernel_def() {

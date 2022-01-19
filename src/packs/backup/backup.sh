@@ -15,12 +15,25 @@ cmd_create() {
 
 cmd_rcreate() {
     _hex_backup_name="${1?'backup name is required'}"
+    _hex_backup_to_version="${2?'version to create is required'}"
+
     if ssh "$_hex_backup_server" ls "hexblade/backup/$_hex_backup_name"; then
         echo "backup already exists" 2>&1
         false
     fi
-    ssh "$_hex_backup_server" mkdir -p "hexblade/backup/$_hex_backup_name"
+    ssh "$_hex_backup_server" mkdir -p "hexblade/backup/$_hex_backup_name/$_hex_backup_to_version"
     echo "$_hex_backup_name" | ssh "$_hex_backup_server" tee "hexblade/backup/$_hex_backup_name/name.txt"
+
+    cd /mnt/hexblade
+    sudo rm -rf "rbak/$_hex_backup_to_version"
+    sudo mkdir -p "rbak/$_hex_backup_to_version"
+
+    _hex_size="$(sudo du -bs basesys | cut -f1)"
+    sudo tar cpgf "rbak/$_hex_backup_to_version/cursor.sng" - --one-file-system basesys | \
+        pv -s "$_hex_size" | gzip | \
+        ssh "$_hex_backup_server" bash -c "cat > hexblade/backup/$_hex_backup_name/$_hex_backup_to_version/cursor.sng"
+
+    scp "rbak/$_hex_backup_to_version/cursor.sng" "$_hex_backup_server:hexblade/backup/$_hex_backup_name/$_hex_backup_to_version/cursor.sng"
 }
 
 cmd_rdelete_force() {

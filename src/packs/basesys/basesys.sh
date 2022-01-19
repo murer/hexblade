@@ -31,6 +31,12 @@ cmd_basepack() {
         cryptsetup lvm2 btrfs-progs
 
     echo -e "network:\n  version: 2\n  renderer: NetworkManager" | tee /mnt/hexblade/basesys/etc/netplan/01-netcfg.yaml
+
+    if [[ -d /sys/firmware/efi ]]; then
+        arch-chroot /mnt/hexblade/basesys apt -y install grub-efi
+    else
+        arch-chroot /mnt/hexblade/basesys apt -y install grub-pc
+    fi
 }
 
 cmd_kernel_def() {

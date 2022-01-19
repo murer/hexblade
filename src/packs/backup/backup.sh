@@ -37,7 +37,7 @@ cmd_rcreate() {
     sudo mkdir -p "rbak/$_hex_backup_to_version"
 
     if [[ "x$_hex_backup_from_version" != "x0" ]]; then
-        scp "$_hex_backup_server:hexblade/backup/$_hex_backup_name/$_hex_backup_from_version/cursor.sng" "rbak/$_hex_backup_to_version/cursor.sng"
+        ssh -o ConnectTimeout=5 -o ConnectionAttempts=1000 "$_hex_backup_server" cat "hexblade/backup/$_hex_backup_name/$_hex_backup_from_version/cursor.sng" | sudo tee "rbak/$_hex_backup_to_version/cursor.sng" > /dev/null
     fi
 
     _hex_size="$(sudo du -bs basesys | cut -f1)"
@@ -48,13 +48,20 @@ cmd_rcreate() {
     
     ssh -o ConnectTimeout=5 -o ConnectionAttempts=1000 "$_hex_backup_server" mv -v "hexblade/backup/$_hex_backup_name/$_hex_backup_to_version/data.tar.gz.gpg.tmp" "hexblade/backup/$_hex_backup_name/$_hex_backup_to_version/data.tar.gz.gpg"
 
-    scp -o ConnectTimeout=5 -o ConnectionAttempts=1000 "rbak/$_hex_backup_to_version/cursor.sng" "$_hex_backup_server:hexblade/backup/$_hex_backup_name/$_hex_backup_to_version/cursor.sng"
+    pv "rbak/$_hex_backup_to_version/cursor.sng" | ssh -o ConnectTimeout=5 -o ConnectionAttempts=1000 "$_hex_backup_server:hexblade/backup/$_hex_backup_name/$_hex_backup_to_version/cursor.sng"
 }
 
-cmd_rdelete_force() {
+cmd_rdelete_ver_force() {
+    _hex_backup_name="${1?'backup name is required'}"
+    _hex_backup_to_version="${2?'version to create is required'}"
+    ssh -o ConnectTimeout=5 -o ConnectionAttempts=1000 "$_hex_backup_server" rm -rvf "hexblade/backup/$_hex_backup_name/$_hex_backup_to_version"
+}
+
+cmd_rdelete_bak_force() {
     _hex_backup_name="${1?'backup name is required'}"
     ssh -o ConnectTimeout=5 -o ConnectionAttempts=1000 "$_hex_backup_server" rm -rvf "hexblade/backup/$_hex_backup_name"
 }
+
 
 cmd_rlist() {
     ssh -o ConnectTimeout=5 -o ConnectionAttempts=1000 "$_hex_backup_server" ls -lrt "hexblade/backup"

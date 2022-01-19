@@ -20,6 +20,8 @@ cmd_rcreate() {
 
     [[ -f "$HOME/.ssh/id_rsa" ]]
 
+    while ! ssh "$_hex_backup_server" whoami; do sleep 5; done 
+
     if [[ "x$_hex_backup_from_version" == "x0" ]]; then
         if ssh "$_hex_backup_server" ls "hexblade/backup/$_hex_backup_name"; then
             echo "backup already exists" 1>&2
@@ -48,11 +50,12 @@ cmd_rcreate() {
     
     ssh "$_hex_backup_server" mv -v "hexblade/backup/$_hex_backup_name/$_hex_backup_to_version/data.tar.gz.gpg.tmp" "hexblade/backup/$_hex_backup_name/$_hex_backup_to_version/data.tar.gz.gpg"
 
-    scp "rbak/$_hex_backup_to_version/cursor.sng" "$_hex_backup_server:hexblade/backup/$_hex_backup_name/$_hex_backup_to_version/cursor.sng"
+    while ! scp "rbak/$_hex_backup_to_version/cursor.sng" "$_hex_backup_server:hexblade/backup/$_hex_backup_name/$_hex_backup_to_version/cursor.sng"; do sleep 5; done
 }
 
 cmd_rdelete_force() {
     _hex_backup_name="${1?'backup name is required'}"
+    while ! ssh "$_hex_backup_server" whoami; do sleep 5; done 
     ssh "$_hex_backup_server" rm -rvf "hexblade/backup/$_hex_backup_name"
 }
 

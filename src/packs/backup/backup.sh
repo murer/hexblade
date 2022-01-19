@@ -17,9 +17,14 @@ cmd_rdelete_force() {
     ssh "$_hex_backup_server" rm -rvf "hexblade/backup/$_hex_backup_name"
 }
 
-# cmd_rlist() {
+cmd_rlist() {
+    ssh "$_hex_backup_server" ls -lrt "hexblade/backup"
+}
 
-# }
+cmd_rtags() {
+    _hex_backup_name="${1?'backup name is required'}"
+    ssh "$_hex_backup_server" find "hexblade/backup/$_hex_backup_name" -type f
+}
 
 cmd_rpush() {
     _hex_backup_name="${1?'backup name is required'}"

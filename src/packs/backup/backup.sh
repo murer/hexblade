@@ -90,6 +90,17 @@ cmd_rls_ver() {
     ssh -o ConnectTimeout=5 -o ConnectionAttempts=1000 "$_hex_backup_server" find "hexblade/backup/$_hex_backup_name" -type f -name SHA256 | cut -d'/' -f4
 }
 
+cmd_rls_parents() {
+    local _hex_backup_name="${1?'backup name is required'}"
+    local _hex_backup_to_version="${2?'version to create is required'}"
+    
+    local _hex_parent="$_hex_backup_to_version"
+    while [[ "x$_hex_parent" != "x0" ]]; do
+        _hex_parent="$(ssh -o ConnectTimeout=5 -o ConnectionAttempts=1000 "$_hex_backup_server" cat "hexblade/backup/$_hex_backup_name/$_hex_parent/parent.txt")"
+        echo "$_hex_parent"
+    done
+}
+
 cmd_rpush() {
     local _hex_backup_name="${1?'backup name is required'}"
     ssh -o ConnectTimeout=5 -o ConnectionAttempts=1000 "$_hex_backup_server" ls "hexblade/backup/$_hex_backup_name"

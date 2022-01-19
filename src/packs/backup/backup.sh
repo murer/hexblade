@@ -87,7 +87,7 @@ cmd_rls_bak() {
 
 cmd_rls_ver() {
     local _hex_backup_name="${1?'backup name is required'}"
-    ssh -o ConnectTimeout=5 -o ConnectionAttempts=1000 "$_hex_backup_server" find "hexblade/backup/$_hex_backup_name" -type f -name parent.txt
+    ssh -o ConnectTimeout=5 -o ConnectionAttempts=1000 "$_hex_backup_server" find "hexblade/backup/$_hex_backup_name" -type f -name SHA256
 }
 
 cmd_rpush() {

@@ -1,5 +1,5 @@
 
-cmd_basesys_strap() {
+function cmd_basesys_strap() {
   hexblade_apt_mirror="$(cat /mnt/hexblade/config/basesys/mirror.txt)"
   
   tmp_strap_mirror=""
@@ -8,7 +8,7 @@ cmd_basesys_strap() {
   sudo debootstrap focal /mnt/hexblade/installer "$tmp_strap_mirror"
 }
 
-cmd_basesys_install() {
+function cmd_basesys_install() {
 
   hexblade_apt_mirror="$(cat /mnt/hexblade/config/basesys/mirror.txt)"
   [[ "x$hexblade_apt_mirror" == "x" ]] || hexblade_apt_mirror="${hexblade_apt_mirror}."
@@ -49,7 +49,7 @@ cmd_basesys_install() {
 
 }
 
-cmd_basesys_kernel() {
+function cmd_basesys_kernel() {
   #DEBIAN_FRONTEND=noninteractive arch-chroot /mnt/hexblade/installer apt -y install "linux-image-5.4.0-54-generic" "linux-headers-5.4.0-54-generic"
   #DEBIAN_FRONTEND=noninteractive arch-chroot /mnt/hexblade/installer apt -y install "linux-image-generic" "linux-headers-generic"
   #DEBIAN_FRONTEND=noninteractive arch-chroot /mnt/hexblade/installer apt -y install linux-generic-hwe-20.04

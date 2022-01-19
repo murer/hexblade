@@ -2,13 +2,13 @@
 
 [[ "x$UID" == "x0" ]]
 
-cmd_strap() {
+function cmd_strap() {
     _hex_mirror="${HEXBLADE_UBUNTU_MIRROR_COUNTRY:-br}"
     debootstrap focal /mnt/hexblade/basesys "http://${_hex_mirror}.archive.ubuntu.com/ubuntu/"
 
 }
 
-cmd_baseconf() {
+function cmd_baseconf() {
     cp -vR etc/* /mnt/hexblade/basesys/etc
     echo 'America/Sao_Paulo' | tee /mnt/hexblade/basesys/etc/timezone
     arch-chroot /mnt/hexblade/basesys ln -sf /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime
@@ -18,7 +18,7 @@ cmd_baseconf() {
     DEBIAN_FRONTEND=noninteractive arch-chroot /mnt/hexblade/basesys dpkg-reconfigure -f non-interactive tzdata
 }
 
-cmd_basepack() {
+function cmd_basepack() {
     arch-chroot /mnt/hexblade/basesys apt -y update
     DEBIAN_FRONTEND=noninteractive arch-chroot /mnt/hexblade/basesys apt -y install ubuntu-standard \
         language-pack-en-base \
@@ -38,28 +38,28 @@ cmd_basepack() {
     echo 'GRUB_CMDLINE_LINUX_DEFAULT="verbose nosplash"' > /mnt/hexblade/basesys/etc/default/grub.d/hexblade-linux-cmdline.cfg
 }
 
-cmd_kernel_def() {
+function cmd_kernel_def() {
     #DEBIAN_FRONTEND=noninteractive arch-chroot /mnt/hexblade/installer apt -y install "linux-image-5.4.0-54-generic" "linux-headers-5.4.0-54-generic"
     #DEBIAN_FRONTEND=noninteractive arch-chroot /mnt/hexblade/installer apt -y install "linux-image-generic" "linux-headers-generic"
     DEBIAN_FRONTEND=noninteractive arch-chroot /mnt/hexblade/basesys apt -y install --install-recommends linux-generic
 }
 
-cmd_kernel_hwe() {
+function cmd_kernel_hwe() {
     DEBIAN_FRONTEND=noninteractive arch-chroot /mnt/hexblade/basesys apt -y install linux-generic-hwe-20.04
 }
 
-cmd_initramfs() {
+function cmd_initramfs() {
     arch-chroot /mnt/hexblade/installer update-initramfs -u -k all
 }
 
-cmd_boot() {
+function cmd_boot() {
     hexblade_grub_dev="${1?'hexblade_grub_dev is required'}"
     arch-chroot /mnt/hexblade/installer update-grub
     arch-chroot /mnt/hexblade/installer grub-install "$hexblade_grub_dev"
     cmd_initramfs
 }
 
-cmd_install() {
+function cmd_install() {
     [[ ! -d /mnt/hexblade/basesys ]]
     mkdir -p /mnt/hexblade/basesys
     mount -t tmpfs -o size=6g tmpfs /mnt/hexblade/basesys
@@ -69,12 +69,12 @@ cmd_install() {
     cmd_kernel_hwe
 }
 
-cmd_backup() {
+function cmd_backup() {
     mkdir -p /mnt/hexblade/basebak
     rsync -a --delete -x --info=progress2 /mnt/hexblade/basesys/ /mnt/hexblade/basebak/
 }
 
-cmd_restore() {
+function cmd_restore() {
     mkdir -p /mnt/hexblade/basesys/
     rsync -a --delete -x --info=progress2 /mnt/hexblade/basebak/ /mnt/hexblade/basesys/
 }

@@ -3,7 +3,7 @@
 _hex_backup_server="pyrata@s.murerz.com"
 
 cmd_create() {
-    _hex_backup_version="${1?'backup version is required: v00.00.01'}"
+    local _hex_backup_version="${1?'backup version is required: v00.00.01'}"
     cd /mnt/hexblade
     sudo mkdir -p backup/v00.00.01
     sudo tar czpgf \
@@ -13,23 +13,38 @@ cmd_create() {
     cd -
 }
 
+cmd_hash_gen() {
+    local _hex_backup_name="${1?'backup name is required'}"
+    local _hex_backup_to_version="${2?'version to create is required'}"
+    ssh -o ConnectTimeout=5 -o ConnectionAttempts=1000 "$_hex_backup_server" bash -xec "\"cd hexblade/backup/$_hex_backup_name/$_hex_backup_to_version; sha256sum -b cursor.sng data.tar.gz.gpg > SHA256\""
+}
+
+cmd_hash_check() {
+    local _hex_backup_name="${1?'backup name is required'}"
+    local _hex_backup_to_version="${2?'version to create is required'}"
+    ssh -o ConnectTimeout=5 -o ConnectionAttempts=1000 "$_hex_backup_server" bash -xec "\"cd hexblade/backup/$_hex_backup_name/$_hex_backup_to_version; sha256sum -c SHA256\""
+}
+
 cmd_rcreate() {
-    _hex_backup_name="${1?'backup name is required'}"
-    _hex_backup_to_version="${2?'version to create is required'}"
-    _hex_backup_from_version="${3?'version from is required, use 0 (zero) to create a new one'}"
+    local _hex_backup_name="${1?'backup name is required'}"
+    local _hex_backup_to_version="${2?'version to create is required'}"
+    local _hex_backup_from_version="${3?'version from is required, use 0 (zero) to create a new one'}"
 
     [[ -f "$HOME/.ssh/id_rsa" ]]
 
+    if ssh -o ConnectTimeout=5 -o ConnectionAttempts=1000 "$_hex_backup_server" ls "hexblade/backup/$_hex_backup_name/$_hex_backup_to_version"; then
+        echo "version already exists" 1>&2
+        false
+    fi
     if [[ "x$_hex_backup_from_version" == "x0" ]]; then
         if ssh -o ConnectTimeout=5 -o ConnectionAttempts=1000 "$_hex_backup_server" ls "hexblade/backup/$_hex_backup_name"; then
             echo "backup already exists" 1>&2
             false
         fi
+    else
+        cmd_hash_check "$_hex_backup_name" "$_hex_backup_from_version"
     fi
-    if ssh -o ConnectTimeout=5 -o ConnectionAttempts=1000 "$_hex_backup_server" ls "hexblade/backup/$_hex_backup_name/$_hex_backup_to_version"; then
-        echo "version already exists" 1>&2
-        false
-    fi
+
     ssh -o ConnectTimeout=5 -o ConnectionAttempts=1000 "$_hex_backup_server" mkdir -p "hexblade/backup/$_hex_backup_name/$_hex_backup_to_version"
     
     cd /mnt/hexblade
@@ -44,21 +59,23 @@ cmd_rcreate() {
     sudo tar cpgf "rbak/$_hex_backup_to_version/cursor.sng" - --one-file-system basesys | \
         pv -s "$_hex_size" | gzip | \
         gpg --batch -c --compress-algo none --passphrase-file "$HOME/.ssh/id_rsa" -o - - | \
-        ssh -o ConnectTimeout=5 -o ConnectionAttempts=1000 "$_hex_backup_server" bash -c "cat > hexblade/backup/$_hex_backup_name/$_hex_backup_to_version/data.tar.gz.gpg.tmp"
+        ssh -o ConnectTimeout=5 -o ConnectionAttempts=1000 "$_hex_backup_server" bash -xec "cat > hexblade/backup/$_hex_backup_name/$_hex_backup_to_version/data.tar.gz.gpg.tmp"
     
     ssh -o ConnectTimeout=5 -o ConnectionAttempts=1000 "$_hex_backup_server" mv -v "hexblade/backup/$_hex_backup_name/$_hex_backup_to_version/data.tar.gz.gpg.tmp" "hexblade/backup/$_hex_backup_name/$_hex_backup_to_version/data.tar.gz.gpg"
 
-    pv "rbak/$_hex_backup_to_version/cursor.sng" | ssh -o ConnectTimeout=5 -o ConnectionAttempts=1000 "$_hex_backup_server:hexblade/backup/$_hex_backup_name/$_hex_backup_to_version/cursor.sng"
+    pv "rbak/$_hex_backup_to_version/cursor.sng" | ssh -o ConnectTimeout=5 -o ConnectionAttempts=1000 "$_hex_backup_server" bash -xec "cat > hexblade/backup/$_hex_backup_name/$_hex_backup_to_version/cursor.sng"
+
+    cmd_hash_gen "$_hex_backup_name" "$_hex_backup_to_version"
 }
 
 cmd_rdelete_ver_force() {
-    _hex_backup_name="${1?'backup name is required'}"
-    _hex_backup_to_version="${2?'version to create is required'}"
+    local _hex_backup_name="${1?'backup name is required'}"
+    local _hex_backup_to_version="${2?'version to create is required'}"
     ssh -o ConnectTimeout=5 -o ConnectionAttempts=1000 "$_hex_backup_server" rm -rvf "hexblade/backup/$_hex_backup_name/$_hex_backup_to_version"
 }
 
 cmd_rdelete_bak_force() {
-    _hex_backup_name="${1?'backup name is required'}"
+    local _hex_backup_name="${1?'backup name is required'}"
     ssh -o ConnectTimeout=5 -o ConnectionAttempts=1000 "$_hex_backup_server" rm -rvf "hexblade/backup/$_hex_backup_name"
 }
 
@@ -68,12 +85,12 @@ cmd_rlist() {
 }
 
 cmd_rtags() {
-    _hex_backup_name="${1?'backup name is required'}"
+    local _hex_backup_name="${1?'backup name is required'}"
     ssh -o ConnectTimeout=5 -o ConnectionAttempts=1000 "$_hex_backup_server" find "hexblade/backup/$_hex_backup_name" -type f
 }
 
 cmd_rpush() {
-    _hex_backup_name="${1?'backup name is required'}"
+    local _hex_backup_name="${1?'backup name is required'}"
     ssh -o ConnectTimeout=5 -o ConnectionAttempts=1000 "$_hex_backup_server" ls "hexblade/backup/$_hex_backup_name"
     cd /mnt/hexblade/basesys
     cd -

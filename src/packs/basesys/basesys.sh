@@ -7,6 +7,40 @@ cmd_strap() {
     [[ ! -d /mnt/hexblade/basesys ]]
     mkdir -p /mnt/hexblade/basesys
     debootstrap focal /mnt/hexblade/basesys "http://${_hex_mirror}.archive.ubuntu.com/ubuntu/"
+
+}
+
+cmd_baseconf() {
+    cp -vR etc/* /mnt/hexblade/basesys/etc
+    echo 'America/Sao_Paulo' | tee /mnt/hexblade/basesys/etc/timezone
+    arch-chroot /mnt/hexblade/basesys ln -sf /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime
+    echo 'LANG="en_US.UTF-8"' | tee /mnt/hexblade/basesys/etc/default/locale
+    arch-chroot /mnt/hexblade/basesys locale-gen en_US.UTF-8
+    echo unattended-upgrades unattended-upgrades/enable_auto_updates boolean false | arch-chroot /mnt/hexblade/basesys debconf-set-selections
+    DEBIAN_FRONTEND=noninteractive arch-chroot /mnt/hexblade/basesys dpkg-reconfigure -f non-interactive tzdata
+}
+
+cmd_basepack() {
+    arch-chroot /mnt/hexblade/basesys apt -y update
+    DEBIAN_FRONTEND=noninteractive arch-chroot /mnt/hexblade/basesys apt -y install ubuntu-standard \
+        language-pack-en-base \
+        software-properties-common \
+        vim wget curl openssl git vim \
+        nmap ncat pv zip connect-proxy tcpdump bc \
+        network-manager net-tools locales \
+        cryptsetup lvm2 btrfs-progs
+
+    echo -e "network:\n  version: 2\n  renderer: NetworkManager" | tee /mnt/hexblade/basesys/etc/netplan/01-netcfg.yaml
+}
+
+cmd_kernel_def() {
+    #DEBIAN_FRONTEND=noninteractive arch-chroot /mnt/hexblade/installer apt -y install "linux-image-5.4.0-54-generic" "linux-headers-5.4.0-54-generic"
+    #DEBIAN_FRONTEND=noninteractive arch-chroot /mnt/hexblade/installer apt -y install "linux-image-generic" "linux-headers-generic"
+    DEBIAN_FRONTEND=noninteractive arch-chroot /mnt/hexblade/basesys apt -y install --install-recommends linux-generic
+}
+
+cmd_kernel_hwe() {
+    DEBIAN_FRONTEND=noninteractive arch-chroot /mnt/hexblade/basesys apt -y install linux-generic-hwe-20.04
 }
 
 cmd_backup() {

@@ -2,7 +2,7 @@
 
 cmd_enc() {
   _basedir="$(pwd)"
-  [[ ! -f "$_basedir/ssh-key.tar.gz.pgp" ]]
+  [[ ! -f "$_basedir/ssh-key.tar.gz.gpg" ]]
   cd "$HOME"
   [[ -d .ssh ]]
   tar czf - .ssh | gpg --batch -c --armor -o "$_basedir/ssh-key.tar.gz.gpg" -

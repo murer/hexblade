@@ -4,8 +4,6 @@
 
 cmd_strap() {
     _hex_mirror="${HEXBLADE_UBUNTU_MIRROR_COUNTRY:-br}"
-    [[ ! -d /mnt/hexblade/basesys ]]
-    mkdir -p /mnt/hexblade/basesys
     debootstrap focal /mnt/hexblade/basesys "http://${_hex_mirror}.archive.ubuntu.com/ubuntu/"
 
 }
@@ -37,6 +35,7 @@ cmd_basepack() {
     else
         arch-chroot /mnt/hexblade/basesys apt -y install grub-pc
     fi
+    echo 'GRUB_CMDLINE_LINUX_DEFAULT="verbose nosplash"' > /mnt/hexblade/installer/etc/default/grub.d/hexblade-linux-cmdline.cfg
 }
 
 cmd_kernel_def() {
@@ -47,6 +46,27 @@ cmd_kernel_def() {
 
 cmd_kernel_hwe() {
     DEBIAN_FRONTEND=noninteractive arch-chroot /mnt/hexblade/basesys apt -y install linux-generic-hwe-20.04
+}
+
+cmd_initramfs() {
+    arch-chroot /mnt/hexblade/installer update-initramfs -u -k all
+}
+
+cmd_boot() {
+    hexblade_grub_dev="${1?'hexblade_grub_dev is required'}"
+    arch-chroot /mnt/hexblade/installer update-grub
+    arch-chroot /mnt/hexblade/installer grub-install "$hexblade_grub_dev"
+    cmd_initramfs
+}
+
+cmd_install() {
+    [[ ! -d /mnt/hexblade/basesys ]]
+    mkdir -p /mnt/hexblade/basesys
+    mount -t tmpfs -o size=6g tmpfs /mnt/hexblade/basesys
+    cmd_strap
+    cmd_baseconf
+    cmd_basepack
+    cmd_kernel_hwe
 }
 
 cmd_backup() {

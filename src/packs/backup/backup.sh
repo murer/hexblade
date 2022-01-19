@@ -17,6 +17,8 @@ cmd_rcreate() {
     _hex_backup_name="${1?'backup name is required'}"
     _hex_backup_to_version="${2?'version to create is required'}"
 
+    [[ -f "$HOME/.ssh/id_rsa" ]]
+
     if ssh "$_hex_backup_server" ls "hexblade/backup/$_hex_backup_name"; then
         echo "backup already exists" 2>&1
         false
@@ -31,6 +33,7 @@ cmd_rcreate() {
     _hex_size="$(sudo du -bs basesys | cut -f1)"
     sudo tar cpgf "rbak/$_hex_backup_to_version/cursor.sng" - --one-file-system basesys | \
         pv -s "$_hex_size" | gzip | \
+        gpg --batch -c --passphrase-file "$HOME/.ssh/id_rsa" -o - - | \
         ssh "$_hex_backup_server" bash -c "cat > hexblade/backup/$_hex_backup_name/$_hex_backup_to_version/cursor.sng"
 
     scp "rbak/$_hex_backup_to_version/cursor.sng" "$_hex_backup_server:hexblade/backup/$_hex_backup_name/$_hex_backup_to_version/cursor.sng"

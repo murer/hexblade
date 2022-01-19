@@ -2,6 +2,17 @@
 
 _hex_backup_server="pyrata@s.murerz.com"
 
+cmd_create() {
+    _hex_backup_version="${1?'backup version is required: v00.00.01'}"
+    cd /mnt/hexblade
+    sudo mkdir -p backup/v00.00.01
+    sudo tar czpgf \
+        backup/v00.00.01/cursor.sng \
+        backup/v00.00.01/data.tar.gz \
+        basesys
+    cd -
+}
+
 cmd_rcreate() {
     _hex_backup_name="${1?'backup name is required'}"
     if ssh "$_hex_backup_server" ls "hexblade/backup/$_hex_backup_name"; then

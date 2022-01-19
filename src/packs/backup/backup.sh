@@ -90,55 +90,65 @@ cmd_rls_ver() {
     ssh -o ConnectTimeout=5 -o ConnectionAttempts=1000 "$_hex_backup_server" find "hexblade/backup/$_hex_backup_name" -type f -name SHA256 | cut -d'/' -f4
 }
 
-cmd_rmeta_get() {
-    mkdir -p target/meta
-    rsync -av --delete --exclude 'data.tar.gz.gpg' --exclude 'data.tar.gz.gpg.tmp' "$_hex_backup_server:hexblade/backup/" target/meta/
-    find target/meta -mindepth 2 -maxdepth 2 -type d | while read k; do 
-        cd "$k"
-        cat SHA256 | grep -v data.tar.gz | sha256sum -c -
-        cd -
-    done
-}
+# cmd_rmeta_get() {
+#     mkdir -p target/meta
+#     rsync -av --delete --exclude 'data.tar.gz.gpg' --exclude 'data.tar.gz.gpg.tmp' "$_hex_backup_server:hexblade/backup/" target/meta/ 1>&2
+# }
 
-# cmd_rls_parents() {
+# cmd_rmeta_parents() {
 #     local _hex_backup_name="${1?'backup name is required'}"
 #     local _hex_backup_to_version="${2?'version to create is required'}"
 
+#     cmd_rmeta_get
 #     local _hex_parent="$_hex_backup_to_version"
 #     while [[ "x$_hex_parent" != "x0" ]]; do
 #         echo "$_hex_parent"
-#         _hex_parent="$(ssh -o ConnectTimeout=5 -o ConnectionAttempts=1000 "$_hex_backup_server" cat "hexblade/backup/$_hex_backup_name/$_hex_parent/parent.txt")"
-#     done
+#         _hex_parent="$(cat "target/meta/$_hex_backup_name/$_hex_parent/parent.txt")"
+#     done 
 # }
 
-# cmd_rrest_one() {
-#     local _hex_backup_name="${1?'backup name is required'}"
-#     local _hex_backup_to_version="${2?'version to restore is required'}"
-#     cd /mnt/hexblade
+
+cmd_rls_parents() {
+    local _hex_backup_name="${1?'backup name is required'}"
+    local _hex_backup_to_version="${2?'version to create is required'}"
+
+    local _hex_parent="$_hex_backup_to_version"
+    while [[ "x$_hex_parent" != "x0" ]]; do
+        echo "$_hex_parent"
+        _hex_parent="$(ssh -o ConnectTimeout=5 -o ConnectionAttempts=1000 "$_hex_backup_server" cat "hexblade/backup/$_hex_backup_name/$_hex_parent/parent.txt")"
+    done
+}
+
+cmd_rrest_one() {
+    local _hex_backup_name="${1?'backup name is required'}"
+    local _hex_backup_to_version="${2?'version to restore is required'}"
+    cd /mnt/hexblade
     
-#     sudo mkdir -p "rbak/$_hex_backup_to_version"
+    sudo mkdir -p "rbak/$_hex_backup_to_version"
 
-#     ssh -o ConnectTimeout=5 -o ConnectionAttempts=1000 "$_hex_backup_server" cat "hexblade/backup/$_hex_backup_name/$_hex_backup_to_version/cursor.sng" | sudo tee "rbak/$_hex_backup_to_version/cursor.sng" > /dev/null
+    _hex_size="$(ssh -o ConnectTimeout=5 -o ConnectionAttempts=1000 "$_hex_backup_server" du -bs "hexblade/backup/$_hex_backup_name/$_hex_backup_to_version/data.tar.gz.gpg" | cut -f1)"
+    ssh -o ConnectTimeout=5 -o ConnectionAttempts=1000 "$_hex_backup_server" cat "hexblade/backup/$_hex_backup_name/$_hex_backup_to_version/data.tar.gz.gpg" | \
+        pv -s "$_hex_size" | \
+        gpg --batch -d --compress-algo none --passphrase-file "$HOME/.ssh/id_rsa" -o - - | \
+        sudo tar xzpgf /dev/null -
+    cd -
+}
 
-#     _hex_size="$(ssh -o ConnectTimeout=5 -o ConnectionAttempts=1000 "$_hex_backup_server" du -bs "hexblade/backup/$_hex_backup_name/$_hex_backup_to_version/data.tar.gz.gpg" | cut -f1)"
-#     ssh -o ConnectTimeout=5 -o ConnectionAttempts=1000 "$_hex_backup_server" cat "hexblade/backup/$_hex_backup_name/$_hex_backup_to_version/data.tar.gz.gpg" \
-#         pv -s "$_hex_size" | \
-#         gpg --batch -d --compress-algo none --passphrase-file "$HOME/.ssh/id_rsa" -o - - | \
-#         sudo tar tzpgf xxxx -
-#     cd -
-# }
+cmd_rrestore() {
+    local _hex_backup_name="${1?'backup name is required'}"
+    local _hex_backup_to_version="${2?'version to restore is required'}"
 
-# cmd_rrestore() {
-#     local _hex_backup_name="${1?'backup name is required'}"
-#     local _hex_backup_to_version="${2?'version to restore is required'}"
+    [[ "x$(ls /mnt/hexblade/basesys | wc -l)" == "x0" ]]
 
-#     [[ "x$(ls /mnt/hexblade/basesys | wc -l)" == "x0" ]]
+    local _hex_versions="$(cmd_rls_parents "$_hex_backup_name" "$_hex_backup_to_version" | tac)"
 
-#     local _hex_versions="$(cmd_rls_parents "$_hex_backup_name" "$_hex_backup_to_version" | tac)"
+    for k in $_hex_versions; do
+        echo cmd_hash_check "$_hex_backup_name" "$k"
+    done
 
-#     for k in $_hex_versions; do
-#         cmd_rrest_one "$_hex_backup_name" "$k"
-#     done
-# }
+    for k in $_hex_versions; do
+        cmd_rrest_one "$_hex_backup_name" "$k"
+    done
+}
 
 cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; "cmd_${_cmd}" "$@"

@@ -3,7 +3,7 @@
 [[ "x$UID" == "x0" ]]
 
 function cmd_strap() {
-    _hex_mirror="${HEXBLADE_UBUNTU_MIRROR_COUNTRY:-br}"
+    local _hex_mirror="${HEXBLADE_UBUNTU_MIRROR_COUNTRY:-br}"
     debootstrap focal /mnt/hexblade/basesys "http://${_hex_mirror}.archive.ubuntu.com/ubuntu/"
 
 }
@@ -53,7 +53,7 @@ function cmd_initramfs() {
 }
 
 function cmd_boot() {
-    hexblade_grub_dev="${1?'hexblade_grub_dev is required'}"
+    local hexblade_grub_dev="${1?'hexblade_grub_dev is required'}"
     arch-chroot /mnt/hexblade/installer update-grub
     arch-chroot /mnt/hexblade/installer grub-install "$hexblade_grub_dev"
     cmd_initramfs

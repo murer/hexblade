@@ -74,6 +74,11 @@ function cmd_bak_remote_delete_version() {
     cmd_ssh "$_hex_bak_server" rm -v "hexblade/bak/$_hex_bak_name/$_hex_bak_version.tgz.gpg"
 }
 
+function cmd_bak_remote_ls() {
+    local _hex_bak_server="${1?'_hex_bak_server is required, like user@host'}"
+    cmd_ssh "$_hex_bak_server" find "hexblade/bak" -name "*.tgz.gpg"
+}
+
 
 
 cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; "cmd_${_cmd}" "$@"

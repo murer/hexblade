@@ -1,7 +1,7 @@
 #!/bin/bash -xe
 
 cmd_enc() {
-  _basedir="$(pwd)"
+  local _basedir="$(pwd)"
   [[ ! -f "$_basedir/ssh-key.tar.gz.gpg" ]]
   cd "$HOME"
   [[ -d .ssh ]]
@@ -10,7 +10,7 @@ cmd_enc() {
 }
 
 cmd_dec() {
-  _basedir="$(pwd)"
+  local  _basedir="$(pwd)"
   cd "$HOME"
   [[ ! -d .ssh ]]
   gpg --batch -d "$_basedir/ssh-key.tar.gz.gpg" | tar xzf -

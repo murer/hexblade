@@ -1,6 +1,6 @@
 #!/bin/bash -xe
 
-cmd_bak_tar_create() {
+function cmd_bak_tar_create() {
     local _hex_bakfile="${1?'_hex_bakfile is required, you can use - to stdout'}"
     local _hex_size="$(sudo du -bs /mnt/hexblade/basesys | cut -f1)"
     if [[ "x$_hex_bakfile" != "x-" ]]; then
@@ -13,7 +13,7 @@ cmd_bak_tar_create() {
     cd -
 }
 
-cmd_bak_tar_restore() {
+function cmd_bak_tar_restore() {
     local _hex_bakfile="${1?'_hex_bakfile is required, you can use - to stdin'}"
     local _hex_cat="cat"
     if [[ "x$_hex_bakfile" != "x-" ]]; then

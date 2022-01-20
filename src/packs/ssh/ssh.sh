@@ -1,6 +1,6 @@
 #!/bin/bash -xe
 
-cmd_enc() {
+function cmd_enc() {
   local _basedir="$(pwd)"
   [[ ! -f "$_basedir/ssh-key.tar.gz.gpg" ]]
   cd "$HOME"
@@ -9,7 +9,7 @@ cmd_enc() {
   cd -
 }
 
-cmd_dec() {
+function cmd_dec() {
   local  _basedir="$(pwd)"
   cd "$HOME"
   [[ ! -d .ssh ]]

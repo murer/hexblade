@@ -59,6 +59,20 @@ function cmd_bak_remote_create() {
     sudo tar cpf - . | pv -s "$_hex_size" | gzip | \
         gpg --batch -c --compress-algo none --passphrase-file "$HOME/.ssh/id_rsa" -o - - | \
         cmd_ssh "$_hex_bak_server" bash -xec "cat > hexblade/bak/$_hex_bak_name/$_hex_bak_version.tgz.gpg"
+    cd -
+}
+
+function cmd_bak_remote_restore() {
+    local _hex_bak_server="${1?'_hex_bak_server is required, like user@host'}"
+    local _hex_bak_name="${2?'_hex_bak_name is required'}"
+    local _hex_bak_version="${3?'_hex_bak_version is required'}"
+    local _hex_size="$(cmd_ssh "$_hex_bak_server" du -bs "hexblade/bak/$_hex_bak_name/$_hex_bak_version.tgz.gpg" | cut -f1)"
+    cd /mnt/hexblade/basesys
+    cmd_ssh "$_hex_bak_server" cat "hexblade/bak/$_hex_bak_name/$_hex_bak_version.tgz.gpg" | \
+        pv -s "$_hex_size" | \
+        gpg --batch -d --compress-algo none --passphrase-file "$HOME/.ssh/id_rsa" -o - - | \
+        gunzip | sudo tar xpf -
+    cd -
 }
 
 function cmd_bak_remote_delete_backup() {

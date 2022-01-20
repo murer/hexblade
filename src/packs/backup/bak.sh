@@ -26,7 +26,19 @@ cmd_bak_tar_restore() {
         gpg --batch -d --compress-algo none --passphrase-file "$HOME/.ssh/id_rsa" -o - - | \
         gunzip | sudo tar xpf - 
     cd -
+}
 
+
+function cmd_bak_rsync_create() {
+    local _hex_bak_name="${1?'_hex_bak_name is required'}"
+    mkdir -p "/mnt/hexblade/bak/$_hex_bak_name"
+    rsync -a --delete -x --info=progress2 /mnt/hexblade/basesys/ "/mnt/hexblade/bak/$_hex_bak_name"
+}
+
+function cmd_bak_rsync_restore() {
+    local _hex_bak_name="${1?'_hex_bak_name is required'}"
+    mkdir -p /mnt/hexblade/basesys/
+    rsync -a --delete -x --info=progress2 "/mnt/hexblade/bak/$_hex_bak_name" /mnt/hexblade/basesys/
 }
 
 cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; "cmd_${_cmd}" "$@"

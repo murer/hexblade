@@ -69,14 +69,4 @@ function cmd_install() {
     cmd_kernel_hwe
 }
 
-function cmd_backup() {
-    mkdir -p /mnt/hexblade/basebak
-    rsync -a --delete -x --info=progress2 /mnt/hexblade/basesys/ /mnt/hexblade/basebak/
-}
-
-function cmd_restore() {
-    mkdir -p /mnt/hexblade/basesys/
-    rsync -a --delete -x --info=progress2 /mnt/hexblade/basebak/ /mnt/hexblade/basesys/
-}
-
 cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; "cmd_${_cmd}" "$@"

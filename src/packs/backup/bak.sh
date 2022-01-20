@@ -31,14 +31,14 @@ cmd_bak_tar_restore() {
 
 function cmd_bak_rsync_create() {
     local _hex_bak_name="${1?'_hex_bak_name is required'}"
-    mkdir -p "/mnt/hexblade/bak/$_hex_bak_name"
-    rsync -a --delete -x --info=progress2 /mnt/hexblade/basesys/ "/mnt/hexblade/bak/$_hex_bak_name"
+    sudo mkdir -p "/mnt/hexblade/bak/$_hex_bak_name"
+    sudo rsync -a --delete -x --info=progress2 /mnt/hexblade/basesys/ "/mnt/hexblade/bak/$_hex_bak_name/"
 }
 
 function cmd_bak_rsync_restore() {
     local _hex_bak_name="${1?'_hex_bak_name is required'}"
-    mkdir -p /mnt/hexblade/basesys/
-    rsync -a --delete -x --info=progress2 "/mnt/hexblade/bak/$_hex_bak_name" /mnt/hexblade/basesys/
+    sudo mkdir -p /mnt/hexblade/basesys/
+    sudo rsync -a --delete -x --info=progress2 "/mnt/hexblade/bak/$_hex_bak_name/" /mnt/hexblade/basesys/
 }
 
 cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; "cmd_${_cmd}" "$@"

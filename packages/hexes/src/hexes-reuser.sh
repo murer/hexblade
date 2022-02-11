@@ -6,6 +6,15 @@
 export DISPLAY=:0.0
 export PULSE_SERVER=127.0.0.1:4713
 
+cmd_discord() {
+	cd
+	weechat
+}
+
+cmd_discord() {
+	(discord &)
+}
+
 cmd_chrome() {
 	(google-chrome &)
 }

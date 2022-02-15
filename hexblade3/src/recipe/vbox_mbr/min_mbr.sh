@@ -2,6 +2,11 @@
 
 function cmd_config_check() {
     [[ "x$HEX_TARGET_DEV" != "x" ]]
+    HEX_TARGET_USER="${HEX_TARGET_USER:-hex}"
+    if [[ "$HEX_TARGET_PASS" == "x" ]]; then
+        echo 'password is required: export HEX_TARGET_PASS="$(openssl passwd -6)"'
+        false
+    fi
 }
 
 function cmd_disk() {
@@ -22,12 +27,11 @@ function cmd_base() {
     ../../lib/basesys/basesys.sh hostname hex
     ../../lib/basesys/basesys.sh base
     ../../lib/basesys/basesys.sh kernel
-    ../../lib/util/user.sh add hex '$6$yezbceQeUn3lVZOI$M7N0ce6X5ZCBzLiquhCsUnVhnEkBEf/YQVm5fucECGIfacDK.XgXTfbZdl4Ah9QwJ/oZ85//7S7mZRC0PZZtm1'
+    ../../lib/util/user.sh add "$HEX_TARGET_USER" "$HEX_TARGET_PASS"
 }
 
 function cmd_install() {
-    mkdir -p /mnt/hexblade/system/installer/hexblade
-    rsync -av --delete --exclude .git ../../ /mnt/hexblade/system/installer/hexblade/
+    ../../lib/util/installer.sh rsync
     arch-chroot /mnt/hexblade/system /installer/hexblade/pack/util/tools.sh install
 }
 

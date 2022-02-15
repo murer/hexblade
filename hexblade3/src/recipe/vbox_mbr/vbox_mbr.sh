@@ -19,6 +19,7 @@ function cmd_mount() {
 function cmd_base() {
     [[ -d /mnt/hexblade/system ]]
     ../../lib/basesys/basesys.sh strap br
+    ../../lib/basesys/basesys.sh hostname hex
     ../../lib/basesys/basesys.sh base
     ../../lib/basesys/basesys.sh kernel
     ../../lib/util/user.sh add hex '$6$yezbceQeUn3lVZOI$M7N0ce6X5ZCBzLiquhCsUnVhnEkBEf/YQVm5fucECGIfacDK.XgXTfbZdl4Ah9QwJ/oZ85//7S7mZRC0PZZtm1'

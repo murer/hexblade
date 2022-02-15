@@ -47,4 +47,13 @@ function cmd_kernel() {
   # arch-chroot /mnt/hexblade/system apt -y install cryptsetup lvm2 btrfs-progs
 }
 
+function cmd_hostname() {
+    hexblade_config_hostname="${1:-hexblade}"
+    echo "127.0.0.1 localhost $hexblade_config_hostname.localdomain $hexblade_config_hostname" > /mnt/hexblade/system/etc/hosts
+    echo "::1 localhost ip6-localhost ip6-loopback" >> /mnt/hexblade/system/etc/hosts
+    echo "ff02::1 ip6-allnodes" >> /mnt/hexblade/system/etc/hosts
+    echo "ff02::2 ip6-allrouters" >> /mnt/hexblade/system/etc/hosts
+}
+
+
 set +x; cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; set -x; "cmd_${_cmd}" "$@"

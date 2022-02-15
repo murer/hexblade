@@ -9,7 +9,7 @@ function cmd_strap() {
   sudo debootstrap focal /mnt/hexblade/system "$tmp_strap_mirror"
 }
 
-function cmd_install() {
+function cmd_base() {
   cp -R etc/* /mnt/hexblade/system/etc
   echo 'LANG="en_US.UTF-8"' | tee /mnt/hexblade/system/etc/default/locale
   echo 'America/Sao_Paulo' | tee /mnt/hexblade/system/etc/timezone

@@ -19,7 +19,8 @@ function cmd_mount() {
 function cmd_install() {
     [[ -d /mnt/hexblade/system ]] 
     ../../lib/basesys/basesys.sh strap br
-    ../../lib/basesys/basesys.sh install
+    ../../lib/basesys/basesys.sh base
+    ../../pack/util/tools.sh install
 }
 
 cmd_config_check

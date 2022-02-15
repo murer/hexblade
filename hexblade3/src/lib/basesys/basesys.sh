@@ -44,7 +44,7 @@ function cmd_kernel() {
   #DEBIAN_FRONTEND=noninteractive arch-chroot /mnt/hexblade/system apt -y install "linux-image-generic" "linux-headers-generic"
   #DEBIAN_FRONTEND=noninteractive arch-chroot /mnt/hexblade/system apt -y install linux-generic-hwe-20.04
   DEBIAN_FRONTEND=noninteractive arch-chroot /mnt/hexblade/system apt -y install --install-recommends linux-generic
-  arch-chroot /mnt/hexblade/system apt -y install cryptsetup lvm2 btrfs-progs
+  # arch-chroot /mnt/hexblade/system apt -y install cryptsetup lvm2 btrfs-progs
 }
 
 set +x; cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; set -x; "cmd_${_cmd}" "$@"

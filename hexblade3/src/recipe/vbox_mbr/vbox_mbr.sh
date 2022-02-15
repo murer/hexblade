@@ -20,6 +20,7 @@ function cmd_base() {
     [[ -d /mnt/hexblade/system ]]
     ../../lib/basesys/basesys.sh strap br
     ../../lib/basesys/basesys.sh base
+    ../../lib/basesys/basesys.sh kernel
 }
 
 function cmd_install() {

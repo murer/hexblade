@@ -3,7 +3,7 @@
 function cmd_config_check() {
     [[ "x$HEX_TARGET_DEV" != "x" ]]
     HEX_TARGET_USER="${HEX_TARGET_USER:-hex}"
-    if [[ "$HEX_TARGET_PASS" == "x" ]]; then
+    if [[ "x$HEX_TARGET_PASS" == "x" ]]; then
         echo 'password is required: export HEX_TARGET_PASS="$(openssl passwd -6)"'
         false
     fi

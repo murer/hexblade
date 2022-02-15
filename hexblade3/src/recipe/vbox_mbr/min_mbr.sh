@@ -32,7 +32,7 @@ function cmd_base() {
 
 function cmd_install() {
     ../../lib/util/installer.sh rsync
-    arch-chroot /mnt/hexblade/system /installer/hexblade/pack/util/tools.sh install
+    ../../lib/util/installer.sh uchr sudo -E /installer/hexblade/pack/util/tools.sh install
 }
 
 function cmd_boot() {

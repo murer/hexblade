@@ -31,7 +31,7 @@ function cmd_base() {
 }
 
 function cmd_install() {
-    ../../lib/util/installer.sh uchr sudo -E /installer/hexblade/pack/util/tools.sh install
+    ../../lib/util/installer.sh uchr hex sudo -E /installer/hexblade/pack/util/tools.sh install
 }
 
 function cmd_boot() {

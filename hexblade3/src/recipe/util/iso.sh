@@ -7,15 +7,17 @@ function cmd_mount() {
 }
 
 function cmd_strap() {
-    ./min_mbr.sh strap
+    [[ -d /mnt/hexblade/system ]]
+    ../../lib/basesys/basesys.sh strap br
 }
 
 function cmd_base() {
-    export HEX_TARGET_USER="${HEX_TARGET_USER:-hex}"
-    if [[ "x$HEX_TARGET_PASS" == "x" ]]; then
-        export HEX_TARGET_PASS='$6$AwVQEp9TchgwKwW4$dvsFsq2sY/oQQFtj81sZatFCggBkHnpSVWvFTrnkD/eWEVnBQDdq96G5BGLbyI6iuC6O.BqZrEoxhPRosbMEt/'
-    fi
-     ./min_mbr.sh base
+    [[ -d /mnt/hexblade/system ]]
+    ../../lib/basesys/basesys.sh hostname hex
+    ../../lib/basesys/basesys.sh base
+    ../../lib/basesys/basesys.sh kernel
+    ../../lib/util/user.sh add ubuntu '$6$mGAOvwh5CP.LymHW$LLJaJCOo8Odj0w9jFXhEWLs90YEuy/EES5nwiIWZkEEnhs5jnzDqd4y96qDk/c9euGzMc8oFWsUkykTTYbk1T.'
+    ../../lib/util/installer.sh uchr hex sudo -E /installer/hexblade/pack/util/tools.sh install
 }
 
 function cmd_from_scratch() {

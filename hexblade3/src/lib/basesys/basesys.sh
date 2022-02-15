@@ -50,7 +50,8 @@ function cmd_kernel() {
 }
 
 function cmd_hostname() {
-    hexblade_config_hostname="${1:-hexblade}"
+    hexblade_config_hostname="${1:-hex}"
+    echo "$hexblade_config_hostname" > /mnt/hexblade/system/etc/hostname
     echo "127.0.0.1 localhost $hexblade_config_hostname.localdomain $hexblade_config_hostname" > /mnt/hexblade/system/etc/hosts
     echo "::1 localhost ip6-localhost ip6-loopback" >> /mnt/hexblade/system/etc/hosts
     echo "ff02::1 ip6-allnodes" >> /mnt/hexblade/system/etc/hosts

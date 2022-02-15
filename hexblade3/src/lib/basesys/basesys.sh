@@ -55,8 +55,8 @@ function cmd_hostname() {
 }
 
 function cmd_tz() {
-  hexblade_config_tz="${1:-America/Sao_Paulo}"
-  echo '$hexblade_config_tz' | tee /mnt/hexblade/system/etc/timezone
+  hexblade_config_tz="${1:-"America/Sao_Paulo"}"
+  echo "$hexblade_config_tz" | tee /mnt/hexblade/system/etc/timezone
 }
 
 set +x; cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; set -x; "cmd_${_cmd}" "$@"

@@ -32,6 +32,7 @@ function cmd_install() {
 }
 
 function cmd_boot() {
+    ../../lib/util/fstab.sh gen
     ../../lib/util/boot.sh boot "$HEX_TARGET_DEV"
 }
 

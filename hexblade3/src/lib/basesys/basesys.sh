@@ -26,6 +26,8 @@ function cmd_base() {
     network-manager net-tools locales \
     cryptsetup lvm2 btrfs-progs sudo # netcat debconf-utils
 
+  arch-chroot /mnt/hexblade/system dpkg-reconfigure keyboard-configuration
+
   arch-chroot /mnt/hexblade/system groupadd -r supersudo
   echo "%supersudo ALL=(ALL:ALL) NOPASSWD: ALL" > /mnt/hexblade/system/etc/sudoers.d/supersudo
 

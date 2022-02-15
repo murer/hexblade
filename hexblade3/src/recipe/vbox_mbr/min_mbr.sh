@@ -43,6 +43,7 @@ function cmd_boot() {
 function cmd_from_scratch() {
     cmd_disk
     cmd_mount
+    cmd_strap
     cmd_base
     cmd_boot
     ../../lib/util/installer.sh umount

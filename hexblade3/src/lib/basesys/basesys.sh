@@ -12,7 +12,6 @@ function cmd_strap() {
 function cmd_base() {
   cp -R etc/* /mnt/hexblade/system/etc
   echo 'LANG="en_US.UTF-8"' | tee /mnt/hexblade/system/etc/default/locale
-  echo 'America/Sao_Paulo' | tee /mnt/hexblade/system/etc/timezone
 
   echo unattended-upgrades unattended-upgrades/enable_auto_updates boolean false | arch-chroot /mnt/hexblade/system debconf-set-selections
 
@@ -55,5 +54,9 @@ function cmd_hostname() {
     echo "ff02::2 ip6-allrouters" >> /mnt/hexblade/system/etc/hosts
 }
 
+function cmd_tz() {
+  hexblade_config_tz="${1:-America/Sao_Paulo}"
+  echo '$hexblade_config_tz' | tee /mnt/hexblade/system/etc/timezone
+}
 
 set +x; cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; set -x; "cmd_${_cmd}" "$@"

@@ -45,7 +45,7 @@ function cmd_from_scratch() {
     cmd_mount
     cmd_base
     cmd_boot
-    ../../lib/installer.sh umount
+    ../../lib/util/installer.sh umount
 }
 
 cmd_config_check

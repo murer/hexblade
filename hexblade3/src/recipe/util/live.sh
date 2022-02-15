@@ -21,9 +21,9 @@ function cmd_base() {
 }
 
 function cmd_iso() {
-    ../../lib/util/iso.sh install
-    ../../lib/util/iso.sh compress
-    ../../lib/util/iso.sh iso
+    ../../lib/iso/iso.sh install
+    ../../lib/iso/iso.sh compress
+    ../../lib/iso/iso.sh iso
 }
 
 function cmd_from_scratch() {

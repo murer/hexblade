@@ -16,11 +16,16 @@ function cmd_mount() {
     mount "${HEX_TARGET_DEV}1" /mnt/hexblade/system    
 }
 
-function cmd_install() {
-    [[ -d /mnt/hexblade/system ]] 
+function cmd_base() {
+    [[ -d /mnt/hexblade/system ]]
     ../../lib/basesys/basesys.sh strap br
     ../../lib/basesys/basesys.sh base
-    ../../pack/util/tools.sh install
+}
+
+function cmd_install() {
+    mkdir -p /mnt/hexblade/system/installer/hexblade
+    rsync -av --delete --exclude .git ../../ /mnt/hexblade/system/installer/hexblade/
+    arch-chroot /mnt/hexblade/system /installer/hexblade/pack/util/tools.sh install
 }
 
 cmd_config_check

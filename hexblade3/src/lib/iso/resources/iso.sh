@@ -1,3 +1,4 @@
+#!/bin/bash -xe
 
 # https://github.com/mvallim/live-custom-ubuntu-from-scratch
 
@@ -29,7 +30,7 @@ function cmd_install() {
   cp /mnt/hexblade/system/boot/vmlinuz-**-**-generic /mnt/hexblade/image/casper/vmlinuz
   cp /mnt/hexblade/system/boot/initrd.img-**-**-generic /mnt/hexblade/image/casper/initrd
   touch /mnt/hexblade/image/ubuntu
-  cp resources/live/grub.cfg /mnt/hexblade/image/isolinux/grub.cfg
+  cp resources/grub.cfg /mnt/hexblade/image/isolinux/grub.cfg
 
   arch-chroot /mnt/hexblade/system dpkg-query -W --showformat='${Package} ${Version}\n' > /mnt/hexblade/image/casper/filesystem.manifest
   cp -v /mnt/hexblade/image/casper/filesystem.manifest /mnt/hexblade/image/casper/filesystem.manifest-desktop
@@ -47,7 +48,7 @@ function cmd_compress() {
   rm /mnt/hexblade/image/casper/filesystem.squashfs || true
   mksquashfs /mnt/hexblade/system /mnt/hexblade/image/casper/filesystem.squashfs
   printf $(du -sx --block-size=1 /mnt/hexblade/system | cut -f1) > /mnt/hexblade/image/casper/filesystem.size
-  cp resources/live/README.diskdefines /mnt/hexblade/image/README.diskdefines
+  cp resources/README.diskdefines /mnt/hexblade/image/README.diskdefines
 }
 
 function cmd_iso() {
@@ -129,3 +130,5 @@ function cmd_iso() {
   cd -
   
 }
+
+set +x; cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; set -x; "cmd_${_cmd}" "$@"

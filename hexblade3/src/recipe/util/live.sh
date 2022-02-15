@@ -15,14 +15,15 @@ function cmd_base() {
     [[ -d /mnt/hexblade/system ]]
     ../../lib/basesys/basesys.sh hostname hex
     ../../lib/basesys/basesys.sh base
+    ../../lib/basesys/basesys.sh kernel
     ../../lib/util/user.sh add ubuntu '$6$mGAOvwh5CP.LymHW$LLJaJCOo8Odj0w9jFXhEWLs90YEuy/EES5nwiIWZkEEnhs5jnzDqd4y96qDk/c9euGzMc8oFWsUkykTTYbk1T.'
     ../../lib/util/installer.sh uchr hex sudo -E /installer/hexblade/pack/util/tools.sh install
 }
 
 function cmd_iso() {
-    ../../lib/util/live.sh install
-    ../../lib/util/live.sh compress
-    ../../lib/util/live.sh iso
+    ../../lib/util/iso.sh install
+    ../../lib/util/iso.sh compress
+    ../../lib/util/iso.sh iso
 }
 
 function cmd_from_scratch() {

@@ -5,9 +5,9 @@ function cmd_config_check() {
 }
 
 function cmd_disk() {
-    ../../lib/mbr.sh wipe "$HEX_TARGET_DEV"
-    ../../lib/mbr.sh part_add "$HEX_TARGET_DEV" 1 0 0 0x83
-    ../../lib/mkfs.sh ext4 "${HEX_TARGET_DEV}1" HEXBLADE
+    ../../lib/util/mbr.sh wipe "$HEX_TARGET_DEV"
+    ../../lib/util/mbr.sh part_add "$HEX_TARGET_DEV" 1 0 0 0x83
+    ../../lib/util/mkfs.sh ext4 "${HEX_TARGET_DEV}1" HEXBLADE
 }
 
 function cmd_mount() {
@@ -18,7 +18,8 @@ function cmd_mount() {
 
 function cmd_install() {
     [[ -d /mnt/hexblade/system ]] 
-    ../../lib/strap.sh strap br
+    ../../lib/basesys/basesys.sh strap br
+    ../../lib/basesys/basesys.sh install
 }
 
 cmd_config_check

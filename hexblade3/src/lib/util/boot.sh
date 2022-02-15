@@ -5,7 +5,7 @@ function cmd_initramfs() {
 }
 
 function cmd_boot() {
-    hexblade_grub_dev="${1?'hexblade_grub_dev is required'}"
+    local hexblade_grub_dev="${1?'hexblade_grub_dev is required'}"
     arch-chroot /mnt/hexblade/system update-grub
     arch-chroot /mnt/hexblade/system grub-install "$hexblade_grub_dev"
     cmd_initramfs

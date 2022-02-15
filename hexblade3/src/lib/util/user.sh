@@ -1,9 +1,9 @@
 #!/bin/bash -xe
 
 function cmd_add() {
-    hexblade_username="${1?'user name is required'}"
+    local hexblade_username="${1?'user name is required'}"
     if [[ ! -d "/mnt/hexblade/installer/home/$hexblade_username" ]]; then
-        hexblade_password="$2"
+        local hexblade_password="$2"
         if [ "x$hexblade_password" == "x" ]; then
             hexblade_password="$(openssl passwd -6)"
         fi

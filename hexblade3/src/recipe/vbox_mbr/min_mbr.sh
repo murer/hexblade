@@ -32,7 +32,7 @@ function cmd_base() {
     ../../lib/basesys/basesys.sh base
     ../../lib/basesys/basesys.sh kernel
     ../../lib/util/user.sh add "$HEX_TARGET_USER" "$HEX_TARGET_PASS"
-    ../../lib/util/installer.sh uchr hex /installer/hexblade/pack/util/tools.sh install
+    ../../lib/util/installer.sh uchr hex sudo -E /installer/hexblade/pack/util/tools.sh install
 }
 
 function cmd_boot() {

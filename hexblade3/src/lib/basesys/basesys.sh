@@ -6,7 +6,7 @@ function cmd_strap() {
   tmp_strap_mirror=""
   [[ "x$hexblade_apt_mirror" == "x" ]] || tmp_strap_mirror="http://${hexblade_apt_mirror}.archive.ubuntu.com/ubuntu/"
 
-  sudo debootstrap focal /mnt/hexblade/system "$tmp_strap_mirror"
+  debootstrap focal /mnt/hexblade/system "$tmp_strap_mirror"
 }
 
 function cmd_base() {
@@ -26,7 +26,10 @@ function cmd_base() {
     vim wget curl openssl git vim \
     nmap ncat pv zip connect-proxy tcpdump bc \
     network-manager net-tools locales \
-    cryptsetup lvm2 btrfs-progs # netcat debconf-utils
+    cryptsetup lvm2 btrfs-progs sudo # netcat debconf-utils
+
+  arch-chroot /mnt/hexblade/system groupadd -r supersudo
+  echo "%supersudo ALL=(ALL:ALL) NOPASSWD: ALL" > /mnt/hexblade/system/etc/sudoers.d/supersudo
 
   echo -e "network:\n  version: 2\n  renderer: NetworkManager" | tee /mnt/hexblade/system/etc/netplan/01-netcfg.yaml
 
@@ -36,6 +39,8 @@ function cmd_base() {
     arch-chroot /mnt/hexblade/system apt -y install grub-pc
   fi
   echo 'GRUB_CMDLINE_LINUX_DEFAULT="verbose nosplash"' > /mnt/hexblade/system/etc/default/grub.d/hexblade-linux-cmdline.cfg  
+
+
 }
 
 function cmd_kernel() {

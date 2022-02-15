@@ -36,7 +36,7 @@ function cmd_base() {
   else
     arch-chroot /mnt/hexblade/system apt -y install grub-pc
   fi
-
+  echo 'GRUB_CMDLINE_LINUX_DEFAULT="verbose nosplash"' > /mnt/hexblade/system/etc/default/grub.d/hexblade-linux-cmdline.cfg  
 }
 
 function cmd_kernel() {

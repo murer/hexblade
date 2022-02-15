@@ -29,6 +29,10 @@ function cmd_install() {
     arch-chroot /mnt/hexblade/system /installer/hexblade/pack/util/tools.sh install
 }
 
+function cmd_boot() {
+    ../../lib/util/boot.sh boot "$HEX_TARGET_DEV"
+}
+
 cmd_config_check
 
 set +x; cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; set -x; "cmd_${_cmd}" "$@"

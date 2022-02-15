@@ -21,14 +21,18 @@ function cmd_mount() {
     mount "${HEX_TARGET_DEV}1" /mnt/hexblade/system    
 }
 
-function cmd_base() {
+function cmd_strap() {
     [[ -d /mnt/hexblade/system ]]
     ../../lib/basesys/basesys.sh strap br
+}
+
+function cmd_base() {
+    [[ -d /mnt/hexblade/system ]]
     ../../lib/basesys/basesys.sh hostname hex
     ../../lib/basesys/basesys.sh base
     ../../lib/basesys/basesys.sh kernel
     ../../lib/util/user.sh add "$HEX_TARGET_USER" "$HEX_TARGET_PASS"
-    ../../lib/util/installer.sh uchr hex sudo -E /installer/hexblade/pack/util/tools.sh install
+    ../../lib/util/installer.sh uchr hex /installer/hexblade/pack/util/tools.sh install
 }
 
 function cmd_boot() {

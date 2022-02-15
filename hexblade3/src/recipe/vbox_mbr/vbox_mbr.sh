@@ -21,7 +21,7 @@ function cmd_base() {
     ../../lib/basesys/basesys.sh strap br
     ../../lib/basesys/basesys.sh base
     ../../lib/basesys/basesys.sh kernel
-    ../../lib/util/user.sh hex '$6$yezbceQeUn3lVZOI$M7N0ce6X5ZCBzLiquhCsUnVhnEkBEf/YQVm5fucECGIfacDK.XgXTfbZdl4Ah9QwJ/oZ85//7S7mZRC0PZZtm1'
+    ../../lib/util/user.sh add hex '$6$yezbceQeUn3lVZOI$M7N0ce6X5ZCBzLiquhCsUnVhnEkBEf/YQVm5fucECGIfacDK.XgXTfbZdl4Ah9QwJ/oZ85//7S7mZRC0PZZtm1'
 }
 
 function cmd_install() {

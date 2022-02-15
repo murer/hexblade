@@ -21,6 +21,11 @@ function cmd_mount() {
     mount "${HEX_TARGET_DEV}1" /mnt/hexblade/system    
 }
 
+function cmd_umount() {
+    umount -R /mnt/hexblade/system
+    rmdir /mnt/hexblade/system
+}
+
 function cmd_base() {
     [[ -d /mnt/hexblade/system ]]
     ../../lib/basesys/basesys.sh strap br
@@ -34,6 +39,14 @@ function cmd_base() {
 function cmd_boot() {
     ../../lib/util/fstab.sh gen
     ../../lib/util/boot.sh boot "$HEX_TARGET_DEV"
+}
+
+function cmd_from_scratch() {
+    cmd_disk
+    cmd_mount
+    cmd_base
+    cmd_boot
+    cmd_umount
 }
 
 cmd_config_check

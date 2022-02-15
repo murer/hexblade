@@ -26,5 +26,10 @@ function cmd_chr() {
   cmd_cleanup
 }
 
+function cmd_umount() {
+  umount -R /mnt/hexblade/system
+  rmdir /mnt/hexblade/system
+}
+
 set +x; cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; set -x; "cmd_${_cmd}" "$@"
 

@@ -1,12 +1,12 @@
 #!/bin/bash -e
 
-cmd_wipe() {
+function cmd_wipe() {
     local target_dev="${1?'device to be wipped'}"
     #echo -e "o\nw\n" | fdisk "$target_dev"  
     echo "label: dos" | sudo sfdisk "$target_dev"
 }
 
-cmd_part_add() {
+function cmd_part_add() {
     local target_dev="${1?'device to be wipped'}"
     local part_number="${2?'part_number, like: 1'}"
     local part_start="${3?'part_start, like: 1MB, +1MB or 0 to last partition'}"

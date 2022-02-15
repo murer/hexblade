@@ -2,7 +2,8 @@
 
 cmd_wipe() {
     local target_dev="${1?'device to be wipped'}"
-    echo -e "o\nw\n" | fdisk "$target_dev"  
+    #echo -e "o\nw\n" | fdisk "$target_dev"  
+    echo "label: dos" | sudo sfdisk "$target_dev"
 }
 
 cmd_part_add() {

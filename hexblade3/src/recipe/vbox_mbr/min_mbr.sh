@@ -31,7 +31,6 @@ function cmd_base() {
 }
 
 function cmd_install() {
-    ../../lib/util/installer.sh rsync
     ../../lib/util/installer.sh uchr sudo -E /installer/hexblade/pack/util/tools.sh install
 }
 

@@ -11,10 +11,12 @@ function cmd_rsync() {
 }
 
 function cmd_uchr() {
+  cmd_rsync
   arch-chroot -u "$HEX_TARGET_USER" /mnt/hexblade/system "$@"
 }
 
 function cmd_chr() {
+  cmd_rsync
   arch-chroot /mnt/hexblade/system "$@"
 }
 

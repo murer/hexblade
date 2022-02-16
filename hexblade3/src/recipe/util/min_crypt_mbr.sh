@@ -36,7 +36,13 @@ function cmd_umount() {
 
 function cmd_bak_create() {
     cmd_crypt_open
-    [[ ! ! -d /mnt/hexblade/system ]]
+    local hex_bak_tag="${1?'backup tag'}"
+    ../../pack/util/bak.sh create min_crypt_mbr "$hex_bak_tag" HEXBLADE
+    cmd_crypt_close
+}
+
+function cmd_bak_restore() {
+    cmd_crypt_open
     local hex_bak_tag="${1?'backup tag'}"
     ../../pack/util/bak.sh create min_crypt_mbr "$hex_bak_tag" HEXBLADE
     cmd_crypt_close

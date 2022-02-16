@@ -28,8 +28,8 @@ function cmd_format() {
   [[ -f /mnt/hexblade/crypt/master.key ]]
   local hexblade_crypt_dev="${1?'hexblade_crypt_dev is required'}"
   cryptsetup -v -q -y --type luks1 --cipher aes-xts-plain64 --hash sha256 luksFormat --key-file /mnt/hexblade/crypt/master.key "$hexblade_crypt_dev"
+  sudo cryptsetup luksAddKey "$hexblade_crypt_dev"
 }
-
 
 
 # function cmd_format_with_password() {

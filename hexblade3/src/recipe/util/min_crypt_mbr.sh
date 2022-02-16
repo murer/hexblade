@@ -15,8 +15,8 @@ function cmd_disk() {
 function cmd_mount() {
     [[ "x$HEX_TARGET_DEV" != "x" ]]
     [[ ! -d /mnt/hexblade/system ]]    
+    ../../lib/util/crypt.sh open "${HEX_TARGET_DEV}1" MAINCRYPTED master
     mkdir -p /mnt/hexblade/system
-    ../../lib/util/crypt.sh open "${HEX_TARGET_DEV}1" MAINCRYPTED
     mount /dev/mapper/MAINCRYPTED /mnt/hexblade/system   
 }
 

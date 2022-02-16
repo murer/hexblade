@@ -24,7 +24,6 @@ function cmd_open() {
   cryptsetup open --key-file /mnt/hexblade/crypt/master.key "$hexblade_crypt_dev" "$hexblade_crypt_name"
 }
 
-
 function cmd_format() {
   [[ -f /mnt/hexblade/crypt/master.key ]]
   local hexblade_crypt_dev="${1?'hexblade_crypt_dev is required'}"

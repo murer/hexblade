@@ -1,13 +1,20 @@
 #!/bin/bash -xe
 
-function cmd_master_gen() {
-  [[ ! -f /mnt/hexblade/crypt/master.key ]]
+function cmd_key_gen() {
+  local hexblade_crypt_key="${1?'keyname'}"
+  [[ ! -f "/mnt/hexblade/crypt/$hexblade_crypt_key.key" ]]
   mkdir -p /mnt/hexblade/crypt
-  dd if=/dev/urandom "of=/mnt/hexblade/crypt/master.key" count=4 bs=512
+  dd if=/dev/urandom "of=/mnt/hexblade/crypt/$hexblade_crypt_key.key" count=4 bs=512
 }
 
-function cmd_master_load() {
+function cmd_key_load() {
+  [[ -d /mnt/hexblade/system/etc ]]
   rsync -av --delete /mnt/hexblade/system/etc/lukskeys/ /mnt/hexblade/crypt/
+}
+
+function cmd_key_save() {
+  [[ -d /mnt/hexblade/system/etc ]]
+  rsync -av --delete /mnt/hexblade/crypt/ /mnt/hexblade/system/etc/lukskeys/
 }
 
 function cmd_dump() {
@@ -16,7 +23,7 @@ function cmd_dump() {
 }
 
 function cmd_close() {
-  local hexblade_crypt_name="${1?'hexblade_crypt_name'}" # MAINCRYPTED
+  local hexblade_crypt_name="${1?'hexblade_crypt_name'}"
   cryptsetup close "$hexblade_crypt_name"
 }
 
@@ -24,40 +31,68 @@ function cmd_close() {
 function cmd_open() {
   local hexblade_crypt_dev="${1?'hexblade_crypt_dev is required'}"
   local hexblade_crypt_name="${2?'hexblade_crypt_name is required'}"
+  local hexblade_crypt_key="${3}"
   if ls "/dev/mapper/$hexblade_crypt_name"; then false; fi
-  if [[ -f /mnt/hexblade/crypt/master.key ]]; then
-    cryptsetup open --key-file /mnt/hexblade/crypt/master.key "$hexblade_crypt_dev" "$hexblade_crypt_name"
+  if [[ "x$hexblade_crypt_key" != "x" ]] && [[ -f "/mnt/hexblade/crypt/$hexblade_crypt_key.key" ]]; then
+    cryptsetup open --key-file "/mnt/hexblade/crypt/$hexblade_crypt_key.key" "$hexblade_crypt_dev" "$hexblade_crypt_name"
   else
     cryptsetup open "$hexblade_crypt_dev" "$hexblade_crypt_name"
   fi
 }
 
 function cmd_format() {
-  [[ -f /mnt/hexblade/crypt/master.key ]]
   local hexblade_crypt_dev="${1?'hexblade_crypt_dev is required'}"
-  cryptsetup -v -q -y --type luks1 --cipher aes-xts-plain64 --hash sha256 luksFormat --key-file /mnt/hexblade/crypt/master.key --key-slot 0 "$hexblade_crypt_dev"
-  cryptsetup luksAddKey --key-file /mnt/hexblade/crypt/master.key --key-slot 1 "$hexblade_crypt_dev"
+  local hexblade_crypt_key="${2?'keyname, like: master'}"
+  [[ -f "/mnt/hexblade/crypt/$hexblade_crypt_key.key" ]]
+  cryptsetup -v -q -y --type luks1 --cipher aes-xts-plain64 --hash sha256 luksFormat --key-file "/mnt/hexblade/crypt/$hexblade_crypt_key.key" --key-slot 0 "$hexblade_crypt_dev"
+  cryptsetup luksAddKey --key-file "/mnt/hexblade/crypt/$hexblade_crypt_key.key" --key-slot 1 "$hexblade_crypt_dev"
 }
 
-function cmd_crypttab() {
-  local hexblade_crypt_name="${1?'hexblade_crypt_name'}" # MAINCRYPTED  
-  local hexblade_crypt_dev="$(lsblk -ls -o PATH "/dev/mapper/$hexblade_crypt_name" | head -n 3 | tail -n 1)"
-  [[ "x$hexblade_crypt_dev" != "x" ]]
-  local hexblade_crypt_id="$(blkid -o value -s UUID "$hexblade_crypt_dev")"
-  [[ "x$hexblade_crypt_id" != "x" ]]
-
-  rsync -av --delete /mnt/hexblade/crypt/ /mnt/hexblade/system/etc/lukskeys/
+function cmd_crypttab_start() {
+  [[ -d /mnt/hexblade/system/etc ]]
+  rm -rf /mnt/hexblade/system/etc/lukskeys || true
+  mkdir /mnt/hexblade/system/etc/lukskeys
   chown -R root:root /mnt/hexblade/system/etc/lukskeys/
   chmod -Rv 0400 /mnt/hexblade/system/etc/lukskeys/
-
-  echo -e "$hexblade_crypt_name\tUUID=$hexblade_crypt_id\t/etc/lukskeys/master.key\tluks" | tee /mnt/hexblade/system/etc/crypttab
-
   echo 'GRUB_ENABLE_CRYPTODISK=y' | tee /mnt/hexblade/system/etc/default/grub.d/hexblade-crypt.cfg
-
   echo "KEYFILE_PATTERN=/etc/lukskeys/*.key" > /mnt/hexblade/system/etc/cryptsetup-initramfs/conf-hook 
   (grep -v '^UMASK=' /mnt/hexblade/system/etc/initramfs-tools/initramfs.conf && echo "UMASK=0077") > /tmp/__initramfs.conf
   cp /tmp/__initramfs.conf /mnt/hexblade/system/etc/initramfs-tools/initramfs.conf
+  echo '# <target name>	<source device>		<key file>	<options>' > /mnt/hexblade/system/etc/crypttab
 }
+
+function cmd_crypttab_add() {
+  local hexblade_crypt_name="${1?'hexblade_crypt_name'}"
+  local hexblade_crypt_key="${2?'keyname, like: master, use none to ask the password'}"
+  local hexblade_crypt_kf="none"
+  if [[ "x$hexblade_crypt_key" != "xnone" ]]; then
+    hexblade_crypt_kf="/etc/lukskeys/$hexblade_crypt_key.key"
+    cp "/mnt/hexblade/crypt/$hexblade_crypt_key.key" "/mnt/hexblade/system$hexblade_crypt_kf"
+    chmod -v 0400 "/mnt/hexblade/system$hexblade_crypt_kf"
+  fi
+  echo -e "$hexblade_crypt_name\tUUID=$hexblade_crypt_id\t$hexblade_crypt_key\tluks" | tee /mnt/hexblade/system/etc/crypttab
+}
+
+# function cmd_crypttab() {
+#   local hexblade_crypt_name="${1?'hexblade_crypt_name'}" 
+#   local hexblade_crypt_key="${2?'keyname, like: master'}"
+#   local hexblade_crypt_dev="$(lsblk -ls -o PATH "/dev/mapper/$hexblade_crypt_name" | head -n 3 | tail -n 1)"
+#   [[ "x$hexblade_crypt_dev" != "x" ]]
+#   local hexblade_crypt_id="$(blkid -o value -s UUID "$hexblade_crypt_dev")"
+#   [[ "x$hexblade_crypt_id" != "x" ]]
+
+#   rsync -av --delete /mnt/hexblade/crypt/ /mnt/hexblade/system/etc/lukskeys/
+#   chown -R root:root /mnt/hexblade/system/etc/lukskeys/
+#   chmod -Rv 0400 /mnt/hexblade/system/etc/lukskeys/
+
+#   echo -e "$hexblade_crypt_name\tUUID=$hexblade_crypt_id\t/etc/lukskeys/master.key\tluks" | tee /mnt/hexblade/system/etc/crypttab
+
+#   echo 'GRUB_ENABLE_CRYPTODISK=y' | tee /mnt/hexblade/system/etc/default/grub.d/hexblade-crypt.cfg
+
+#   echo "KEYFILE_PATTERN=/etc/lukskeys/*.key" > /mnt/hexblade/system/etc/cryptsetup-initramfs/conf-hook 
+#   (grep -v '^UMASK=' /mnt/hexblade/system/etc/initramfs-tools/initramfs.conf && echo "UMASK=0077") > /tmp/__initramfs.conf
+#   cp /tmp/__initramfs.conf /mnt/hexblade/system/etc/initramfs-tools/initramfs.conf
+# }
 
 
 # function cmd_format_with_password() {

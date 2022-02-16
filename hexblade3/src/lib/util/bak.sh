@@ -25,12 +25,10 @@ function cmd_create() {
     sudo mkdir -p "/mnt/hexblade/bak/$hex_bak_target"
     sudo mount "/dev/disk/by-label/$hex_bak_dev_label" "/mnt/hexblade/bak/$hex_bak_target"
 
-    local _basedir="$(pwd)"
-
     cd /mnt/hexblade/bak
     local _hex_size="$(sudo du -bs "/mnt/hexblade/bak/$hex_bak_target" | cut -f1)"
     sudo tar cp --same-owner -f - .  | pv -s "$_hex_size" | gzip | \
-        "$_basedir/gpg.sh" gpg --batch -e --compress-algo none --sign -r pyrata -u pyrata -o - - | \
+        gpg --no-options --batch -c --compress-algo none --passphrase-file "$HOME/.ssh/id_rsa" -o - - | \
         cmd_ssh bash -xec "cat > hexblade/bak/$hex_bak_target.tgz.gpg"
     cd -
 
@@ -58,14 +56,13 @@ function cmd_restore() {
     sudo mkdir -p "/mnt/hexblade/bak/$hex_bak_target"
     sudo mount "/dev/disk/by-label/$hex_bak_dev_label" "/mnt/hexblade/bak/$hex_bak_target"
 
-    local _basedir="$(pwd)"
     cd /mnt/hexblade/bak
 
     sudo find "/mnt/hexblade/bak/$hex_bak_target" -mindepth 1 -delete
 
     cmd_ssh cat "hexblade/bak/$hex_bak_target.tgz.gpg" | \
         pv -s "$_hex_size" | \
-        "$_basedir/gpg.sh" gpg --batch -d --compress-algo none --passphrase-file "$HOME/.ssh/id_rsa" -o - - | \
+        gpg --no-options --batch -d --compress-algo none --passphrase-file "$HOME/.ssh/id_rsa" -o - - | \
         gunzip | sudo tar xp --same-owner -f - 
     cd -
 

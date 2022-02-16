@@ -13,7 +13,7 @@ function cmd_key_load() {
   local  _basedir="$(pwd)"
   cd "$HOME"
   [[ ! -d .ssh ]]
-  gpg --batch -d "$_basedir/ssh-key.tar.gz.gpg" | tar xzf -
+  gpg --batch -d "$_basedir/ssh-key.tar.gz.gpg" | tar xz --no-same-owner -f -
   cd -
 }
 

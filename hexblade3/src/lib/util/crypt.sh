@@ -5,11 +5,13 @@ function cmd_key_gen() {
   [[ ! -f "/mnt/hexblade/crypt/$hexblade_crypt_key.key" ]]
   mkdir -p /mnt/hexblade/crypt
   dd if=/dev/urandom "of=/mnt/hexblade/crypt/$hexblade_crypt_key.key" count=4 bs=512
+  chmod -R 0400 /mnt/hexblade/crypt
 }
 
 function cmd_key_load() {
   [[ -d /mnt/hexblade/system/etc ]]
   rsync -av --delete /mnt/hexblade/system/etc/lukskeys/ /mnt/hexblade/crypt/
+  chmod -R 0400 /mnt/hexblade/crypt
 }
 
 function cmd_key_save() {

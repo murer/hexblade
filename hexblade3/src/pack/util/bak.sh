@@ -12,15 +12,21 @@ function cmd_create() {
     #local hex_bak_target="$hex_bak_name/$hex_bak_tag/$(echo -n "$hex_bak_dev" | base64 -w0 | tr '/' '_' | tr '+' '-').tgz.gpg"
     local hex_bak_target="$hex_bak_name/$hex_bak_tag/$hex_bak_dev_label"
     [[ ! -d "/mnt/hexblade/bak/$hex_bak_target" ]]
-    mkdir -p "/mnt/hexblade/bak/$hex_bak_target"
-    mount "/dev/disk/by-label/$hex_bak_dev_label" "/mnt/hexblade/bak/$hex_bak_target"
+    
+    if cmd_ssh ls "hexblade/bak/$hex_bak_target"; then
+        echo "Backup already exists: hexblade/bak/$hex_bak_target" 1>&2
+        false
+    fi
+    
+    sudo mkdir -p "/mnt/hexblade/bak/$hex_bak_target"
+    sudo mount "/dev/disk/by-label/$hex_bak_dev_label" "/mnt/hexblade/bak/$hex_bak_target"
 
     cd /mnt/hexblade/bak
-    sudo tar cpf - . | tar tf -
+    sudo tar cpf - . > /dev/null
     cd -
 
-    umount "/mnt/hexblade/bak/$hex_bak_target"
-    rmdir "/mnt/hexblade/bak/$hex_bak_target"
+    sudo umount "/mnt/hexblade/bak/$hex_bak_target"
+    sudo rmdir "/mnt/hexblade/bak/$hex_bak_target"
 
 }
 

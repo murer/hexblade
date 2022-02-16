@@ -14,4 +14,9 @@ function cmd_prepare() {
     fi
 }
 
+function cmd_gpg() {
+    [[ -d /mnt/hexblade/gnupg ]]
+    gpg --homedir /mnt/hexblade/gnupg "$@"
+}
+
 cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; "cmd_${_cmd}" "$@"

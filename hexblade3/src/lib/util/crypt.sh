@@ -31,13 +31,18 @@ function cmd_format() {
   cryptsetup luksAddKey --key-file /mnt/hexblade/crypt/master.key --key-slot 1 "$hexblade_crypt_dev"
 }
 
-function cmd_crypt_tab() {
+function cmd_crypttab() {
   local hexblade_crypt_name="${1?'hexblade_crypt_name'}" # MAINCRYPTED  
   local hexblade_crypt_dev="$(lsblk -ls -o PATH "/dev/mapper/$hexblade_crypt_name" | head -n 3 | tail -n 1)"
   [[ "x$hexblade_crypt_dev" != "x" ]]
   local hexblade_crypt_id="$(blkid -o value -s UUID "$hexblade_crypt_dev")"
   [[ "x$hexblade_crypt_id" != "x" ]]
-  echo -e "$hexblade_crypt_name\tUUID=$hexblade_crypt_id\tnone\tluks" | tee /mnt/hexblade/system/etc/crypttab
+
+  rsync -av --delete /mnt/hexblade/crypt/ /mnt/hexblade/system/etc/lukskeys/
+  chown -R root:root /mnt/hexblade/system/etc/lukskeys/
+  chmod -v 0400 /mnt/hexblade/system/etc/lukskeys/
+
+  echo -e "$hexblade_crypt_name\tUUID=$hexblade_crypt_id\t/mnt/hexblade/system/etc/lukskeys/master.key\tluks" | tee /mnt/hexblade/system/etc/crypttab
   echo 'GRUB_ENABLE_CRYPTODISK=y' | tee /mnt/hexblade/system/etc/default/grub.d/hexblade-crypt.cfg
 }
 

@@ -36,11 +36,12 @@ function cmd_base() {
     ../../lib/util/installer.sh uchr hex sudo -E /installer/hexblade/pack/util/tools.sh install
 }
 
-# function cmd_boot() {
-#     [[ "x$HEX_TARGET_DEV" != "x" ]]
-#     ../../lib/util/fstab.sh gen
-#     ../../lib/util/boot.sh boot "$HEX_TARGET_DEV"
-# }
+function cmd_boot() {
+    [[ "x$HEX_TARGET_DEV" != "x" ]]
+    ../../lib/util/crypt.sh crypttab
+    ../../lib/util/fstab.sh gen
+    ../../lib/util/boot.sh boot "$HEX_TARGET_DEV"
+}
 
 # function cmd_from_scratch() {
 #     cmd_disk

@@ -31,7 +31,7 @@ function cmd_format() {
   cryptsetup luksAddKey --key-file /mnt/hexblade/crypt/master.key --key-slot 1 "$hexblade_crypt_dev"
 }
 
-function cmd_crypt_tab() {
+function cmd_crypttab() {
   local hexblade_crypt_name="${1?'hexblade_crypt_name'}" # MAINCRYPTED  
   local hexblade_crypt_dev="$(lsblk -ls -o PATH "/dev/mapper/$hexblade_crypt_name" | head -n 3 | tail -n 1)"
   [[ "x$hexblade_crypt_dev" != "x" ]]

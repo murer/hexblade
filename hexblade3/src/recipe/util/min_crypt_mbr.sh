@@ -12,24 +12,34 @@ function cmd_disk() {
     ../../lib/util/crypt.sh dump "${HEX_TARGET_DEV}1"
 }
 
-function cmd_mount() {
+function cmd_crypt_open() {
     [[ "x$HEX_TARGET_DEV" != "x" ]]
     [[ ! -d /mnt/hexblade/system ]]    
     ../../lib/util/crypt.sh open "${HEX_TARGET_DEV}1" MAINCRYPTED master
+}
+
+function cmd_mount() {
+    cmd_crypt_open
     mkdir -p /mnt/hexblade/system
     mount /dev/mapper/MAINCRYPTED /mnt/hexblade/system   
 }
 
+function cmd_crypt_close() {
+    ../../lib/util/crypt.sh close MAINCRYPTED
+}
+
 function cmd_umount() {
     umount /mnt/hexblade/system
-    ../../lib/util/crypt.sh close MAINCRYPTED
     rmdir /mnt/hexblade/system
+    cmd_crypt_close
 }
 
 function cmd_bak_create() {
+    cmd_crypt_open
     [[ ! ! -d /mnt/hexblade/system ]]
     local hex_bak_tag="${1?'backup tag'}"
     ../../pack/util/bak.sh create min_crypt_mbr "$hex_bak_tag" HEXBLADE
+    cmd_crypt_close
 }
 
 function cmd_strap() {

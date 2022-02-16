@@ -6,9 +6,11 @@ export GNUPGHOME=/mnt/hexblade/gnupg
 
 function cmd_prepare() {
     if [[ ! -d /mnt/hexblade/gnupg ]]; then
-        mkdir /mnt/hexblade/gnupg
         [[ -f "$HOME/.ssh/pyrata.gpg.public.key" ]]
+        [[ -f "$HOME/.ssh/pyrata.gpg.private.key" ]]
+        mkdir /mnt/hexblade/gnupg
         gpg --homedir /mnt/hexblade/gnupg --import "$HOME/.ssh/pyrata.gpg.public.key"
+        gpg --homedir /mnt/hexblade/gnupg --import "$HOME/.ssh/pyrata.gpg.private.key"
     fi
 }
 

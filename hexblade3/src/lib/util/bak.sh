@@ -30,7 +30,7 @@ function cmd_create() {
     cd /mnt/hexblade/bak
     local _hex_size="$(sudo du -bs "/mnt/hexblade/bak/$hex_bak_target" | cut -f1)"
     sudo tar cp --same-owner -f - .  | pv -s "$_hex_size" | gzip | \
-        "$_basedir/gpg.sh" gpg --batch -c --compress-algo none --passphrase-file "$HOME/.ssh/id_rsa" -o - - | \
+        "$_basedir/gpg.sh" gpg --batch -e --compress-algo none --sign -r pyrata -u pyrata -o - - | \
         cmd_ssh bash -xec "cat > hexblade/bak/$hex_bak_target.tgz.gpg"
     cd -
 

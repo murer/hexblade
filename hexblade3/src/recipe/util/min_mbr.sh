@@ -28,7 +28,7 @@ function cmd_bak_create() {
 function cmd_bak_restore() {
     [[ ! -d /mnt/hexblade/system ]]
     local hex_bak_tag="${1?'backup tag'}"
-    ../../pack/util/bak.sh restore min_crypt_mbr "$hex_bak_tag" HEXBLADE
+    ../../pack/util/bak.sh restore min_mbr "$hex_bak_tag" HEXBLADE
 }
 
 function cmd_strap() {

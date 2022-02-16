@@ -42,7 +42,7 @@ function cmd_crypttab() {
   chown -R root:root /mnt/hexblade/system/etc/lukskeys/
   chmod -v 0400 /mnt/hexblade/system/etc/lukskeys/
 
-  echo -e "$hexblade_crypt_name\tUUID=$hexblade_crypt_id\t/mnt/hexblade/system/etc/lukskeys/master.key\tluks" | tee /mnt/hexblade/system/etc/crypttab
+  echo -e "$hexblade_crypt_name\tUUID=$hexblade_crypt_id\t/etc/lukskeys/master.key\tluks" | tee /mnt/hexblade/system/etc/crypttab
 
   echo 'GRUB_ENABLE_CRYPTODISK=y' | tee /mnt/hexblade/system/etc/default/grub.d/hexblade-crypt.cfg
 

@@ -2,9 +2,10 @@
 
 function cmd_disk() {
     [[ "x$HEX_TARGET_DEV" != "x" ]]
+    ../../lib/util/crypt.sh key_check master
     ../../lib/util/mbr.sh wipe "$HEX_TARGET_DEV"
     ../../lib/util/mbr.sh part_add "$HEX_TARGET_DEV" 1 0 0 0x83
-    ../../lib/util/crypt.sh format "${HEX_TARGET_DEV}1"
+    ../../lib/util/crypt.sh format "${HEX_TARGET_DEV}1" master
     ../../lib/util/crypt.sh open "${HEX_TARGET_DEV}1" MAINCRYPTED
     ../../lib/util/mkfs.sh ext4 /dev/mapper/MAINCRYPTED HEXBLADE
     ../../lib/util/crypt.sh close MAINCRYPTED

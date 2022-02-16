@@ -1,5 +1,13 @@
 #!/bin/bash -xe
 
+function cmd_key_check() {
+  local hexblade_crypt_key="${1?'keyname'}"
+  if [[ ! -f "/mnt/hexblade/crypt/$hexblade_crypt_key.key" ]]; then
+    echo "Use: $0 key_gen \"$hexblade_crypt_key\""
+    false
+  fi
+}
+
 function cmd_key_gen() {
   local hexblade_crypt_key="${1?'keyname'}"
   [[ ! -f "/mnt/hexblade/crypt/$hexblade_crypt_key.key" ]]

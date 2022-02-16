@@ -43,7 +43,12 @@ function cmd_crypttab() {
   chmod -v 0400 /mnt/hexblade/system/etc/lukskeys/
 
   echo -e "$hexblade_crypt_name\tUUID=$hexblade_crypt_id\t/mnt/hexblade/system/etc/lukskeys/master.key\tluks" | tee /mnt/hexblade/system/etc/crypttab
+
   echo 'GRUB_ENABLE_CRYPTODISK=y' | tee /mnt/hexblade/system/etc/default/grub.d/hexblade-crypt.cfg
+
+  echo "KEYFILE_PATTERN=/etc/lukskeys/*.key" > /mnt/hexblade/system/etc/cryptsetup-initramfs/conf-hook 
+  (grep -v '^UMASK=' /mnt/hexblade/system/etc/initramfs-tools/initramfs.conf && echo "UMASK=0077") > /tmp/__initramfs.conf
+  cp /tmp/__initramfs.conf /mnt/hexblade/system/etc/initramfs-tools/initramfs.conf
 }
 
 

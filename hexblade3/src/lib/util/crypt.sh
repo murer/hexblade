@@ -1,9 +1,13 @@
 #!/bin/bash -xe
 
-function cmd_master() {
+function cmd_master_gen() {
   [[ ! -f /mnt/hexblade/crypt/master.key ]]
   mkdir -p /mnt/hexblade/crypt
   dd if=/dev/urandom "of=/mnt/hexblade/crypt/master.key" count=4 bs=512
+}
+
+function cmd_master_load() {
+  rsync -av --delete /mnt/hexblade/system/etc/lukskeys/ /mnt/hexblade/crypt/
 }
 
 function cmd_dump() {
@@ -21,7 +25,11 @@ function cmd_open() {
   local hexblade_crypt_dev="${1?'hexblade_crypt_dev is required'}"
   local hexblade_crypt_name="${2?'hexblade_crypt_name is required'}"
   if ls "/dev/mapper/$hexblade_crypt_name"; then false; fi
-  cryptsetup open --key-file /mnt/hexblade/crypt/master.key "$hexblade_crypt_dev" "$hexblade_crypt_name"
+  if [[ -f /mnt/hexblade/crypt/master.key ]]; then
+    cryptsetup open --key-file /mnt/hexblade/crypt/master.key "$hexblade_crypt_dev" "$hexblade_crypt_name"
+  else
+    cryptsetup open "$hexblade_crypt_dev" "$hexblade_crypt_name"
+  fi
 }
 
 function cmd_format() {

@@ -13,16 +13,21 @@ function cmd_create() {
     local hex_bak_target="$hex_bak_name/$hex_bak_tag/$hex_bak_dev_label"
     [[ ! -d "/mnt/hexblade/bak/$hex_bak_target" ]]
     
-    if cmd_ssh ls "hexblade/bak/$hex_bak_target"; then
-        echo "Backup already exists: hexblade/bak/$hex_bak_target" 1>&2
+    if cmd_ssh ls "hexblade/bak/$hex_bak_target.tgz.gpg"; then
+        echo "Backup already exists: hexblade/bak/$hex_bak_target.tgz.gpg" 1>&2
         false
     fi
-    
+
+    cmd_ssh mkdir -p "hexblade/bak/$hex_bak_name/$hex_bak_tag"
+
     sudo mkdir -p "/mnt/hexblade/bak/$hex_bak_target"
     sudo mount "/dev/disk/by-label/$hex_bak_dev_label" "/mnt/hexblade/bak/$hex_bak_target"
 
     cd /mnt/hexblade/bak
-    sudo tar cpf - . > /dev/null
+    local _hex_size="$(sudo du -bs "/mnt/hexblade/bak/$hex_bak_target" | cut -f1)"
+    sudo tar cpf - .  | pv -s "$_hex_size" | gzip | \
+        gpg --batch -c --compress-algo none --passphrase-file "$HOME/.ssh/id_rsa" -o - - | \
+        cmd_ssh bash -xec "cat > hexblade/bak/$hex_bak_target.tgz.gpg"
     cd -
 
     sudo umount "/mnt/hexblade/bak/$hex_bak_target"

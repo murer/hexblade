@@ -19,6 +19,18 @@ function cmd_umount() {
     rmdir /mnt/hexblade/system
 }
 
+function cmd_bak_create() {
+    [[ ! -d /mnt/hexblade/system ]]
+    local hex_bak_tag="${1?'backup tag'}"
+    ../../pack/util/bak.sh create min_mbr "$hex_bak_tag" HEXBLADE
+}
+
+function cmd_bak_restore() {
+    [[ ! -d /mnt/hexblade/system ]]
+    local hex_bak_tag="${1?'backup tag'}"
+    ../../pack/util/bak.sh restore min_crypt_mbr "$hex_bak_tag" HEXBLADE
+}
+
 function cmd_strap() {
     [[ -d /mnt/hexblade/system ]]
     ../../lib/basesys/basesys.sh strap br
@@ -48,7 +60,7 @@ function cmd_from_scratch() {
     cmd_strap
     cmd_base
     cmd_boot
-    ../../lib/util/installer.sh umount
+    cmd_umount
 }
 
 set +x; cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; set -x; "cmd_${_cmd}" "$@"

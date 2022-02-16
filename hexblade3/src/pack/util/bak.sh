@@ -54,7 +54,7 @@ function cmd_restore() {
 
     cd /mnt/hexblade/bak
 
-    find "/mnt/hexblade/bak/$hex_bak_target" -mindepth 1 -delete
+    sudo find "/mnt/hexblade/bak/$hex_bak_target" -mindepth 1 -delete
 
     cmd_ssh cat "hexblade/bak/$hex_bak_target.tgz.gpg" | \
         pv -s "$_hex_size" | \

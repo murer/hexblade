@@ -40,7 +40,7 @@ function cmd_crypttab() {
 
   rsync -av --delete /mnt/hexblade/crypt/ /mnt/hexblade/system/etc/lukskeys/
   chown -R root:root /mnt/hexblade/system/etc/lukskeys/
-  chmod -v 0400 /mnt/hexblade/system/etc/lukskeys/
+  chmod -Rv 0400 /mnt/hexblade/system/etc/lukskeys/
 
   echo -e "$hexblade_crypt_name\tUUID=$hexblade_crypt_id\t/etc/lukskeys/master.key\tluks" | tee /mnt/hexblade/system/etc/crypttab
 

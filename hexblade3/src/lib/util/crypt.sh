@@ -31,6 +31,16 @@ function cmd_format() {
   cryptsetup luksAddKey --key-file /mnt/hexblade/crypt/master.key --key-slot 1 "$hexblade_crypt_dev"
 }
 
+function cmd_crypt_tab() {
+  local hexblade_crypt_name="${1?'hexblade_crypt_name'}" # MAINCRYPTED  
+  local hexblade_crypt_dev="$(lsblk -ls -o PATH "/dev/mapper/$hexblade_crypt_name" | head -n 3 | tail -n 1)"
+  [[ "x$hexblade_crypt_dev" != "x" ]]
+  local hexblade_crypt_id="$(blkid -o value -s UUID "$hexblade_crypt_dev")"
+  [[ "x$hexblade_crypt_id" != "x" ]]
+  echo -e "$hexblade_crypt_name\tUUID=$hexblade_crypt_id\tnone\tluks" | tee /mnt/hexblade/system/etc/crypttab
+  echo 'GRUB_ENABLE_CRYPTODISK=y' | tee /mnt/hexblade/system/etc/default/grub.d/hexblade-crypt.cfg
+}
+
 
 # function cmd_format_with_password() {
 #   local hexblade_crypt_dev="${1?'hexblade_crypt_dev is required'}"
@@ -52,8 +62,8 @@ function cmd_format() {
 #   local hexblade_crypt_dev="$(cat "/mnt/hexblade/config/crypt/$hexblade_crypt_name.dev")"
 #   [[ "x$hexblade_crypt_dev" != "x" ]]
 #   local hexblade_crypt_id="$(blkid -o value -s UUID "$hexblade_crypt_dev")"
-#   echo -e "$hexblade_crypt_name\tUUID=$hexblade_crypt_id\tnone\tluks" | tee /mnt/hexblade/installer/etc/crypttab
-#   echo 'GRUB_ENABLE_CRYPTODISK=y' | tee /mnt/hexblade/installer/etc/default/grub.d/hexblade-crypt.cfg
+#   echo -e "$hexblade_crypt_name\tUUID=$hexblade_crypt_id\tnone\tluks" | tee /mnt/hexblade/system/etc/crypttab
+#   echo 'GRUB_ENABLE_CRYPTODISK=y' | tee /mnt/hexblade/system/etc/default/grub.d/hexblade-crypt.cfg
 # }
 
 
@@ -66,22 +76,22 @@ function cmd_format() {
 
 # function cmd_crypt_initramfs() {
 #   find /mnt/hexblade/secrets/parts -name 'id-*.id' | head -n 1 | while read k; do
-#     cp -vR resources/crypt/initramfs-tools/* /mnt/hexblade/installer/usr/share/initramfs-tools
+#     cp -vR resources/crypt/initramfs-tools/* /mnt/hexblade/system/usr/share/initramfs-tools
 #   done
 # }
 
 # function cmd_crypt_localsync() {
 #   hexblade_local_root_dev="${1?'hexblade_local_root_dev is required'}"
 #   hexblade_local_root_id="$(blkid -o value -s UUID "$hexblade_local_root_dev")"
-#   sed -e "s/HEXBLADE_LOCALSYNC_ID/$hexblade_local_root_id/g" resources/crypt/grub.d/08_localsync | tee /mnt/hexblade/installer/etc/grub.d/08_localsync
-#   chmod +x /mnt/hexblade/installer/etc/grub.d/08_localsync
+#   sed -e "s/HEXBLADE_LOCALSYNC_ID/$hexblade_local_root_id/g" resources/crypt/grub.d/08_localsync | tee /mnt/hexblade/system/etc/grub.d/08_localsync
+#   chmod +x /mnt/hexblade/system/etc/grub.d/08_localsync
 
 #   (echo -e "UUID=$hexblade_local_root_id\t/\text4\trw,relatime\t0\t0" &&
-#   genfstab -U /mnt/hexblade/installer | grep ^UUID= | grep -v '/boot/efi' | tail -n +2) | tee /mnt/hexblade/installer/etc/fstab.localsync
+#   genfstab -U /mnt/hexblade/system | grep ^UUID= | grep -v '/boot/efi' | tail -n +2) | tee /mnt/hexblade/system/etc/fstab.localsync
 
 #   # mkdir -p /mnt/hexblade/localsync
 #   # mount "$hexblade_local_root_dev" /mnt/hexblade/localsync
-#   # rsync -a --delete  /mnt/hexblade/installer/ /mnt/hexblade/localsync/
+#   # rsync -a --delete  /mnt/hexblade/system/ /mnt/hexblade/localsync/
 # }
 
 set +x; cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; set -x; "cmd_${_cmd}" "$@"

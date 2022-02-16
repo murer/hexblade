@@ -1,5 +1,7 @@
 #!/bin/bash -xe
 
+set -o pipefail
+
 function cmd_ssh() {
     ssh -o ConnectTimeout=5 -o ConnectionAttempts=1000 pyrata@s.murerz.com "$@"
 }

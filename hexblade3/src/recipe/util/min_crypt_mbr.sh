@@ -44,7 +44,7 @@ function cmd_bak_create() {
 function cmd_bak_restore() {
     cmd_crypt_open
     local hex_bak_tag="${1?'backup tag'}"
-    ../../pack/util/bak.sh create min_crypt_mbr "$hex_bak_tag" HEXBLADE
+    ../../pack/util/bak.sh restore min_crypt_mbr "$hex_bak_tag" HEXBLADE
     cmd_crypt_close
 }
 

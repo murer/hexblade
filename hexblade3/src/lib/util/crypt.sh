@@ -29,10 +29,7 @@ function cmd_open() {
 function cmd_format() {
   [[ -f /mnt/hexblade/crypt/master.key ]]
   local hexblade_crypt_dev="${1?'hexblade_crypt_dev is required'}"
-  local hexblade_crypt_name="${2?'hexblade_crypt_name is required'}"
-  if ls "/dev/mapper/$hexblade_crypt_name"; then false; fi
   cryptsetup -v -q -y --type luks1 --cipher aes-xts-plain64 --hash sha256 luksFormat --key-file /mnt/hexblade/crypt/master.key "$hexblade_crypt_dev"
-  cmd_open "$hexblade_crypt_dev" "$hexblade_crypt_name"
 }
 
 

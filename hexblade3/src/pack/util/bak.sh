@@ -1,12 +1,5 @@
 #!/bin/bash -xe
 
-function cmd_key_load() {
-    [[ ! -f /mnt/hexblade/bakkey/bak.key ]]
-    [[ -f "$HOME/.ssh/id_rsa" ]]
-    sudo mkdir /mnt/hexblade/bakkey
-    sudo openssl sha256 -binary -out /mnt/hexblade/bakkey/bak.key "$HOME/.ssh/id_rsa"
-}
-
 function cmd_ssh() {
     ssh -o ConnectTimeout=5 -o ConnectionAttempts=1000 pyrata@s.murerz.com "$@"
 }

@@ -26,6 +26,12 @@ function cmd_umount() {
     rmdir /mnt/hexblade/system
 }
 
+function cmd_bak_create() {
+    [[ ! ! -d /mnt/hexblade/system ]]
+    local hex_bak_tag="${1?'backup tag'}"
+    ../../pack/util/bak.sh create min_crypt_mbr "$hex_bak_tag" HEXBLADE
+}
+
 function cmd_strap() {
     [[ -d /mnt/hexblade/system ]]
     ../../lib/basesys/basesys.sh strap br

@@ -14,6 +14,11 @@ function cmd_mount() {
     mount "${HEX_TARGET_DEV}1" /mnt/hexblade/system    
 }
 
+function cmd_umount() {
+    umount /mnt/hexblade/system
+    rmdir /mnt/hexblade/system
+}
+
 function cmd_strap() {
     [[ -d /mnt/hexblade/system ]]
     ../../lib/basesys/basesys.sh strap br

@@ -20,6 +20,12 @@ function cmd_mount() {
     mount /dev/mapper/MAINCRYPTED /mnt/hexblade/system   
 }
 
+function cmd_umount() {
+    umount /mnt/hexblade/system
+    ../../lib/util/crypt.sh close MAINCRYPTED
+    rmdir /mnt/hexblade/system
+}
+
 function cmd_strap() {
     [[ -d /mnt/hexblade/system ]]
     ../../lib/basesys/basesys.sh strap br

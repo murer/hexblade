@@ -75,12 +75,18 @@ function cmd_crypttab_add() {
   local hexblade_crypt_name="${1?'hexblade_crypt_name'}"
   local hexblade_crypt_key="${2?'keyname, like: master, use none to ask the password'}"
   local hexblade_crypt_kf="none"
+  
+  local hexblade_crypt_dev="$(lsblk -ls -o PATH "/dev/mapper/$hexblade_crypt_name" | head -n 3 | tail -n 1)"
+  [[ "x$hexblade_crypt_dev" != "x" ]]
+  local hexblade_crypt_id="$(blkid -o value -s UUID "$hexblade_crypt_dev")"
+  [[ "x$hexblade_crypt_id" != "x" ]]
+  
   if [[ "x$hexblade_crypt_key" != "xnone" ]]; then
     hexblade_crypt_kf="/etc/lukskeys/$hexblade_crypt_key.key"
     cp "/mnt/hexblade/crypt/$hexblade_crypt_key.key" "/mnt/hexblade/system$hexblade_crypt_kf"
     chmod -v 0400 "/mnt/hexblade/system$hexblade_crypt_kf"
   fi
-  echo -e "$hexblade_crypt_name\tUUID=$hexblade_crypt_id\t$hexblade_crypt_key\tluks" | tee /mnt/hexblade/system/etc/crypttab
+  echo -e "$hexblade_crypt_name\tUUID=$hexblade_crypt_id\t$hexblade_crypt_kf\tluks" | tee -a /mnt/hexblade/system/etc/crypttab
 }
 
 # function cmd_crypttab() {

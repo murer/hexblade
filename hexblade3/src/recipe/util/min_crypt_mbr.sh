@@ -6,8 +6,9 @@ function cmd_disk() {
     ../../lib/util/mbr.sh part_add "$HEX_TARGET_DEV" 1 0 0 0x83
     ../../lib/util/crypt.sh format "${HEX_TARGET_DEV}1"
     ../../lib/util/crypt.sh open "${HEX_TARGET_DEV}1" MAINCRYPTED
+    ../../lib/util/mkfs.sh ext4 /dev/mapper/MAINCRYPTED HEXBLADE
     ../../lib/util/crypt.sh close MAINCRYPTED
-    #../../lib/util/mkfs.sh ext4 "${HEX_TARGET_DEV}1" HEXBLADE
+    ../../lib/util/crypt.sh dump "${HEX_TARGET_DEV}1"
 }
 
 function cmd_mount() {

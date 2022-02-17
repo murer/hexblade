@@ -20,4 +20,9 @@ function cmd_add() {
     fi
 }
 
+function cmd_close() {
+    local hexblade_lvm_name="${1?'hexblade_lvm_name'}"
+    vgchange -an "$hexblade_lvm_name"
+}
+
 set +x; cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; set -x; "cmd_${_cmd}" "$@"

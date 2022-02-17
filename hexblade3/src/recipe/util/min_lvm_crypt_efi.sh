@@ -12,8 +12,13 @@ function cmd_disk() {
     ../../lib/util/crypt.sh open "${HEX_TARGET_DEV}2" MAINCRYPTED master
     
     ../../lib/util/lvm.sh format /dev/mapper/MAINCRYPTED MAINLVM
+    ../../lib/util/lvm.sh add MAINLVM MAINSWAP 1G
+    ../../lib/util/lvm.sh add MAINLVM MAINROOT 6G
+    ../../lib/util/lvm.sh add MAINLVM MAINDATA '100%FREE'
 
     # ../../lib/util/mkfs.sh ext4 /dev/mapper/MAINCRYPTED HEXBLADE
+
+    ../../lib/util/lvm.sh close MAINLVM
     ../../lib/util/crypt.sh close MAINCRYPTED
     ../../lib/util/crypt.sh dump "${HEX_TARGET_DEV}2"
 }

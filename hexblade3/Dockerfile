@@ -38,4 +38,4 @@ EXPOSE 5900
 
 ENTRYPOINT [ "/opt/hexblade/docker/entrypoint.sh" ]
 
-CMD  [ "hhh", "ppp" ]
+CMD  [ "hexbladestart" ]

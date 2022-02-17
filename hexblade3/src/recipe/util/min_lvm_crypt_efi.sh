@@ -14,7 +14,7 @@ function cmd_disk() {
     
     ../../lib/util/lvm.sh format /dev/mapper/MAINCRYPTED MAINLVM
     ../../lib/util/lvm.sh add MAINLVM MAINSWAP 1G
-    ../../lib/util/lvm.sh add MAINLVM MAINROOT 6G
+    ../../lib/util/lvm.sh add MAINLVM MAINROOT 12G
     ../../lib/util/lvm.sh add MAINLVM MAINDATA '100%FREE'
 
     ../../lib/util/efi.sh format "${HEX_TARGET_DEV}1"

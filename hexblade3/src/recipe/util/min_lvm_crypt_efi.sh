@@ -16,6 +16,7 @@ function cmd_disk() {
     ../../lib/util/lvm.sh add MAINLVM MAINROOT 6G
     ../../lib/util/lvm.sh add MAINLVM MAINDATA '100%FREE'
 
+    ../../lib/util/efi.sh format "${HEX_TARGET_DEV}1"
     ../../lib/util/mkfs.sh ext4 /dev/mapper/MAINLVM-MAINROOT HEXROOT
     ../../lib/util/mkfs.sh ext4 /dev/mapper/MAINLVM-MAINDATA HEXDATA
 

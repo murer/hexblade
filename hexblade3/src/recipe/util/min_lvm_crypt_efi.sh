@@ -39,8 +39,10 @@ function cmd_mount() {
     swapon /dev/mapper/MAINLVM-MAINSWAP
     mkdir -p /mnt/hexblade/system
     mount /dev/mapper/MAINLVM-MAINROOT /mnt/hexblade/system
+    mkdir -p /mnt/hexblade/system/boot/efi
+    mount "${HEX_TARGET_DEV}1" /mnt/hexblade/system/boot/efi
     mkdir -p /mnt/hexblade/system/localdata
-    mount /dev/mapper/MAINLVM-MAINDATA /mnt/hexblade/system/localdata  
+    mount /dev/mapper/MAINLVM-MAINDATA /mnt/hexblade/system/localdata
 }
 
 function cmd_crypt_close() {

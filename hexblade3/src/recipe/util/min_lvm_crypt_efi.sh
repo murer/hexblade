@@ -4,16 +4,11 @@ function cmd_disk() {
     [[ "x$HEX_TARGET_DEV" != "x" ]]
     ../../lib/util/crypt.sh key_check master
 
-    if ../../lib/util/efi.sh check; then
-        ../../lib/util/gpt.sh wipe "$HEX_TARGET_DEV"
-        ../../lib/util/gpt.sh part_add "$HEX_TARGET_DEV" 1 0 +512M EF00 'EFI system partition'
-        ../../lib/util/gpt.sh part_add "$HEX_TARGET_DEV" 2 0 0 8300 'PARTCRYPT'
-        gdisk -l "$HEX_TARGET_DEV"
-    else
-        ../../lib/util/mbr.sh wipe "$HEX_TARGET_DEV"
-        ../../lib/util/mbr.sh part_add "$HEX_TARGET_DEV" 1 0 0 0x83
-    fi
-    
+    ../../lib/util/gpt.sh wipe "$HEX_TARGET_DEV"
+    ../../lib/util/gpt.sh part_add "$HEX_TARGET_DEV" 1 0 +512M EF00 'EFI system partition'
+    ../../lib/util/gpt.sh part_add "$HEX_TARGET_DEV" 2 0 0 8300 'PARTCRYPT'
+    gdisk -l "$HEX_TARGET_DEV"
+
     ../../lib/util/crypt.sh format "${HEX_TARGET_DEV}2" master
     ../../lib/util/crypt.sh open "${HEX_TARGET_DEV}2" MAINCRYPTED master
     

@@ -9,8 +9,8 @@ function cmd_disk() {
     ../../lib/util/gpt.sh part_add "$HEX_TARGET_DEV" 2 0 0 8300 'PARTCRYPT'
     gdisk -l "$HEX_TARGET_DEV"
 
-    ../../lib/util/crypt.sh format "${HEX_TARGET_DEV}2" master
-    ../../lib/util/crypt.sh pass_add "${HEX_TARGET_DEV}2" master 1
+    ../../lib/util/crypt.sh format "${HEX_TARGET_DEV}2" master 1
+    ../../lib/util/crypt.sh pass_add "${HEX_TARGET_DEV}2" master 0
     ../../lib/util/crypt.sh open "${HEX_TARGET_DEV}2" MAINCRYPTED master
     
     ../../lib/util/lvm.sh format /dev/mapper/MAINCRYPTED MAINLVM

@@ -13,7 +13,7 @@ cmd_mount() {
 #   fi
 # }
 
-cmd_efi_format() {
+cmd_format() {
   local hexblade_efi_dev="${1?'hexblade_efi_dev is required'}"
   mkfs.fat -n ESP -F32 "$hexblade_efi_dev"
 }

@@ -51,7 +51,7 @@ function cmd_crypt_close() {
 function cmd_umount() {
     umount -R /mnt/hexblade/system
     rmdir /mnt/hexblade/system
-    swapoff /dev/mapper/MAIN-SWAP
+    swapoff /dev/mapper/MAINLVM-MAINSWAP
     cmd_crypt_close
 }
 

@@ -1,7 +1,7 @@
 #!/bin/bash -xe
 
 
-function cmd_lvm_format() {
+function cmd_format() {
     local hexblade_lvm_dev="${1?'hexblade_lvm_dev'}"
     local hexblade_lvm_name="${2?'hexblade_lvm_name'}"
     mkfs.ext4 -L "$hexblade_lvm_name" "$hexblade_lvm_dev"
@@ -9,7 +9,7 @@ function cmd_lvm_format() {
     vgcreate "$hexblade_lvm_name" "$hexblade_lvm_dev"
 }
 
-function cmd_lvm_add() {
+function cmd_add() {
     local hexblade_lvm_name="${1?'hexblade_lvm_name'}"
     local hexblade_lvm_subname="${2?'hexblade_lvm_subname'}"
     local hexblade_lvm_size="${3?'hexblade_lvm_size, use 100%FREE to all free space'}"

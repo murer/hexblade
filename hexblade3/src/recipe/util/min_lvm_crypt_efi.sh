@@ -9,10 +9,13 @@ function cmd_disk() {
     gdisk -l "$HEX_TARGET_DEV"
     
     ../../lib/util/crypt.sh format "${HEX_TARGET_DEV}2" master
-    # ../../lib/util/crypt.sh open "${HEX_TARGET_DEV}1" MAINCRYPTED master
+    ../../lib/util/crypt.sh open "${HEX_TARGET_DEV}2" MAINCRYPTED master
+    
+    ../../lib/util/lvm.sh format /dev/mapper/MAINCRYPTED MAINLVM
+
     # ../../lib/util/mkfs.sh ext4 /dev/mapper/MAINCRYPTED HEXBLADE
-    # ../../lib/util/crypt.sh close MAINCRYPTED
-    # ../../lib/util/crypt.sh dump "${HEX_TARGET_DEV}1"
+    ../../lib/util/crypt.sh close MAINCRYPTED
+    ../../lib/util/crypt.sh dump "${HEX_TARGET_DEV}2"
 }
 
 function cmd_crypt_open() {

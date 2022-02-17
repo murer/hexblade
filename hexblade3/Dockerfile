@@ -16,21 +16,26 @@ ENV HOME /home/hex
 ENV USER hex
 WORKDIR /home/hex
 
-COPY . /opt/hexblade
+COPY src/pack/util/tools.sh /opt/hexblade/src/pack/util/tools.sh
 RUN DEBIAN_FRONTEND=noninteractive sudo -E /opt/hexblade/src/pack/util/tools.sh install
 
+COPY src/pack/util/graphics.sh /opt/hexblade/src/pack/util/graphics.sh
 RUN DEBIAN_FRONTEND=noninteractive sudo -E /opt/hexblade/src/pack/util/graphics.sh xterm
 RUN DEBIAN_FRONTEND=noninteractive sudo -E /opt/hexblade/src/pack/util/graphics.sh mousepad
 
+COPY src/pack/lxterminal /opt/hexblade/src/pack/lxterminal
 RUN DEBIAN_FRONTEND=noninteractive sudo -E /opt/hexblade/src/pack/lxterminal/lxterminal.sh install
 
+COPY src/pack/openbox /opt/hexblade/src/pack/openbox
 RUN DEBIAN_FRONTEND=noninteractive sudo -E /opt/hexblade/src/pack/openbox/openbox.sh install
 RUN DEBIAN_FRONTEND=noninteractive sudo -E /opt/hexblade/src/pack/openbox/openbox.sh lockscreen disable
 
-# COPY . /opt/hex
+COPY . /opt/hexblade
 # RUN sudo cp -Rv /opt/hex/docker/etc/xdg /etc
 
 ENV DISPLAY :99
 EXPOSE 5900
 
-CMD "/opt/hex/docker/entrypoint.sh"
+ENTRYPOINT "/opt/hexblade/docker/entrypoint.sh"
+
+#CMD "/opt/hex/docker/entrypoint.sh"

@@ -3,13 +3,16 @@
 function cmd_disk() {
     [[ "x$HEX_TARGET_DEV" != "x" ]]
     ../../lib/util/crypt.sh key_check master
-    ../../lib/util/mbr.sh wipe "$HEX_TARGET_DEV"
-    ../../lib/util/mbr.sh part_add "$HEX_TARGET_DEV" 1 0 0 0x83
-    ../../lib/util/crypt.sh format "${HEX_TARGET_DEV}1" master
-    ../../lib/util/crypt.sh open "${HEX_TARGET_DEV}1" MAINCRYPTED master
-    ../../lib/util/mkfs.sh ext4 /dev/mapper/MAINCRYPTED HEXBLADE
-    ../../lib/util/crypt.sh close MAINCRYPTED
-    ../../lib/util/crypt.sh dump "${HEX_TARGET_DEV}1"
+    ../../lib/util/gpt.sh wipe "$HEX_TARGET_DEV"
+    ../../lib/util/gpt.sh part_add "$HEX_TARGET_DEV" 1 0 +512M EF00 'EFI system partition'
+    ../../lib/util/gpt.sh part_add "$HEX_TARGET_DEV" 2 0 0 8300 'PARTCRYPT'
+    gdisk -l "$HEX_TARGET_DEV"
+    
+    ../../lib/util/crypt.sh format "${HEX_TARGET_DEV}2" master
+    # ../../lib/util/crypt.sh open "${HEX_TARGET_DEV}1" MAINCRYPTED master
+    # ../../lib/util/mkfs.sh ext4 /dev/mapper/MAINCRYPTED HEXBLADE
+    # ../../lib/util/crypt.sh close MAINCRYPTED
+    # ../../lib/util/crypt.sh dump "${HEX_TARGET_DEV}1"
 }
 
 function cmd_crypt_open() {

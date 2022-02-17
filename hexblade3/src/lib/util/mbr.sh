@@ -7,7 +7,7 @@ function cmd_wipe() {
 }
 
 function cmd_part_add() {
-    local target_dev="${1?'device to be wipped'}"
+    local target_dev="${1?'device'}"
     local part_number="${2?'part_number, like: 1'}"
     local part_start="${3?'part_start, like: 1MB, +1MB or 0 to last partition'}"
     local part_end="${4?'part_end, like: 1MB, +1MB or 0 to max space'}"

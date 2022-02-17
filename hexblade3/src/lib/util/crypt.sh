@@ -55,7 +55,13 @@ function cmd_format() {
   local hexblade_crypt_key="${2?'keyname, like: master'}"
   [[ -f "/mnt/hexblade/crypt/$hexblade_crypt_key.key" ]]
   cryptsetup -v -q -y --type luks1 --cipher aes-xts-plain64 --hash sha256 luksFormat --key-file "/mnt/hexblade/crypt/$hexblade_crypt_key.key" --key-slot 0 "$hexblade_crypt_dev"
-  cryptsetup luksAddKey --key-file "/mnt/hexblade/crypt/$hexblade_crypt_key.key" --key-slot 1 "$hexblade_crypt_dev"
+}
+
+function cmd_pass_add() {
+  local hexblade_crypt_dev="${1?'hexblade_crypt_dev is required'}"
+  local hexblade_crypt_key="${2?'keyname, like: master'}"
+  local hexblade_crypt_slot="${3?'slot, from 0 to 7'}"
+  cryptsetup luksAddKey --key-file "/mnt/hexblade/crypt/$hexblade_crypt_key.key" --key-slot "$hexblade_crypt_slot" "$hexblade_crypt_dev"
 }
 
 function cmd_crypttab_start() {

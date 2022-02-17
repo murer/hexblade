@@ -19,16 +19,13 @@ WORKDIR /home/hex
 COPY . /opt/hexblade
 RUN DEBIAN_FRONTEND=noninteractive sudo -E /opt/hexblade/src/pack/util/tools.sh install
 
-# COPY packages/graphics /opt/hex/packages/graphics
-# RUN sudo -E /opt/hex/packages/graphics/graphics.sh xterm
-# RUN sudo -E /opt/hex/packages/graphics/graphics.sh mousepad
+RUN DEBIAN_FRONTEND=noninteractive sudo -E /opt/hexblade/src/pack/util/graphics.sh xterm
+RUN DEBIAN_FRONTEND=noninteractive sudo -E /opt/hexblade/src/pack/util/graphics.sh mousepad
 
-# COPY packages/lxterminal /opt/hex/packages/lxterminal
-# RUN sudo -E /opt/hex/packages/lxterminal/lxterminal.sh install
+RUN DEBIAN_FRONTEND=noninteractive sudo -E /opt/hexblade/src/pack/lxterminal/lxterminal.sh install
 
-# COPY packages/openbox /opt/hex/packages/openbox
-# RUN sudo -E /opt/hex/packages/openbox/openbox.sh install
-# RUN sudo -E /opt/hex/packages/openbox/openbox.sh lockscreen disable
+RUN DEBIAN_FRONTEND=noninteractive sudo -E /opt/hexblade/src/pack/openbox/openbox.sh install
+RUN DEBIAN_FRONTEND=noninteractive sudo -E /opt/hexblade/src/pack/openbox/openbox.sh lockscreen disable
 
 # COPY . /opt/hex
 # RUN sudo cp -Rv /opt/hex/docker/etc/xdg /etc

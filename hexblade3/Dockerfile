@@ -30,6 +30,8 @@ COPY src/pack/openbox /opt/hexblade/src/pack/openbox
 RUN DEBIAN_FRONTEND=noninteractive sudo -E /opt/hexblade/src/pack/openbox/openbox.sh install
 RUN DEBIAN_FRONTEND=noninteractive sudo -E /opt/hexblade/src/pack/openbox/openbox.sh lockscreen disable
 
+RUN echo 'x11vnc -display :99 -forever -shared -passwd 123 &' | sudo tee /etc/xdg/openbox/autostart.d/80-vnc.sh
+
 COPY . /opt/hexblade
 # RUN sudo cp -Rv /opt/hex/docker/etc/xdg /etc
 

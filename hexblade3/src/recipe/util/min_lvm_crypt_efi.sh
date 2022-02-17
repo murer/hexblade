@@ -60,14 +60,18 @@ function cmd_umount() {
 function cmd_bak_create() {
     cmd_crypt_open
     local hex_bak_tag="${1?'backup tag'}"
-    ../../pack/util/bak.sh create min_crypt_mbr "$hex_bak_tag" HEXBLADE
+    ../../pack/util/bak.sh create min_lvm_crypt_efi "$hex_bak_tag" ESP
+    ../../pack/util/bak.sh create min_lvm_crypt_efi "$hex_bak_tag" HEXROOT
+    #../../pack/util/bak.sh create min_lvm_crypt_efi "$hex_bak_tag" HEXDATA
     cmd_crypt_close
 }
 
 function cmd_bak_restore() {
     cmd_crypt_open
     local hex_bak_tag="${1?'backup tag'}"
-    ../../pack/util/bak.sh restore min_crypt_mbr "$hex_bak_tag" HEXBLADE
+    ../../pack/util/bak.sh restore min_lvm_crypt_efi "$hex_bak_tag" ESP
+    ../../pack/util/bak.sh restore min_lvm_crypt_efi "$hex_bak_tag" HEXROOT
+    #../../pack/util/bak.sh restore min_lvm_crypt_efi "$hex_bak_tag" HEXDATA
     cmd_crypt_close
 }
 

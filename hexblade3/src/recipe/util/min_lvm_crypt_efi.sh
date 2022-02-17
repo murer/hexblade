@@ -36,6 +36,7 @@ function cmd_crypt_open() {
 
 function cmd_mount() {
     cmd_crypt_open
+    swapon /dev/mapper/MAINLVM-MAINSWAP
     mkdir -p /mnt/hexblade/system
     mount /dev/mapper/MAINLVM-MAINROOT /mnt/hexblade/system
     mkdir -p /mnt/hexblade/system/localdata
@@ -50,6 +51,7 @@ function cmd_crypt_close() {
 function cmd_umount() {
     umount -R /mnt/hexblade/system
     rmdir /mnt/hexblade/system
+    swapoff /dev/mapper/MAIN-SWAP
     cmd_crypt_close
 }
 

@@ -16,7 +16,8 @@ function cmd_disk() {
     ../../lib/util/lvm.sh add MAINLVM MAINROOT 6G
     ../../lib/util/lvm.sh add MAINLVM MAINDATA '100%FREE'
 
-    # ../../lib/util/mkfs.sh ext4 /dev/mapper/MAINCRYPTED HEXBLADE
+    ../../lib/util/mkfs.sh ext4 /dev/mapper/MAINLVM-MAINROOT HEXROOT
+    ../../lib/util/mkfs.sh ext4 /dev/mapper/MAINLVM-MAINDATA HEXDATA
 
     ../../lib/util/lvm.sh close MAINLVM
     ../../lib/util/crypt.sh close MAINCRYPTED

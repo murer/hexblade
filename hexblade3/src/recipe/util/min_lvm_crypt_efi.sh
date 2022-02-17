@@ -96,13 +96,13 @@ function cmd_boot() {
     ../../lib/util/boot.sh boot "$HEX_TARGET_DEV"
 }
 
-# function cmd_from_scratch() {
-#     cmd_disk
-#     cmd_mount
-#     cmd_strap
-#     cmd_base
-#     cmd_boot
-#     ../../lib/util/installer.sh umount
-# }
+function cmd_from_scratch() {
+    cmd_disk
+    cmd_mount
+    cmd_strap
+    cmd_base
+    cmd_boot
+    cmd_umount
+}
 
 set +x; cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; set -x; "cmd_${_cmd}" "$@"

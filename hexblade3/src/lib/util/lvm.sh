@@ -25,4 +25,9 @@ function cmd_close() {
     vgchange -an "$hexblade_lvm_name"
 }
 
+function cmd_open() {
+    local hexblade_lvm_name="${1?'hexblade_lvm_name'}"
+    vgchange -ay "$hexblade_lvm_name"
+}
+
 set +x; cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; set -x; "cmd_${_cmd}" "$@"

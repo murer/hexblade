@@ -8,7 +8,7 @@ function cmd_ext4() {
 
 function cmd_swap() {
     local target_dev="${1?'device to be formatted'}"
-    mkswap -L SWAP "$${target_dev}"
+    mkswap -L SWAP "$target_dev"
 }
 
 set +x; cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; set -x; "cmd_${_cmd}" "$@"

@@ -1,3 +1,7 @@
 #!/bin/bash -xe
 
-true
+env
+
+echo '--'
+echo "a: $2"
+echo '--'

@@ -12,7 +12,7 @@ cmd_clean() {
 cmd_run() {
   docker run -it --rm --label hexblade_dev \
     -p 5900:5900 \
-    hexblade/hexblade:dev
+    hexblade/hexblade:dev "$@"
 }
 
 # cmd_push() {

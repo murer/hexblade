@@ -36,6 +36,6 @@ COPY . /opt/hexblade
 ENV DISPLAY :99
 EXPOSE 5900
 
-ENTRYPOINT "/opt/hexblade/docker/entrypoint.sh"
+ENTRYPOINT [ "/opt/hexblade/docker/entrypoint.sh" ]
 
-#CMD "/opt/hex/docker/entrypoint.sh"
+CMD  [ "hhh", "ppp" ]

@@ -1,7 +1,3 @@
 #!/bin/bash -xe
 
-env
-
-echo '--'
-echo "a: $2"
-echo '--'
+xvfb-run -s "$DISPLAY" -s '-screen 0 1024x700x24 -ac' openbox-session

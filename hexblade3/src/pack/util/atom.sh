@@ -9,11 +9,11 @@ function cmd_install() {
   }
   trap _cleanup EXIT
 
-  wget --progress=dot -e dotbytes=1M -c \
-    'https://github.com/atom/atom/releases/latest/download/atom-amd64.deb' \
-    -O "$file"
+  if ! atom -v --no-sandbox; then
+    wget --progress=dot -e dotbytes=1M -c \
+      'https://github.com/atom/atom/releases/latest/download/atom-amd64.deb' \
+      -O "$file"
 
-  if ! atom -v; then
     dpkg -i "$file" || true
     apt install -yf
     dpkg -i "$file"

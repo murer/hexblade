@@ -1,6 +1,6 @@
 #!/bin/bash -xe
 
-cmd_install() {
+function cmd_install() {
 	apt install -y apt-transport-https
 	mkdir -p /etc/apt/hardkeys
 	wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > /etc/apt/hardkeys/packages.microsoft.gpg

@@ -22,16 +22,24 @@ cmd_run() {
     hexblade/hexblade:dev "$@"
 }
 
-# cmd_push() {
-#   hexblade_docker_version="${1?"version to push"}"
-#   hexblade_docker_alias="${2}"
-#   docker tag hexblade/hexblade:dev "murer/hexblade:$hexblade_docker_version"
-#   docker push "murer/hexblade:$hexblade_docker_version"
-#   if [[ "x$hexblade_docker_alias" != "x" ]]; then
-#     docker tag hexblade/hexblade:dev "murer/hexblade:$hexblade_docker_alias"
-#     docker push "murer/hexblade:$hexblade_docker_alias"
-#   fi
-# }
+cmd_push() {
+  hexblade_docker_version="${1?"version to push"}"
+  hexblade_docker_alias="${2}"
+  docker tag hexblade/hexblade:dev "murer/hexblade:$hexblade_docker_version"
+  docker tag hexblade/hexblade-firefox:dev "murer/hexblade-firefox:$hexblade_docker_version"
+  docker tag hexblade/hexblade-chrome:dev "murer/hexblade-chrome:$hexblade_docker_version"
+  docker push "murer/hexblade:$hexblade_docker_version"
+  docker push "murer/hexblade-firefox:$hexblade_docker_version"
+  docker push "murer/hexblade-chrome:$hexblade_docker_version"
+  if [[ "x$hexblade_docker_alias" != "x" ]]; then
+    docker tag hexblade/hexblade:dev "murer/hexblade:$hexblade_docker_alias"
+    docker tag hexblade/hexblade-firefox:dev "murer/hexblade-firefox:$hexblade_docker_alias"
+    docker tag hexblade/hexblade-chrome:dev "murer/hexblade-chrome:$hexblade_docker_alias"
+    docker push "murer/hexblade:$hexblade_docker_alias"
+    docker push "murer/hexblade-firefox:$hexblade_docker_alias"
+    docker push "murer/hexblade-chrome:$hexblade_docker_alias"
+  fi
+}
 
 # cmd_pull() {
 #   hexblade_docker_version="${1:-"edge"}"
@@ -39,9 +47,9 @@ cmd_run() {
 #   docker tag "murer/hexblade:$hexblade_docker_version" hexblade/hexblade:dev
 # }
 
-# cmd_login() {
-#   set +x
-#   echo "${DOCKER_PASS?'DOCKER_PASS'}" | docker login -u "${DOCKER_USER?'DOCKER_USER'}" --password-stdin
-# }
+cmd_login() {
+  set +x
+  echo "${DOCKER_PASS?'DOCKER_PASS'}" | docker login -u "${DOCKER_USER?'DOCKER_USER'}" --password-stdin
+}
 
 cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; "cmd_${_cmd}" "$@"

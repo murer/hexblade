@@ -1,4 +1,4 @@
-FROM hexblade/hexblade:dev
+FROM hexblade/hexblade-base:dev
 
 COPY src/pack/util/graphics.sh /opt/hexblade/src/pack/util/graphics.sh
 

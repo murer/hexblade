@@ -33,7 +33,7 @@ cmd_install() {
 }
 
 cmd_lockscreen() {
-	hexblade_lockscreen="${1?'enable or disable'}"
+	local hexblade_lockscreen="${1?'enable or disable'}"
 	if [[ "x$hexblade_lockscreen" == "xenable" ]]; then
 		cp -v etc/xdg/openbox/autostart.d/30-screensaver.sh /etc/xdg/openbox/autostart.d
 	elif [[ "x$hexblade_lockscreen" == "xdisable" ]]; then
@@ -50,12 +50,12 @@ cmd_xinit() {
 }
 
 cmd_background() {
-	hexblade_background="${1?'hexblade_background is required, sample: 000022'}"
+	local hexblade_background="${1?'hexblade_background is required, sample: 000022'}"
 	echo "xsetroot -solid \"#$hexblade_background\"" > /etc/xdg/openbox/autostart.d/30-background.sh
 }
 
 cmd_xhost_user() {
-	hexblade_xhostuser="${1?'username'}"
+	local hexblade_xhostuser="${1?'username'}"
 	echo "xhost '+SI:localuser:$hexblade_xhostuser'" > /etc/xdg/openbox/autostart.d/20-xhost-user-$hexblade_xhostuser.sh
 }
 

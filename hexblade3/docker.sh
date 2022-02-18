@@ -52,4 +52,9 @@ cmd_login() {
   echo "${DOCKER_PASS?'DOCKER_PASS'}" | docker login -u "${DOCKER_USER?'DOCKER_USER'}" --password-stdin
 }
 
+cmd_test() {
+  local testname="${1?'test to run, like: pack.util.atom'}"
+  docker build -t "hexablde/test.$testname:dev" -f "test/docker/Dockerfile.$testname" .
+}
+
 cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; "cmd_${_cmd}" "$@"

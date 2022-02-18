@@ -43,7 +43,8 @@ FROM base AS MINI
 COPY . /opt/hexblade
 
 FROM base AS firefox
-RUN DEBIAN_FRONTEND=noninteractive sudo -E apt-get -y install firefox
+COPY src/pack/util/graphics.sh /opt/hexblade/src/pack/util/graphics.sh
+RUN DEBIAN_FRONTEND=noninteractive sudo -E /opt/hexblade/src/pack/util/graphics.sh install
 COPY . /opt/hexblade
 
 FROM base AS chrome

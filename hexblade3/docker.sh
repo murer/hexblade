@@ -1,7 +1,14 @@
 #!/bin/bash -xe
 
 cmd_build() {
-  docker build -t hexblade/hexblade:dev .
+  local hextarget="${1?'target, use all to build all'}"
+  if [[ "x$hextarget" != "xall" ]]; then
+    docker build --target "$hextarget" -t hexblade/hexblade:dev .
+  else
+    docker build --target mini -t hexblade/hexblade:dev .
+    docker build --target firefox -t hexblade/hexblade-firefox:dev .
+    docker build --target chrome -t hexblade/hexblade-chrome:dev .
+  fi
 }
 
 cmd_clean() {

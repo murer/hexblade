@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM ubuntu:20.04 AS base
 
 RUN apt-get -y update
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install sudo
@@ -32,12 +32,23 @@ RUN DEBIAN_FRONTEND=noninteractive sudo -E /opt/hexblade/src/pack/openbox/openbo
 
 RUN echo 'x11vnc -display :99 -forever -shared -passwd 123 &' | sudo tee /etc/xdg/openbox/autostart.d/80-vnc.sh
 
-COPY . /opt/hexblade
-# RUN sudo cp -Rv /opt/hex/docker/etc/xdg /etc
-
 ENV DISPLAY :99
 EXPOSE 5900
 
 ENTRYPOINT [ "/opt/hexblade/docker/entrypoint.sh" ]
 
-CMD  [ "hexbladestart" ]
+CMD [ "hexbladestart" ]
+
+FROM base AS MINI
+COPY . /opt/hexblade
+
+FROM base AS firefox
+RUN DEBIAN_FRONTEND=noninteractive sudo -E apt-get -y install firefox
+COPY . /opt/hexblade
+
+FROM base AS chrome
+
+COPY src/pack/util/chrome.sh /opt/hexblade/src/pack/util/chrome.sh
+RUN DEBIAN_FRONTEND=noninteractive sudo -E /opt/hexblade/src/pack/util/chrome.sh install
+COPY . /opt/hexblade
+

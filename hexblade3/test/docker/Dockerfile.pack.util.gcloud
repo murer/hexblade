@@ -2,3 +2,5 @@ FROM hexblade/hexblade:dev
 
 COPY src/pack/util/gcloud.sh /opt/hexblade/src/pack/util/gcloud.sh
 RUN DEBIAN_FRONTEND=noninteractive sudo -E /opt/hexblade/src/pack/util/gcloud.sh install
+RUN ls -lart ~/
+RUN gcloud --version

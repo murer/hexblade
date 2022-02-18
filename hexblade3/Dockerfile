@@ -44,7 +44,7 @@ COPY . /opt/hexblade
 
 FROM base AS firefox
 COPY src/pack/util/graphics.sh /opt/hexblade/src/pack/util/graphics.sh
-RUN DEBIAN_FRONTEND=noninteractive sudo -E /opt/hexblade/src/pack/util/graphics.sh install
+RUN DEBIAN_FRONTEND=noninteractive sudo -E /opt/hexblade/src/pack/util/graphics.sh firefox
 COPY . /opt/hexblade
 
 FROM base AS chrome

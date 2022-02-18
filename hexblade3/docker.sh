@@ -57,4 +57,11 @@ cmd_test() {
   docker build -t "hexablde/test.$testname:dev" -f "test/docker/Dockerfile.$testname" .
 }
 
+cmd_test_all() {
+  local k
+  find test/docker -maxdepth 1 -type f -name 'Dockerfile.*' | cut -d'/' -f3 | cut -d'.' -f2- | while read k; do
+    cmd_test "$k"
+  done
+}
+
 cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; "cmd_${_cmd}" "$@"

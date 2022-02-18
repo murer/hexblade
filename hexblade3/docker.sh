@@ -1,28 +1,27 @@
 #!/bin/bash -xe
 
-cmd_build() {
-  local hextarget="${1?'target, use all to build all'}"
-  if [[ "x$hextarget" != "xall" ]]; then
-    docker build --target "$hextarget" -t hexblade/hexblade:dev .
-  else
-    docker build --target mini -t hexblade/hexblade:dev .
-    docker build --target firefox -t hexblade/hexblade-firefox:dev .
-    docker build --target chrome -t hexblade/hexblade-chrome:dev .
-  fi
+function cmd_build() {
+  local hextarget="${1?'target, use base, mini or all'}"
+  docker build --target base -t hexblade/hexblade-base:dev .
+  if [[ "x$hextarget" == "xbase" ]]; then return; fi
+  docker build --target mini -t hexblade/hexblade:dev .
+  if [[ "x$hextarget" == "xmini" ]]; then return; fi
+  docker build --target firefox -t hexblade/hexblade-firefox:dev .
+  docker build --target chrome -t hexblade/hexblade-chrome:dev .
 }
 
-cmd_clean() {
+function cmd_clean() {
   docker ps -aq --filter label=hexblade_dev | xargs docker rm -f || true
   docker system prune --volumes --filter label=hexblade_dev -f || true
 }
 
-cmd_run() {
+function cmd_run() {
   docker run -it --rm --label hexblade_dev \
     -p 5900:5900 \
     hexblade/hexblade:dev "$@"
 }
 
-cmd_push() {
+function cmd_push() {
   hexblade_docker_version="${1?"version to push"}"
   hexblade_docker_alias="${2}"
   docker tag hexblade/hexblade:dev "murer/hexblade:$hexblade_docker_version"
@@ -47,17 +46,17 @@ cmd_push() {
 #   docker tag "murer/hexblade:$hexblade_docker_version" hexblade/hexblade:dev
 # }
 
-cmd_login() {
+function cmd_login() {
   set +x
   echo "${DOCKER_PASS?'DOCKER_PASS'}" | docker login -u "${DOCKER_USER?'DOCKER_USER'}" --password-stdin
 }
 
-cmd_test() {
+function cmd_test() {
   local testname="${1?'test to run, like: pack.util.atom'}"
   docker build -t "hexablde/test.$testname:dev" -f "test/docker/Dockerfile.$testname" .
 }
 
-cmd_test_all() {
+function cmd_test_all() {
   local k
   find test/docker -maxdepth 1 -type f -name 'Dockerfile.*' | cut -d'/' -f3 | cut -d'.' -f2- | while read k; do
     cmd_test "$k"

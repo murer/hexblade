@@ -1,10 +1,10 @@
 #!/bin/bash -xe
 
-cmd_extra() {
+function cmd_extra() {
 	apt -y install ubuntu-drivers-common desktop-file-utils x11-session-utils x11-apps
 }
 
-cmd_install() {
+function cmd_install() {
 	apt -y install openbox tint2 gmrun arandr xinit
 	apt -y install --no-install-recommends libnotify-bin xfce4-notifyd
 	apt -y install --no-install-suggests xscreensaver 
@@ -32,7 +32,7 @@ cmd_install() {
 	chmod -v 755 /etc/xdg/openbox/autostart
 }
 
-cmd_lockscreen() {
+function cmd_lockscreen() {
 	local hexblade_lockscreen="${1?'enable or disable'}"
 	if [[ "x$hexblade_lockscreen" == "xenable" ]]; then
 		cp -v etc/xdg/openbox/autostart.d/30-screensaver.sh /etc/xdg/openbox/autostart.d
@@ -45,16 +45,16 @@ cmd_lockscreen() {
 }
 
 
-cmd_xinit() {
+function cmd_xinit() {
 	cp -v home/xinitrc ~/.xinitrc
 }
 
-cmd_background() {
+function cmd_background() {
 	local hexblade_background="${1?'hexblade_background is required, sample: 000022'}"
 	echo "xsetroot -solid \"#$hexblade_background\"" > /etc/xdg/openbox/autostart.d/30-background.sh
 }
 
-cmd_xhost_user() {
+function cmd_xhost_user() {
 	local hexblade_xhostuser="${1?'username'}"
 	echo "xhost '+SI:localuser:$hexblade_xhostuser'" > /etc/xdg/openbox/autostart.d/20-xhost-user-$hexblade_xhostuser.sh
 }

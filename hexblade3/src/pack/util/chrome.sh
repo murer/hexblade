@@ -1,6 +1,6 @@
 #!/bin/bash -xe
 
-cmd_install() {
+function cmd_install() {
     mkdir -p /etc/apt/hardkeys
     wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub > /etc/apt/hardkeys/google-chrome.list
     echo 'deb [arch=amd64 signed-by=/etc/apt/hardkeys/google-chrome.list] http://dl.google.com/linux/chrome/deb/ stable main' > /etc/apt/sources.list.d/google-chrome.list

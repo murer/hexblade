@@ -8,7 +8,7 @@ function cmd_mousepad() {
     apt -y install --no-install-recommends mousepad
 }
 
-function cmd_xfce4-screenshooter() {
+function cmd_xfce4_screenshooter() {
     apt -y install --no-install-recommends xfce4-screenshooter
 }
 
@@ -20,7 +20,7 @@ function cmd_firefox() {
     apt -y install firefox
 }
 
-function cmd_network-manager-gnome() {
+function cmd_network_manager_gnome() {
     apt -y install --no-install-recommends network-manager-gnome
 }
 

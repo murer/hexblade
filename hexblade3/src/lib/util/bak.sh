@@ -27,7 +27,7 @@ function cmd_create() {
 
     cd /mnt/hexblade/bak
     local _hex_size="$(sudo du -bs "/mnt/hexblade/bak/$hex_bak_target" | cut -f1)"
-    sudo tar cp --same-owner -f - .  | pv -s "$_hex_size" | gzip | \
+    sudo tar cp --acls --xattrs --same-owner -f - .  | pv -s "$_hex_size" | gzip | \
         gpg --no-options --batch -c --compress-algo none --passphrase-file "$HOME/.ssh/id_rsa" -o - - | \
         cmd_ssh bash -xec "cat > hexblade/bak/$hex_bak_target.tgz.gpg"
     cd -
@@ -63,7 +63,7 @@ function cmd_restore() {
     cmd_ssh cat "hexblade/bak/$hex_bak_target.tgz.gpg" | \
         pv -s "$_hex_size" | \
         gpg --no-options --batch -d --compress-algo none --passphrase-file "$HOME/.ssh/id_rsa" -o - - | \
-        gunzip | sudo tar xp --same-owner -f - 
+        gunzip | sudo tar xp --acls --xattrs --same-owner -f - 
     cd -
 
     sudo umount "/mnt/hexblade/bak/$hex_bak_target"

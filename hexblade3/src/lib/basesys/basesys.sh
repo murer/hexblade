@@ -26,7 +26,7 @@ function cmd_base() {
     network-manager net-tools locales \
     cryptsetup lvm2 btrfs-progs sudo # netcat debconf-utils
 
-  arch-chroot /mnt/hexblade/system groupadd -r supersudo
+  arch-chroot /mnt/hexblade/system groupadd -r supersudo || true
   echo "%supersudo ALL=(ALL:ALL) NOPASSWD: ALL" > /mnt/hexblade/system/etc/sudoers.d/supersudo
 
   echo -e "network:\n  version: 2\n  renderer: NetworkManager" | tee /mnt/hexblade/system/etc/netplan/01-netcfg.yaml

@@ -6,6 +6,11 @@ function cmd_mount() {
     mount -t tmpfs -o size=6g tmpfs /mnt/hexblade/system    
 }
 
+function cmd_umount() {
+    umount /mnt/hexblade/system
+    rmdir /mnt/hexblade/system
+}
+
 function cmd_strap() {
     [[ -d /mnt/hexblade/system ]]
     ../../lib/basesys/basesys.sh strap br
@@ -31,7 +36,7 @@ function cmd_from_scratch() {
     cmd_strap
     cmd_base
     cmd_iso
-#    ../../lib/util/installer.sh umount
+    cmd_umount
 }
 
 set +x; cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; set -x; "cmd_${_cmd}" "$@"

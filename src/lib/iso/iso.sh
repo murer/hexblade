@@ -74,7 +74,7 @@ function cmd_iso() {
     --format=i386-pc \
     --output=isolinux/core.img \
     --install-modules="linux16 linux normal iso9660 biosdisk memdisk btrfs lvm video ntfs squash4 serial usb cat ls search tar ls reboot halt crypto cryptodisk" \
-    --modules="linux16 linux normal iso9660 biosdisk search crypto cryptodisk" \
+    --modules="linux16 linux normal iso9660 biosdisk search" \
     --locales="" \
     --fonts="" \
     "boot/grub/grub.cfg=isolinux/grub.cfg"

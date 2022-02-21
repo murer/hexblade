@@ -8,6 +8,7 @@ function cmd_strap() {
 }
 
 function cmd_base() {
+  mkdir -p /mnt/hexblade/system/var/crash
   cp -R etc/* /mnt/hexblade/system/etc
   echo 'LANG="en_US.UTF-8"' | tee /mnt/hexblade/system/etc/default/locale
 
@@ -37,8 +38,6 @@ function cmd_base() {
     arch-chroot /mnt/hexblade/system apt -y install grub-pc
   fi
   echo 'GRUB_CMDLINE_LINUX_DEFAULT="verbose nosplash"' > /mnt/hexblade/system/etc/default/grub.d/hexblade-linux-cmdline.cfg  
-
-
 }
 
 function cmd_keyboard() {

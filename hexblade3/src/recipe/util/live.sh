@@ -29,6 +29,7 @@ function cmd_iso() {
     ../../lib/iso/iso.sh install
     ../../lib/iso/iso.sh compress
     ../../lib/iso/iso.sh iso
+    ../../lib/iso/iso.sh sha256
 }
 
 function cmd_from_scratch() {

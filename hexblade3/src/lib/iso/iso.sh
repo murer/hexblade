@@ -131,4 +131,10 @@ function cmd_iso() {
   
 }
 
+function cmd_sha256() {
+  cd /mnt/hexblade/iso
+  sha256sum -b hexblade.iso > hexblade.SHA256
+  cd -
+}
+
 set +x; cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; set -x; "cmd_${_cmd}" "$@"

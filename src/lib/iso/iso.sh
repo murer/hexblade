@@ -73,8 +73,8 @@ function cmd_iso() {
   grub-mkstandalone \
     --format=i386-pc \
     --output=isolinux/core.img \
-    --install-modules="linux16 linux normal iso9660 biosdisk memdisk search tar ls" \
-    --modules="linux16 linux normal iso9660 biosdisk search" \
+    --install-modules="linux16 linux normal iso9660 biosdisk memdisk search tar ls crypto cryptodisk" \
+    --modules="linux16 linux normal iso9660 biosdisk search crypto cryptodisk" \
     --locales="" \
     --fonts="" \
     "boot/grub/grub.cfg=isolinux/grub.cfg"

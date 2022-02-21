@@ -26,11 +26,10 @@ function cmd_install() {
   #  virtualbox-guest-x11
 
   arch-chroot /mnt/hexblade/system apt clean
-  mkdir -p /mnt/hexblade/image/{casper,isolinux}
+  mkdir -p /mnt/hexblade/image/casper
   cp /mnt/hexblade/system/boot/vmlinuz-**-**-generic /mnt/hexblade/image/casper/vmlinuz
   cp /mnt/hexblade/system/boot/initrd.img-**-**-generic /mnt/hexblade/image/casper/initrd
   touch /mnt/hexblade/image/ubuntu
-  cp resources/grub.cfg /mnt/hexblade/image/isolinux/grub.cfg
 
   arch-chroot /mnt/hexblade/system dpkg-query -W --showformat='${Package} ${Version}\n' > /mnt/hexblade/image/casper/filesystem.manifest
   cp -v /mnt/hexblade/image/casper/filesystem.manifest /mnt/hexblade/image/casper/filesystem.manifest-desktop
@@ -52,6 +51,10 @@ function cmd_compress() {
 }
 
 function cmd_iso() {
+  mkdir -p /mnt/hexblade/image/isolinux
+  cp resources/grub.cfg /mnt/hexblade/image/isolinux/grub.cfg
+
+
   mkdir -p /mnt/hexblade/iso
   cd /mnt/hexblade/image
   grub-mkstandalone \

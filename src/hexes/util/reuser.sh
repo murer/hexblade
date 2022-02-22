@@ -1,10 +1,5 @@
 #!/bin/bash -xe
 
-function _encode {
-  (if [ -z "$1" ]; then cat -; else echo -n "$1"; fi) |
-    openssl 
-}
-
 function cmd_redir() {
     [[ "x$UID" == "x0" ]]
     local hex_dir="${1?'hex_dir_from'}"

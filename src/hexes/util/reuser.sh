@@ -27,15 +27,16 @@ function cmd_redir() {
 
 function cmd_adduser() {
     [[ "x$UID" == "x0" ]]
-    hexes_username="${1?'username'}"
-
+    local hexes_username="${1?'username'}"
     useradd -m -G video -s /usr/sbin/nologin "$hexes_username"
     echo "xhost '+SI:localuser:$hexes_username'" > "/etc/xdg/openbox/autostart.d/20-xhost-user-$hexes_username.sh"
-    mkdir -p "/home/$hexes_username/.config/google-chrome"
-    chown -R "$hex_username:$hex_username" "/home/$hexes_username/.config"
-    cmd_redir "/home/$hexes_username/.config/google-chrome"
-
     xhost "+SI:localuser:$hexes_username"
+}
+
+function cmd_reuser() {
+    local hex_user="${1?'username'}"
+    shift
+    sudo -lu "$hex_user" -g "$hex_user" DISPLAY="$DISPLAY" PULSE_SERVER=127.0.0.1:4713 "$@"
 }
 
 set +x; cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; set -x; "cmd_${_cmd}" "$@"

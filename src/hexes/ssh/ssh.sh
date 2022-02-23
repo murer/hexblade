@@ -17,4 +17,11 @@ function cmd_key_load() {
   cd -
 }
 
+function cmd_mykey() {
+  if ! grep "$(cat id_rsa.pub | cut -d' ' -f2)" "$HOME/.ssh/authorized_keys"; then
+    mkdir -p "$HOME/.ssh"
+    cat id_rsa.pub >> "$HOME/.ssh/authorized_keys"
+  fi
+}
+
 set +x; cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; set -x; "cmd_${_cmd}" "$@"

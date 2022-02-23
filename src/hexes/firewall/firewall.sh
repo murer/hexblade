@@ -26,7 +26,7 @@ function cmd_install_deny() {
 }
 
 function cmd_port4_open() {
-  hexblade_port_open="${1?'port to open'}"
+  local hexblade_port_open="${1?'port to open'}"
   sudo iptables -A INPUT -p tcp -s 0.0.0.0/0 --dport "$hexblade_port_open" -m state --state NEW,ESTABLISHED -j ACCEPT
   sudo iptables -A OUTPUT -p tcp -d 0.0.0.0/0 --sport "$hexblade_port_open" -m state --state ESTABLISHED -j ACCEPT
 }

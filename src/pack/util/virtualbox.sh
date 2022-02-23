@@ -1,10 +1,5 @@
 #!/bin/bash -xe
 
-function cmd_clean() {
-  rm -rf target || true
-  [[ ! -d target ]]
-}
-
 function cmd_guest_group() {
   usermod -aG vboxsf "${1?'uername'}"
 }
@@ -40,9 +35,23 @@ function cmd_guest() {
     cmd_guest_gui
 }
 
+function cmd_ext() {
+  [[ "x$UID" == "x0" ]]
+  file="$(mktemp -d)"
+  _cleanup() {
+    rm -rf "$file" || true
+  }
+  trap _cleanup EXIT
+  wget --progress=dot -e dotbytes=64K -c \
+    -O "$file/Oracle_VM_VirtualBox_Extension_Pack-6.1.18.vbox-extpack" \
+    'https://download.virtualbox.org/virtualbox/6.1.18/Oracle_VM_VirtualBox_Extension_Pack-6.1.18.vbox-extpack'
+  vboxmanage extpack install \
+    "$file/Oracle_VM_VirtualBox_Extension_Pack-6.1.18.vbox-extpack" \
+    --accept-license=33d7284dc4a0ece381196fda3cfe2ed0e1e8e7ed7f27b9a9ebc4ee22e24bd23c || true
+}
+
 function cmd_install() {
   cmd_clean || true
-  mkdir -p target/virtualbox
 
   apt install -y \
       apt-transport-https \
@@ -70,15 +79,7 @@ function cmd_install() {
    cmd_host_group "$USER"
   fi
 
-  # Install usb 30 support extention: https://www.virtualbox.org/wiki/Downloads
-  wget --progress=dot -e dotbytes=64K -c \
-    -O target/virtualbox/Oracle_VM_VirtualBox_Extension_Pack.vbox-extpack \
-    'https://download.virtualbox.org/virtualbox/6.1.18/Oracle_VM_VirtualBox_Extension_Pack-6.1.18.vbox-extpack'
-  vboxmanage extpack install \
-    target/virtualbox/Oracle_VM_VirtualBox_Extension_Pack.vbox-extpack \
-    --accept-license=33d7284dc4a0ece381196fda3cfe2ed0e1e8e7ed7f27b9a9ebc4ee22e24bd23c || true
-
-  cmd_clean
+  cmd_ext
 }
 
 set +x; cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; set -x; "cmd_${_cmd}" "$@"

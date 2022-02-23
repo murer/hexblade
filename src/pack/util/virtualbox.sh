@@ -43,10 +43,10 @@ function cmd_ext() {
   }
   trap _cleanup EXIT
   wget --progress=dot -e dotbytes=64K -c \
-    -O "$file/Oracle_VM_VirtualBox_Extension_Pack-6.1.18.vbox-extpack" \
-    'https://download.virtualbox.org/virtualbox/6.1.18/Oracle_VM_VirtualBox_Extension_Pack-6.1.18.vbox-extpack'
+    -O "$file/Oracle_VM_VirtualBox_Extension_Pack-6.1.32.vbox-extpack" \
+    'https://download.virtualbox.org/virtualbox/6.1.32/Oracle_VM_VirtualBox_Extension_Pack-6.1.32.vbox-extpack'
   vboxmanage extpack install \
-    "$file/Oracle_VM_VirtualBox_Extension_Pack-6.1.18.vbox-extpack" \
+    "$file/Oracle_VM_VirtualBox_Extension_Pack-6.1.32.vbox-extpack" \
     --accept-license=33d7284dc4a0ece381196fda3cfe2ed0e1e8e7ed7f27b9a9ebc4ee22e24bd23c || true
 }
 

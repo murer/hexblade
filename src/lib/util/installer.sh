@@ -17,7 +17,8 @@ function cmd_uchr() {
   local hex_user="${1?'user is required'}"
   shift
   _rsync
-  arch-chroot -u "$hex_user" /mnt/hexblade/system "$@"
+  # arch-chroot -u "$hex_user" /mnt/hexblade/system "$@"
+  arch-chroot /mnt/hexblade/system sudo -sHu "$hex_user" -g "$hex_user" "$@"
   cmd_cleanup
 }
 

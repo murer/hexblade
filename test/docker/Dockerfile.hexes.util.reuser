@@ -5,5 +5,5 @@ RUN sudo mkdir /localdata
 RUN DEBIAN_FRONTEND=noninteractive sudo -E /opt/hexblade/src/hexes/util/reuser.sh redir /home
 RUN (echo "#!/bin/bash -xe" && \
     echo "sudo /opt/hexblade/src/hexes/util/reuser.sh adduser t1" && \
-    echo "sudo /opt/hexblade/src/hexes/util/reuser.sh reuser t1 whoami") | \
+    echo "[[ \"x$(sudo /opt/hexblade/src/hexes/util/reuser.sh reuser t1 whoami)\" == \"xt1\"" ]]") | \
     /opt/hexblade/docker/entrypoint.sh bash -xe

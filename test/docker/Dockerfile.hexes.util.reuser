@@ -1,4 +1,9 @@
 FROM hexblade/hexblade-base:dev
 
 COPY src/hexes/util/reuser.sh /opt/hexblade/src/hexes/util/reuser.sh
-RUN DEBIAN_FRONTEND=noninteractive sudo -E /opt/hexblade/src/hexes/util/reuser.sh adduser t1
+RUN sudo mkdir /localdata
+RUN DEBIAN_FRONTEND=noninteractive sudo -E /opt/hexblade/src/hexes/util/reuser.sh redir /home
+RUN (echo "#!/bin/bash -xe" && \
+    echo "sudo /opt/hexblade/src/hexes/util/reuser.sh adduser t1" && \
+    echo "sudo /opt/hexblade/src/hexes/util/reuser.sh reuser t1 whoami") | \
+    /opt/hexblade/docker/entrypoint.sh bash -xe

@@ -37,6 +37,8 @@ EXPOSE 5900
 
 ENTRYPOINT [ "/opt/hexblade/docker/entrypoint.sh" ]
 
+COPY docker /opt/hexblade/docker
+
 CMD [ "hexbladestart" ]
 
 FROM base AS MINI

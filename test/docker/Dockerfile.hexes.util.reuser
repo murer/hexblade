@@ -1,4 +1,4 @@
 FROM hexblade/hexblade-base:dev
 
 COPY src/hexes/util/reuser.sh /opt/hexblade/src/hexes/util/reuser.sh
-RUN DEBIAN_FRONTEND=noninteractive sudo -E /opt/hexblade/src/hexes/util/reuser.sh install
+RUN DEBIAN_FRONTEND=noninteractive sudo -E /opt/hexblade/src/hexes/util/reuser.sh adduser t1

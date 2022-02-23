@@ -12,7 +12,9 @@ function cmd_vm() {
   vboxmanage modifyvm test --natpf1 "guestssh,tcp,,2222,,22"
   vboxmanage startvm test --type gui -E aaa=bbb
 
-  ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ConnectTimeout=5 -o ConnectionAttempts=1000 -p 2222 ubuntu@localhost whoami
+  while ! ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ConnectTimeout=5 -p 2222 ubuntu@localhost whoami; do
+    sleep 1
+  done
 }
 
 set +x; cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; set -x; "cmd_${_cmd}" "$@"

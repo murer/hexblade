@@ -8,7 +8,7 @@ function cmd_mount() {
 
 function cmd_umount() {
     #umount /mnt/hexblade/system
-    rmdir /mnt/hexblade/system
+    rm -rf /mnt/hexblade/system
 }
 
 function cmd_strap() {

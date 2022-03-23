@@ -11,8 +11,8 @@ function cmd_install() {
     laptop-detect \
     os-prober \
     upower \
-    dkms \
-    virtualbox-guest-utils
+    dkms
+    #virtualbox-guest-utils
 
   #arch-chroot /mnt/hexblade/system apt install -y \
   # ubiquity \

@@ -30,6 +30,12 @@ function cmd_base() {
     #../../lib/util/installer.sh uchr ubuntu /installer/hexblade/hexes/ssh/ssh.sh mykey
 }
 
+function cmd_packs() {
+    ../../lib/util/installer.sh uchr ubuntu sudo -E /installer/hexblade/pack/util/docker.sh install
+    ../../lib/util/installer.sh uchr ubuntu sudo -E /installer/hexblade/pack/util/virtualbox.sh guest_text
+    ../../lib/util/installer.sh uchr ubuntu sudo -E /installer/hexblade/pack/util/virtualbox.sh guest_dir
+}
+
 function cmd_iso() {
     HEXBLADE_LIVE_DISABLE_ADDUSER=true ../../lib/iso/iso.sh install
     ../../lib/iso/iso.sh compress
@@ -41,6 +47,7 @@ function cmd_from_scratch() {
     cmd_mount
     cmd_strap
     cmd_base
+    cmd_packs
     cmd_iso
     cmd_umount
 }

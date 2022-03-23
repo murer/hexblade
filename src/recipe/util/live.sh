@@ -34,11 +34,26 @@ function cmd_base() {
 }
 
 function cmd_packs() {
-    ../../lib/util/installer.sh uchr ubuntu sudo -E /installer/hexblade/pack/util/docker.sh install
+    #../../lib/util/installer.sh uchr ubuntu sudo -E /installer/hexblade/pack/util/docker.sh install
     ../../lib/util/installer.sh uchr ubuntu sudo -E /installer/hexblade/pack/util/graphics.sh xterm
     ../../lib/util/installer.sh uchr ubuntu sudo -E /installer/hexblade/pack/lxterminal/lxterminal.sh install
-    # ../../lib/util/installer.sh uchr ubuntu sudo -E /installer/hexblade/pack/util/chrome.sh install
-    # ../../lib/util/installer.sh uchr ubuntu sudo -E /installer/hexblade/pack/util/sound.sh pavucontrol
+    ../../lib/util/installer.sh uchr ubuntu sudo -E /installer/hexblade/pack/util/graphics.sh mousepad
+    ../../lib/util/installer.sh uchr ubuntu sudo -E /installer/hexblade/pack/util/graphics.sh xfce4_screenshooter
+    ../../lib/util/installer.sh uchr ubuntu sudo -E /installer/hexblade/pack/util/graphics.sh pcmanfm
+    ../../lib/util/installer.sh uchr ubuntu sudo -E /installer/hexblade/pack/util/graphics.sh firefox
+    ../../lib/util/installer.sh uchr ubuntu sudo -E /installer/hexblade/pack/util/graphics.sh network_manager_gnome
+    
+    ../../lib/util/installer.sh uchr ubuntu sudo -E /installer/hexblade/pack/util/sound.sh pulseaudio
+    ../../lib/util/installer.sh uchr ubuntu sudo -E /installer/hexblade/pack/util/chrome.sh install
+    
+    ../../lib/util/installer.sh uchr ubuntu sudo -E /installer/hexblade/pack/openbox/openbox.sh install
+    ../../lib/util/installer.sh uchr ubuntu sudo -E /installer/hexblade/pack/openbox/openbox.sh background 002200
+
+    ../../lib/util/installer.sh uchr ubuntu sudo -E /installer/hexblade/pack/openbox/openbox.sh xinit
+    #../../lib/util/installer.sh uchr ubuntu sudo -E /installer/hexblade/pack/lxdm/lxdm.sh install
+    #../../lib/util/installer.sh uchr ubuntu sudo -E /installer/hexblade/pack/lxdm/lxdm.sh autologin ubuntu
+
+    ../../lib/util/installer.sh uchr ubuntu sudo -E /installer/hexblade/pack/util/virtualbox.sh guest_gui
 }
 
 function cmd_iso() {

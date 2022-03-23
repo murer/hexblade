@@ -3,11 +3,11 @@
 function cmd_mount() {
     [[ ! -d /mnt/hexblade/system ]]    
     mkdir -p /mnt/hexblade/system
-    mount -t tmpfs -o size=6g tmpfs /mnt/hexblade/system    
+    #mount -t tmpfs -o size=6g tmpfs /mnt/hexblade/system    
 }
 
 function cmd_umount() {
-    umount /mnt/hexblade/system
+    #umount /mnt/hexblade/system
     rmdir /mnt/hexblade/system
 }
 

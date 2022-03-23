@@ -23,7 +23,7 @@ function cmd_base() {
     ../../lib/basesys/basesys.sh kernel
     
     ../../lib/util/user.sh add ubuntu '$6$M36hF7PAQWF8j4zp$ihBCh1dWqYd2xdt9ckqkgHuq9KFJICN5Op3nLjmJAAZy49xcqKshuoNJhmDIpD.fJPsI720e8DjU4KsooLFJ1.' # passwd: ubuntu
-    #../../lib/util/user.sh add ubuntu '!'
+    #../../lib/util/user.sh add ubuntu '*'
     
     ../../lib/util/installer.sh uchr ubuntu sudo -E /installer/hexblade/pack/util/tools.sh install
     ../../lib/util/installer.sh uchr ubuntu sudo -E /installer/hexblade/pack/util/ssh.sh install_server

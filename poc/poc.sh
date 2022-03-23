@@ -9,7 +9,12 @@ function cmd_vm() {
   vboxmanage modifyvm test --nic1 nat 
   vboxmanage storagectl test --name IDE --add ide
   vboxmanage storageattach test --storagectl IDE --port 0 --device 0 --type dvddrive --medium /mnt/hexblade/iso/hexblade.iso
+  vboxmanage modifyvm test --natpf1 "guestssh,tcp,,2222,,22"
   vboxmanage startvm test --type gui -E aaa=bbb
+
+  while ! ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ConnectTimeout=5 -p 2222 ubuntu@localhost whoami; do
+    sleep 1
+  done
 }
 
 set +x; cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; set -x; "cmd_${_cmd}" "$@"

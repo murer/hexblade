@@ -48,10 +48,10 @@ function cmd_aaa() {
     mkdir -p /mnt/hexblade/customiso/original /mnt/hexblade/customiso/extract /mnt/hexblade/customiso/fs 
     mount -o loop "$hexblade_iso" /mnt/hexblade/customiso/original
     rsync --exclude=/casper/filesystem.squashfs -a /mnt/hexblade/customiso/ /mnt/hexblade/customiso/extract/
-    unsquashfs /mnt/hexblade/customiso/original/casper/filesystem.squashfs
+    unsquashfs -d /mnt/hexblade/customiso/original/fs /mnt/hexblade/customiso/original/casper/filesystem.squashfs
     #sudo mv squashfs-root edit
     umount /mnt/hexblade/customiso/original
-    rm -rf /mnt/hexblade/customiso
+    #rm -rf /mnt/hexblade/customiso
 }
 
 set +x; cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; set -x; "cmd_${_cmd}" "$@"

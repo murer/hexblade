@@ -64,4 +64,12 @@ function cmd_from_iso_with_key() {
     cmd_umount
 }
 
+function cmd_from_iso_passwd() {
+    local hexblade_iso="${1?'iso file'}"
+    cmd_mount_iso "$hexblade_iso"
+    ../../lib/util/installer.sh chr passwd ubuntu
+    cmd_iso    
+    cmd_umount
+}
+
 set +x; cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; set -x; "cmd_${_cmd}" "$@"

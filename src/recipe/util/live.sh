@@ -44,11 +44,11 @@ function cmd_from_scratch() {
 
 function cmd_mount_iso() {
     local hexblade_iso="${1?'iso file'}"
-    [[ ! -d /mnt/hexblade/system ]]
     [[ ! -d /mnt/hexblade/liveiso ]]
+    cmd_mount
     mkdir -p /mnt/hexblade/liveiso
     mount -o loop "$hexblade_iso" /mnt/hexblade/liveiso
-    unsquashfs -d /mnt/hexblade/system /mnt/hexblade/liveiso/casper/filesystem.squashfs
+    unsquashfs -f -d /mnt/hexblade/system /mnt/hexblade/liveiso/casper/filesystem.squashfs
     umount /mnt/hexblade/liveiso
 }
 

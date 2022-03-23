@@ -21,10 +21,10 @@ function cmd_base() {
     ../../lib/basesys/basesys.sh hostname hex
     ../../lib/basesys/basesys.sh base
     ../../lib/basesys/basesys.sh kernel
-    ../../lib/util/user.sh add ubuntu '$6$mGAOvwh5CP.LymHW$LLJaJCOo8Odj0w9jFXhEWLs90YEuy/EES5nwiIWZkEEnhs5jnzDqd4y96qDk/c9euGzMc8oFWsUkykTTYbk1T.'
+    ../../lib/util/user.sh add ubuntu '$6$M36hF7PAQWF8j4zp$ihBCh1dWqYd2xdt9ckqkgHuq9KFJICN5Op3nLjmJAAZy49xcqKshuoNJhmDIpD.fJPsI720e8DjU4KsooLFJ1.' # passwd: ubuntu
     ../../lib/util/installer.sh uchr ubuntu sudo -E /installer/hexblade/pack/util/tools.sh install
     ../../lib/util/installer.sh uchr ubuntu sudo -E /installer/hexblade/pack/util/ssh.sh install_server
-    ../../lib/util/installer.sh uchr ubuntu /installer/hexblade/hexes/ssh/ssh.sh mykey
+    #../../lib/util/installer.sh uchr ubuntu /installer/hexblade/hexes/ssh/ssh.sh mykey
 }
 
 function cmd_iso() {
@@ -40,6 +40,15 @@ function cmd_from_scratch() {
     cmd_base
     cmd_iso
     cmd_umount
+}
+
+function cmd_aaa() {
+    local hexblade_iso="${1?'iso file'}"
+    [[ ! -d /mnt/hexblade/customiso ]]
+    [[ ! -d /mnt/hexblade/customisoextract ]]
+    mkdir -p /mnt/hexblade/customiso /mnt/hexblade/customisoextract/
+    mount -o loop "$hexblade_iso" /mnt/hexblade/customiso
+    rsync --exclude=/casper/filesystem.squashfs -a /mnt/hexblade/customiso/ /mnt/hexblade/customisoextract/
 }
 
 set +x; cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; set -x; "cmd_${_cmd}" "$@"

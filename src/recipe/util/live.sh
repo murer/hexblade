@@ -53,15 +53,12 @@ function cmd_mount_iso() {
     rm -rf /mnt/hexblade/liveiso
 }
 
-function cmd_aaa() {
+function cmd_from_iso_with_key() {
     local hexblade_iso="${1?'iso file'}"
-    [[ ! -d /mnt/hexblade/customiso ]]
-    mkdir -p /mnt/hexblade/customiso/original /mnt/hexblade/customiso/extract 
-    mount -o loop "$hexblade_iso" /mnt/hexblade/customiso/original
-    rsync --exclude=/casper/filesystem.squashfs -a /mnt/hexblade/customiso/ /mnt/hexblade/customiso/extract/
-    unsquashfs -d /mnt/hexblade/customiso/fs /mnt/hexblade/customiso/original/casper/filesystem.squashfs
-    umount /mnt/hexblade/customiso/original
-    rm -rf /mnt/hexblade/customiso
+    cmd_mount_iso "$hexblade_iso"
+    ../../lib/util/installer.sh uchr ubuntu /installer/hexblade/hexes/ssh/ssh.sh mykey
+    cmd_iso    
+    cmd_umount
 }
 
 set +x; cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; set -x; "cmd_${_cmd}" "$@"

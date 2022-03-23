@@ -50,6 +50,7 @@ function cmd_mount_iso() {
     mount -o loop "$hexblade_iso" /mnt/hexblade/liveiso
     unsquashfs -f -d /mnt/hexblade/system /mnt/hexblade/liveiso/casper/filesystem.squashfs
     umount /mnt/hexblade/liveiso
+    rm -rf /mnt/hexblade/liveiso
 }
 
 function cmd_aaa() {

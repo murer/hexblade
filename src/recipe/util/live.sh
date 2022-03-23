@@ -28,12 +28,13 @@ function cmd_base() {
     ../../lib/util/installer.sh uchr ubuntu sudo -E /installer/hexblade/pack/util/tools.sh install
     ../../lib/util/installer.sh uchr ubuntu sudo -E /installer/hexblade/pack/util/ssh.sh install_server
     #../../lib/util/installer.sh uchr ubuntu /installer/hexblade/hexes/ssh/ssh.sh mykey
+
+    ../../lib/util/installer.sh uchr ubuntu sudo -E /installer/hexblade/pack/util/virtualbox.sh guest_text
+    ../../lib/util/installer.sh uchr ubuntu sudo -E /installer/hexblade/pack/util/virtualbox.sh guest_dir
 }
 
 function cmd_packs() {
     ../../lib/util/installer.sh uchr ubuntu sudo -E /installer/hexblade/pack/util/docker.sh install
-    ../../lib/util/installer.sh uchr ubuntu sudo -E /installer/hexblade/pack/util/virtualbox.sh guest_text
-    ../../lib/util/installer.sh uchr ubuntu sudo -E /installer/hexblade/pack/util/virtualbox.sh guest_dir
 }
 
 function cmd_iso() {

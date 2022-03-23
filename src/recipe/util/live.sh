@@ -45,10 +45,10 @@ function cmd_from_scratch() {
 function cmd_aaa() {
     local hexblade_iso="${1?'iso file'}"
     [[ ! -d /mnt/hexblade/customiso ]]
-    mkdir -p /mnt/hexblade/customiso/original /mnt/hexblade/customiso/extract /mnt/hexblade/customiso/fs 
+    mkdir -p /mnt/hexblade/customiso/original /mnt/hexblade/customiso/extract 
     mount -o loop "$hexblade_iso" /mnt/hexblade/customiso/original
     rsync --exclude=/casper/filesystem.squashfs -a /mnt/hexblade/customiso/ /mnt/hexblade/customiso/extract/
-    unsquashfs -d /mnt/hexblade/customiso/original/fs /mnt/hexblade/customiso/original/casper/filesystem.squashfs
+    unsquashfs -d /mnt/hexblade/customiso/fs /mnt/hexblade/customiso/original/casper/filesystem.squashfs
     #sudo mv squashfs-root edit
     umount /mnt/hexblade/customiso/original
     #rm -rf /mnt/hexblade/customiso

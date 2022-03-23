@@ -21,15 +21,23 @@ function cmd_base() {
     ../../lib/basesys/basesys.sh hostname hex
     ../../lib/basesys/basesys.sh base
     ../../lib/basesys/basesys.sh kernel
-    #../../lib/util/user.sh add ubuntu '$6$M36hF7PAQWF8j4zp$ihBCh1dWqYd2xdt9ckqkgHuq9KFJICN5Op3nLjmJAAZy49xcqKshuoNJhmDIpD.fJPsI720e8DjU4KsooLFJ1.' # passwd: ubuntu
-    ../../lib/util/user.sh add ubuntu '!'
+    
+    ../../lib/util/user.sh add ubuntu '$6$M36hF7PAQWF8j4zp$ihBCh1dWqYd2xdt9ckqkgHuq9KFJICN5Op3nLjmJAAZy49xcqKshuoNJhmDIpD.fJPsI720e8DjU4KsooLFJ1.' # passwd: ubuntu
+    #../../lib/util/user.sh add ubuntu '*'
+    
     ../../lib/util/installer.sh uchr ubuntu sudo -E /installer/hexblade/pack/util/tools.sh install
     ../../lib/util/installer.sh uchr ubuntu sudo -E /installer/hexblade/pack/util/ssh.sh install_server
     #../../lib/util/installer.sh uchr ubuntu /installer/hexblade/hexes/ssh/ssh.sh mykey
 }
 
+function cmd_packs() {
+    ../../lib/util/installer.sh uchr ubuntu sudo -E /installer/hexblade/pack/util/docker.sh install
+    ../../lib/util/installer.sh uchr ubuntu sudo -E /installer/hexblade/pack/util/virtualbox.sh guest_text
+    ../../lib/util/installer.sh uchr ubuntu sudo -E /installer/hexblade/pack/util/virtualbox.sh guest_dir
+}
+
 function cmd_iso() {
-    ../../lib/iso/iso.sh install
+    HEXBLADE_LIVE_DISABLE_ADDUSER=true ../../lib/iso/iso.sh install
     ../../lib/iso/iso.sh compress
     ../../lib/iso/iso.sh iso
     ../../lib/iso/iso.sh sha256
@@ -39,6 +47,7 @@ function cmd_from_scratch() {
     cmd_mount
     cmd_strap
     cmd_base
+    cmd_packs
     cmd_iso
     cmd_umount
 }
@@ -58,6 +67,14 @@ function cmd_from_iso_with_key() {
     local hexblade_iso="${1?'iso file'}"
     cmd_mount_iso "$hexblade_iso"
     ../../lib/util/installer.sh uchr ubuntu /installer/hexblade/hexes/ssh/ssh.sh mykey
+    cmd_iso    
+    cmd_umount
+}
+
+function cmd_from_iso_passwd() {
+    local hexblade_iso="${1?'iso file'}"
+    cmd_mount_iso "$hexblade_iso"
+    ../../lib/util/installer.sh chr passwd ubuntu
     cmd_iso    
     cmd_umount
 }

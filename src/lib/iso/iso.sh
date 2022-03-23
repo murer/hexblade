@@ -25,6 +25,11 @@ function cmd_install() {
   #  virtualbox-guest-dkms \
   #  virtualbox-guest-x11
 
+  if [[ "x$HEXBLADE_LIVE_DISABLE_ADDUSER" == "xtrue" ]]; then
+    chmod -x /mnt/hexblade/system/usr/share/initramfs-tools/scripts/casper-bottom/25adduser
+    ../util/boot.sh initramfs
+  fi
+
   arch-chroot /mnt/hexblade/system apt clean
   mkdir -p /mnt/hexblade/image/casper
   cp /mnt/hexblade/system/boot/vmlinuz-**-**-generic /mnt/hexblade/image/casper/vmlinuz

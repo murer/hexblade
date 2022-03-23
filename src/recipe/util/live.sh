@@ -45,10 +45,11 @@ function cmd_from_scratch() {
 function cmd_aaa() {
     local hexblade_iso="${1?'iso file'}"
     [[ ! -d /mnt/hexblade/customiso ]]
-    [[ ! -d /mnt/hexblade/customisoextract ]]
-    mkdir -p /mnt/hexblade/customiso /mnt/hexblade/customisoextract/
-    mount -o loop "$hexblade_iso" /mnt/hexblade/customiso
+    mkdir -p /mnt/hexblade/customiso/original /mnt/hexblade/extract /mnt/hexblade/fs 
+    mount -o loop "$hexblade_iso" /mnt/hexblade/customiso/original
     rsync --exclude=/casper/filesystem.squashfs -a /mnt/hexblade/customiso/ /mnt/hexblade/customisoextract/
+    umount /mnt/hexblade/customiso/original
+    rm -rf /mnt/hexblade/customiso
 }
 
 set +x; cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; set -x; "cmd_${_cmd}" "$@"

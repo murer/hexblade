@@ -28,6 +28,10 @@ function cmd_vm_ssh() {
     ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ConnectTimeout=5 -l "$hex_vm_user" -p "$hex_ssh_port" localhost "$@"
 }
 
+function cmd_vm_poweroff() {
+    VBoxManage controlvm "$hex_vm_name" poweroff
+}
+
 function cmd_vm_delete() {
     local hex_vm_name="${1?'vm_name'}"
     [[ -d "/mnt/hexblade/vbox/$hex_vm_name" ]]

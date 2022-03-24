@@ -1,6 +1,23 @@
 #!/bin/bash -xe
 
-function cmd_vm_delete  () {
+function cmd_ssh_copy_id() {
+    local hex_vm_name="${1?'vm_name'}"
+    local hex_vm_user="${2?'vm_user'}"
+    local hex_ssh_port="$(VBoxManage showvminfo "$hex_vm_name" --machinereadable | grep 'guestssh,tcp' | cut -d',' -f4)"
+    [[ "x$hex_ssh_port" != "x" ]]
+    ssh-copy-id -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ConnectTimeout=5 -p "$hex_ssh_port" "$hex_vm_user@localhost"
+}
+
+function cmd_ssh() {
+    local hex_vm_name="${1?'vm_name'}"
+    local hex_vm_user="${2?'vm_user'}"
+    shift; shift;   
+    local hex_ssh_port="$(VBoxManage showvminfo "$hex_vm_name" --machinereadable | grep 'guestssh,tcp' | cut -d',' -f4)"
+    [[ "x$hex_ssh_port" != "x" ]]
+    ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ConnectTimeout=5 -l "$hex_vm_user" -p "$hex_ssh_port" localhost "$@"
+}
+
+function cmd_vm_delete() {
     local hex_vm_name="${1?'vm_name'}"
     [[ -d "/mnt/hexblade/vbox/$hex_vm_name" ]]
     VBoxManage unregistervm --delete "$hex_vm_name" || true
@@ -13,6 +30,7 @@ function cmd_vm_delete  () {
 function cmd_vm_create_from_iso() {
     local hex_vm_iso="${1?'vm_iso'}"
     local hex_vm_name="${2?'vm_name'}"
+    local hex_vm_ssh="${3?'vm_host_ssh_port_forward'}"
     [[ ! -d "/mnt/hexblade/vbox/$hex_vm_name" ]]
     mkdir -p /mnt/hexblade/vbox
     VBoxManage createvm --name "$hex_vm_name" --ostype "Ubuntu_64" --register --basefolder "/mnt/hexblade/vbox/$hex_vm_name"
@@ -26,6 +44,7 @@ function cmd_vm_create_from_iso() {
     VBoxManage storageattach "$hex_vm_name" --storagectl "IDE" --port 1 --device 0 --type dvddrive --medium "$hex_vm_iso"       
     VBoxManage modifyvm "$hex_vm_name" --boot1 dvd --boot2 disk --boot3 none --boot4 none 
     VBoxManage modifyvm "$hex_vm_name" --cpus 2
+    VBoxManage modifyvm "$hex_vm_name" --natpf1 "guestssh,tcp,,$hex_vm_ssh,,22"
 }
 
 function cmd_vm_start() {

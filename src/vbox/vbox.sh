@@ -1,5 +1,7 @@
 #!/bin/bash -xe
 
+[[ "x$UID" != "x0" ]]
+
 function cmd_vm_ssh_copy_id() {
     local hex_vm_name="${1?'vm_name'}"
     local hex_vm_user="${2?'vm_user'}"
@@ -29,6 +31,7 @@ function cmd_vm_ssh() {
 }
 
 function cmd_vm_poweroff() {
+    local hex_vm_name="${1?'vm_name'}"
     VBoxManage controlvm "$hex_vm_name" poweroff
 }
 
@@ -39,7 +42,7 @@ function cmd_vm_delete() {
     find "/mnt/hexblade/vbox/$hex_vm_name" -name "disk*.vmdk" | while read k; do
         VBoxManage closemedium disk "$k" --delete || true
     done
-    rmdir "/mnt/hexblade/vbox/$hex_vm_name"
+    sudo rmdir "/mnt/hexblade/vbox/$hex_vm_name"
 }
 
 function cmd_vm_create_from_iso() {
@@ -47,7 +50,8 @@ function cmd_vm_create_from_iso() {
     local hex_vm_name="${2?'vm_name'}"
     local hex_vm_ssh="${3?'vm_host_ssh_port_forward'}"
     [[ ! -d "/mnt/hexblade/vbox/$hex_vm_name" ]]
-    mkdir -p /mnt/hexblade/vbox
+    sudo mkdir -p /mnt/hexblade/vbox
+    sudo chown "$USER:$USER" /mnt/hexblade/vbox
     VBoxManage createvm --name "$hex_vm_name" --ostype "Ubuntu_64" --register --basefolder "/mnt/hexblade/vbox/$hex_vm_name"
     VBoxManage modifyvm "$hex_vm_name" --ioapic on          
     VBoxManage modifyvm "$hex_vm_name" --memory 2048 --vram 128      

@@ -1,5 +1,7 @@
 #!/bin/bash -xe
 
+[[ "x$UID" != "x0" ]]
+
 function cmd_hex_install() {
     ./vbox.sh vm_ssh_copy_id hex_vbox_base ubuntu
     ./vbox.sh vm_rsync hex_vbox_base ubuntu ../../src/ localhost:/tmp/hexvbox/

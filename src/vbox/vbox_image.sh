@@ -1,9 +1,11 @@
 #!/bin/bash -xe
 
 function cmd_abc() {
-    VBoxManage guestcontrol hex_vbox_base --username ubuntu --password ubuntu run -- /usr/bin/mkdir -p /tmp/hexvbox
-    VBoxManage guestcontrol hex_vbox_base --username ubuntu --password ubuntu copyto --follow -R --target-directory /tmp/hexvbox ..
-    VBoxManage guestcontrol hex_vbox_base --username ubuntu --password ubuntu run -E HEX_TARGET_USER=hex -E HEX_TARGET_PASS=hex -- /tmp/hexvbox/src/recipe/util/min_mbr.sh
+    ./vbox.sh vm_ssh_copy_id hex_vbox_base ubuntu
+    ./vbox.sh vm_rsync hex_vbox_base ubuntu ../../src/ localhost:/tmp/hexvbox/
+    ./vbox.sh vm_ssh hex_vbox_base ubuntu \
+        HEX_TARGET_USER=hex HEX_TARGET_PASS=hex HEX_TARGET_DEV=/dev/sda \
+        sudo -E /tmp/hexvbox/recipe/util/min_mbr.sh from_scratch
 }
 
 function cmd_create_base() {

@@ -1,6 +1,6 @@
 #!/bin/bash -xe
 
-function cmd_ssh_copy_id() {
+function cmd_vm_ssh_copy_id() {
     local hex_vm_name="${1?'vm_name'}"
     local hex_vm_user="${2?'vm_user'}"
     local hex_ssh_port="$(VBoxManage showvminfo "$hex_vm_name" --machinereadable | grep 'guestssh,tcp' | cut -d',' -f4)"
@@ -8,7 +8,18 @@ function cmd_ssh_copy_id() {
     ssh-copy-id -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ConnectTimeout=5 -p "$hex_ssh_port" "$hex_vm_user@localhost"
 }
 
-function cmd_ssh() {
+function cmd_vm_rsync() {
+    local hex_vm_name="${1?'vm_name'}"
+    local hex_vm_user="${2?'vm_user'}"
+    local hex_vm_src="${3?'src'}"
+    local hex_vm_dst="${4?'dst'}"
+    local hex_ssh_port="$(VBoxManage showvminfo "$hex_vm_name" --machinereadable | grep 'guestssh,tcp' | cut -d',' -f4)"
+    [[ "x$hex_ssh_port" != "x" ]]
+    rsync -av --delete -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ConnectTimeout=5 -l $hex_vm_user -p $hex_ssh_port" "$hex_vm_src" "$hex_vm_dst"
+}
+
+
+function cmd_vm_ssh() {
     local hex_vm_name="${1?'vm_name'}"
     local hex_vm_user="${2?'vm_user'}"
     shift; shift;   

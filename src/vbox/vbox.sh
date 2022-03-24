@@ -15,8 +15,7 @@ function cmd_vm_create_from_iso() {
     local hex_vm_name="${2?'vm_name'}"
     [[ ! -d "/mnt/hexblade/vbox/$hex_vm_name" ]]
     mkdir -p /mnt/hexblade/vbox
-    VBoxManage createvm --name "$hex_vm_name" \
-        --ostype "Ubuntu_64" --register --basefolder "/mnt/hexblade/vbox/$hex_vm_name"
+    VBoxManage createvm --name "$hex_vm_name" --ostype "Ubuntu_64" --register --basefolder "/mnt/hexblade/vbox/$hex_vm_name"
     VBoxManage modifyvm "$hex_vm_name" --ioapic on          
     VBoxManage modifyvm "$hex_vm_name" --memory 2048 --vram 128      
     VBoxManage modifyvm "$hex_vm_name" --nic1 nat
@@ -27,6 +26,15 @@ function cmd_vm_create_from_iso() {
     VBoxManage storageattach "$hex_vm_name" --storagectl "IDE" --port 1 --device 0 --type dvddrive --medium "$hex_vm_iso"       
     VBoxManage modifyvm "$hex_vm_name" --boot1 dvd --boot2 disk --boot3 none --boot4 none 
     VBoxManage modifyvm "$hex_vm_name" --cpus 2
+}
+
+function cmd_vm_start() {
+    local hex_vm_name="${1?'vm_name'}"
+    VBoxManage startvm "$hex_vm_name" --type gui -E AAA=BBB
+    if ! VBoxManage guestproperty wait "$hex_vm_name" "/VirtualBox/GuestInfo/OS/LoggedInUsers" --timeout 180000 --fail-on-timeout; then
+        VBoxManage controlvm "$hex_vm_name" poweroff || true
+        false
+    fi
 }
 
 set +x; cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; set -x; "cmd_${_cmd}" "$@"

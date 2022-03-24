@@ -30,26 +30,26 @@ function cmd_vm_create_from_iso() {
 
 function cmd_vm_start() {
     local hex_vm_name="${1?'vm_name'}"
-    VBoxManage startvm "$hex_vm_name" --type gui -E AAA=BBB
+    VBoxManage startvm "$hex_vm_name" --type gui
     if ! VBoxManage guestproperty wait "$hex_vm_name" "/VirtualBox/GuestInfo/OS/LoggedInUsers" --timeout 180000 --fail-on-timeout; then
         VBoxManage controlvm "$hex_vm_name" poweroff || true
         false
     fi
 }
 
-function cmd_vm_exec() {
-    local hex_vm_name="${1?'vm_name'}"
-    local hex_vm_timeout="${2?'vm_timeout_ms'}"
-    shift; shift;
-    VBoxManage guestcontrol "$hex_vm_name" --username ubuntu --password ubuntu run --timeout "$hex_vm_timeout" -E DISPLAY=10.0.2.2:0.0 --wait-stdout --wait-stderr -- "$@"
-}
+# function cmd_vm_exec() {
+#     local hex_vm_name="${1?'vm_name'}"
+#     local hex_vm_timeout="${2?'vm_timeout_ms'}"
+#     shift; shift;
+#     VBoxManage guestcontrol "$hex_vm_name" --username ubuntu --password ubuntu run --timeout "$hex_vm_timeout" -E DISPLAY=10.0.2.2:0.0 --wait-stdout --wait-stderr -- "$@"
+# }
 
-function cmd_vm_upexec() {
-    local hex_vm_name="${1?'vm_name'}"
-    local hex_vm_file="${2?'file to exec'}"
-    VBoxManage guestcontrol "$hex_vm_name" --username ubuntu --password ubuntu copyto --follow "$hex_vm_file" "/tmp/file"
-    VBoxManage guestcontrol "$hex_vm_name" --username ubuntu --password ubuntu run --timeout 2000 --wait-stdout --wait-stderr -- /usr/bin/chmod -v +x "/tmp/file"
-    VBoxManage guestcontrol "$hex_vm_name" --username ubuntu --password ubuntu run --exe "/tmp/file" --timeout 300000 -E x1=x2 --wait-stdout --wait-stderr
-}
+# function cmd_vm_upexec() {
+#     local hex_vm_name="${1?'vm_name'}"
+#     local hex_vm_file="${2?'file to exec'}"
+#     VBoxManage guestcontrol "$hex_vm_name" --username ubuntu --password ubuntu copyto --follow "$hex_vm_file" "/tmp/file"
+#     VBoxManage guestcontrol "$hex_vm_name" --username ubuntu --password ubuntu run --timeout 2000 --wait-stdout --wait-stderr -- /usr/bin/chmod -v +x "/tmp/file"
+#     VBoxManage guestcontrol "$hex_vm_name" --username ubuntu --password ubuntu run --exe "/tmp/file" --timeout 300000 -E x1=x2 --wait-stdout --wait-stderr
+# }
 
 set +x; cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; set -x; "cmd_${_cmd}" "$@"

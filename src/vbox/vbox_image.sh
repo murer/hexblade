@@ -7,7 +7,7 @@ function cmd_abc() {
 }
 
 function cmd_create_base() {
-    ./vbox.sh vm_create_from_iso /mnt/hexblade/iso/hexblade.iso hex_vbox_base
+    ./vbox.sh vm_create_from_iso /mnt/hexblade/iso/hexblade.iso hex_vbox_base 5050
     ./vbox.sh vm_start hex_vbox_base
 }
 

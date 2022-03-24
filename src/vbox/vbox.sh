@@ -39,9 +39,9 @@ function cmd_vm_start() {
 
 function cmd_vm_exec() {
     local hex_vm_name="${1?'vm_name'}"
-    local hex_vm_exe="${2?'file to exec'}"
-    local hex_vm_timeout="${3?'vm_timeout_ms'}"
-    VBoxManage guestcontrol "$hex_vm_name" --username ubuntu --password ubuntu run --timeout "$hex_vm_timeout" --wait-stdout --wait-stderr -- /usr/bin/chmod -v +x "/tmp/file"
+    local hex_vm_timeout="${2?'vm_timeout_ms'}"
+    shift; shift;
+    VBoxManage guestcontrol "$hex_vm_name" --username ubuntu --password ubuntu run --timeout "$hex_vm_timeout" -E DISPLAY=10.0.2.2:0.0 --wait-stdout --wait-stderr -- "$@"
 }
 
 function cmd_vm_upexec() {

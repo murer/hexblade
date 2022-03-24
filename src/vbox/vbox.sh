@@ -37,4 +37,19 @@ function cmd_vm_start() {
     fi
 }
 
+function cmd_vm_exec() {
+    local hex_vm_name="${1?'vm_name'}"
+    local hex_vm_exe="${2?'file to exec'}"
+    local hex_vm_timeout="${3?'vm_timeout_ms'}"
+    VBoxManage guestcontrol "$hex_vm_name" --username ubuntu --password ubuntu run --timeout "$hex_vm_timeout" --wait-stdout --wait-stderr -- /usr/bin/chmod -v +x "/tmp/file"
+}
+
+function cmd_vm_upexec() {
+    local hex_vm_name="${1?'vm_name'}"
+    local hex_vm_file="${2?'file to exec'}"
+    VBoxManage guestcontrol "$hex_vm_name" --username ubuntu --password ubuntu copyto --follow "$hex_vm_file" "/tmp/file"
+    VBoxManage guestcontrol "$hex_vm_name" --username ubuntu --password ubuntu run --timeout 2000 --wait-stdout --wait-stderr -- /usr/bin/chmod -v +x "/tmp/file"
+    VBoxManage guestcontrol "$hex_vm_name" --username ubuntu --password ubuntu run --exe "/tmp/file" --timeout 300000 -E x1=x2 --wait-stdout --wait-stderr
+}
+
 set +x; cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; set -x; "cmd_${_cmd}" "$@"

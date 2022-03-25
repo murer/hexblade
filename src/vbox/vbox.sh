@@ -92,7 +92,7 @@
 
 function cmd_vm_list() {
     VBoxManage list vms | cut -d'"' -f2 | while read k; do
-        VBoxManage showvminfo "$k" --machinereadable
+        VBoxManage showvminfo "$k" --machinereadable | grep '^"SATA-ImageUUID' | cut -d'"' -f4 | awk "{print \"$k:\" \$0}"
     done
 }
 

@@ -90,7 +90,7 @@
 #     VBoxManage guestcontrol "$hex_vm_name" --username ubuntu --password ubuntu run --exe "/tmp/file" --timeout 300000 -E x1=x2 --wait-stdout --wait-stderr
 # }
 
-function cmd_vm_list() {
+function cmd_disk_list() {
     VBoxManage list vms | cut -d'"' -f2 | while read k; do
         VBoxManage showvminfo "$k" --machinereadable | grep '^"SATA-ImageUUID' | cut -d'"' -f4 | awk "{print \"$k:\" \$0}"
     done

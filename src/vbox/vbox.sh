@@ -90,7 +90,9 @@
 #     VBoxManage guestcontrol "$hex_vm_name" --username ubuntu --password ubuntu run --exe "/tmp/file" --timeout 300000 -E x1=x2 --wait-stdout --wait-stderr
 # }
 
-function cmd_gen_base() {
+
+
+function cmd_base_gen() {
     local hex_disk_from="${1?'hex_disk_from'}"
     local hex_disk_to_name="${2?'hex_disk_to_name'}"
     mkdir -p gen/vbox/disks

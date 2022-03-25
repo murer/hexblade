@@ -90,6 +90,13 @@
 #     VBoxManage guestcontrol "$hex_vm_name" --username ubuntu --password ubuntu run --exe "/tmp/file" --timeout 300000 -E x1=x2 --wait-stdout --wait-stderr
 # }
 
+function cmd_gen_base() {
+    local hex_disk_from="${1?'hex_disk_from'}"
+    local hex_disk_to_name="${2?'hex_disk_to_name'}"
+    mkdir -p gen/vbox/disks
+    VBoxManage clonemedium disk "$hex_disk_from" "gen/vbox/disks/$hex_disk_to_name.vmdk" --format VMDK
+}
+
 function cmd_vm_disk_list() {
     VBoxManage list vms | cut -d'"' -f2 | while read k; do
         VBoxManage showvminfo "$k" --machinereadable | grep '^"SATA-ImageUUID' | cut -d'"' -f4 | awk "{print \"$k:\" \$0}"

@@ -109,21 +109,21 @@
 #     VBoxManage list vms | cut -d'"' -f2
 # }
 
-function cmd_clean() {
-    if [[ -f gen/vbox/_conf/network.id ]]; then
-    local hex_vbox_netid="$(cat gen/vbox/_conf/network.id)"
-        VBoxManage hostonlyif remove "$hex_vbox_netid"
-        rm -v gen/vbox/_conf/network.id
-    fi
-}
+# function cmd_clean() {
+#     if [[ -f gen/vbox/_conf/network.id ]]; then
+#     local hex_vbox_netid="$(cat gen/vbox/_conf/network.id)"
+#         VBoxManage hostonlyif remove "$hex_vbox_netid"
+#         rm -v gen/vbox/_conf/network.id
+#     fi
+# }
 
-function cmd_setup() {
-    #VBoxManage list hostonlyifs
-    if [[ ! -f gen/vbox/_conf/network.id ]]; then
-        mkdir -p gen/vbox/_conf
-        VBoxManage hostonlyif create  | grep 'Interface' | cut -d "'" -f2 > gen/vbox/_conf/network.id
-        local hex_vbox_netid="$(cat gen/vbox/_conf/network.id)"
-    fi
-}
+# function cmd_setup() {
+#     #VBoxManage list hostonlyifs
+#     if [[ ! -f gen/vbox/_conf/network.id ]]; then
+#         mkdir -p gen/vbox/_conf
+#         VBoxManage hostonlyif create  | grep 'Interface' | cut -d "'" -f2 > gen/vbox/_conf/network.id
+#         local hex_vbox_netid="$(cat gen/vbox/_conf/network.id)"
+#     fi
+# }
 
 set +x; cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; set -x; "cmd_${_cmd}" "$@"

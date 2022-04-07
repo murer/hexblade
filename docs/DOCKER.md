@@ -4,6 +4,8 @@
 
 That is a image you can use to have a desktop inside container.
 
+https://hub.docker.com/repository/docker/murer/hexblade
+
 That would let you run any graphical application without the need to export the screen out.
 
 Additionally you can connect using ``vnc`` client any time if you need to see the screen.

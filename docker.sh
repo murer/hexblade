@@ -10,6 +10,18 @@ function cmd_build() {
   docker build --target chrome -t hexblade/hexblade-chrome:dev .
 }
 
+function cmd_export() {
+  rm -rf target/wp-docker/docker || true
+  mkdir -p target/wp-docker/docker
+  docker save hexblade/hexblade:dev hexblade/hexblade-firefox:dev hexblade/hexblade-chrome:dev | gzip > target/wp-docker/docker/docker-hexblade.tar.gz
+  du -hs target/wp-docker/docker/*
+}
+
+function cmd_import() {
+  du -hs target/wp-docker/docker/*
+  docker load -i target/wp-docker/docker/docker-hexblade.tar.gz
+}
+
 function cmd_clean() {
   docker ps -aq --filter label=hexblade_dev | xargs docker rm -f || true
   docker system prune --volumes --filter label=hexblade_dev -f || true

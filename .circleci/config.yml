@@ -46,7 +46,7 @@ jobs:
       - run: ./build.sh prepare
       - run: ./build.sh build
       - run: ./build.sh dist
-      - run: mkdir -p target/wp-iso/iso
+      - run: mkdir target/wp-iso && mv -v target/iso target/wp-iso
       - persist_to_workspace:
           root: target/wp-iso
           paths: 

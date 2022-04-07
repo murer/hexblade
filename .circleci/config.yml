@@ -41,7 +41,11 @@ jobs:
       # - run: ./build.sh build_checksum
       # - run: mkdir target/wp-iso && mv -v target/iso target/wp-iso
       # - run: find target
+      - run: sudo apt -y update
       - run: ./build.sh clean
+      - run: ./build.sh prepare
+      - run: ./build.sh build
+      - run: ./build.sh dist
       - run: mkdir -p target/wp-iso/iso
       - persist_to_workspace:
           root: target/wp-iso

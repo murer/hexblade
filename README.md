@@ -32,7 +32,7 @@ docker run -it -p 5900:5900 murer/hexblade
 vncviewer localhost:5900
 ```
 
-You can find more information about the image on [HEXBLADE_DOCKER.md](https://github.com/murer/hexblade/blob/master/docs/HEXBLADE_DOCKER.md)
+You can find more information about the image on [DOCKER.md](https://github.com/murer/hexblade/blob/master/docs/DOCKER.md)
 
 
 # Install Hexblade

@@ -42,7 +42,7 @@ jobs:
       # - run: mkdir target/wp-iso && mv -v target/iso target/wp-iso
       # - run: find target
       - run: ./build.sh clean
-      - run: mkdir target/wp-iso && mv -v target/iso target/wp-iso
+      - run: mkdir -p target/wp-iso/iso
       - persist_to_workspace:
           root: target/wp-iso
           paths: 

@@ -67,6 +67,10 @@ https://github.com/murer/hexblade/blob/master/src/recipe/util/min_lvm_crypt_efi.
 ./src/recipe/util/min_lvm_crypt_efi.sh from_scratch
 ```
 
+## Connect to WIFI using command line
+
+[NETWORK.md](https://github.com/murer/hexblade/blob/master/docs/NETWORK.md)
+
 ## Versions
 
 | Version | On top of | Branch |

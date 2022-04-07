@@ -51,8 +51,6 @@ This process is about to install Hexblade with **full disk encryption** (includi
 
 Split your disks: [DISK.md](https://github.com/murer/hexblade/blob/master/docs/DISK.md)
 
-Install: 
-
 ### Install MBR
 
 https://github.com/murer/hexblade/blob/master/src/recipe/util/min_crypt_mbr.sh

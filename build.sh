@@ -17,6 +17,7 @@ cmd_build() {
 }
 
 cmd_dist() {
+  rm -rf target/iso || true
   mkdir -p target/iso
   cp /mnt/hexblade/iso/hexblade.iso target/iso/hexblade.iso
   du -hs target/iso/hexblade.iso

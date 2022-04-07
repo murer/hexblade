@@ -58,7 +58,6 @@ Install:
 https://github.com/murer/hexblade/blob/master/src/recipe/util/min_crypt_mbr.sh
 
 ```shell
-# MBR
 ./src/recipe/util/min_crypt_mbr.sh from_scratch
 ```
 
@@ -67,7 +66,6 @@ https://github.com/murer/hexblade/blob/master/src/recipe/util/min_crypt_mbr.sh
 https://github.com/murer/hexblade/blob/master/src/recipe/util/min_lvm_crypt_efi.sh
 
 ```shell
-# MBR
 ./src/recipe/util/min_lvm_crypt_efi.sh from_scratch
 ```
 

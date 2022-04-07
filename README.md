@@ -53,7 +53,7 @@ Split your disks: [DISK.md](https://github.com/murer/hexblade/blob/master/docs/D
 
 Install: 
 
-### install MBR
+### Install MBR
 
 https://github.com/murer/hexblade/blob/master/src/recipe/util/min_crypt_mbr.sh
 
@@ -61,7 +61,7 @@ https://github.com/murer/hexblade/blob/master/src/recipe/util/min_crypt_mbr.sh
 ./src/recipe/util/min_crypt_mbr.sh from_scratch
 ```
 
-### install EFI
+### Install EFI
 
 https://github.com/murer/hexblade/blob/master/src/recipe/util/min_lvm_crypt_efi.sh
 

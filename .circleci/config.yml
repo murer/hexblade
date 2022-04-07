@@ -61,7 +61,7 @@ jobs:
           at: target/wp-iso
       - run: mv target/wp-iso/iso target
       - run: du -hs target/iso/*
-      - run: sudo -E ./packages/gh/gh.sh install
+      - run: sudo -E src/pack/util/gh.sh install
       - run: gh release delete "$CIRCLE_TAG" -y || true
       - run: gh release create "$CIRCLE_TAG" -t "$CIRCLE_TAG" -n "$CIRCLE_TAG" -p
       - run: gh release upload "$CIRCLE_TAG" target/iso/* --clobber
@@ -75,7 +75,7 @@ jobs:
           at: target/wp-iso
       - run: mv target/wp-iso/iso target
       - run: du -hs target/iso/*
-      - run: sudo -E ./packages/gh/gh.sh install
+      - run: sudo -E src/pack/util/gh.sh install
       - run: gh release delete "$CIRCLE_TAG" -y || true
       - run: gh release create "$CIRCLE_TAG" -t "$CIRCLE_TAG" -n "$CIRCLE_TAG"
       - run: gh release upload "$CIRCLE_TAG" target/iso/* --clobber

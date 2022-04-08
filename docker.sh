@@ -8,6 +8,7 @@ function cmd_build() {
   if [[ "x$hextarget" == "xmini" ]]; then return; fi
   docker build --target firefox -t hexblade/hexblade-firefox:dev .
   docker build --target chrome -t hexblade/hexblade-chrome:dev .
+  # docker build --target puppeteer -t hexblade/hexblade-puppeteer:dev .
 }
 
 function cmd_export() {

@@ -55,3 +55,22 @@ COPY src/pack/util/chrome.sh /opt/hexblade/src/pack/util/chrome.sh
 RUN DEBIAN_FRONTEND=noninteractive sudo -E /opt/hexblade/src/pack/util/chrome.sh install
 COPY . /opt/hexblade
 
+# FROM chrome AS puppeteer
+
+# SHELL [ "/bin/bash", "-ec" ]
+# COPY src/pack/util/nvm.sh /opt/hexblade/src/pack/util/nvm.sh
+# RUN DEBIAN_FRONTEND=noninteractive /opt/hexblade/src/pack/util/nvm.sh install
+# ENV PUPPETEER_EXECUTABLE_PATH /usr/bin/google-chrome
+# ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD true
+# RUN mkdir /home/hex/workspace
+# WORKDIR /home/hex/workspace
+# RUN export NVM_HOME=/home/hex/.nvm && \
+#   source "$NVM_HOME/nvm.sh" && \
+#   source "$NVM_HOME/bash_completion" && \
+#   nvm install --lts && \
+#   npm install puppeteer
+  
+
+# COPY . /opt/hexblade
+
+

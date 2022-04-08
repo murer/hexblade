@@ -70,7 +70,11 @@ COPY . /opt/hexblade
 #   nvm install --lts && \
 #   npm install puppeteer
   
-
+# COPY src/pack/util/node.sh /opt/hexblade/src/pack/util/node.sh
+# RUN DEBIAN_FRONTEND=noninteractive sudo -E /opt/hexblade/src/pack/util/node.sh install
+# ENV PUPPETEER_EXECUTABLE_PATH /usr/bin/google-chrome
+# ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD true
+# RUN sudo -E npm install -g puppeteer 
 # COPY . /opt/hexblade
 
 

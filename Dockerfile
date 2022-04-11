@@ -1,5 +1,8 @@
 FROM ubuntu:20.04 AS base
 
+# RUN apt-get -y update
+# RUN DEBIAN_FRONTEND=noninteractive apt-get -y install ca-certificates
+# COPY src/lib/basesys/etc/apt/sources.list /etc/apt/sources.list
 RUN apt-get -y update
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install sudo
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install xvfb

@@ -19,8 +19,8 @@ function cmd_export() {
     hexblade/hexblade-base:dev \
     hexblade/hexblade:dev \
     hexblade/hexblade-firefox:dev \
-    hexblade/hexblade-basechrome:dev | \
-    hexblade/hexblade-chrome:dev | \
+    hexblade/hexblade-basechrome:dev \
+    hexblade/hexblade-chrome:dev \
     hexblade/hexblade-puppeteer:dev | \
       gzip > target/wp-docker/docker/docker-hexblade.tar.gz
   du -hs target/wp-docker/docker/*

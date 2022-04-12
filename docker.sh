@@ -55,6 +55,7 @@ function cmd_push() {
     docker tag hexblade/hexblade:dev "murer/hexblade:$hexblade_docker_alias"
     docker tag hexblade/hexblade-firefox:dev "murer/hexblade-firefox:$hexblade_docker_alias"
     docker tag hexblade/hexblade-chrome:dev "murer/hexblade-chrome:$hexblade_docker_alias"
+    docker push "murer/hexblade-base:$hexblade_docker_alias"
     docker push "murer/hexblade:$hexblade_docker_alias"
     docker push "murer/hexblade-firefox:$hexblade_docker_alias"
     docker push "murer/hexblade-chrome:$hexblade_docker_alias"

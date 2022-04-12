@@ -37,6 +37,7 @@ function cmd_run() {
 function cmd_push() {
   hexblade_docker_version="${1?"version to push"}"
   hexblade_docker_alias="${2}"
+  docker tag hexblade/hexblade-base:dev "murer/hexblade-base:$hexblade_docker_version"
   docker tag hexblade/hexblade:dev "murer/hexblade:$hexblade_docker_version"
   docker tag hexblade/hexblade-firefox:dev "murer/hexblade-firefox:$hexblade_docker_version"
   docker tag hexblade/hexblade-chrome:dev "murer/hexblade-chrome:$hexblade_docker_version"
@@ -44,6 +45,7 @@ function cmd_push() {
   docker push "murer/hexblade-firefox:$hexblade_docker_version"
   docker push "murer/hexblade-chrome:$hexblade_docker_version"
   if [[ "x$hexblade_docker_alias" != "x" ]]; then
+    docker tag hexblade/hexblade-base:dev "murer/hexblade-base:$hexblade_docker_alias"
     docker tag hexblade/hexblade:dev "murer/hexblade:$hexblade_docker_alias"
     docker tag hexblade/hexblade-firefox:dev "murer/hexblade-firefox:$hexblade_docker_alias"
     docker tag hexblade/hexblade-chrome:dev "murer/hexblade-chrome:$hexblade_docker_alias"
@@ -53,11 +55,17 @@ function cmd_push() {
   fi
 }
 
-# cmd_pull() {
-#   hexblade_docker_version="${1:-"edge"}"
-#   docker pull "murer/hexblade:$hexblade_docker_version"
-#   docker tag "murer/hexblade:$hexblade_docker_version" hexblade/hexblade:dev
-# }
+cmd_pull() {
+  hexblade_docker_version="${1:-"edge"}"
+  docker pull "murer/hexblade-base:$hexblade_docker_version"
+  docker pull "murer/hexblade:$hexblade_docker_version"
+  docker pull "murer/hexblade-firefox:$hexblade_docker_version"
+  docker pull "murer/hexblade-chrome:$hexblade_docker_version"
+  docker tag "murer/hexblade-base:$hexblade_docker_version" hexblade/hexblade:dev
+  docker tag "murer/hexblade:$hexblade_docker_version" hexblade/hexblade:dev
+  docker tag "murer/hexblade-firefox:$hexblade_docker_version" hexblade/hexblade-firefox:dev
+  docker tag "murer/hexblade-chrome:$hexblade_docker_version" hexblade/hexblade-chrome:dev
+}
 
 function cmd_login() {
   set +x

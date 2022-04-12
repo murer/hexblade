@@ -45,7 +45,7 @@ COPY docker /opt/hexblade/docker
 
 CMD [ "hexbladestart" ]
 
-FROM base AS MINI
+FROM base AS mini
 COPY . /opt/hexblade
 
 FROM base AS firefox

@@ -18,6 +18,11 @@ if [[ "x$HEX_REUSER" != "x$(id -u)" ]] || [[ "x$HEX_REGROUP" != "x$(id -g)" ]]; 
     sudo -Eu "#$HEX_REUSER" -g "#$HEX_REGROUP" "$0" "$@"
 else
 
+    ls /opt/hexblade/docker/entrypoint/super.d | sort | while read k; do
+        echo "Exec: $k"
+        bash -xe "/opt/hexblade/docker/entrypoint/super.d/$k"
+    done
+
     if [[ "x$HEX_DROP_PRIVILEGES" == "xtrue" ]]; then
         sudo gpasswd --delete "$(whoami)" adm
         sudo gpasswd --delete "$(whoami)" cdrom

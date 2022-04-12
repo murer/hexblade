@@ -11,7 +11,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -y install x11vnc
 
 RUN groupadd -r supersudo && \
   echo "%supersudo ALL=(ALL:ALL) NOPASSWD: ALL" > /etc/sudoers.d/supersudo && \
-  useradd -m -G adm,cdrom,sudo,supersudo,dip,plugdev -s /bin/bash hex
+  useradd -r -m -G adm,cdrom,sudo,supersudo,dip,plugdev -s /bin/bash hex
 
 RUN mkdir -p /opt/hex/packages
 
@@ -35,6 +35,10 @@ RUN DEBIAN_FRONTEND=noninteractive sudo -E /opt/hexblade/src/pack/openbox/openbo
 RUN DEBIAN_FRONTEND=noninteractive sudo -E /opt/hexblade/src/pack/openbox/openbox.sh lockscreen disable
 
 RUN echo 'x11vnc -display :99 -forever -shared -passwd 123 &' | sudo tee /etc/xdg/openbox/autostart.d/80-vnc.sh
+
+RUN find "$HOME" -readable -exec chmod -v go+r '{}' \; && \
+  find "$HOME" -writable -exec chmod -v go+w '{}' \; && \
+  find "$HOME" -executable -exec chmod -v go+x '{}' \;
 
 ENV DISPLAY :99
 EXPOSE 5900

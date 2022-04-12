@@ -11,7 +11,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -y install x11vnc
 
 RUN groupadd -r supersudo && \
   echo "%supersudo ALL=(ALL:ALL) NOPASSWD: ALL" > /etc/sudoers.d/supersudo && \
-  useradd -r -m -G adm,cdrom,sudo,supersudo,dip,plugdev -s /bin/bash hex
+  useradd -m -G adm,cdrom,sudo,supersudo,dip,plugdev -s /bin/bash hex
 
 RUN mkdir -p /opt/hex/packages
 

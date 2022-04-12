@@ -2,12 +2,12 @@
 
 function cmd_build() {
   local hextarget="${1?'target, use base, mini or all'}"
-  docker build --target base --cache-from hexblade/hexblade-base:dev -t hexblade/hexblade-base:dev .
+  docker build --cache-from hexblade/hexblade-base:dev -t hexblade/hexblade-base:dev .
   if [[ "x$hextarget" == "xbase" ]]; then return; fi
-  docker build --target mini --cache-from hexblade/hexblade:dev -t hexblade/hexblade:dev .
+  docker build --cache-from hexblade/hexblade:dev -t hexblade/hexblade:dev -f docker/util/Dockerfile.mini .
   if [[ "x$hextarget" == "xmini" ]]; then return; fi
-  docker build --target firefox --cache-from hexblade/hexblade-firefox:dev -t hexblade/hexblade-firefox:dev .
-  docker build --target chrome --cache-from hexblade/hexblade-chrome:dev -t hexblade/hexblade-chrome:dev .
+  docker build --cache-from hexblade/hexblade-firefox:dev -t hexblade/hexblade-firefox:dev -f docker/util/Dockerfile.firefox .
+  docker build --cache-from hexblade/hexblade-chrome:dev -t hexblade/hexblade-chrome:dev -f docker/util/Dockerfile.chrome .
   # docker build --target puppeteer -t hexblade/hexblade-puppeteer:dev .
 }
 

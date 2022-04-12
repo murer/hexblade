@@ -39,25 +39,11 @@ RUN echo 'x11vnc -display :99 -forever -shared -passwd 123 &' | sudo tee /etc/xd
 ENV DISPLAY :99
 EXPOSE 5900
 
-ENTRYPOINT [ "/opt/hexblade/docker/entrypoint.sh" ]
+ENTRYPOINT [ "/opt/hexblade/docker/entrypoint/entrypoint.sh" ]
 
 COPY docker /opt/hexblade/docker
 
 CMD [ "hexbladestart" ]
-
-FROM base AS mini
-COPY . /opt/hexblade
-
-FROM base AS firefox
-COPY src/pack/util/graphics.sh /opt/hexblade/src/pack/util/graphics.sh
-RUN DEBIAN_FRONTEND=noninteractive sudo -E /opt/hexblade/src/pack/util/graphics.sh firefox
-COPY . /opt/hexblade
-
-FROM base AS chrome
-
-COPY src/pack/util/chrome.sh /opt/hexblade/src/pack/util/chrome.sh
-RUN DEBIAN_FRONTEND=noninteractive sudo -E /opt/hexblade/src/pack/util/chrome.sh install
-COPY . /opt/hexblade
 
 # FROM chrome AS puppeteer
 

@@ -2,12 +2,12 @@
 
 function cmd_build() {
   local hextarget="${1?'target, use base, mini or all'}"
-  docker build --target base -t hexblade/hexblade-base:dev .
+  docker build --target base --cache-from hexblade/hexblade-base:dev -t hexblade/hexblade-base:dev .
   if [[ "x$hextarget" == "xbase" ]]; then return; fi
-  docker build --target mini -t hexblade/hexblade:dev .
+  docker build --target mini --cache-from hexblade/hexblade:dev -t hexblade/hexblade:dev .
   if [[ "x$hextarget" == "xmini" ]]; then return; fi
-  docker build --target firefox -t hexblade/hexblade-firefox:dev .
-  docker build --target chrome -t hexblade/hexblade-chrome:dev .
+  docker build --target firefox --cache-from hexblade/hexblade-firefox:dev -t hexblade/hexblade-firefox:dev .
+  docker build --target chrome --cache-from hexblade/hexblade-chrome:dev -t hexblade/hexblade-chrome:dev .
   # docker build --target puppeteer -t hexblade/hexblade-puppeteer:dev .
 }
 
@@ -68,7 +68,7 @@ cmd_pull() {
   docker pull "murer/hexblade:$hexblade_docker_version"
   docker pull "murer/hexblade-firefox:$hexblade_docker_version"
   docker pull "murer/hexblade-chrome:$hexblade_docker_version"
-  docker tag "murer/hexblade-base:$hexblade_docker_version" hexblade/hexblade:dev
+  docker tag "murer/hexblade-base:$hexblade_docker_version" hexblade/hexblade-base:dev
   docker tag "murer/hexblade:$hexblade_docker_version" hexblade/hexblade:dev
   docker tag "murer/hexblade-firefox:$hexblade_docker_version" hexblade/hexblade-firefox:dev
   docker tag "murer/hexblade-chrome:$hexblade_docker_version" hexblade/hexblade-chrome:dev

@@ -1,4 +1,4 @@
-FROM ubuntu:20.04 AS base
+FROM ubuntu:20.04
 
 RUN apt-get -y update
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install apt-utils

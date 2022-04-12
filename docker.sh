@@ -78,7 +78,9 @@ cmd_pull() {
   docker pull "murer/hexblade-base:$hexblade_docker_version"
   docker pull "murer/hexblade:$hexblade_docker_version"
   docker pull "murer/hexblade-firefox:$hexblade_docker_version"
+  docker pull "murer/hexblade-basechrome:$hexblade_docker_version"
   docker pull "murer/hexblade-chrome:$hexblade_docker_version"
+  docker pull "murer/hexblade-puppeteer:$hexblade_docker_version"
   docker tag "murer/hexblade-base:$hexblade_docker_version" hexblade/hexblade-base:dev
   docker tag "murer/hexblade:$hexblade_docker_version" hexblade/hexblade:dev
   docker tag "murer/hexblade-firefox:$hexblade_docker_version" hexblade/hexblade-firefox:dev

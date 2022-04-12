@@ -1,0 +1,7 @@
+{
+   "name": "sample",
+   "version": "1.0.0",
+   "dependencies": {
+      "puppeteer": "^13.5.2"
+   }
+}

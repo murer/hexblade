@@ -45,7 +45,7 @@ EXPOSE 5900
 
 ENTRYPOINT [ "/opt/hexblade/docker/entrypoint/entrypoint.sh" ]
 
-COPY docker /opt/hexblade/docker
+COPY docker/entrypoint /opt/hexblade/docker/entrypoint
 
 CMD [ "hexbladestart" ]
 

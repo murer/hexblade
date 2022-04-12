@@ -7,8 +7,9 @@ function cmd_build() {
   docker build --cache-from hexblade/hexblade:dev -t hexblade/hexblade:dev -f docker/util/Dockerfile.mini .
   if [[ "x$hextarget" == "xmini" ]]; then return; fi
   docker build --cache-from hexblade/hexblade-firefox:dev -t hexblade/hexblade-firefox:dev -f docker/util/Dockerfile.firefox .
+  docker build --cache-from hexblade/hexblade-basechrome:dev -t hexblade/hexblade-basechrome:dev -f docker/util/Dockerfile.basechrome .
   docker build --cache-from hexblade/hexblade-chrome:dev -t hexblade/hexblade-chrome:dev -f docker/util/Dockerfile.chrome .
-  docker build --cache-from hexblade/hexblade-puppeteer:dev -t hexblade/hexblade-puppeteer:dev -f docker/util/Dockerfile.puppeteer .
+  docker build --cache-from hexblade/hexblade-puppeteer:dev -t hexblade/hexblade-puppeteer:dev -f docker/puppeteer/Dockerfile.puppeteer .
 }
 
 function cmd_export() {

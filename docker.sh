@@ -14,7 +14,12 @@ function cmd_build() {
 function cmd_export() {
   rm -rf target/wp-docker/docker || true
   mkdir -p target/wp-docker/docker
-  docker save hexblade/hexblade:dev hexblade/hexblade-firefox:dev hexblade/hexblade-chrome:dev | gzip > target/wp-docker/docker/docker-hexblade.tar.gz
+  docker save \
+    hexblade/hexblade-base:dev \
+    hexblade/hexblade:dev \
+    hexblade/hexblade-firefox:dev \
+    hexblade/hexblade-chrome:dev | \
+      gzip > target/wp-docker/docker/docker-hexblade.tar.gz
   du -hs target/wp-docker/docker/*
 }
 

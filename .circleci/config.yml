@@ -8,6 +8,7 @@ jobs:
   abc:
     executor:
       name: android/android-machine
+      tag: 2021.10.1
     steps:
       - checkout
       - run: ./vbox/recipe/min.sh from_iso

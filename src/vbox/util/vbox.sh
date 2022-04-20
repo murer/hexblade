@@ -135,7 +135,7 @@ function cmd_vm_create_from_iso() {
     sudo chown "$USER:$USER" /mnt/hexblade/vbox
     VBoxManage createvm --name "$hex_vm_name" --ostype "Ubuntu_64" --register --basefolder "/mnt/hexblade/vbox/$hex_vm_name"
     VBoxManage modifyvm "$hex_vm_name" --ioapic on          
-    VBoxManage modifyvm "$hex_vm_name" --memory 2048 --vram 128      
+    VBoxManage modifyvm "$hex_vm_name" --memory 640 --vram 128      
     VBoxManage modifyvm "$hex_vm_name" --nic1 nat
     VBoxManage createhd --filename "/mnt/hexblade/vbox/$hex_vm_name/disk1.vmdk" --size 80000 --format VMDK              
     VBoxManage storagectl "$hex_vm_name" --name "SATA" --add sata --controller IntelAhci --portcount 1

@@ -8,10 +8,13 @@ jobs:
   abc:
     executor:
       name: android/android-machine
+      resource-class: large
       tag: 2021.10.1
     steps:
       - checkout
-      - run: ./vbox/recipe/min.sh from_iso
+      - run: free
+      - run: ./build.sh download edge
+      - run: ./src/vbox/recipe/min.sh from_iso
 
   docker:
     machine:

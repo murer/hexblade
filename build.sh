@@ -31,4 +31,20 @@ cmd_dist() {
   cd -
 }
 
+cmd_download() {
+  local hex_version="${1?'version, sample: edge'}"
+  mkdir -p target/iso
+  cd target/iso
+  wget --progress=dot -e dotbytes=4M -O hexblade.iso -c \
+    "https://github.com/murer/hexblade/releases/download/$hex_version/hexblade.iso"
+  wget --progress=dot -e dotbytes=8K -O hexblade.SHA256 -c \
+    "https://github.com/murer/hexblade/releases/download/$hex_version/hexblade.SHA256"
+  wget --progress=dot -e dotbytes=8K -O hexblade.released.txt -c \
+    "https://github.com/murer/hexblade/releases/download/$hex_version/hexblade.released.txt"
+  sha256sum -c hexblade.SHA256
+  cd -
+  sudo mkdir -p /mnt/hexblade/iso
+  sudo cp target/iso/hexblade.iso /mnt/hexblade/iso/hexblade.iso
+}
+
 cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; "cmd_${_cmd}" "$@"

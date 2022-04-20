@@ -5,7 +5,7 @@ orbs:
 
 jobs:
 
-  abc:
+  vbox:
     executor:
       name: android/android-machine
       resource-class: large
@@ -125,7 +125,14 @@ workflows:
   version: 2
   build:
     jobs:
-      - abc
+      - vbox
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only:
+                - edge
+                - /^v.*/
       - docker:
           filters:
             branches:

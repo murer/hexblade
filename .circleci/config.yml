@@ -13,6 +13,7 @@ jobs:
     steps:
       - checkout
       - run: free
+      - run: sudo apt-get -y update && sudo apt-get install -y virtualbox
       - run: ./build.sh download edge
       - run: ./src/vbox/recipe/min.sh from_iso
 

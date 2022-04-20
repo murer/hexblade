@@ -159,6 +159,7 @@ function cmd_vm_start() {
 function cmd_vm_poweroff() {
     local hex_vm_name="${1?'vm_name'}"
     VBoxManage controlvm "$hex_vm_name" poweroff
+    sleep 2
 }
 
 function cmd_vm_delete() {

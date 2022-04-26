@@ -13,9 +13,13 @@ RUN npm config set prefix "$HOME" && \
 
 ENV PUPPETEER_EXECUTABLE_PATH /usr/bin/google-chrome
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD true
-COPY docker/puppeteer/workspace /workspace
+COPY --chown=hex:hex docker/puppeteer/workspace /workspace
 RUN sudo chown hex:hex /workspace
 WORKDIR /workspace
 RUN npm install
+RUN find /workspace -readable -exec chmod -v og+r "{}" \;
+RUN find /workspace -writable -exec chmod -v og+w "{}" \;
+RUN find /workspace -executable
+RUN find /workspace -executable -exec chmod -v og+x "{}" \;
 CMD jupyter-notebook --ip=0.0.0.0
 COPY . /opt/hexblade

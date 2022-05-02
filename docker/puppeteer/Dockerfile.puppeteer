@@ -17,9 +17,8 @@ COPY --chown=hex:hex docker/puppeteer/workspace /workspace
 RUN sudo chown hex:hex /workspace
 WORKDIR /workspace
 RUN npm install
-RUN find /workspace -readable -exec chmod -v og+r "{}" \;
-RUN find /workspace -writable -exec chmod -v og+w "{}" \;
-RUN find /workspace -executable
-RUN find /workspace -executable -exec chmod -v og+x "{}" \;
+RUN find /workspace -readable -exec chmod og+r "{}" \;
+RUN find /workspace -writable -exec chmod og+w "{}" \;
+RUN find /workspace -executable -exec chmod og+x "{}" \;
 CMD jupyter-notebook --ip=0.0.0.0
 COPY . /opt/hexblade

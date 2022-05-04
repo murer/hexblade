@@ -11,7 +11,7 @@ function cmd_install() {
 
   if ! node --version; then
     hex_filename="$(curl 'https://nodejs.org/dist/latest/SHASUMS256.txt' | grep linux-x64.tar.gz | cut -b66- | tr -d ' ')"
-    wget --progress=dot -e dotbytes=256K -c \
+    wget --progress=dot -e dotbytes=512K -c \
       "https://nodejs.org/dist/latest/$hex_filename" \
       -O "$file"
 

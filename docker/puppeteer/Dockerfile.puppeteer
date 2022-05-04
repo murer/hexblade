@@ -9,16 +9,20 @@ RUN DEBIAN_FRONTEND=noninteractive sudo -E /opt/hexblade/src/pack/util/node.sh i
 ENV PATH "$HOME/bin:$PATH"
 RUN npm config set prefix "$HOME" && \
     npm install -g ijavascript-await && \
-    ijsinstall
+    ijsinstall && \
+    sudo find /home/hex -readable -exec chmod og+r "{}" \; && \
+    sudo find /home/hex -writable -exec chmod og+w "{}" \; && \
+    sudo find /home/hex -executable -exec chmod og+x "{}" \;
+
 
 ENV PUPPETEER_EXECUTABLE_PATH /usr/bin/google-chrome
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD true
 COPY --chown=hex:hex docker/puppeteer/workspace /workspace
-RUN sudo chown hex:hex /workspace
 WORKDIR /workspace
-RUN npm install
-RUN sudo find /workspace /home/hex -readable -exec chmod og+r "{}" \;
-RUN sudo find /workspace /home/hex -writable -exec chmod og+w "{}" \;
-RUN sudo find /workspace /home/hex -executable -exec chmod og+x "{}" \;
+RUN sudo chown hex:hex /workspace && \
+    npm install && \
+    sudo find /workspace -readable -exec chmod og+r "{}" \; && \
+    sudo find /workspace -writable -exec chmod og+w "{}" \; && \
+    sudo find /workspace -executable -exec chmod og+x "{}" \;
 CMD jupyter-notebook --ip=0.0.0.0
 COPY . /opt/hexblade

@@ -22,7 +22,8 @@ function cmd_install() {
     git \
     socat \
     crudini \
-    htop
+    htop \
+    dnsutils
 }
 
 set +x; cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; set -x; "cmd_${_cmd}" "$@"

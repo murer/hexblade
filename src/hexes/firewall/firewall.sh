@@ -31,6 +31,12 @@ function cmd_port4_open() {
   sudo iptables -A OUTPUT -p tcp -d 0.0.0.0/0 --sport "$hexblade_port_open" -m state --state ESTABLISHED -j ACCEPT
 }
 
+function cmd_ip_block() {
+  local hexblade_ip_block="${1?'ip to block'}"
+  iptables -A OUTPUT -d "$hexblade_ip_block" -j DROP
+  iptables -A INPUT -d "$hexblade_ip_block" -j DROP
+}
+
 function cmd_apply4() {
   # Set default chain policies
   sudo iptables -P INPUT DROP

@@ -23,7 +23,8 @@ function cmd_install() {
     socat \
     crudini \
     htop \
-    dnsutils
+    dnsutils \
+    iputils-ping
 }
 
 set +x; cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; set -x; "cmd_${_cmd}" "$@"

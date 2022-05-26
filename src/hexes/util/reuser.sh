@@ -43,6 +43,7 @@ function cmd_reuser() {
 }
 
 function cmd_fork() {
+    sudo whoami
     (cmd_reuser "$@" &)
     sleep 1
 }

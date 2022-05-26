@@ -8,6 +8,7 @@ function cmd_key_save() {
   [[ -d .ssh ]]
   mkdir -p "$_basedir"
   tar czf - .ssh | gpg --pinentry-mode loopback -c --armor -o "$_basedir/ssh-key.tar.gz.gpg" -
+  cp .ssh/id_rsa.pub "$_basedir/id_rsa.pub"
   cd -
 }
 

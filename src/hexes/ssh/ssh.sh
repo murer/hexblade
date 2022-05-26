@@ -22,9 +22,10 @@ function cmd_key_load() {
 }
 
 function cmd_mykey() {
-  if ! grep "$(cat id_rsa.pub | cut -d' ' -f2)" "$HOME/.ssh/authorized_keys"; then
+  local hex_profile="${1?'hex_profile is required'}"
+  if ! grep "$(cat "$hex_profile/id_rsa.pub" | cut -d' ' -f2)" "$HOME/.ssh/authorized_keys"; then
     mkdir -p "$HOME/.ssh"
-    cat id_rsa.pub >> "$HOME/.ssh/authorized_keys"
+    cat "$hex_profile/id_rsa.pub" >> "$HOME/.ssh/authorized_keys"
   fi
 }
 

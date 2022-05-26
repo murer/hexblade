@@ -36,9 +36,15 @@ function cmd_adduser() {
 function cmd_reuser() {
     local hex_user="${1?'username'}"
     shift
-    cd -
+    cd "/home/$hex_user"
     sudo -sHu "$hex_user" -g "$hex_user" \
         DISPLAY="$DISPLAY" PULSE_SERVER=127.0.0.1:4713 "$@"
+    cd -
+}
+
+function cmd_fork() {
+    (cmd_reuser "$@" &)
+    sleep 1
 }
 
 set +x; cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; set -x; "cmd_${_cmd}" "$@"

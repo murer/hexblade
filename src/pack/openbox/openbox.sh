@@ -59,9 +59,4 @@ function cmd_xhost_user() {
 	echo "xhost '+SI:localuser:$hexblade_xhostuser'" > /etc/xdg/openbox/autostart.d/20-xhost-user-$hexblade_xhostuser.sh
 }
 
-function cmd_screenshot_gnome() {
-	sed -ie 's/xfce4-screenshooter -r/gnome-screenshot -af \/tmp\/hexblade.screenshot.tmp && cat \/tmp\/hexblade.screenshot.tmp | xclip -i -selection clipboard -target image\/png/g' /etc/xdg/openbox/rc.xml
-	sed -ie 's/xfce4-screenshooter -w/gnome-screenshot -wf \/tmp\/hexblade.screenshot.tmp && cat \/tmp\/hexblade.screenshot.tmp | xclip -i -selection clipboard -target image\/png/g' /etc/xdg/openbox/rc.xml
-}
-
 cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; "cmd_${_cmd}" "$@"

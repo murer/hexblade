@@ -22,11 +22,13 @@ function cmd_guest_dir() {
 }
 
 function cmd_guest_text() {
-    apt -y install virtualbox-guest-dkms virtualbox-guest-utils
+  cmd_repo
+  apt -y install virtualbox-guest-dkms virtualbox-guest-utils
 }
 
 function cmd_guest_gui() {
-    apt -y install virtualbox-guest-x11
+  cmd_repo
+  apt -y install virtualbox-guest-x11
 }
 
 function cmd_guest() {
@@ -50,9 +52,7 @@ function cmd_ext() {
     --accept-license=33d7284dc4a0ece381196fda3cfe2ed0e1e8e7ed7f27b9a9ebc4ee22e24bd23c || true
 }
 
-function cmd_install() {
-  cmd_clean || true
-
+function cmd_repo() {
   apt install -y \
       apt-transport-https \
       ca-certificates \
@@ -67,7 +67,12 @@ function cmd_install() {
   echo "deb [signed-by=/etc/apt/hardkeys/oracle_vbox.gpg,/etc/apt/hardkeys/oracle_vbox_2016.gpg] http://download.virtualbox.org/virtualbox/debian $(lsb_release -cs) contrib" | tee /etc/apt/sources.list.d/virtualbox.list
   echo "# deb-src [signed-by=/etc/apt/hardkeys/oracle_vbox.gpg,/etc/apt/hardkeys/oracle_vbox_2016.gpg] http://download.virtualbox.org/virtualbox/debian $(lsb_release -cs) contrib" | tee -a /etc/apt/sources.list.d/virtualbox.list
 
-  apt -y update
+  apt -y update  
+}
+
+function cmd_install() {
+  cmd_repo
+
   apt-cache search virtualbox | grep ^virtualbox
   apt install -y virtualbox-6.1 dkms
 

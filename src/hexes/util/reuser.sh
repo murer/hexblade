@@ -45,8 +45,8 @@ function cmd_fork() {
     local hex_user="${1?'username'}"
     shift
     cd -
-    (sudo -sHu "$hex_user" -g "$hex_user" \
-        DISPLAY="$DISPLAY" PULSE_SERVER=127.0.0.1:4713 "$@" &)
+    sudo -sHu "$hex_user" -g "$hex_user" -b \
+        DISPLAY="$DISPLAY" PULSE_SERVER=127.0.0.1:4713 "$@"
 }
 
 set +x; cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; set -x; "cmd_${_cmd}" "$@"

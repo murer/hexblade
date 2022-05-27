@@ -22,13 +22,11 @@ function cmd_guest_dir() {
 }
 
 function cmd_guest_text() {
-  cmd_repo
-  apt -y install virtualbox-guest-dkms virtualbox-guest-utils
+    apt -y install virtualbox-guest-dkms virtualbox-guest-utils
 }
 
 function cmd_guest_gui() {
-  cmd_repo
-  apt -y install virtualbox-guest-x11
+    apt -y install virtualbox-guest-x11
 }
 
 function cmd_guest() {
@@ -72,7 +70,6 @@ function cmd_repo() {
 
 function cmd_install() {
   cmd_repo
-
   apt-cache search virtualbox | grep ^virtualbox
   apt install -y virtualbox-6.1 dkms
 

@@ -49,4 +49,9 @@ function cmd_fork() {
         DISPLAY="$DISPLAY" PULSE_SERVER=127.0.0.1:4713 "$@"
 }
 
+function cmd_install() {
+    [[ ! -f /usr/local/bin/reuser.sh ]] || [[ "x$1" == "x-f" ]]
+    cp -v reuser.sh /usr/local/bin/reuser.sh
+}
+
 set +x; cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; set -x; "cmd_${_cmd}" "$@"

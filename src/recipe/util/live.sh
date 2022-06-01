@@ -72,6 +72,11 @@ function cmd_from_scratch() {
     cmd_umount
 }
 
+function cmd_umount_iso() {
+    umount /mnt/hexblade/liveiso || true
+    rmdir /mnt/hexblade/liveiso
+}
+
 function cmd_mount_iso() {
     local hexblade_iso="${1?'iso file'}"
     [[ ! -d /mnt/hexblade/liveiso ]]

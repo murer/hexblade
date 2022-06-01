@@ -159,7 +159,8 @@ function cmd_mount() {
 
 function cmd_deiso() {
     cmd_mount "$@"
-    rsync -av --delete --exclude boot --exclude EFI /mnt/hexblade/liveiso/ /mnt/hexblade/image/
+    # --exclude boot --exclude EFI 
+    rsync -av --delete /mnt/hexblade/liveiso/ /mnt/hexblade/image/
     cmd_umount
 }
 

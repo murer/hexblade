@@ -72,29 +72,30 @@ function cmd_from_scratch() {
     cmd_umount
 }
 
-function cmd_umount_iso() {
-    umount /mnt/hexblade/liveiso
-    rm -rf /mnt/hexblade/liveiso
-}
+# function cmd_umount_iso() {
+#     umount /mnt/hexblade/liveiso
+#     rm -rf /mnt/hexblade/liveiso
+# }
 
-function cmd_mount_iso() {
-    local hexblade_iso="$_hexblade_pwd/${1?'iso file'}"
-    [[ ! -d /mnt/hexblade/liveiso ]]
-    cmd_mount
-    mkdir -p /mnt/hexblade/liveiso
-    mount -o loop "$hexblade_iso" /mnt/hexblade/liveiso
-}
+# function cmd_mount_iso() {
+#     local hexblade_iso="$_hexblade_pwd/${1?'iso file'}"
+#     [[ ! -d /mnt/hexblade/liveiso ]]
+#     cmd_mount
+#     mkdir -p /mnt/hexblade/liveiso
+#     mount -o loop "$hexblade_iso" /mnt/hexblade/liveiso
+# }
 
-function cmd_extract_iso() {
-    cmd_mount_iso "$@"
-    rsync -av --delete --exclude boot --exclude EFI /mnt/hexblade/liveiso/ /mnt/hexblade/image/
-    unsquashfs -f -d /mnt/hexblade/system /mnt/hexblade/image/casper/filesystem.squashfs
-    cmd_umount_iso
-}
+# function cmd_extract_iso() {
+#     cmd_mount_iso "$@"
+#     rsync -av --delete --exclude boot --exclude EFI /mnt/hexblade/liveiso/ /mnt/hexblade/image/
+#     unsquashfs -f -d /mnt/hexblade/system /mnt/hexblade/image/casper/filesystem.squashfs
+#     cmd_umount_iso
+# }
 
 function cmd_from_iso_with_key() {
     local hexblade_iso="${1?'iso file'}"
-    cmd_extract_iso "$hexblade_iso"
+    ../../lib/iso/iso.sh deiso "$hexblade_iso"
+    ../../lib/iso/iso.sh decompress
     ../../lib/util/installer.sh uchr ubuntu /installer/hexblade/hexes/ssh/ssh.sh mykey
     cmd_iso    
     cmd_umount
@@ -102,12 +103,11 @@ function cmd_from_iso_with_key() {
 
 function cmd_from_iso_passwd() {
     local hexblade_iso="${1?'iso file'}"
-    cmd_extract_iso "$hexblade_iso"
+    ../../lib/iso/iso.sh deiso "$hexblade_iso"
+    ../../lib/iso/iso.sh decompress
     ../../lib/util/installer.sh chr passwd ubuntu
     cmd_iso    
     cmd_umount
 }
-
-[[ "x$_hexblade_pwd" != "x" ]] || _hexblade_pwd="$(pwd)"
 
 set +x; cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; set -x; "cmd_${_cmd}" "$@"

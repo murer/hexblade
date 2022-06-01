@@ -145,4 +145,26 @@ function cmd_sha256() {
   cd -
 }
 
+function cmd_umount() {
+    umount /mnt/hexblade/liveiso
+    rm -rf /mnt/hexblade/liveiso
+}
+
+function cmd_mount() {
+    local hexblade_iso="${1?'iso file'}"
+    [[ ! -d /mnt/hexblade/liveiso ]]
+    mkdir -p /mnt/hexblade/liveiso
+    mount -o loop "$hexblade_iso" /mnt/hexblade/liveiso
+}
+
+function cmd_deiso() {
+    cmd_mount "$@"
+    rsync -av --delete --exclude boot --exclude EFI /mnt/hexblade/liveiso/ /mnt/hexblade/image/
+    cmd_umount
+}
+
+function cmd_decompress() {
+    unsquashfs -f -d /mnt/hexblade/system /mnt/hexblade/image/casper/filesystem.squashfs
+}
+
 set +x; cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; set -x; "cmd_${_cmd}" "$@"

@@ -87,8 +87,8 @@ function cmd_mount_iso() {
 
 function cmd_extract_iso() {
     cmd_mount_iso "$@"
-    unsquashfs -f -d /mnt/hexblade/system /mnt/hexblade/liveiso/casper/filesystem.squashfs
-    rsync -av --delete --exclude boot --exclude EFI /mnt/hexblade/liveiso/ /mnt/hexblade/image2/
+    rsync -av --delete --exclude boot --exclude EFI /mnt/hexblade/liveiso/ /mnt/hexblade/image/
+    unsquashfs -f -d /mnt/hexblade/system /mnt/hexblade/image/casper/filesystem.squashfs
     cmd_umount_iso
 }
 

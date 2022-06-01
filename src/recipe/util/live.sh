@@ -73,7 +73,7 @@ function cmd_from_scratch() {
 }
 
 function cmd_mount_iso() {
-    local hexblade_iso="${1?'iso file'}"
+    local hexblade_iso="$_hexblade_pwd/${1?'iso file'}"
     [[ ! -d /mnt/hexblade/liveiso ]]
     cmd_mount
     mkdir -p /mnt/hexblade/liveiso
@@ -98,5 +98,7 @@ function cmd_from_iso_passwd() {
     cmd_iso    
     cmd_umount
 }
+
+[[ "x$_hexblade_pwd" != "x" ]] || _hexblade_pwd="$(pwd)"
 
 set +x; cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; set -x; "cmd_${_cmd}" "$@"

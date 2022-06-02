@@ -31,12 +31,12 @@ function cmd_deiso() {
     ../../lib/iso/iso.sh decompress    
 }
 
-function cmd_iso() {
-    HEXBLADE_LIVE_DISABLE_ADDUSER=true ../../lib/iso/iso.sh install
-    ../../lib/iso/iso.sh compress
-    ../../lib/iso/iso.sh iso
-    ../../lib/iso/iso.sh sha256
-}
+# function cmd_iso() {
+#     HEXBLADE_LIVE_DISABLE_ADDUSER=true ../../lib/iso/iso.sh install
+#     ../../lib/iso/iso.sh compress
+#     ../../lib/iso/iso.sh iso
+#     ../../lib/iso/iso.sh sha256
+# }
 
 function cmd_crypt_open() {
     [[ "x$HEX_TARGET_DEV" != "x" ]]
@@ -65,15 +65,19 @@ function cmd_umount() {
     cmd_crypt_close
 }
 
-# function cmd_rsync() {
-#     rsync -av /mnt/hexblade/image/
-# }
+function cmd_rsync() {
+    mkdir -p /mnt/hexblade/cryptiso/efi/boot/
+    rsync -av --delete /mnt/hexblade/image/ /mnt/hexblade/cryptiso/image/
+    rsync -av --delete /mnt/hexblade/image/EFI/ /mnt/hexblade/cryptiso/efi/boot/
+}
 
 function cmd_from_iso() {
     cmd_deiso "$@"
     cmd_disk
+    cmd_mount
     # ../../lib/util/installer.sh chr passwd ubuntu
-    cmd_iso
+    cmd_umount
+    # cmd_iso
 }
 
 set +x; cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; set -x; "cmd_${_cmd}" "$@"

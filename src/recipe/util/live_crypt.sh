@@ -76,6 +76,8 @@ function cmd_rsync() {
 function cmd_grub() {
     hexblade_crypted_uuid="$(sudo blkid -o value -s UUID "${HEX_TARGET_DEV}2")"
     hexblade_crypted_id="$(echo "$hexblade_crypted_uuid" | tr -d '-')"
+    hexblade_root_uuid="$(sudo blkid -o value -s UUID /dev/mapper/LIVELVM-LIVEROOT)"
+    hexblade_root_id="$(echo "$hexblade_root_uuid" | tr -d '-')"
     cd /mnt/hexblade/cryptiso/image/
     echo "
     search --set=root --file /ubuntu
@@ -85,10 +87,11 @@ function cmd_grub() {
     insmod luks
     insmod lvm
     insmod ext2
-    set default="0"
+    set default=\"0\"
     set timeout=3
     menuentry \"Haxblade Crypt Live\" {
         cryptomount -u $hexblade_crypted_id
+        search --no-floppy --fs-uuid --set $hexblade_root_uuid
         linux /casper/vmlinuz boot=casper nopersistent verbose nosplash ---
         initrd /casper/initrd
     }

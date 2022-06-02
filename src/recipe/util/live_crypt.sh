@@ -75,6 +75,8 @@ function cmd_rsync() {
 
 function cmd_install() {
     ../../lib/cryptlive/cryptlive.sh install
+    HEXBLADE_LIVE_DISABLE_ADDUSER=true ../../lib/iso/iso.sh install
+    ../../lib/iso/iso.sh compress
 }
 
 function cmd_grub() {
@@ -113,6 +115,7 @@ function cmd_grub() {
 function cmd_from_iso() {
     cmd_deiso "$@"
     cmd_disk
+    cmd_install
     cmd_mount
     cmd_rsync
     cmd_umount

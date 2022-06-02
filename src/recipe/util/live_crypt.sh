@@ -83,7 +83,7 @@ function cmd_grub() {
     hexblade_crypted_uuid="$(sudo blkid -o value -s UUID "${HEX_TARGET_DEV}2")"
     hexblade_crypted_id="$(echo "$hexblade_crypted_uuid" | tr -d '-')"
     hexblade_root_uuid="$(sudo blkid -o value -s UUID /dev/mapper/LIVELVM-LIVEROOT)"
-    hexblade_root_id="$(echo "$hexblade_root_uuid" | tr -d '-')"
+    hexblade_data_uuid="$(sudo blkid -o value -s UUID /dev/mapper/LIVELVM-LIVEDATA)"
     cd /mnt/hexblade/cryptiso/image/
     echo "
     search --set=root --file /ubuntu
@@ -98,7 +98,7 @@ function cmd_grub() {
     menuentry \"Haxblade Crypt Live\" {
         cryptomount -u $hexblade_crypted_id
         search --no-floppy --fs-uuid --set $hexblade_root_uuid
-        linux /casper/vmlinuz boot=casper bootfrom=(lvm/LIVELVM-LIVEROOT) nopersistent verbose nosplash ---
+        linux /casper/vmlinuz boot=casper bootfrom=(lvm/LIVELVM-LIVEROOT) nopersistent verbose nosplash hexcryptlive=$hexblade_root_uuid hexcryptdata=$hexblade_data_uuid ---
         initrd /casper/initrd
     }
     " > isolinux/grub.cfg

@@ -98,7 +98,7 @@ function cmd_grub() {
     menuentry \"Haxblade Crypt Live\" {
         cryptomount -u $hexblade_crypted_id
         search --no-floppy --fs-uuid --set $hexblade_root_uuid
-        linux /casper/vmlinuz boot=casper bootfrom=(lvm/LIVELVM-LIVEROOT) nopersistent verbose nosplash hexcryptlive=$hexblade_crypted_uuid hexcryptdata=$hexblade_data_uuid ---
+        linux /casper/vmlinuz boot=casper nopersistent verbose nosplash hexcryptlive=$hexblade_crypted_uuid hexcryptdata=$hexblade_data_uuid ---
         initrd /casper/initrd
     }
     " > isolinux/grub.cfg

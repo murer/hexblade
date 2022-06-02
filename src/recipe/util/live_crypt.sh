@@ -73,6 +73,10 @@ function cmd_rsync() {
     #cp /mnt/hexblade/image/isolinux/bootx64.efi /mnt/hexblade/cryptiso/efi/efi/boot/
 }
 
+function cmd_install() {
+    ../../lib/cryptlive/cryptlive.sh install
+}
+
 function cmd_grub() {
     hexblade_crypted_uuid="$(sudo blkid -o value -s UUID "${HEX_TARGET_DEV}2")"
     hexblade_crypted_id="$(echo "$hexblade_crypted_uuid" | tr -d '-')"

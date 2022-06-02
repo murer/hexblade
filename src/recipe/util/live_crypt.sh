@@ -117,6 +117,7 @@ function cmd_from_iso() {
     cmd_disk
     cmd_mount
     cmd_rsync
+    cmd_grub
     cmd_umount
     # cmd_iso
 }

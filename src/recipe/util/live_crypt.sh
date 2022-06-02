@@ -29,15 +29,7 @@ function cmd_disk() {
 function cmd_deiso() {
     local hexblade_iso="${1?'iso file'}"
     ../../lib/iso/iso.sh deiso "$hexblade_iso"
-    #../../lib/iso/iso.sh decompress    
 }
-
-# function cmd_iso() {
-#     HEXBLADE_LIVE_DISABLE_ADDUSER=true ../../lib/iso/iso.sh install
-#     ../../lib/iso/iso.sh compress
-#     ../../lib/iso/iso.sh iso
-#     ../../lib/iso/iso.sh sha256
-# }
 
 function cmd_crypt_open() {
     [[ "x$HEX_TARGET_DEV" != "x" ]]
@@ -69,15 +61,7 @@ function cmd_umount() {
 function cmd_rsync() {
     rsync -av --delete /mnt/hexblade/image/ /mnt/hexblade/cryptiso/image/
     mkdir -p /mnt/hexblade/cryptiso/efi/efi/boot/
-    #rsync -av --delete /mnt/hexblade/image/EFI/ /mnt/hexblade/cryptiso/efi/boot/
-    #cp /mnt/hexblade/image/isolinux/bootx64.efi /mnt/hexblade/cryptiso/efi/efi/boot/
 }
-
-# function cmd_install() {
-#     ../../lib/cryptlive/cryptlive.sh install
-#     HEXBLADE_LIVE_DISABLE_ADDUSER=true ../../lib/iso/iso.sh install
-#     ../../lib/iso/iso.sh compress
-# }
 
 function cmd_grub() {
     hexblade_crypted_uuid="$(sudo blkid -o value -s UUID "${HEX_TARGET_DEV}2")"

@@ -24,8 +24,14 @@ set -x
 #         mount -w /dev/disk/by-label/SEMILIVEDATA /root/semilivedata
 # fi
 
-echo aaaa
+# echo aaaa
 
-sh
+# sh
+
+if grep 'hexcryptdata=' /proc/cmdline; then
+        hexblade_cryptdata_devid="$(sed 's/.*hexcryptdata=\([A-Za-z0-9\_\-]\+\).*/\1/g' /proc/cmdline)"
+        mkdir -p /root/livedata
+        mount -w "/dev/disk/by-uuid/$hexblade_cryptdata_devid" /root/livedata
+fi
 
 

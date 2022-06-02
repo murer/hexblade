@@ -4,9 +4,10 @@ function cmd_disk() {
     [[ "x$HEX_TARGET_DEV" != "x" ]]
     ../../lib/util/crypt.sh key_check master
 
-    ../../lib/util/mbr.sh wipe "$HEX_TARGET_DEV"
-    ../../lib/util/mbr.sh part_add "$HEX_TARGET_DEV" 1 0 +512M 0x0C
-    ../../lib/util/mbr.sh part_add "$HEX_TARGET_DEV" 2 0 0 0x83
+    ../../lib/util/gpt.sh wipe "$HEX_TARGET_DEV"
+    ../../lib/util/gpt.sh part_add "$HEX_TARGET_DEV" 1 0 +512M EF00 'EFI system partition'
+    ../../lib/util/gpt.sh part_add "$HEX_TARGET_DEV" 2 0 0 8300 'PARTCRYPT'
+    gdisk -l "$HEX_TARGET_DEV"
 
     ../../lib/util/crypt.sh format "${HEX_TARGET_DEV}2" master 1
     ../../lib/util/crypt.sh pass_add "${HEX_TARGET_DEV}2" master 0
@@ -66,16 +67,17 @@ function cmd_umount() {
 }
 
 function cmd_rsync() {
-    mkdir -p /mnt/hexblade/cryptiso/efi/boot/
     rsync -av --delete /mnt/hexblade/image/ /mnt/hexblade/cryptiso/image/
-    rsync -av --delete /mnt/hexblade/image/EFI/ /mnt/hexblade/cryptiso/efi/boot/
+    mkdir -p /mnt/hexblade/cryptiso/efi/efi/boot/
+    #rsync -av --delete /mnt/hexblade/image/EFI/ /mnt/hexblade/cryptiso/efi/boot/
+    cp /mnt/hexblade/image/isolinux/bootx64.efi /mnt/hexblade/cryptiso/efi/efi/boot/
 }
 
 function cmd_from_iso() {
     cmd_deiso "$@"
     cmd_disk
     cmd_mount
-    # ../../lib/util/installer.sh chr passwd ubuntu
+    cmd_rsync
     cmd_umount
     # cmd_iso
 }

@@ -108,8 +108,9 @@ function cmd_grub() {
         --locales="" \
         --fonts="" \
         "boot/grub/grub.cfg=isolinux/grub.cfg"
+    cp isolinux/bootx64.efi /mnt/hexblade/cryptiso/efi/efi/boot/
+    find . -type f -print0 | xargs -0 md5sum | grep -v -e 'md5sum.txt' -e 'bios.img' -e 'efiboot.img' | tee md5sum.txt
    cd -
-   cp /mnt/hexblade/cryptiso/image/isolinux/bootx64.efi /mnt/hexblade/cryptiso/efi/efi/boot/
 }
 
 function cmd_from_iso() {

@@ -70,7 +70,37 @@ function cmd_rsync() {
     rsync -av --delete /mnt/hexblade/image/ /mnt/hexblade/cryptiso/image/
     mkdir -p /mnt/hexblade/cryptiso/efi/efi/boot/
     #rsync -av --delete /mnt/hexblade/image/EFI/ /mnt/hexblade/cryptiso/efi/boot/
-    cp /mnt/hexblade/image/isolinux/bootx64.efi /mnt/hexblade/cryptiso/efi/efi/boot/
+    #cp /mnt/hexblade/image/isolinux/bootx64.efi /mnt/hexblade/cryptiso/efi/efi/boot/
+}
+
+function cmd_grub() {
+    hexblade_crypted_uuid="$(sudo blkid -o value -s UUID "${HEX_TARGET_DEV}2")"
+    hexblade_crypted_id="$(echo "$hexblade_crypted_uuid" | tr -d '-')"
+    cd /mnt/hexblade/cryptiso/image/
+    echo "
+    search --set=root --file /ubuntu
+    insmod all_video
+    insmod part_gpt
+    insmod cryptodisk
+    insmod luks
+    insmod lvm
+    insmod ext2
+    set default="0"
+    set timeout=3
+    menuentry \"Haxblade Crypt Live\" {
+        cryptomount -u $hexblade_crypted_id
+        linux /casper/vmlinuz boot=casper nopersistent verbose nosplash ---
+        initrd /casper/initrd
+    }
+    " > isolinux/grub.cfg
+    grub-mkstandalone \
+        --format=x86_64-efi \
+        --output=isolinux/bootx64.efi \
+        --locales="" \
+        --fonts="" \
+        "boot/grub/grub.cfg=isolinux/grub.cfg"
+   cd -
+   cp /mnt/hexblade/cryptiso/image/isolinux/bootx64.efi /mnt/hexblade/cryptiso/efi/efi/boot/
 }
 
 function cmd_from_iso() {

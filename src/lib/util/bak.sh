@@ -6,6 +6,14 @@ function cmd_ssh() {
     ssh -o ConnectTimeout=5 -o ConnectionAttempts=1000 pyrata@s.murerz.com "$@"
 }
 
+function cmd_enc() {
+    gpg --no-options --batch -c --compress-algo none --passphrase-file "$HOME/.ssh/id_rsa" "$@" -o - -
+}
+
+function cmd_dec() {
+    gpg --no-options --batch -d --compress-algo none --passphrase-file "$HOME/.ssh/id_rsa" "$@" -o - -
+}
+
 function cmd_create() {
     [[ -f "$HOME/.ssh/id_rsa" ]]
     local hex_bak_name="${1?'backup namespace'}"
@@ -28,7 +36,7 @@ function cmd_create() {
     cd /mnt/hexblade/bak
     local _hex_size="$(sudo du -bs "/mnt/hexblade/bak/$hex_bak_target" | cut -f1)"
     sudo tar cp --acls --xattrs --same-owner -f - "$hex_bak_target"  | pv -s "$_hex_size" | gzip | \
-        gpg --no-options --batch -c --compress-algo none --passphrase-file "$HOME/.ssh/id_rsa" -o - - | \
+        cmd_enc | \
         cmd_ssh bash -xec "cat > hexblade/bak/$hex_bak_target.tgz.gpg"
     cd -
 
@@ -62,7 +70,7 @@ function cmd_restore() {
 
     cmd_ssh cat "hexblade/bak/$hex_bak_target.tgz.gpg" | \
         pv -s "$_hex_size" | \
-        gpg --no-options --batch -d --compress-algo none --passphrase-file "$HOME/.ssh/id_rsa" -o - - | \
+        cmd_dec | \
         gunzip | sudo tar xp --acls --xattrs --same-owner -f - 
     cd -
 

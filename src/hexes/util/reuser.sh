@@ -19,9 +19,10 @@ function cmd_redir() {
 
     sudo mkdir -p "/localdata/hexes/redir/$hex_user"
     [[ -d "/localdata/hexes/redir/$hex_user" ]]
-    [[ ! -d "/localdata/hexes/redir/$hex_user/$hex_target" ]]
+    
+    [[ -d "/localdata/hexes/redir/$hex_user/$hex_target" ]] || mv "$hex_dir" "/localdata/hexes/redir/$hex_user/$hex_target"
+    rmdir "$hex_dir" || true
 
-    mv "$hex_dir" "/localdata/hexes/redir/$hex_user/$hex_target"
     ln -s "/localdata/hexes/redir/$hex_user/$hex_target" "$hex_dir"
 }
 

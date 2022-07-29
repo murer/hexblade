@@ -17,4 +17,4 @@ function cmd_rsync() {
     echo "rsync done" 1>&2
 }
 
-set +x; cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; set -x; "cmd_${_cmd}" "$@"
+set +x; _cmd="${1?"cmd is required"}"; shift; set -x; "cmd_${_cmd}" "$@"

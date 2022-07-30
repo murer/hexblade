@@ -1,6 +1,9 @@
 #!/bin/bash -xe
 
 function cmd_rsync() {
+
+   [[ "x$UID" == "x0" ]]
+
     local hex_src="${1?'hex_src'}"
     local hex_dst="${2?'hex_dst'}"
     local hex_time="${3:-30}"
@@ -10,8 +13,9 @@ function cmd_rsync() {
 
     sync
     while ! timeout "$hex_time" rsync -a --delete -P "$hex_src" "$hex_dst"; do
-        sync
-        sleep 2
+	sleep 5
+    	sync
+        sleep 1
     done
 
     echo "rsync done" 1>&2

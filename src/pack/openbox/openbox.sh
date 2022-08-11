@@ -6,8 +6,9 @@ function cmd_extra() {
 
 function cmd_install() {
 	apt -y install openbox tint2 gmrun arandr xinit
+	apt -y install xautolock i3lock
 	apt -y install --no-install-recommends libnotify-bin xfce4-notifyd
-	apt -y install --no-install-suggests xscreensaver 
+	# apt -y install --no-install-suggests xscreensaver
 	#apt -y install nitrogen
 
 	if [ ! -f /etc/xdg/tint2.original.tar.gz ]; then
@@ -30,6 +31,7 @@ function cmd_install() {
 	find /etc/xdg/openbox /etc/xdg/tint2 -type d -exec chmod -v 755 '{}' \;
 	find /etc/xdg/openbox /etc/xdg/tint2 -type f -exec chmod -v 644 '{}' \;
 	chmod -v 755 /etc/xdg/openbox/autostart
+	chmod -v 755 /etc/xdg/openbox/lock.sh
 }
 
 function cmd_lockscreen() {

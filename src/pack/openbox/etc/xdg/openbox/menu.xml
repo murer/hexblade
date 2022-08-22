@@ -151,7 +151,7 @@
   </menu>
   <item label="Lock">
     <action name="Execute">
-         <command>xscreensaver-command -lock</command>
+         <command>/etc/xdg/openbox/lock.sh</command>
     </action>
   </item>
   <item label="Logout">

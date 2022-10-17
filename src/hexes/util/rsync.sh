@@ -18,6 +18,7 @@ function cmd_rsync() {
         sleep 1
     done
 
+    sync
     echo "rsync done" 1>&2
 }
 

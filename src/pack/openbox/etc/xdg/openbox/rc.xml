@@ -265,7 +265,7 @@
     </keybind>
     <keybind key="W-l">
       <action name="Execute">
-        <command>xscreensaver-command -lock</command>
+        <command>/etc/xdg/openbox/lock.sh</command>
       </action>
     </keybind>
     <keybind key="S-Print">

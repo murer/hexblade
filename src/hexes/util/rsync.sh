@@ -11,11 +11,20 @@ function cmd_rsync() {
     echo "$hex_src" | grep "/$" 1>&2
     echo "$hex_dst" | grep "/$" 1>&2
 
+    hex_progress="-P"
+
     sync
-    while ! timeout "$hex_time" rsync -a --delete -P "$hex_src" "$hex_dst"; do
+    while ! timeout "$hex_time" rsync -a --delete $hex_progress "$hex_src" "$hex_dst"; do
 	sleep 5
-    	sync
+    	date
+	sync
+	date
         sleep 1
+	if [[ "x$hex_progress" == "x-P" ]]; then
+		hex_progress="--info=progress2"
+	else
+		hex_progress="-P"
+	fi
     done
 
     sync

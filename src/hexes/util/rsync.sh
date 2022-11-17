@@ -7,6 +7,7 @@ function cmd_rsync() {
     local hex_src="${1?'hex_src'}"
     local hex_dst="${2?'hex_dst'}"
     local hex_time="${3:-30}"
+    local hex_sleep="${4:-5}"
 
     echo "$hex_src" | grep "/$" 1>&2
     echo "$hex_dst" | grep "/$" 1>&2
@@ -15,11 +16,11 @@ function cmd_rsync() {
 
     sync
     while ! timeout "$hex_time" rsync -a --delete $hex_progress "$hex_src" "$hex_dst"; do
-	sleep 5
+	sleep "$hex_sleep"
     	date
 	sync
 	date
-        sleep 1
+        sleep 0.3
 	if [[ "x$hex_progress" == "x-P" ]]; then
 		hex_progress="--info=progress2"
 	else

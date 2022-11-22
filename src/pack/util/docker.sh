@@ -20,7 +20,11 @@ function cmd_install() {
 
   apt -y update
 
-  apt install -y docker-ce docker-ce-cli containerd.io
+  apt install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
+  
+  echo '#!/bin/bash -xe' > /usr/local/bin/docker-compose 
+  echo 'exec docker compose "$@"' >> /usr/local/bin/docker-compose
+  chmod +x /usr/local/bin/docker-compose
 
   if [[ "x$hexblade_user" != "x" ]]; then
     cmd_group "$hexblade_user"

@@ -6,7 +6,7 @@ cmd_up() {
 }
 
 cmd_down() {
-  brightnessctl get '10000-'
+  brightnessctl set '10000-'
   notify-send "$(brightnessctl)"
 }
 

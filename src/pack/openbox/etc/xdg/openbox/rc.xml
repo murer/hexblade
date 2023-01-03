@@ -345,12 +345,12 @@
         <command>xfce4-screenshooter -f</command>
       </action>
     </keybind>
-    <keybind key="W-p">
+    <keybind key="XF86MonBrightnessUp">
       <action name="Execute">
         <command>brightnessctl set '+10000'</command>
       </action>
     </keybind>
-    <keybind key="W-o">
+    <keybind key="XF86MonBrightnessDown">
       <action name="Execute">
         <command>brightnessctl set '10000-'</command>
       </action>

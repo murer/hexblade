@@ -31,6 +31,7 @@ function cmd_install() {
 	find /etc/xdg/openbox /etc/xdg/tint2 -type d -exec chmod -v 755 '{}' \;
 	find /etc/xdg/openbox /etc/xdg/tint2 -type f -exec chmod -v 644 '{}' \;
 	chmod -v 755 /etc/xdg/openbox/autostart
+	chmod -v 755 /etc/xdg/openbox/bright.sh
 	chmod -v 755 /etc/xdg/openbox/lock.sh
 }
 

@@ -355,11 +355,6 @@
         <command>brightnessctl set '10000-'</command>
       </action>
     </keybind>
-    <keybind key="W-XF86MonBrightnessDown">
-      <action name="Execute">
-        <command>notify-send "$(brightnessctl)"</command>
-      </action>
-    </keybind>
   </keyboard>
   <mouse>
     <dragThreshold>1</dragThreshold>

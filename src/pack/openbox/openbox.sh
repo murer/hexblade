@@ -5,7 +5,7 @@ function cmd_extra() {
 }
 
 function cmd_install() {
-	apt -y install openbox tint2 gmrun arandr xinit
+	apt -y install openbox tint2 gmrun arandr xinit brightnessctl
 	apt -y install xautolock i3lock
 	apt -y install --no-install-recommends libnotify-bin xfce4-notifyd
 	# apt -y install --no-install-suggests xscreensaver

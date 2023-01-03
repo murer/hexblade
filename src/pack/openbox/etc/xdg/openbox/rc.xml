@@ -345,6 +345,16 @@
         <command>xfce4-screenshooter -f</command>
       </action>
     </keybind>
+    <keybind key="W-p">
+      <action name="Execute">
+        <command>brightnessctl set '+1000'</command>
+      </action>
+    </keybind>
+    <keybind key="W-o">
+      <action name="Execute">
+        <command>brightnessctl set '1000-'</command>
+      </action>
+    </keybind>
   </keyboard>
   <mouse>
     <dragThreshold>1</dragThreshold>

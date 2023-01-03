@@ -7,7 +7,7 @@ function cmd_add() {
         if [ "x$hexblade_password" == "x" ]; then
             hexblade_password="$(openssl passwd -6)"
         fi
-        arch-chroot /mnt/hexblade/system useradd -m -G adm,cdrom,supersudo,dip,plugdev -s /bin/bash "$hexblade_username" -p "$hexblade_password"
+        arch-chroot /mnt/hexblade/system useradd -m -G video,adm,cdrom,supersudo,dip,plugdev -s /bin/bash "$hexblade_username" -p "$hexblade_password"
     fi
 }
 

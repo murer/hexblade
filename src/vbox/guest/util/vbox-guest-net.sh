@@ -4,6 +4,7 @@
 
 function cmd_static() {
     nmcli con mod 'Wired connection 1' \
+        ipv6.method "disabled" \
         ipv4.method "manual" \
         ipv4.addresses "192.168.56.50/24" \
         ipv4.gateway "192.168.56.1" \

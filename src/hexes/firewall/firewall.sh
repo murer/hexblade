@@ -43,7 +43,6 @@ function cmd_ip_reject() {
   iptables -A INPUT -d "$hexblade_ip_block" -j REJECT
 }
 
-
 function cmd_apply4() {
   iptables -F
   iptables -t nat -F

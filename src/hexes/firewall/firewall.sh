@@ -45,6 +45,14 @@ function cmd_ip_reject() {
 
 
 function cmd_apply4() {
+  iptables -F
+  iptables -t nat -F
+  iptables -t mangle -F
+
+  iptables -X
+  iptables -t nat -X
+  iptables -t mangle -X
+
   # Set default chain policies
   sudo iptables -P INPUT DROP
   sudo iptables -P FORWARD DROP

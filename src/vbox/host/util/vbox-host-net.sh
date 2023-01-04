@@ -22,10 +22,6 @@ function cmd_drop() {
     vboxmanage hostonlyif remove vboxnet0 || true
 }
 
-function cmd_apply_uniq() {
-    sudo iptables 
-}
-
 function cmd_share_internet() {
     file="$(mktemp)"
     _cleanup() {

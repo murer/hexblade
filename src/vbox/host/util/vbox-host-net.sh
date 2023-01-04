@@ -37,4 +37,17 @@ function cmd_share_internet() {
     sudo iptables -t nat -I POSTROUTING -s 192.168.56.0/24 ! -o vboxnet0  -j MASQUERADE
 }
 
+function cmd_redirect_port() {
+    local hex_port_from="${1?'hex_port_from'}"
+    local hex_port_to="${2?'hex_port_to'}"
+    # sudo iptables -t filter -A FORWARD -i wlp0s20f3 -j ACCEPT
+    # sudo iptables -t filter -A FORWARD ! -i wlp0s20f3 -o vboxnet0 -j ACCEPT
+    # sudo iptables -t nat -I POSTROUTING ! -o vboxnet0 -j MASQUERADE
+
+    # sudo iptables -t nat -I PREROUTING -p tcp --dport "$hex_port_from" -j REDIRECT --to-ports "$hex_port_to"
+
+    sudo iptables -t nat -A PREROUTING -p tcp --dport "$hex_port_from" -j DNAT --to-destination "192.168.56.50:$hex_port_to"
+    sudo iptables -t nat -A POSTROUTING -p tcp --dport "$hex_port_from" -j SNAT --to-source 10.0.0.253
+}
+
 set +x; cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; set -x; "cmd_${_cmd}" "$@"

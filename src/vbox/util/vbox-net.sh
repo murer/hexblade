@@ -7,7 +7,7 @@ function _create() {
     local net_range="${2?'net_range'}"
     vboxmanage hostonlyif create
     vboxmanage hostonlyif ipconfig "vboxnet${net_id}" --ip "192.168.$net_range.1" --netmask 255.255.255.0
-    vboxmanage dhcpserver add --interface "vboxnet${net_id}" --server-ip "192.168.$net_range.2" --lowerip "192.168.$net_range.100" --upperip "192.168.$net_range.200" --netmask 255.255.255.0 --enable
+    vboxmanage dhcpserver add --interface "vboxnet${net_id}" --ip "192.168.$net_range.3" --server-ip "192.168.$net_range.2" --lowerip "192.168.$net_range.100" --upperip "192.168.$net_range.200" --netmask 255.255.255.0 --enable
 }
 
 function cmd_prepare() {

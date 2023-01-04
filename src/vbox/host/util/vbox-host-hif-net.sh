@@ -22,7 +22,7 @@ function cmd_drop() {
     vboxmanage hostonlyif remove vboxnet0 || true
 }
 
-function cmd_share_internet() {
+function cmd_masquerade() {
     file="$(mktemp)"
     _cleanup() {
         rm "$file" || true
@@ -37,7 +37,7 @@ function cmd_share_internet() {
     sudo iptables -t nat -I POSTROUTING -s 192.168.56.0/24 ! -o vboxnet0  -j MASQUERADE
 }
 
-function cmd_redirect_port() {
+function cmd_port_redirect() {
     local hex_port_from="${1?'hex_port_from'}"
     local hex_host_to="${2?'hex_host_to'}"
     local hex_port_to="${3?'hex_port_to'}"

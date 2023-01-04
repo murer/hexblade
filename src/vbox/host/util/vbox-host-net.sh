@@ -22,9 +22,22 @@ function cmd_drop() {
     vboxmanage hostonlyif remove vboxnet0 || true
 }
 
+function cmd_apply_uniq() {
+    sudo iptables 
+}
+
 function cmd_share_internet() {
-    sudo iptables -A FORWARD -s 192.168.56.0/24 ! -d 192.168.56.0/24 -i vboxnet0 -j ACCEPT
-    sudo iptables -A FORWARD ! -s 192.168.56.0/24 -d 192.168.56.0/24 -o vboxnet0 -j ACCEPT
+    file="$(mktemp)"
+    _cleanup() {
+        rm "$file" || true
+    }
+    trap _cleanup EXIT
+    sudo iptables-save > "$file"
+    if grep vboxnet0 "$file"; then
+        grep -v vboxnet0 "$file" | sudo iptables-restore
+    fi
+    sudo iptables -t filter -A FORWARD -s 192.168.56.0/24 ! -d 192.168.56.0/24 -i vboxnet0 -j ACCEPT
+    sudo iptables -t filter -A FORWARD ! -s 192.168.56.0/24 -d 192.168.56.0/24 -o vboxnet0 -j ACCEPT
     sudo iptables -t nat -I POSTROUTING -s 192.168.56.0/24 ! -o vboxnet0  -j MASQUERADE
 }
 

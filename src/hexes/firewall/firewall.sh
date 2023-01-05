@@ -53,19 +53,19 @@ function cmd_apply4() {
   iptables -t mangle -X
 
   # Set default chain policies
-  # iptables -P INPUT DROP
-  # iptables -P FORWARD DROP
-  # iptables -P OUTPUT ACCEPT
+  iptables -P INPUT DROP
+  iptables -P FORWARD DROP
+  iptables -P OUTPUT ACCEPT
 
   # Accept on localhost
-  # iptables -A INPUT -i lo -j ACCEPT
-  # iptables -A OUTPUT -o lo -j ACCEPT
+  iptables -A INPUT -i lo -j ACCEPT
+  iptables -A OUTPUT -o lo -j ACCEPT
 
   # Accept some ports
   #cmd_port_open 22
 
   # Allow established sessions to receive traffic
-  # iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+  iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
 }
 
 function cmd_save() {

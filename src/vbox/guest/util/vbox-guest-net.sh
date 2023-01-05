@@ -3,7 +3,7 @@
 [[ "x$UID" != "x0" ]]
 
 function cmd_static() {
-    local hex_addr="${1?'ip address, like: 192.168.56.123/24'}"
+    local hex_ip="${1?'ip address, like: 192.168.56.123/24'}"
     local hex_gateway="${2?'ip address, like: 192.168.56.1'}"
     nmcli con mod 'Wired connection 1' \
         ipv6.method "disabled" \

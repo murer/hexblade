@@ -53,7 +53,7 @@ function cmd_apply4() {
   iptables -t mangle -X
 
   # Set default chain policies
-  iptables -P INPUT ACCEPT
+  iptables -P INPUT DROP
   iptables -P FORWARD DROP
   iptables -P OUTPUT ACCEPT
 

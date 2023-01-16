@@ -3,6 +3,10 @@
 function cmd_rsync() {
 
    [[ "x$UID" == "x0" ]]
+   if [[ "x$XDG_SESSION_ID" == "x" ]]; then
+	   echo "use sudo -E"
+	   false
+   fi
 
     local hex_src="${1?'hex_src'}"
     local hex_dst="${2?'hex_dst'}"
@@ -21,7 +25,7 @@ function cmd_rsync() {
 	sync
 	date
         sleep 0.3
-	notify-send "$(du -hs "$hex_src" "$hex_dst")"
+	sudo -E -u "$SUDO_USER" notify-send "$(du -hs "$hex_src" "$hex_dst")"
 	[[ ! -f bakstop ]]
 	#if [[ "x$hex_progress" == "x-P" ]]; then
 	#	hex_progress="--info=progress2"

@@ -21,11 +21,13 @@ function cmd_rsync() {
 	sync
 	date
         sleep 0.3
-	if [[ "x$hex_progress" == "x-P" ]]; then
-		hex_progress="--info=progress2"
-	else
+	du -hs "$hex_src" "$hex_dst"
+	[[ ! -f bakstop ]]
+	#if [[ "x$hex_progress" == "x-P" ]]; then
+	#	hex_progress="--info=progress2"
+	#else
 		hex_progress="-P"
-	fi
+	#fi
     done
 
     sync

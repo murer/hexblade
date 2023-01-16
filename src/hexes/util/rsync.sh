@@ -21,7 +21,7 @@ function cmd_rsync() {
 	sync
 	date
         sleep 0.3
-	du -hs "$hex_src" "$hex_dst"
+	notify-send "$(du -hs "$hex_src" "$hex_dst")"
 	[[ ! -f bakstop ]]
 	#if [[ "x$hex_progress" == "x-P" ]]; then
 	#	hex_progress="--info=progress2"

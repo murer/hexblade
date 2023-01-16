@@ -25,7 +25,7 @@ function cmd_rsync() {
 	sync
 	date
         sleep 0.3
-	sudo -E -u "$SUDO_USER" notify-send -t 120000 "$(date && du -hs "$hex_src" "$hex_dst")"
+	sudo -E -u "$SUDO_USER" notify-send -t 120000 "$(date && pwd && du -hs "$hex_src" "$hex_dst")"
 	[[ ! -f bakstop ]]
 	#if [[ "x$hex_progress" == "x-P" ]]; then
 	#	hex_progress="--info=progress2"

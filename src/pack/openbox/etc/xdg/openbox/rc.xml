@@ -263,6 +263,9 @@
         <menu>client-menu</menu>
       </action>
     </keybind>
+    <keybind key="W-t">
+	<action name="ToggleAlwaysOnTop"/>
+    </keybind> 
     <keybind key="W-l">
       <action name="Execute">
         <command>/etc/xdg/openbox/lock.sh</command>

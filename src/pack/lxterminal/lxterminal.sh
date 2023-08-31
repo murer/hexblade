@@ -1,7 +1,7 @@
 #!/bin/bash -xe
 
 function cmd_install() {
-  apt -y install ttf-ubuntu-font-family lxterminal
+  apt -y install lxterminal
   if [[ ! -f /usr/share/lxterminal/lxterminal.conf.bak ]]; then
     cp /usr/share/lxterminal/lxterminal.conf /usr/share/lxterminal/lxterminal.conf.bak
   fi

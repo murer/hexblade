@@ -24,7 +24,8 @@ function cmd_install() {
     crudini \
     htop \
     dnsutils \
-    iputils-ping
+    iputils-ping \
+    bzip2
 }
 
 set +x; cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; set -x; "cmd_${_cmd}" "$@"

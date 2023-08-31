@@ -3,7 +3,7 @@
 function _rsync() {
   local hex_user="$1"
   mkdir -p /mnt/hexblade/system/installer/hexblade
-  rsync -av --delete --exclude .git ../../ /mnt/hexblade/system/installer/hexblade/
+  rsync -ac --delete --exclude .git ../../ /mnt/hexblade/system/installer/hexblade/
   if [[ "x$hex_user" != "x" ]]; then
     arch-chroot /mnt/hexblade/system chown -R "$HEX_TARGET_USER:$HEX_TARGET_USER" /installer/hexblade
   fi

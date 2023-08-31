@@ -3,8 +3,10 @@
 function cmd_strap() {
   local hexblade_apt_mirror="${1}"
   local tmp_strap_mirror=""
-  [[ "x$hexblade_apt_mirror" == "x" ]] || tmp_strap_mirror="http://${hexblade_apt_mirror}.archive.ubuntu.com/ubuntu/"
-  debootstrap focal /mnt/hexblade/system "$tmp_strap_mirror"
+  local linux_codename="$(lsb_release -cs)"
+  [ "x$linux_codename" == "xjammy" ]
+  [ "x$hexblade_apt_mirror" == "x" ] || tmp_strap_mirror="http://${hexblade_apt_mirror}.archive.ubuntu.com/ubuntu/"
+  debootstrap jammy /mnt/hexblade/system "$tmp_strap_mirror"
 }
 
 function cmd_base() {
@@ -56,7 +58,9 @@ function cmd_hostname() {
     local hexblade_config_hostname="${1:-hex}"
     echo "$hexblade_config_hostname" > /mnt/hexblade/system/etc/hostname
     echo "127.0.0.1 localhost $hexblade_config_hostname.localdomain $hexblade_config_hostname" > /mnt/hexblade/system/etc/hosts
-    echo "::1 localhost ip6-localhost ip6-loopback" >> /mnt/hexblade/system/etc/hosts
+    echo "::1 ip6-localhost ip6-loopback" >> /mnt/hexblade/system/etc/hosts
+    echo "fe00::0 ip6-localnet" >> /mnt/hexblade/system/etc/hosts
+    echo "ff00::0 ip6-mcastprefix" >> /mnt/hexblade/system/etc/hosts
     echo "ff02::1 ip6-allnodes" >> /mnt/hexblade/system/etc/hosts
     echo "ff02::2 ip6-allrouters" >> /mnt/hexblade/system/etc/hosts
 }

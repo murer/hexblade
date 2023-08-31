@@ -9,7 +9,7 @@
   <separator/>
   <item label="Terminal">
     <action name="Execute">
-      <command>lxterminal</command>
+      <command>terminator</command>
     </action>
   </item>
   <item label="Home">

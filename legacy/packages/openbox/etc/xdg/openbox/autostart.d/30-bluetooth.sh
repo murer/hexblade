@@ -1,3 +1,0 @@
-
-blueman-applet || true &
-

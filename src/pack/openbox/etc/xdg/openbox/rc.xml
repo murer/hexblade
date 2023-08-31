@@ -340,7 +340,7 @@
     </keybind>
     <keybind key="W-Return">
       <action name="Execute">
-        <command>lxterminal</command>
+        <command>terminator</command>
       </action>
     </keybind>
     <keybind key="Print">

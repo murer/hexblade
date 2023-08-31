@@ -36,7 +36,6 @@ function cmd_base() {
 function cmd_packs() {
     #../../lib/util/installer.sh uchr ubuntu sudo -E /installer/hexblade/pack/util/docker.sh install
     ../../lib/util/installer.sh uchr ubuntu sudo -E /installer/hexblade/pack/util/graphics.sh xterm
-    ../../lib/util/installer.sh uchr ubuntu sudo -E /installer/hexblade/pack/lxterminal/lxterminal.sh install
     ../../lib/util/installer.sh uchr ubuntu sudo -E /installer/hexblade/pack/util/graphics.sh mousepad
     ../../lib/util/installer.sh uchr ubuntu sudo -E /installer/hexblade/pack/util/graphics.sh xfce4_screenshooter
     ../../lib/util/installer.sh uchr ubuntu sudo -E /installer/hexblade/pack/util/graphics.sh pcmanfm

@@ -27,7 +27,7 @@ function cmd_base() {
     vim wget curl openssl git vim \
     nmap ncat pv zip connect-proxy tcpdump bc \
     network-manager net-tools locales \
-    cryptsetup lvm2 btrfs-progs sudo # netcat debconf-utils
+    cryptsetup sudo # netcat debconf-utils
 
   arch-chroot /mnt/hexblade/system groupadd -r supersudo || true
   echo "%supersudo ALL=(ALL:ALL) NOPASSWD: ALL" > /mnt/hexblade/system/etc/sudoers.d/supersudo
@@ -49,8 +49,8 @@ function cmd_keyboard() {
 function cmd_kernel() {
   #DEBIAN_FRONTEND=noninteractive arch-chroot /mnt/hexblade/system apt -y install "linux-image-5.4.0-54-generic" "linux-headers-5.4.0-54-generic"
   #DEBIAN_FRONTEND=noninteractive arch-chroot /mnt/hexblade/system apt -y install "linux-image-generic" "linux-headers-generic"
-  #DEBIAN_FRONTEND=noninteractive arch-chroot /mnt/hexblade/system apt -y install linux-generic-hwe-20.04
-  DEBIAN_FRONTEND=noninteractive arch-chroot /mnt/hexblade/system apt -y install --install-recommends linux-generic
+  DEBIAN_FRONTEND=noninteractive arch-chroot /mnt/hexblade/system apt -y install linux-generic-hwe-22.04
+  #DEBIAN_FRONTEND=noninteractive arch-chroot /mnt/hexblade/system apt -y install --install-recommends linux-generic
   # arch-chroot /mnt/hexblade/system apt -y install cryptsetup lvm2 btrfs-progs
 }
 

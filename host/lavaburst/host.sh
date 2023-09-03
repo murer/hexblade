@@ -3,14 +3,10 @@
 base_path="/home/murer/files/bak/lavaburst"
 
 function cmd_open() {
-	ls /dev/mapper/MASTERCRYPTED || cryptsetup open --key-file gen/lukskeys/master.key /dev/nvme0n1p4 MASTERCRYPTED
-        #mkdir -p /mnt/hexblade/system
-	#[ -d /mnt/hexblade/system/etc ] || mount /dev/mapper/MASTERCRYPTED /mnt/hexblade/system
-	#mount --bind /boot/efi /mnt/hexblade/system/boot/efi
+	ls /dev/mapper/MASTERCRYPTED || cryptsetup open --key-file "$base_path/lukskeys/master.key" /dev/nvme0n1p4 MASTERCRYPTED
 }
 
 function cmd_close() {
-	#umount -R /mnt/hexblade/system
 	../../src/lib/util/crypt.sh close MASTERCRYPTED
 }
 

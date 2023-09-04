@@ -14,9 +14,8 @@ RUN xfce4-screenshooter --help
 RUN DEBIAN_FRONTEND=noninteractive sudo -E /opt/hexblade/src/pack/util/graphics.sh pcmanfm
 RUN pcmanfm --help
 
-# FIXME: firefox
-#RUN DEBIAN_FRONTEND=noninteractive sudo -E /opt/hexblade/src/pack/util/graphics.sh firefox
-#RUN firefox --version
+RUN DEBIAN_FRONTEND=noninteractive sudo -E /opt/hexblade/src/pack/util/graphics.sh firefox
+RUN firefox --version
 
 RUN DEBIAN_FRONTEND=noninteractive sudo -E /opt/hexblade/src/pack/util/graphics.sh network_manager_gnome
 RUN nmcli --version

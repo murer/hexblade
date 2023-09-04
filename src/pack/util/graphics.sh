@@ -17,7 +17,12 @@ function cmd_pcmanfm() {
 }
 
 function cmd_firefox() {
-    apt -y install firefox
+    # apt -y install firefox
+    if ! firefox --version; then
+        add-apt-repository -y ppa:mozillateam/ppa
+        apt -y install firefox-esr
+        ln -s /usr/bin/firefox-esr /usr/bin/firefox
+    fi
 }
 
 function cmd_network_manager_gnome() {

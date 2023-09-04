@@ -7,4 +7,5 @@ RUN bash -xec '[[ -d /localdata/hexes/redir/root/L2hvbWU/hex ]]'
 RUN (echo "#!/bin/bash -xe" && \
     echo "sudo /opt/hexblade/src/hexes/util/reuser.sh adduser t1" && \
     echo "sudo /opt/hexblade/src/hexes/util/reuser.sh reuser t1 whoami | grep '^t1$'") | \
-    /opt/hexblade/docker/entrypoint.sh bash -xe
+    find /opt/hexblade && \
+    /opt/hexblade/docker/entrypoint/entrypoint.sh bash -xe

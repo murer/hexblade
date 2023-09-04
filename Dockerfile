@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 
 RUN apt-get -y update
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install apt-utils
@@ -27,9 +27,6 @@ COPY src/pack/util/graphics.sh /opt/hexblade/src/pack/util/graphics.sh
 RUN DEBIAN_FRONTEND=noninteractive sudo -E /opt/hexblade/src/pack/util/graphics.sh xterm
 RUN DEBIAN_FRONTEND=noninteractive sudo -E /opt/hexblade/src/pack/util/graphics.sh mousepad
 
-COPY src/pack/lxterminal /opt/hexblade/src/pack/lxterminal
-RUN DEBIAN_FRONTEND=noninteractive sudo -E /opt/hexblade/src/pack/lxterminal/lxterminal.sh install
-
 COPY src/pack/openbox /opt/hexblade/src/pack/openbox
 RUN DEBIAN_FRONTEND=noninteractive sudo -E /opt/hexblade/src/pack/openbox/openbox.sh install
 RUN DEBIAN_FRONTEND=noninteractive sudo -E /opt/hexblade/src/pack/openbox/openbox.sh lockscreen disable
@@ -40,12 +37,12 @@ RUN find "$HOME" -readable -exec chmod -v go+r '{}' \; && \
   find "$HOME" -writable -exec chmod -v go+w '{}' \; && \
   find "$HOME" -executable -exec chmod -v go+x '{}' \;
 
+COPY docker/entrypoint /opt/hexblade/docker/entrypoint
+
 ENV DISPLAY :99
 EXPOSE 5900
 
 ENTRYPOINT [ "/opt/hexblade/docker/entrypoint/entrypoint.sh" ]
-
-COPY docker/entrypoint /opt/hexblade/docker/entrypoint
 
 CMD [ "hexbladestart" ]
 

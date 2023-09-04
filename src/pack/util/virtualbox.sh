@@ -22,7 +22,7 @@ function cmd_guest_dir() {
 }
 
 function cmd_guest_text() {
-    apt -y install virtualbox-guest-dkms virtualbox-guest-utils
+    apt -y install virtualbox-guest-utils
 }
 
 function cmd_guest_gui() {

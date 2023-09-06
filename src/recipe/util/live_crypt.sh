@@ -46,12 +46,29 @@ function cmd_mount() {
     mount /dev/mapper/LIVELVM-LIVEROOT /mnt/hexblade/cryptiso/image
 }
 
+function cmd_sparse_mount() {
+    [ -f /mnt/hexblade/live-crypted/block ]
+    [ ! -d /mnt/hexblade/cryptiso ]
+    export hex_loop_dev=$(losetup -P -f --show /mnt/hexblade/live-crypted/block)
+    mkdir -p /mnt/hexblade/cryptiso/efi
+    mount "${hex_loop_dev}n1" /mnt/hexblade/cryptiso/efi
+    mkdir -p /mnt/hexblade/cryptiso/image
+    mount "${hex_loop_dev}n2" /mnt/hexblade/cryptiso/image
+}
+
 function cmd_crypt_close() {
     ../../lib/util/lvm.sh close LIVELVM
     ../../lib/util/crypt.sh close LIVECRYPTED
 }
 
 function cmd_umount() {
+    umount /mnt/hexblade/cryptiso/image
+    umount /mnt/hexblade/cryptiso/efi
+    rmdir /mnt/hexblade/cryptiso/image /mnt/hexblade/cryptiso/efi /mnt/hexblade/cryptiso
+    cmd_crypt_close
+}
+
+function cmd_sparse_umount() {
     umount /mnt/hexblade/cryptiso/image
     umount /mnt/hexblade/cryptiso/efi
     rmdir /mnt/hexblade/cryptiso/image /mnt/hexblade/cryptiso/efi /mnt/hexblade/cryptiso
@@ -97,16 +114,6 @@ function cmd_grub() {
    cd -
 }
 
-function cmd_from_iso() {
-    cmd_deiso "$@"
-    cmd_disk
-    cmd_mount
-    cmd_rsync
-    cmd_grub
-    cmd_umount
-    # cmd_iso
-}
-
 function cmd_sparse_file() {
     local hexblade_size="${1?'hexblade_size, like 8196M'}"
     ../../lib/util/crypt.sh key_check iso
@@ -141,11 +148,24 @@ function cmd_sparse_file() {
      
 }
 
+function cmd_from_iso() {
+    cmd_deiso "$@"
+    cmd_disk
+    cmd_mount
+    cmd_rsync
+    cmd_grub
+    cmd_umount
+}
+
 function cmd_from_iso_to_block() {
     [ -f /mnt/hexblade/live-crypted/block ]
     
     cmd_deiso /mnt/hexblade/iso/hexblade.iso
-    true
+    cmd_sparse_mount
+    # cmd_rsync
+    # cmd_grub
+    cmd_sparse_umount
+
 }
 
 set +x; cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; set -x; "cmd_${_cmd}" "$@"

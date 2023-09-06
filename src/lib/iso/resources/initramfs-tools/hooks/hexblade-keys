@@ -17,6 +17,6 @@ esac
 
 . /usr/share/initramfs-tools/hook-functions
 
-copy_file binary /etc/fstab /hexblade/aaa/bbb
+[ ! -f /etc/lukskeys/iso.key ] || copy_file binary /etc/lukskeys/iso.key
 
 exit 0

@@ -50,7 +50,7 @@ function cmd_sparse_mount() {
     [ -f /mnt/hexblade/live-crypted/block ]
     [ ! -d /mnt/hexblade/cryptiso ]
     local hex_loop_dev="$(losetup --list --raw --output NAME,BACK-FILE --noheadings | grep "/mnt/hexblade/live-crypted/block$" | cut -d" " -f1)"
-    [ "x$hex_loop_dev" != "x" ] || export hex_loop_dev=$(losetup -P -f --show /mnt/hexblade/live-crypted/block)
+    [ "x$hex_loop_dev" != "x" ] || hex_loop_dev=$(losetup -P -f --show /mnt/hexblade/live-crypted/block)
     mkdir -p /mnt/hexblade/cryptiso/efi
     mount "${hex_loop_dev}p1" /mnt/hexblade/cryptiso/efi
     mkdir -p /mnt/hexblade/cryptiso/image
@@ -75,7 +75,7 @@ function cmd_sparse_umount() {
     ../../lib/util/crypt.sh close LIVECRYPTEDROOT
     umount /mnt/hexblade/cryptiso/efi
     rmdir /mnt/hexblade/cryptiso/image /mnt/hexblade/cryptiso/efi /mnt/hexblade/cryptiso
-    export hex_loop_dev=$(losetup -P -f --show /mnt/hexblade/live-crypted/block)
+    local hex_loop_dev="$(losetup --list --raw --output NAME,BACK-FILE --noheadings | grep "/mnt/hexblade/live-crypted/block$" | cut -d" " -f1)"
     [ "x$hex_loop_dev" == "x" ] || losetup -d "$hex_loop_dev"
 }
 
@@ -85,6 +85,7 @@ function cmd_rsync() {
 }
 
 function cmd_grub() {
+    
     hexblade_crypted_uuid="$(sudo blkid -o value -s UUID "${HEX_TARGET_DEV}2")"
     hexblade_crypted_id="$(echo "$hexblade_crypted_uuid" | tr -d '-')"
     hexblade_root_uuid="$(sudo blkid -o value -s UUID /dev/mapper/LIVELVM-LIVEROOT)"
@@ -103,7 +104,7 @@ function cmd_grub() {
     menuentry \"Haxblade Crypt Live\" {
         cryptomount -u $hexblade_crypted_id
         search --no-floppy --fs-uuid --set $hexblade_root_uuid
-        linux /casper/vmlinuz boot=casper nopersistent verbose nosplash hexcryptlive=$hexblade_crypted_uuid hexcryptdata=$hexblade_data_uuid ---
+        linux /casper/vmlinuz boot=casper nopersistent verbose nosplash ---
         initrd /casper/initrd
     }
     " > isolinux/grub.cfg
@@ -130,7 +131,7 @@ function cmd_sparse_file() {
     du -hs /mnt/hexblade/live-crypted/block
     du -hs --apparent-size /mnt/hexblade/live-crypted/block
     local hex_loop_dev="$(losetup --list --raw --output NAME,BACK-FILE --noheadings | grep "/mnt/hexblade/live-crypted/block$" | cut -d" " -f1)"
-    [ "x$hex_loop_dev" != "x" ] || export hex_loop_dev=$(losetup -P -f --show /mnt/hexblade/live-crypted/block)
+    [ "x$hex_loop_dev" != "x" ] || hex_loop_dev=$(losetup -P -f --show /mnt/hexblade/live-crypted/block)
     ../../lib/util/efi.sh format "${hex_loop_dev}p1"
     
     ../../lib/util/crypt.sh format "${hex_loop_dev}p2" iso 1
@@ -167,7 +168,7 @@ function cmd_from_iso_to_sparse() {
     cmd_deiso /mnt/hexblade/iso/hexblade.iso
     cmd_sparse_mount
     cmd_rsync
-    # cmd_grub
+    cmd_grub
     cmd_sparse_umount
 
 }

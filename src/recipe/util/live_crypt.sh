@@ -144,7 +144,7 @@ function cmd_sparse_file() {
 function cmd_from_iso_to_block() {
     [ -f /mnt/hexblade/live-crypted/block ]
     
-    cmd_deiso "$@"
+    cmd_deiso /mnt/hexblade/iso/hexblade.iso
     true
 }
 

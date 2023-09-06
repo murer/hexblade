@@ -6,7 +6,6 @@ function cmd_install() {
     
   arch-chroot /mnt/hexblade/system apt install -y \
     casper \
-    lupin-casper \
     discover \
     laptop-detect \
     os-prober \
@@ -25,7 +24,7 @@ function cmd_install() {
   #  virtualbox-guest-dkms \
   #  virtualbox-guest-x11
 
-  rsync -av resources/initramfs-tools/ /mnt/hexblade/system/usr/share/initramfs-tools/
+  rsync -acv resources/initramfs-tools/ /mnt/hexblade/system/usr/share/initramfs-tools/
   if [[ "x$HEXBLADE_LIVE_DISABLE_ADDUSER" == "xtrue" ]]; then
     chmod -x /mnt/hexblade/system/usr/share/initramfs-tools/scripts/casper-bottom/25adduser
   fi
@@ -44,9 +43,9 @@ function cmd_install() {
   sed -i '/discover/d' /mnt/hexblade/image/casper/filesystem.manifest-desktop
   sed -i '/laptop-detect/d' /mnt/hexblade/image/casper/filesystem.manifest-desktop
   sed -i '/os-prober/d' /mnt/hexblade/image/casper/filesystem.manifest-desktop
-  sed -i '/virtualbox-guest-utils/d' /mnt/hexblade/image/casper/filesystem.manifest-desktop
-  sed -i '/virtualbox-guest-x11/d' /mnt/hexblade/image/casper/filesystem.manifest-desktop
-  sed -i '/virtualbox-guest-dkms/d' /mnt/hexblade/image/casper/filesystem.manifest-desktop
+  # sed -i '/virtualbox-guest-utils/d' /mnt/hexblade/image/casper/filesystem.manifest-desktop
+  # sed -i '/virtualbox-guest-x11/d' /mnt/hexblade/image/casper/filesystem.manifest-desktop
+  # sed -i '/virtualbox-guest-dkms/d' /mnt/hexblade/image/casper/filesystem.manifest-desktop
 }
 
 function cmd_compress() {
@@ -161,7 +160,7 @@ function cmd_mount() {
 function cmd_deiso() {
     cmd_mount "$@"
     # --exclude boot --exclude EFI 
-    rsync -av --delete /mnt/hexblade/liveiso/ /mnt/hexblade/image/
+    rsync -acv --delete /mnt/hexblade/liveiso/ /mnt/hexblade/image/
     cmd_umount
 }
 

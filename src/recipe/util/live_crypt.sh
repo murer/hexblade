@@ -107,4 +107,10 @@ function cmd_from_iso() {
     # cmd_iso
 }
 
+function cmd_from_iso2iso() {
+    local hexblade_size_mb="${1?'hexblade_size_mb'}"
+    mkdir -p /mnt/hexblade/live-crypted
+    [ -f /mnt/hexblade/live-crypted/block ] || dd if=/dev/zero of=/mnt/hexblade/live-crypted/block bs=1M "count=$hexblade_size_mb"
+}
+
 set +x; cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; set -x; "cmd_${_cmd}" "$@"

@@ -114,17 +114,26 @@ function cmd_sparse_file() {
     dd if=/dev/zero of=/mnt/hexblade/live-crypted/block bs=1 count=0 "seek=$hexblade_size" 
     ../../lib/util/gpt.sh wipe "/mnt/hexblade/live-crypted/block"
     ../../lib/util/gpt.sh part_add "/mnt/hexblade/live-crypted/block" 1 0 +512M EF00 'EFI system partition' 
-    ../../lib/util/gpt.sh part_add "/mnt/hexblade/live-crypted/block" 2 0 0 8300 'PARTCRYPT'
+    ../../lib/util/gpt.sh part_add "/mnt/hexblade/live-crypted/block" 2 0 +6G 8300 'PARTCRYPTROOT'
+    ../../lib/util/gpt.sh part_add "/mnt/hexblade/live-crypted/block" 3 0 0 8300 'PARTCRYPTDATA'
     du -hs /mnt/hexblade/live-crypted/block
     du -hs --apparent-size /mnt/hexblade/live-crypted/block
     local hex_loop_dev="$(losetup --list --raw --output NAME,BACK-FILE --noheadings | grep "/mnt/hexblade/live-crypted/block$" | cut -d" " -f1)"
     [ "x$hex_loop_dev" != "x" ] || export hex_loop_dev=$(losetup -P -f --show /mnt/hexblade/live-crypted/block)
     ../../lib/util/efi.sh format "${hex_loop_dev}p1"
+    
     ../../lib/util/crypt.sh format "${hex_loop_dev}p2" iso 1
     ../../lib/util/crypt.sh pass_add "${hex_loop_dev}p2" iso 0
     ../../lib/util/crypt.sh open "${hex_loop_dev}p2" LIVECRYPTEDROOT iso
     ../../lib/util/mkfs.sh ext4 /dev/mapper/LIVECRYPTEDROOT LIVECRYPTEDROOT
     ../../lib/util/crypt.sh close LIVECRYPTEDROOT iso
+    
+    ../../lib/util/crypt.sh format "${hex_loop_dev}p3" iso 1
+    ../../lib/util/crypt.sh pass_add "${hex_loop_dev}p3" iso 0
+    ../../lib/util/crypt.sh open "${hex_loop_dev}p3" LIVECRYPTEDDATA iso
+    ../../lib/util/mkfs.sh ext4 /dev/mapper/LIVECRYPTEDDATA LIVECRYPTEDDATA
+    ../../lib/util/crypt.sh close LIVECRYPTEDDATA iso
+ 
     losetup -d "$hex_loop_dev"
 }
 

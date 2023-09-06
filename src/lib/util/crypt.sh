@@ -41,8 +41,8 @@ function cmd_key_part_save() {
   local hexblade_crypt_key="${1?'keyname'}"
   local hexblade_crypt_part="${2?'part uuid'}"
   [ -d /mnt/hexblade/system/etc ]
-  mkdir -p /mnt/hexbalde/system/etc/luksparts
-  cp "/mnt/hexblade/crypt/$hexblade_crypt_key.key" "/mnt/hexbalde/system/etc/luksparts/$hexblade_crypt_part.key"
+  mkdir -p /mnt/hexblade/system/etc/luksparts
+  cp "/mnt/hexblade/crypt/$hexblade_crypt_key.key" "/mnt/hexblade/system/etc/luksparts/$hexblade_crypt_part.key"
 }
 
 

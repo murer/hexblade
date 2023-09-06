@@ -86,13 +86,16 @@ function cmd_rsync() {
 
 function cmd_grub() {
     [ "x$HEX_TARGET_DEV" != "x" ]
-    hexblade_crypted_uuid="$(sudo blkid -o value -s UUID "${HEX_TARGET_DEV}2" || sudo blkid -o value -s UUID "${HEX_TARGET_DEV}p2")"
+    ../../crypt/crypt.sh initramfs_cryptparts_append iso ="$(sudo blkid -o value -s UUID "${HEX_TARGET_DEV}2" || sudo blkid -o value -s UUID "${HEX_TARGET_DEV}p2")"
     [ "x$hexblade_crypted_uuid" != "x" ]
     hexblade_crypted_id="$(echo "$hexblade_crypted_uuid" | tr -d '-')"
     [ "x$hexblade_crypted_id" != "x" ]
     hexblade_root_uuid="$(sudo blkid -o value -s UUID /dev/mapper/LIVECRYPTEDROOT)"
     [ "x$hexblade_root_uuid" != "x" ]
     # hexblade_data_uuid="$(sudo blkid -o value -s UUID /dev/mapper/LIVELVM-LIVEDATA)"
+
+    # ../../crypt/crypt.sh initramfs_cryptparts_append iso "/dev/disk/by-uuid/$hexblade_crypted_uuid" 
+
     cd /mnt/hexblade/cryptiso/image/
     echo "
     search --set=root --file /ubuntu

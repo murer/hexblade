@@ -125,7 +125,7 @@ function cmd_grub() {
    cd -
 }
 
-function cmd_sparse_file() {
+function cmd_sparse_create() {
     local hexblade_size="${1?'hexblade_size, like 8196M'}"
     ../../lib/util/crypt.sh key_check iso
     mkdir -p /mnt/hexblade/live-crypted 

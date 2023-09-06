@@ -28,5 +28,7 @@ for k in $(ls /etc/luksparts/*.key | sed 's/\.key$\\g'); do
     cryptsetup open "/dev/disk/by-uuid/$k" "CRYPTED-$k"
 done
 
+sh
+
 
 

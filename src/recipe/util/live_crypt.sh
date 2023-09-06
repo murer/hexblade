@@ -108,11 +108,12 @@ function cmd_from_iso() {
 }
 
 function cmd_from_iso2iso() {
-    local hexblade_size_mb="${1?'hexblade_size_mb'}"
+    local hexblade_size="${1?'hexblade_size, like 8196M'}"
     mkdir -p /mnt/hexblade/live-crypted
-    [ -f /mnt/hexblade/live-crypted/block ] || dd if=/dev/zero of=/mnt/hexblade/live-crypted/block bs=1M "count=$hexblade_size_mb"
+    [ -f /mnt/hexblade/live-crypted/block ] || dd if=/dev/zero of=/mnt/hexblade/live-crypted/block bs=1 count=0 "seek=$hexblade_size"
+    du -hs /mnt/hexblade/live-crypted/block
     export HEX_TARGET_DEV=/mnt/hexblade/live-crypted/block
-    cmd_disk
+    # cmd_disk
 }
 
 set +x; cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; set -x; "cmd_${_cmd}" "$@"

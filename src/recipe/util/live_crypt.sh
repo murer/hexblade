@@ -64,16 +64,16 @@ function cmd_crypt_close() {
 }
 
 function cmd_umount() {
-    umount /mnt/hexblade/cryptiso/efi
     umount /mnt/hexblade/cryptiso/image
-    ../../lib/util/crypt.sh close LIVECRYPTEDROOT
+    umount /mnt/hexblade/cryptiso/efi
     rmdir /mnt/hexblade/cryptiso/image /mnt/hexblade/cryptiso/efi /mnt/hexblade/cryptiso
     cmd_crypt_close
 }
 
 function cmd_sparse_umount() {
-    umount /mnt/hexblade/cryptiso/efi
     umount /mnt/hexblade/cryptiso/image
+    ../../lib/util/crypt.sh close LIVECRYPTEDROOT
+    umount /mnt/hexblade/cryptiso/efi
     rmdir /mnt/hexblade/cryptiso/image /mnt/hexblade/cryptiso/efi /mnt/hexblade/cryptiso
     export hex_loop_dev=$(losetup -P -f --show /mnt/hexblade/live-crypted/block)
     [ "x$hex_loop_dev" == "x" ] || losetup -d "$hex_loop_dev"
@@ -161,12 +161,12 @@ function cmd_from_iso() {
     cmd_umount
 }
 
-function cmd_from_iso_to_block() {
+function cmd_from_iso_to_sparse() {
     [ -f /mnt/hexblade/live-crypted/block ]
     
     cmd_deiso /mnt/hexblade/iso/hexblade.iso
     cmd_sparse_mount
-    # cmd_rsync
+    cmd_rsync
     # cmd_grub
     cmd_sparse_umount
 

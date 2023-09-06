@@ -2,16 +2,16 @@
 
 function cmd_disk() {
     [[ "x$HEX_TARGET_DEV" != "x" ]]
-    ../../lib/util/crypt.sh key_check master
+    ../../lib/util/crypt.sh key_check iso
 
     ../../lib/util/gpt.sh wipe "$HEX_TARGET_DEV"
     ../../lib/util/gpt.sh part_add "$HEX_TARGET_DEV" 1 0 +512M EF00 'EFI system partition'
     ../../lib/util/gpt.sh part_add "$HEX_TARGET_DEV" 2 0 0 8300 'PARTCRYPT'
     gdisk -l "$HEX_TARGET_DEV"
 
-    ../../lib/util/crypt.sh format "${HEX_TARGET_DEV}2" master 1
-    ../../lib/util/crypt.sh pass_add "${HEX_TARGET_DEV}2" master 0
-    ../../lib/util/crypt.sh open "${HEX_TARGET_DEV}2" LIVECRYPTED master
+    ../../lib/util/crypt.sh format "${HEX_TARGET_DEV}2" iso 1
+    ../../lib/util/crypt.sh pass_add "${HEX_TARGET_DEV}2" iso 0
+    ../../lib/util/crypt.sh open "${HEX_TARGET_DEV}2" LIVECRYPTED iso
     
     ../../lib/util/lvm.sh format /dev/mapper/LIVECRYPTED LIVELVM
     ../../lib/util/lvm.sh add LIVELVM LIVEROOT 12G
@@ -33,7 +33,7 @@ function cmd_deiso() {
 
 function cmd_crypt_open() {
     [[ "x$HEX_TARGET_DEV" != "x" ]]
-    ../../lib/util/crypt.sh open "${HEX_TARGET_DEV}2" LIVECRYPTED master
+    ../../lib/util/crypt.sh open "${HEX_TARGET_DEV}2" LIVECRYPTED iso
     ../../lib/util/lvm.sh open LIVELVM 
 }
 

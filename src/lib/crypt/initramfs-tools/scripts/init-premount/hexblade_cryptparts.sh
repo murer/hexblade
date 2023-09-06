@@ -21,6 +21,3 @@ sh
 
 ## Entries will be added here:
 
-
-
-

@@ -52,9 +52,9 @@ function cmd_sparse_mount() {
     local hex_loop_dev="$(losetup --list --raw --output NAME,BACK-FILE --noheadings | grep "/mnt/hexblade/live-crypted/block$" | cut -d" " -f1)"
     [ "x$hex_loop_dev" != "x" ] || export hex_loop_dev=$(losetup -P -f --show /mnt/hexblade/live-crypted/block)
     mkdir -p /mnt/hexblade/cryptiso/efi
-    mount "${hex_loop_dev}n1" /mnt/hexblade/cryptiso/efi
+    mount "${hex_loop_dev}p1" /mnt/hexblade/cryptiso/efi
     mkdir -p /mnt/hexblade/cryptiso/image
-    mount "${hex_loop_dev}n2" /mnt/hexblade/cryptiso/image
+    mount "${hex_loop_dev}p2" /mnt/hexblade/cryptiso/image
 }
 
 function cmd_crypt_close() {

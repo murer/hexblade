@@ -112,6 +112,7 @@ function cmd_from_iso2iso() {
     mkdir -p /mnt/hexblade/live-crypted
     [ -f /mnt/hexblade/live-crypted/block ] || dd if=/dev/zero of=/mnt/hexblade/live-crypted/block bs=1 count=0 "seek=$hexblade_size"
     du -hs /mnt/hexblade/live-crypted/block
+    du -hs --apparent-size /mnt/hexblade/live-crypted/block
     export HEX_TARGET_DEV=/mnt/hexblade/live-crypted/block
     # cmd_disk
 }

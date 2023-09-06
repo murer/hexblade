@@ -85,11 +85,10 @@ function cmd_rsync() {
 }
 
 function cmd_grub() {
-    
-    hexblade_crypted_uuid="$(sudo blkid -o value -s UUID "${HEX_TARGET_DEV}2")"
+    hexblade_crypted_uuid="$(sudo blkid -o value -s UUID "${HEX_TARGET_DEV}2" || sudo blkid -o value -s UUID "${HEX_TARGET_DEV}p2")"
     hexblade_crypted_id="$(echo "$hexblade_crypted_uuid" | tr -d '-')"
     hexblade_root_uuid="$(sudo blkid -o value -s UUID /dev/mapper/LIVELVM-LIVEROOT)"
-    hexblade_data_uuid="$(sudo blkid -o value -s UUID /dev/mapper/LIVELVM-LIVEDATA)"
+    # hexblade_data_uuid="$(sudo blkid -o value -s UUID /dev/mapper/LIVELVM-LIVEDATA)"
     cd /mnt/hexblade/cryptiso/image/
     echo "
     search --set=root --file /ubuntu
@@ -168,6 +167,9 @@ function cmd_from_iso_to_sparse() {
     cmd_deiso /mnt/hexblade/iso/hexblade.iso
     cmd_sparse_mount
     cmd_rsync
+    
+    export HEX_TARGET_DEV="$(losetup --list --raw --output NAME,BACK-FILE --noheadings | grep "/mnt/hexblade/live-crypted/block$" | cut -d" " -f1)"
+
     cmd_grub
     cmd_sparse_umount
 

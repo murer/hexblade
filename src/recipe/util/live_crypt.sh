@@ -54,7 +54,8 @@ function cmd_sparse_mount() {
     mkdir -p /mnt/hexblade/cryptiso/efi
     mount "${hex_loop_dev}p1" /mnt/hexblade/cryptiso/efi
     mkdir -p /mnt/hexblade/cryptiso/image
-    mount "${hex_loop_dev}p2" /mnt/hexblade/cryptiso/image
+    ../../lib/util/crypt.sh open "${hex_loop_dev}p2" LIVECRYPTEDROOT iso
+    mount /dev/mapper/LIVECRYPTEDROOT /mnt/hexblade/cryptiso/image
 }
 
 function cmd_crypt_close() {
@@ -63,17 +64,19 @@ function cmd_crypt_close() {
 }
 
 function cmd_umount() {
-    umount /mnt/hexblade/cryptiso/image
     umount /mnt/hexblade/cryptiso/efi
+    umount /mnt/hexblade/cryptiso/image
+    ../../lib/util/crypt.sh close LIVECRYPTEDROOT
     rmdir /mnt/hexblade/cryptiso/image /mnt/hexblade/cryptiso/efi /mnt/hexblade/cryptiso
     cmd_crypt_close
 }
 
 function cmd_sparse_umount() {
-    umount /mnt/hexblade/cryptiso/image
     umount /mnt/hexblade/cryptiso/efi
+    umount /mnt/hexblade/cryptiso/image
     rmdir /mnt/hexblade/cryptiso/image /mnt/hexblade/cryptiso/efi /mnt/hexblade/cryptiso
-    cmd_crypt_close
+    export hex_loop_dev=$(losetup -P -f --show /mnt/hexblade/live-crypted/block)
+    [ "x$hex_loop_dev" == "x" ] || losetup -d "$hex_loop_dev"
 }
 
 function cmd_rsync() {

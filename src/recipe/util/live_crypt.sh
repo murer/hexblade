@@ -107,14 +107,30 @@ function cmd_from_iso() {
     # cmd_iso
 }
 
-function cmd_from_iso2iso() {
+function cmd_sparse_file() {
     local hexblade_size="${1?'hexblade_size, like 8196M'}"
-    mkdir -p /mnt/hexblade/live-crypted
-    [ -f /mnt/hexblade/live-crypted/block ] || dd if=/dev/zero of=/mnt/hexblade/live-crypted/block bs=1 count=0 "seek=$hexblade_size"
+    ../../lib/util/crypt.sh key_check iso
+    mkdir -p /mnt/hexblade/live-crypted 
+    dd if=/dev/zero of=/mnt/hexblade/live-crypted/block bs=1 count=0 "seek=$hexblade_size" 
+    ../../lib/util/gpt.sh wipe "/mnt/hexblade/live-crypted/block"
+    ../../lib/util/gpt.sh part_add "/mnt/hexblade/live-crypted/block" 1 0 +512M EF00 'EFI system partition' 
+    ../../lib/util/gpt.sh part_add "/mnt/hexblade/live-crypted/block" 2 0 0 8300 'PARTCRYPT'
     du -hs /mnt/hexblade/live-crypted/block
     du -hs --apparent-size /mnt/hexblade/live-crypted/block
-    export HEX_TARGET_DEV=/mnt/hexblade/live-crypted/block
+    local hex_loop_dev="$(losetup --list --raw --output NAME,BACK-FILE --noheadings | grep "/mnt/hexblade/live-crypted/block$" | cut -d" " -f1)"
+    [ "x$hex_loop_dev" != "x" ] || export hex_loop_dev=$(losetup -P -f --show /mnt/hexblade/live-crypted/block)
+    ../../lib/util/efi.sh format "${hex_loop_dev}p1"
+    ../../lib/util/crypt.sh format "${hex_loop_dev}p2" iso 1
+    ../../lib/util/crypt.sh pass_add "${hex_loop_dev}p2" iso 0
+    ../../lib/util/crypt.sh open "${hex_loop_dev}p2" LIVECRYPTEDROOT iso
+    ../../lib/util/mkfs.sh ext4 /dev/mapper/LIVECRYPTEDROOT LIVECRYPTEDROOT
+    ../../lib/util/crypt.sh close LIVECRYPTEDROOT iso
+    losetup -d "$hex_loop_dev"
+}
+
+function cmd_from_iso2iso() {
     # cmd_disk
+    true
 }
 
 set +x; cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; set -x; "cmd_${_cmd}" "$@"

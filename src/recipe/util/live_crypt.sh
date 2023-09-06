@@ -141,7 +141,9 @@ function cmd_sparse_file() {
      
 }
 
-function cmd_from_iso2iso() {
+function cmd_from_iso_to_block() {
+    [ -f /mnt/hexblade/live-crypted/block ]
+    
     # cmd_disk
     true
 }

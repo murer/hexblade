@@ -17,6 +17,10 @@ esac
 
 . /usr/share/initramfs-tools/hook-functions
 
-[ ! -f /etc/lukskeys/iso.key ] || copy_file binary /etc/lukskeys/iso.key
+set -x
+
+for k in $(ls /etc/luksparts/*.key || true); do
+    copy_file binary "$k"
+done
 
 exit 0

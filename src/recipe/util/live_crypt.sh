@@ -135,6 +135,10 @@ function cmd_sparse_file() {
     ../../lib/util/crypt.sh close LIVECRYPTEDDATA iso
  
     losetup -d "$hex_loop_dev"
+
+    du -hs /mnt/hexblade/live-crypted/block
+    du -hs --apparent-size /mnt/hexblade/live-crypted/block
+     
 }
 
 function cmd_from_iso2iso() {

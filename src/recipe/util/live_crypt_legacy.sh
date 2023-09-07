@@ -1,8 +1,49 @@
 #!/bin/bash -xe
 
+function cmd_disk() {
+    [[ "x$HEX_TARGET_DEV" != "x" ]]
+    ../../lib/util/crypt.sh key_check iso
+
+    ../../lib/util/gpt.sh wipe "$HEX_TARGET_DEV"
+    ../../lib/util/gpt.sh part_add "$HEX_TARGET_DEV" 1 0 +512M EF00 'EFI system partition'
+    ../../lib/util/gpt.sh part_add "$HEX_TARGET_DEV" 2 0 0 8300 'PARTCRYPT'
+    gdisk -l "$HEX_TARGET_DEV"
+
+    ../../lib/util/crypt.sh format "${HEX_TARGET_DEV}2" iso 1
+    ../../lib/util/crypt.sh pass_add "${HEX_TARGET_DEV}2" iso 0
+    ../../lib/util/crypt.sh open "${HEX_TARGET_DEV}2" LIVECRYPTED iso
+    
+    ../../lib/util/lvm.sh format /dev/mapper/LIVECRYPTED LIVELVM
+    ../../lib/util/lvm.sh add LIVELVM LIVEROOT 12G
+    ../../lib/util/lvm.sh add LIVELVM LIVEDATA '100%FREE'
+
+    ../../lib/util/efi.sh format "${HEX_TARGET_DEV}1"
+    ../../lib/util/mkfs.sh ext4 /dev/mapper/LIVELVM-LIVEROOT HEXLIVEROOT
+    ../../lib/util/mkfs.sh ext4 /dev/mapper/LIVELVM-LIVEDATA HEXLIVEDATA
+
+    ../../lib/util/lvm.sh close LIVELVM
+    ../../lib/util/crypt.sh close LIVECRYPTED
+    ../../lib/util/crypt.sh dump "${HEX_TARGET_DEV}2"
+}
+
 function cmd_deiso() {
     local hexblade_iso="${1?'iso file'}"
     ../../lib/iso/iso.sh deiso "$hexblade_iso"
+}
+
+function cmd_crypt_open() {
+    [[ "x$HEX_TARGET_DEV" != "x" ]]
+    ../../lib/util/crypt.sh open "${HEX_TARGET_DEV}2" LIVECRYPTED iso
+    ../../lib/util/lvm.sh open LIVELVM 
+}
+
+function cmd_mount() {
+    [[ ! -d /mnt/hexblade/cryptiso ]]
+    cmd_crypt_open
+    mkdir -p /mnt/hexblade/cryptiso/efi
+    mount "${HEX_TARGET_DEV}1" /mnt/hexblade/cryptiso/efi
+    mkdir -p /mnt/hexblade/cryptiso/image
+    mount /dev/mapper/LIVELVM-LIVEROOT /mnt/hexblade/cryptiso/image
 }
 
 function cmd_sparse_mount() {
@@ -20,6 +61,13 @@ function cmd_sparse_mount() {
 function cmd_crypt_close() {
     ../../lib/util/lvm.sh close LIVELVM
     ../../lib/util/crypt.sh close LIVECRYPTED
+}
+
+function cmd_umount() {
+    umount /mnt/hexblade/cryptiso/image
+    umount /mnt/hexblade/cryptiso/efi
+    rmdir /mnt/hexblade/cryptiso/image /mnt/hexblade/cryptiso/efi /mnt/hexblade/cryptiso
+    cmd_crypt_close
 }
 
 function cmd_sparse_umount() {

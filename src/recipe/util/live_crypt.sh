@@ -32,7 +32,7 @@ function cmd_sparse_umount() {
 }
 
 function cmd_rsync() {
-    rsync -av --delete /mnt/hexblade/image/ /mnt/hexblade/cryptiso/image/
+    rsync -avv --delete /mnt/hexblade/image/ /mnt/hexblade/cryptiso/image/
     mkdir -p /mnt/hexblade/cryptiso/efi/efi/boot/
 }
 
@@ -92,13 +92,13 @@ function cmd_sparse_create() {
     ../../lib/util/efi.sh format "${hex_loop_dev}p1"
     
     ../../lib/util/crypt.sh format "${hex_loop_dev}p2" iso 1
-    ../../lib/util/crypt.sh pass_add "${hex_loop_dev}p2" iso 0
+    # ../../lib/util/crypt.sh pass_add "${hex_loop_dev}p2" iso 0
     ../../lib/util/crypt.sh open "${hex_loop_dev}p2" LIVECRYPTEDROOT iso
     ../../lib/util/mkfs.sh ext4 /dev/mapper/LIVECRYPTEDROOT LIVECRYPTEDROOT
     ../../lib/util/crypt.sh close LIVECRYPTEDROOT iso
     
     ../../lib/util/crypt.sh format "${hex_loop_dev}p3" iso 1
-    ../../lib/util/crypt.sh pass_add "${hex_loop_dev}p3" iso 0
+    # ../../lib/util/crypt.sh pass_add "${hex_loop_dev}p3" iso 0
     ../../lib/util/crypt.sh open "${hex_loop_dev}p3" LIVECRYPTEDDATA iso
     ../../lib/util/mkfs.sh ext4 /dev/mapper/LIVECRYPTEDDATA LIVECRYPTEDDATA
     ../../lib/util/crypt.sh close LIVECRYPTEDDATA iso
@@ -111,15 +111,6 @@ function cmd_sparse_create() {
 }
 
 function cmd_from_iso() {
-    cmd_deiso "$@"
-    cmd_disk
-    cmd_mount
-    cmd_rsync
-    cmd_grub
-    cmd_umount
-}
-
-function cmd_from_iso_to_sparse() {
     [ -f /mnt/hexblade/live-crypted/block ]
     
     cmd_deiso /mnt/hexblade/iso/hexblade.iso

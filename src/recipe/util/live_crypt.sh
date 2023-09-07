@@ -32,7 +32,7 @@ function cmd_sparse_umount() {
 }
 
 function cmd_rsync() {
-    rsync -avv --delete /mnt/hexblade/image/ /mnt/hexblade/cryptiso/image/
+    rsync -acv --delete /mnt/hexblade/image/ /mnt/hexblade/cryptiso/image/
     mkdir -p /mnt/hexblade/cryptiso/efi/efi/boot/
 }
 

@@ -166,7 +166,8 @@ function cmd_deiso() {
 }
 
 function cmd_decompress() {
-  [ ! -d /mnt/hexblade/system ]
+  [ -f /mnt/hexblade/image/casper/filesystem.squashfs ]
+  [ ! -d /mnt/hexblade/system ] || rm -rf /mnt/hexblade/system
   unsquashfs -f -d /mnt/hexblade/system /mnt/hexblade/image/casper/filesystem.squashfs
 }
 

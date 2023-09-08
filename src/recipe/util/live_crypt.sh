@@ -49,8 +49,8 @@ function cmd_grub() {
 
     ../../lib/crypt/crypt.sh initramfs_cryptparts_append iso "/dev/disks/by-uuid/$hexblade_crypted_uuid" LIVECRYPTEDDATA
     ../../lib/util/boot.sh initramfs
-    ../../lib/iso/iso.sh compress
     rsync -acv --delete -x /mnt/hexblade/image/ /mnt/hexblade/cryptiso/image/
+    ../../lib/iso/iso.sh compress
    
     cd /mnt/hexblade/cryptiso/image/
     echo "

@@ -166,7 +166,8 @@ function cmd_deiso() {
 }
 
 function cmd_decompress() {
-  [ -d /mnt/hexblade/system ] || unsquashfs -f -d /mnt/hexblade/system /mnt/hexblade/image/casper/filesystem.squashfs
+  [ ! -d /mnt/hexblade/system ]
+  unsquashfs -f -d /mnt/hexblade/system /mnt/hexblade/image/casper/filesystem.squashfs
 }
 
 set +x; cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; set -x; "cmd_${_cmd}" "$@"

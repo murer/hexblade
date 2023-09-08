@@ -3,6 +3,7 @@
 function cmd_deiso() {
     local hexblade_iso="${1?'iso file'}"
     ../../lib/iso/iso.sh deiso "$hexblade_iso"
+    ../../lib/iso/iso.sh decompress
 }
 
 function cmd_sparse_mount() {
@@ -46,7 +47,7 @@ function cmd_grub() {
     [ "x$hexblade_root_uuid" != "x" ]
     # hexblade_data_uuid="$(sudo blkid -o value -s UUID /dev/mapper/LIVELVM-LIVEDATA)"
 
-    ../../lib/crypt/crypt.sh initramfs_cryptparts_append iso "/dev/disks/by-uuid/$hexblade_crypted_uuid" LIVECRYPTEDDATA
+    # ../../lib/crypt/crypt.sh initramfs_cryptparts_append iso "/dev/disks/by-uuid/$hexblade_crypted_uuid" LIVECRYPTEDDATA
    
     cd /mnt/hexblade/cryptiso/image/
     echo "
@@ -93,13 +94,13 @@ function cmd_sparse_create() {
     ../../lib/util/efi.sh format "${hex_loop_dev}p1"
     
     ../../lib/util/crypt.sh format "${hex_loop_dev}p2" iso 1
-    # ../../lib/util/crypt.sh pass_add "${hex_loop_dev}p2" iso 0
+    ../../lib/util/crypt.sh pass_add "${hex_loop_dev}p2" iso 0
     ../../lib/util/crypt.sh open "${hex_loop_dev}p2" LIVECRYPTEDROOT iso
     ../../lib/util/mkfs.sh ext4 /dev/mapper/LIVECRYPTEDROOT LIVECRYPTEDROOT
     ../../lib/util/crypt.sh close LIVECRYPTEDROOT iso
     
     ../../lib/util/crypt.sh format "${hex_loop_dev}p3" iso 1
-    # ../../lib/util/crypt.sh pass_add "${hex_loop_dev}p3" iso 0
+    ../../lib/util/crypt.sh pass_add "${hex_loop_dev}p3" iso 0
     ../../lib/util/crypt.sh open "${hex_loop_dev}p3" LIVECRYPTEDDATA iso
     ../../lib/util/mkfs.sh ext4 /dev/mapper/LIVECRYPTEDDATA LIVECRYPTEDDATA
     ../../lib/util/crypt.sh close LIVECRYPTEDDATA iso

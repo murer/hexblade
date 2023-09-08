@@ -47,7 +47,8 @@ function cmd_grub() {
     [ "x$hexblade_root_uuid" != "x" ]
     # hexblade_data_uuid="$(sudo blkid -o value -s UUID /dev/mapper/LIVELVM-LIVEDATA)"
 
-    # ../../lib/crypt/crypt.sh initramfs_cryptparts_append iso "/dev/disks/by-uuid/$hexblade_crypted_uuid" LIVECRYPTEDDATA
+    ../../lib/crypt/crypt.sh initramfs_cryptparts_append iso "/dev/disks/by-uuid/$hexblade_crypted_uuid" LIVECRYPTEDDATA
+    ../../lib/util/boot.sh initramfs
    
     cd /mnt/hexblade/cryptiso/image/
     echo "

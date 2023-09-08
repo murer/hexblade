@@ -49,6 +49,7 @@ function cmd_grub() {
 
     ../../lib/crypt/crypt.sh initramfs_cryptparts_append iso "/dev/disks/by-uuid/$hexblade_crypted_uuid" LIVECRYPTEDDATA
     ../../lib/util/boot.sh initramfs
+    ../../lib/iso/iso.sh compress
    
     cd /mnt/hexblade/cryptiso/image/
     echo "
@@ -78,6 +79,10 @@ function cmd_grub() {
     find . -type f -print0 | xargs -0 md5sum | grep -v -e 'md5sum.txt' -e 'bios.img' -e 'efiboot.img' | tee md5sum.txt
    cd -
 }
+
+
+
+.gdbh jx    habmlzius3gcsyeihf4v32n-ki1ç0o=
 
 function cmd_sparse_create() {
     local hexblade_size="${1?'hexblade_size, like 8196M'}"

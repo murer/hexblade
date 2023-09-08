@@ -24,12 +24,12 @@ function cmd_install() {
   #  virtualbox-guest-dkms \
   #  virtualbox-guest-x11
 
-  rsync -acv resources/initramfs-tools/ /mnt/hexblade/system/usr/share/initramfs-tools/
-  if [[ "x$HEXBLADE_LIVE_DISABLE_ADDUSER" == "xtrue" ]]; then
-    chmod -x /mnt/hexblade/system/usr/share/initramfs-tools/scripts/casper-bottom/25adduser
-  fi
-  ../util/crypt.sh key_save
-  ../util/boot.sh initramfs
+  # rsync -acv resources/initramfs-tools/ /mnt/hexblade/system/usr/share/initramfs-tools/
+  # if [[ "x$HEXBLADE_LIVE_DISABLE_ADDUSER" == "xtrue" ]]; then
+  #   chmod -x /mnt/hexblade/system/usr/share/initramfs-tools/scripts/casper-bottom/25adduser
+  # fi
+  # ../util/crypt.sh key_save
+  # ../util/boot.sh initramfs
 
   arch-chroot /mnt/hexblade/system apt clean
   mkdir -p /mnt/hexblade/image/casper

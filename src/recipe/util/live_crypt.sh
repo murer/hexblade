@@ -80,10 +80,6 @@ function cmd_grub() {
    cd -
 }
 
-
-
-.gdbh jx    habmlzius3gcsyeihf4v32n-ki1ç0o=
-
 function cmd_sparse_create() {
     local hexblade_size="${1?'hexblade_size, like 8196M'}"
     ../../lib/util/crypt.sh key_check iso

@@ -111,6 +111,10 @@ function cmd_sparse_create() {
      
 }
 
+function cmd_sparse_to_vmdk() {
+    qemu-img convert -p -f raw -O vmdk /mnt/hexblade/live-crypted/block /mnt/hexblade/live-crypted/block.vmdk
+}
+
 function cmd_from_iso() {
     [ -f /mnt/hexblade/live-crypted/block ]
     
@@ -122,6 +126,7 @@ function cmd_from_iso() {
 
     cmd_grub
     cmd_sparse_umount
+    cmd_sparse_to_vmdk
 
     du -hs /mnt/hexblade/live-crypted/block
     du -hs --apparent-size /mnt/hexblade/live-crypted/block

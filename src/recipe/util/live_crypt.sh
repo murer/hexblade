@@ -37,6 +37,20 @@ function cmd_rsync() {
     mkdir -p /mnt/hexblade/cryptiso/efi/efi/boot/
 }
 
+function cmd_decrypt() {
+    [ "x$HEX_TARGET_DEV" != "x" ]
+    local hexblade_crypted_root="$(sudo blkid -o value -s UUID "${HEX_TARGET_DEV}2" || sudo blkid -o value -s UUID "${HEX_TARGET_DEV}p2")"
+    [ "x$hexblade_crypted_root" != "x" ]
+    local hexblade_crypted_data="$(sudo blkid -o value -s UUID "${HEX_TARGET_DEV}3" || sudo blkid -o value -s UUID "${HEX_TARGET_DEV}p3")"
+    [ "x$hexblade_crypted_data" != "x" ]
+
+    ../../lib/crypt/crypt.sh initramfs_cryptparts_append iso "/dev/disk/by-uuid/$hexblade_crypted_uuid" LIVECRYPTEDROOT
+    ../../lib/util/boot.sh initramfs
+    ../../lib/iso/iso.sh compress
+    ../../lib/iso/iso.sh install
+    rsync -acv --delete -x /mnt/hexblade/image/ /mnt/hexblade/cryptiso/image/
+}
+
 function cmd_grub() {
     [ "x$HEX_TARGET_DEV" != "x" ]
     local hexblade_crypted_uuid="$(sudo blkid -o value -s UUID "${HEX_TARGET_DEV}2" || sudo blkid -o value -s UUID "${HEX_TARGET_DEV}p2")"
@@ -45,16 +59,6 @@ function cmd_grub() {
     [ "x$hexblade_crypted_id" != "x" ]
     local hexblade_root_uuid="$(sudo blkid -o value -s UUID /dev/mapper/LIVECRYPTEDROOT)"
     [ "x$hexblade_root_uuid" != "x" ]
-    # hexblade_data_uuid="$(sudo blkid -o value -s UUID /dev/mapper/LIVELVM-LIVEDATA)"
-
-    ../../lib/crypt/crypt.sh initramfs_cryptparts_append iso "/dev/disk/by-uuid/$hexblade_crypted_uuid" LIVECRYPTEDROOT
-    # ../../lib/crypt/crypt.sh key_save
-    # ../../lib/crypt/crypt.sh crypttab_start
-    # ../../lib/crypt/crypt.sh crypttab_add LIVECRYPTEDROOT iso
-    ../../lib/util/boot.sh initramfs
-    ../../lib/iso/iso.sh compress
-    ../../lib/iso/iso.sh install
-    rsync -acv --delete -x /mnt/hexblade/image/ /mnt/hexblade/cryptiso/image/
     
     cd /mnt/hexblade/cryptiso/image/
     echo "
@@ -131,6 +135,8 @@ function cmd_from_iso() {
     cmd_rsync
     
     export HEX_TARGET_DEV="$(losetup --list --raw --output NAME,BACK-FILE --noheadings | grep "/mnt/hexblade/live-crypted/block$" | cut -d" " -f1)"
+
+    cmd_decrypt
 
     cmd_grub
     cmd_sparse_umount

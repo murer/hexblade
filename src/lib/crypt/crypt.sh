@@ -49,13 +49,13 @@ function cmd_initramfs_cryptparts_append() {
   cmd_key_check "$hexblade_crypt_key"
   [ -d /mnt/hexblade/system/usr/share/initramfs-tools/scripts/init-premount ]
   cp initramfs-tools/hooks/hexblade-cryptparts.sh /mnt/hexblade/system/usr/share/initramfs-tools/hooks/hexblade-cryptparts.sh
-  mkdir -p /mnt/hexblade/system/luksparts
-  cp "/mnt/hexblade/crypt/$hexblade_crypt_key.key" "/mnt/hexblade/system/luksparts/$hexblade_crypt_key.key"
+  mkdir -p /mnt/hexblade/system/etc/luksparts
+  cp "/mnt/hexblade/crypt/$hexblade_crypt_key.key" "/mnt/hexblade/system/etc/luksparts/$hexblade_crypt_key.key"
 
   [ -f /mnt/hexblade/system/usr/share/initramfs-tools/scripts/init-premount/hexblade_cryptparts.sh  ]  \
     || cp ./initramfs-tools/scripts/init-premount/hexblade_cryptparts.sh /mnt/hexblade/system/usr/share/initramfs-tools/scripts/init-premount/hexblade_cryptparts.sh
   grep ".*$hexblade_crypt_dest\"$" /mnt/hexblade/system/usr/share/initramfs-tools/scripts/init-premount/hexblade_cryptparts.sh \
-    || echo "cryptsetup open --key-file \"/etc/lukskeys/$hexblade_crypt_key.key\" \"$hexblade_crypt_part\" \"$hexblade_crypt_dest\"" \
+    || echo "cryptsetup open --key-file \"/etc/luksparts/$hexblade_crypt_key.key\" \"$hexblade_crypt_part\" \"$hexblade_crypt_dest\"" \
       >> /mnt/hexblade/system/usr/share/initramfs-tools/scripts/init-premount/hexblade_cryptparts.sh
 
 }

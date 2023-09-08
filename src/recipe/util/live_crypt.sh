@@ -92,8 +92,8 @@ function cmd_sparse_create() {
     dd if=/dev/zero of=/mnt/hexblade/live-crypted/block bs=1 count=0 "seek=$hexblade_size" 
     ../../lib/util/gpt.sh wipe "/mnt/hexblade/live-crypted/block"
     ../../lib/util/gpt.sh part_add "/mnt/hexblade/live-crypted/block" 1 0 +512M EF00 'EFI system partition' 
-    ../../lib/util/gpt.sh part_add "/mnt/hexblade/live-crypted/block" 2 0 +6G 8300 'PARTCRYPTROOT'
-    ../../lib/util/gpt.sh part_add "/mnt/hexblade/live-crypted/block" 3 0 0 8300 'PARTCRYPTDATA'
+    ../../lib/util/gpt.sh part_add "/mnt/hexblade/live-crypted/block" 2 0 +6G 8300 'PARTCRYPTEDROOT'
+    ../../lib/util/gpt.sh part_add "/mnt/hexblade/live-crypted/block" 3 0 0 8300 'PARTCRYPTEDDATA'
     du -hs /mnt/hexblade/live-crypted/block
     du -hs --apparent-size /mnt/hexblade/live-crypted/block
     local hex_loop_dev="$(losetup --list --raw --output NAME,BACK-FILE --noheadings | grep "/mnt/hexblade/live-crypted/block$" | cut -d" " -f1)"

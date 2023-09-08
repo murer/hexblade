@@ -1,7 +1,7 @@
 #!/bin/bash -xe
 
 function cmd_initramfs() {
-    arch-chroot /mnt/hexblade/system update-initramfs -u -k all -vvv
+    arch-chroot /mnt/hexblade/system update-initramfs -u -k all 
 }
 
 function cmd_boot() {

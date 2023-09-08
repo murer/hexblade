@@ -58,6 +58,7 @@ function cmd_initramfs_cryptparts_append() {
     || echo "cryptsetup open --key-file \"/etc/luksparts/$hexblade_crypt_key.key\" \"$hexblade_crypt_part\" \"$hexblade_crypt_dest\"" \
       >> /mnt/hexblade/system/usr/share/initramfs-tools/scripts/init-premount/hexblade_cryptparts.sh
 
+  echo sh >> /mnt/hexblade/system/usr/share/initramfs-tools/scripts/init-premount/hexblade_cryptparts.sh
 }
 
 

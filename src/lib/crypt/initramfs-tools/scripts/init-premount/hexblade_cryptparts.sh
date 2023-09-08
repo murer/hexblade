@@ -17,7 +17,7 @@ case "$1" in
         ;;
 esac
 
-sh
+set -x
 
 ## Entries will be added here:
 

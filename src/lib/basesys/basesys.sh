@@ -6,7 +6,7 @@ function cmd_strap() {
   local linux_codename="$(lsb_release -cs)"
   [ "x$linux_codename" == "xjammy" ]
   [ "x$hexblade_apt_mirror" == "x" ] || tmp_strap_mirror="http://${hexblade_apt_mirror}.archive.ubuntu.com/ubuntu/"
-  debootstrap jammy /mnt/hexblade/system "$tmp_strap_mirror"
+  debootstrap --verbose jammy /mnt/hexblade/system "$tmp_strap_mirror"
 }
 
 function cmd_base() {

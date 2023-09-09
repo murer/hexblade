@@ -37,20 +37,18 @@ function cmd_usb_mount() {
     mount /dev/mapper/LIVECRYPTEDROOT /mnt/hexblade/cryptiso/image
 }
 
-function cmd_sparse_umount() {
+function cmd_usb_umount() {
     umount /mnt/hexblade/cryptiso/image
     ../../lib/util/crypt.sh close LIVECRYPTEDROOT
     umount /mnt/hexblade/cryptiso/efi
     rmdir /mnt/hexblade/cryptiso/image /mnt/hexblade/cryptiso/efi /mnt/hexblade/cryptiso
-    local hex_loop_dev="$(losetup --list --raw --output NAME,BACK-FILE --noheadings | grep "/mnt/hexblade/live-crypted/block$" | cut -d" " -f1)"
-    [ "x$hex_loop_dev" == "x" ] || losetup -d "$hex_loop_dev"
 }
 
 function cmd_from_iso() {
     ls "$HEX_TARGET_DEV"
     
-    ./live_crypt.sh deiso /mnt/hexblade/iso/hexblade.iso
-    # cmd_usb_mount
+    # ./live_crypt.sh deiso /mnt/hexblade/iso/hexblade.iso
+    cmd_usb_mount
     # ./live_crypt.iso cmd_rsync
     
     # export HEX_TARGET_DEV="$(losetup --list --raw --output NAME,BACK-FILE --noheadings | grep "/mnt/hexblade/live-crypted/block$" | cut -d" " -f1)"
@@ -58,7 +56,7 @@ function cmd_from_iso() {
     # cmd_decrypt
 
     # cmd_grub
-    # cmd_sparse_umount
+    cmd_usb_umount
     # cmd_sparse_to_vmdk
 
     # du -hs /mnt/hexblade/live-crypted/block

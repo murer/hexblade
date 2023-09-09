@@ -58,7 +58,7 @@ function cmd_packs() {
 }
 
 function cmd_iso() {
-    HEXBLADE_LIVE_DISABLE_ADDUSER=true ../../lib/iso/iso.sh install
+    ../../lib/iso/iso.sh install
     ../../lib/iso/iso.sh compress
     ../../lib/iso/iso.sh iso
     ../../lib/iso/iso.sh sha256

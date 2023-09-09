@@ -41,10 +41,13 @@ function cmd_customize() {
     [ "x$HEX_TARGET_DEV" != "x" ]
     local hexblade_crypted_data="$(sudo blkid -o value -s UUID "${HEX_TARGET_DEV}3" || sudo blkid -o value -s UUID "${HEX_TARGET_DEV}p3")"
     [ "x$hexblade_crypted_data" != "x" ]
-    mkdir -p /mnt/hexblade/system/localdata
+    mkdir -p /mnt/hexblade/system/livedata
     ../../lib/util/crypt.sh open "/dev/disk/by-uuid/$hexblade_crypted_data" LIVECRYPTEDDATA iso
-    mount /dev/mapper/LIVECRYPTEDDATA /mnt/hexblade/system/localdata
-    umount /mnt/hexblade/system/localdata
+    mount /dev/mapper/LIVECRYPTEDDATA /mnt/hexblade/system/livedata
+    arch-chroot /mnt/hexblade/system mkdir -p /localdata/hexes/root/etc
+    arch-chroot /mnt/hexblade/system mv /etc/NetworkManager /localdata/hexes/root/etc
+    arch-chroot /mnt/hexblade/system ln -s /etc/NetworkManager /localdata/hexes/root/etc/NetworkManager
+    umount /mnt/hexblade/system/livedata
     ../../lib/util/crypt.sh close LIVECRYPTEDDATA
 }
 
@@ -57,7 +60,7 @@ function cmd_decrypt() {
 
     ../../lib/crypt/crypt.sh initramfs_cryptparts_append iso "/dev/disk/by-uuid/$hexblade_crypted_root" LIVECRYPTEDROOT
     ../../lib/crypt/crypt.sh initramfs_cryptparts_append iso "/dev/disk/by-uuid/$hexblade_crypted_data" LIVECRYPTEDDATA 
-    ../../lib/crypt/crypt.sh initramfs_mount_append /dev/mapper/LIVECRYPTEDDATA /root/localdata -w
+    ../../lib/crypt/crypt.sh initramfs_mount_append /dev/mapper/LIVECRYPTEDDATA /root/livedata -w
     ../../lib/util/boot.sh initramfs
     ../../lib/iso/iso.sh compress
     ../../lib/iso/iso.sh install

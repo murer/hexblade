@@ -14,17 +14,17 @@ function cmd_format() {
     ../../lib/util/crypt.sh format "${HEX_TARGET_DEV}2" iso 1
     ../../lib/util/crypt.sh format "${HEX_TARGET_DEV}3" iso 1
 
-    # ../../lib/util/crypt.sh pass_add "${HEX_TARGET_DEV}2" iso 0
-    # ../../lib/util/crypt.sh pass_add "${HEX_TARGET_DEV}3" iso 0
+    ../../lib/util/crypt.sh pass_add "${HEX_TARGET_DEV}2" iso 0
+    ../../lib/util/crypt.sh pass_add "${HEX_TARGET_DEV}3" iso 0
 
-    ../../lib/util/crypt.sh open "${HEX_TARGET_DEV}2" LIVECRYPTEDROOT iso
+    ../../lib/util/crypt.sh open "${HEX_TARGET_DEV}2" PARTCRYPTEDROOT iso
     ../../lib/util/crypt.sh open "${HEX_TARGET_DEV}3" PARTCRYPTEDDATA iso
     
-    ../../lib/util/mkfs.sh ext4 /dev/mapper/LIVECRYPTEDROOT LIVECRYPTEDROOT
+    ../../lib/util/mkfs.sh ext4 /dev/mapper/PARTCRYPTEDROOT PARTCRYPTEDROOT
     ../../lib/util/mkfs.sh ext4 /dev/mapper/PARTCRYPTEDDATA PARTCRYPTEDDATA
 
-    ../../lib/util/crypt.sh close LIVECRYPTEDROOT iso
-    ../../lib/util/crypt.sh close LIVECRYPTEDDATA iso
+    ../../lib/util/crypt.sh close PARTCRYPTEDROOT iso
+    ../../lib/util/crypt.sh close PARTCRYPTEDDATA iso
     
 
     # ../../lib/util/crypt.sh pass_add "${hex_loop_dev}p2" iso 0

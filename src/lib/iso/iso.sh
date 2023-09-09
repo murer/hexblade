@@ -11,7 +11,6 @@ function cmd_install() {
     os-prober \
     upower \
     dkms
-    #virtualbox-guest-utils
 
   #arch-chroot /mnt/hexblade/system apt install -y \
   # ubiquity \
@@ -20,16 +19,8 @@ function cmd_install() {
   # ubiquity-slideshow-ubuntu \
   # ubiquity-ubuntu-artwork \
 
-  #arch-chroot /mnt/hexblade/system apt install -y \
-  #  virtualbox-guest-dkms \
-  #  virtualbox-guest-x11
-
-  # rsync -acv resources/initramfs-tools/ /mnt/hexblade/system/usr/share/initramfs-tools/
-  # if [[ "x$HEXBLADE_LIVE_DISABLE_ADDUSER" == "xtrue" ]]; then
-  #   chmod -x /mnt/hexblade/system/usr/share/initramfs-tools/scripts/casper-bottom/25adduser
-  # fi
-  # ../util/crypt.sh key_save
-  # ../util/boot.sh initramfs
+  chmod -x /mnt/hexblade/system/usr/share/initramfs-tools/scripts/casper-bottom/25adduser
+  ../util/boot.sh initramfs
 
   arch-chroot /mnt/hexblade/system apt clean
   mkdir -p /mnt/hexblade/image/casper
@@ -153,7 +144,7 @@ function cmd_umount() {
 
 function cmd_mount() {
     local hexblade_iso="${1?'iso file'}"
-    [[ ! -d /mnt/hexblade/liveiso ]]
+    [ ! -d /mnt/hexblade/liveiso ]
     mkdir -p /mnt/hexblade/liveiso
     mount -o loop "$hexblade_iso" /mnt/hexblade/liveiso
 }

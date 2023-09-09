@@ -44,11 +44,11 @@ function cmd_customize() {
     mkdir -p /mnt/hexblade/system/livedata
     ../../lib/util/crypt.sh open "/dev/disk/by-uuid/$hexblade_crypted_data" LIVECRYPTEDDATA iso
     mount /dev/mapper/LIVECRYPTEDDATA /mnt/hexblade/system/livedata
-    mkdir -p /mnt/hexblade/system/livedata/hexes/root/etc
+    mkdir -p /mnt/hexblade/system/livedata/hexes/root/etc /mnt/hexblade/system/livedata/home/ubuntu
     [ -d /mnt/hexblade/system/livedata/hexes/root/etc/NetworkManager ] || mv /mnt/hexblade/system/etc/NetworkManager /mnt/hexblade/system/livedata/hexes/root/etc
     rm /mnt/hexblade/system/etc/NetworkManager || true 
     arch-chroot /mnt/hexblade/system ln -s /etc/NetworkManager /livedata/hexes/root/etc/NetworkManager
-    false 'aaaa'
+    arch-chroot /mnt/hexblade/system chown -R ubuntu:ubuntu /livedata/home/ubuntu
     umount /mnt/hexblade/system/livedata
     ../../lib/util/crypt.sh close LIVECRYPTEDDATA
 }

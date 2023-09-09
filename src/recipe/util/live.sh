@@ -48,7 +48,7 @@ function cmd_packs() {
     ../../lib/util/installer.sh uchr ubuntu sudo -E /installer/hexblade/pack/util/chrome.sh install
     
     ../../lib/util/installer.sh uchr ubuntu sudo -E /installer/hexblade/pack/openbox/openbox.sh install
-    ../../lib/util/installer.sh uchr ubuntu sudo -E /installer/hexblade/pack/openbox/openbox.sh background 002200
+    ../../lib/util/installer.sh uchr ubuntu sudo -E /installer/hexblade/pack/openbox/openbox.sh background 0a0a22
 
     # ../../lib/util/installer.sh uchr ubuntu sudo -E /installer/hexblade/pack/openbox/openbox.sh xinit
     ../../lib/util/installer.sh uchr ubuntu sudo -E /installer/hexblade/pack/lxdm/lxdm.sh install

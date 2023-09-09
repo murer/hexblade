@@ -58,7 +58,7 @@ function cmd_from_iso() {
     ./live_crypt.sh decrypt
     sync
 
-    ./live_crypt.sh usb_umount
+    ./live_crypt.sh grub
     sync
 
     cmd_usb_umount

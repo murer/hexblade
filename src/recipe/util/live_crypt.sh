@@ -47,7 +47,6 @@ function cmd_customize() {
     mkdir -p /mnt/hexblade/system/livedata/hexes/root/etc /mnt/hexblade/system/livedata/home/ubuntu
     [ -d /mnt/hexblade/system/livedata/hexes/root/etc/NetworkManager ] || mv /mnt/hexblade/system/etc/NetworkManager /mnt/hexblade/system/livedata/hexes/root/etc
     rm -rf /mnt/hexblade/system/etc/NetworkManager || true 
-    bash
     arch-chroot /mnt/hexblade/system ln -s /livedata/hexes/root/etc/NetworkManager /etc/NetworkManager
     arch-chroot /mnt/hexblade/system chown -R ubuntu:ubuntu /livedata/home/ubuntu
     umount /mnt/hexblade/system/livedata

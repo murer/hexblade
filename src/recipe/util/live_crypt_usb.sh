@@ -16,6 +16,9 @@ function cmd_format() {
 
     # ../../lib/util/crypt.sh pass_add "${HEX_TARGET_DEV}2" iso 0
     # ../../lib/util/crypt.sh pass_add "${HEX_TARGET_DEV}3" iso 0
+
+    ../../lib/util/crypt.sh open "${HEX_TARGET_DEV}2" LIVECRYPTEDROOT iso
+    ../../lib/util/crypt.sh open "${HEX_TARGET_DEV}3" PARTCRYPTEDDATA iso
     
     ../../lib/util/mkfs.sh ext4 /dev/mapper/LIVECRYPTEDROOT LIVECRYPTEDROOT
     ../../lib/util/mkfs.sh ext4 /dev/mapper/PARTCRYPTEDDATA PARTCRYPTEDDATA

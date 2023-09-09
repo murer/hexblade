@@ -49,7 +49,7 @@ function cmd_from_iso() {
     
     ./live_crypt.sh deiso /mnt/hexblade/iso/hexblade.iso
     cmd_usb_mount
-    ./live_crypt.iso rsync
+    ./live_crypt.sh rsync
     sync
 
     ./live_crypt.sh customize

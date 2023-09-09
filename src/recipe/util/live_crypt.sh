@@ -47,7 +47,7 @@ function cmd_customize() {
     mkdir -p /mnt/hexblade/system/livedata/hexes/root/etc
     [ -d /mnt/hexblade/system/livedata/hexes/root/etc/NetworkManager ] || mv /mnt/hexblade/system/etc/NetworkManager /mnt/hexblade/system/livedata/hexes/root/etc
     rm /mnt/hexblade/system/etc/NetworkManager || true 
-    /mnt/hexblade/system ln -s /etc/NetworkManager /livedata/hexes/root/etc/NetworkManager
+    arch-chroot /mnt/hexblade/system ln -s /etc/NetworkManager /livedata/hexes/root/etc/NetworkManager
     false 'aaaa'
     umount /mnt/hexblade/system/livedata
     ../../lib/util/crypt.sh close LIVECRYPTEDDATA

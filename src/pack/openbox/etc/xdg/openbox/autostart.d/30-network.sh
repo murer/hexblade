@@ -1,0 +1,2 @@
+
+nm-applet &

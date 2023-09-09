@@ -64,6 +64,12 @@ function cmd_iso() {
     ../../lib/iso/iso.sh sha256
 }
 
+function cmd_deiso() {
+    [ -d /mnt/hexblade/system ]
+    /../lib/iso/iso.sh deiso "$hexblade_iso"
+    ../../lib/iso/iso.sh decompress
+}
+
 function cmd_from_scratch() {
     cmd_mount
     cmd_strap

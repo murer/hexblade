@@ -47,20 +47,22 @@ function cmd_usb_umount() {
 function cmd_from_iso() {
     ls "$HEX_TARGET_DEV"
     
-    # ./live_crypt.sh deiso /mnt/hexblade/iso/hexblade.iso
+    ./live_crypt.sh deiso /mnt/hexblade/iso/hexblade.iso
     cmd_usb_mount
-    # ./live_crypt.iso cmd_rsync
-    
-    # export HEX_TARGET_DEV="$(losetup --list --raw --output NAME,BACK-FILE --noheadings | grep "/mnt/hexblade/live-crypted/block$" | cut -d" " -f1)"
+    ./live_crypt.iso rsync
+    sync
 
-    # cmd_decrypt
+    ./live_crypt.sh customize
+    sync
 
-    # cmd_grub
+    ./live_crypt.sh decrypt
+    sync
+
+    ./live_crypt.sh usb_umount
+    sync
+
     cmd_usb_umount
-    # cmd_sparse_to_vmdk
-
-    # du -hs /mnt/hexblade/live-crypted/block
-    # du -hs --apparent-size /mnt/hexblade/live-crypted/block
+    sync
     
 }
 

@@ -153,7 +153,7 @@ function cmd_umount() {
 
 function cmd_mount() {
     local hexblade_iso="${1?'iso file'}"
-    [[ ! -d /mnt/hexblade/liveiso ]]
+    [ ! -d /mnt/hexblade/liveiso ]
     mkdir -p /mnt/hexblade/liveiso
     mount -o loop "$hexblade_iso" /mnt/hexblade/liveiso
 }

@@ -65,7 +65,7 @@ function cmd_iso() {
 }
 
 function cmd_deiso() {
-    [ -d /mnt/hexblade/system ]
+    [ ! -d /mnt/hexblade/system ]
     ../../lib/iso/iso.sh deiso /mnt/hexblade/iso/hexblade.iso
     ../../lib/iso/iso.sh decompress
 }

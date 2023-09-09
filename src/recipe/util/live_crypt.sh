@@ -44,9 +44,9 @@ function cmd_customize() {
     mkdir -p /mnt/hexblade/system/livedata
     ../../lib/util/crypt.sh open "/dev/disk/by-uuid/$hexblade_crypted_data" LIVECRYPTEDDATA iso
     mount /dev/mapper/LIVECRYPTEDDATA /mnt/hexblade/system/livedata
-    arch-chroot /mnt/hexblade/system mkdir -p /localdata/hexes/root/etc
-    arch-chroot /mnt/hexblade/system mv /etc/NetworkManager /localdata/hexes/root/etc
-    arch-chroot /mnt/hexblade/system ln -s /etc/NetworkManager /localdata/hexes/root/etc/NetworkManager
+    arch-chroot /mnt/hexblade/system mkdir -p /livedata/hexes/root/etc
+    arch-chroot /mnt/hexblade/system mv /etc/NetworkManager /livedata/hexes/root/etc
+    arch-chroot /mnt/hexblade/system ln -s /etc/NetworkManager /livedata/hexes/root/etc/NetworkManager
     umount /mnt/hexblade/system/livedata
     ../../lib/util/crypt.sh close LIVECRYPTEDDATA
 }

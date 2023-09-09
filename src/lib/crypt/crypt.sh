@@ -37,10 +37,6 @@ function cmd_close() {
   cryptsetup close "$hexblade_crypt_name"
 }
 
-function cmd_initramfs_cryptparts_clean() {
-  rm /mnt/hexblade/system/usr/share/initramfs-tools/scripts/init-premount/hexblade_cryptparts.sh || true
-}
-
 function cmd_initramfs_cryptparts_append() {
   local hexblade_crypt_key="${1?'hexblade_crypt_key'}"
   local hexblade_crypt_part="${2?'hexblade_crypt_part'}"
@@ -57,6 +53,21 @@ function cmd_initramfs_cryptparts_append() {
   grep ".*$hexblade_crypt_dest\"$" /mnt/hexblade/system/usr/share/initramfs-tools/scripts/init-premount/hexblade_cryptparts.sh \
     || echo "cryptsetup open --key-file \"/etc/luksparts/$hexblade_crypt_key.key\" \"$hexblade_crypt_part\" \"$hexblade_crypt_dest\"" \
       >> /mnt/hexblade/system/usr/share/initramfs-tools/scripts/init-premount/hexblade_cryptparts.sh
+
+  echo sh >> /mnt/hexblade/system/usr/share/initramfs-tools/scripts/init-premount/hexblade_cryptparts.sh
+}
+
+function cmd_initramfs_mount_append() {
+  local hexblade_crypt_dev="${1?'hexblade_crypt_dev'}"
+  local hexblade_crypt_dest="${2?'hexblade_crypt_dest'}"
+  local hexblade_crypt_opts="$3"
+  
+  [ -d /mnt/hexblade/system/usr/share/initramfs-tools/scripts/init-bottom ]
+  [ -f /mnt/hexblade/system/usr/share/initramfs-tools/scripts/init-bottom/hexblade_mount.sh  ]  \
+    || cp ./initramfs-tools/scripts/init-bottom/hexblade_mount.sh /mnt/hexblade/system/usr/share/initramfs-tools/scripts/init-bottom/hexblade_mount.sh
+  grep ".*$hexblade_crypt_dest\"$" /mnt/hexblade/system/usr/share/initramfs-tools/scripts/init-bottom/hexblade_mount.sh \
+    || echo "mount $hexblade_crypt_opts \"$hexblade_crypt_dev\" \"$hexblade_crypt_dest\"" \
+      >> /mnt/hexblade/system/usr/share/initramfs-tools/scripts/init-bottom/hexblade_mount.sh
 
   echo sh >> /mnt/hexblade/system/usr/share/initramfs-tools/scripts/init-premount/hexblade_cryptparts.sh
 }

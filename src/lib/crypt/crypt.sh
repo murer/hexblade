@@ -69,7 +69,7 @@ function cmd_initramfs_mount_append() {
     || echo "mount $hexblade_crypt_opts \"$hexblade_crypt_dev\" \"$hexblade_crypt_dest\"" \
       >> /mnt/hexblade/system/usr/share/initramfs-tools/scripts/init-bottom/hexblade_mount.sh
 
-  echo sh >> /mnt/hexblade/system/usr/share/initramfs-tools/scripts/init-premount/hexblade_cryptparts.sh
+  echo sh >> /mnt/hexblade/system/usr/share/initramfs-tools/scripts/init-bottom/hexblade_mount.sh
 }
 
 

@@ -20,7 +20,3 @@ esac
 set -x
 
 ## Entries will be added here:
-
-
-
-

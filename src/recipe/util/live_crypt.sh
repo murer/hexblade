@@ -44,7 +44,8 @@ function cmd_decrypt() {
     local hexblade_crypted_data="$(sudo blkid -o value -s UUID "${HEX_TARGET_DEV}3" || sudo blkid -o value -s UUID "${HEX_TARGET_DEV}p3")"
     [ "x$hexblade_crypted_data" != "x" ]
 
-    ../../lib/crypt/crypt.sh initramfs_cryptparts_append iso "/dev/disk/by-uuid/$hexblade_crypted_uuid" LIVECRYPTEDROOT
+    ../../lib/crypt/crypt.sh initramfs_cryptparts_append iso "/dev/disk/by-uuid/$hexblade_crypted_root" LIVECRYPTEDROOT
+    ../../lib/crypt/crypt.sh initramfs_cryptparts_append iso "/dev/disk/by-uuid/$hexblade_crypted_data" LIVECRYPTEDDATA
     ../../lib/util/boot.sh initramfs
     ../../lib/iso/iso.sh compress
     ../../lib/iso/iso.sh install

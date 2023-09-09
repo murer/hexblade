@@ -49,7 +49,6 @@ function cmd_customize() {
     rm /mnt/hexblade/system/etc/NetworkManager || true 
     arch-chroot /mnt/hexblade/system ln -s /livedata/hexes/root/etc/NetworkManager /etc/NetworkManager
     arch-chroot /mnt/hexblade/system chown -R ubuntu:ubuntu /livedata/home/ubuntu
-    bash
     umount /mnt/hexblade/system/livedata
     ../../lib/util/crypt.sh close LIVECRYPTEDDATA
 }

@@ -64,8 +64,8 @@ function cmd_decrypt() {
     ../../lib/crypt/crypt.sh initramfs_cryptparts_append iso "/dev/disk/by-uuid/$hexblade_crypted_data" LIVECRYPTEDDATA 
     ../../lib/crypt/crypt.sh initramfs_mount_append /dev/mapper/LIVECRYPTEDDATA /root/livedata -w
     ../../lib/util/boot.sh initramfs
-    ../../lib/iso/iso.sh compress
     ../../lib/iso/iso.sh install
+    ../../lib/iso/iso.sh compress
     rsync -acv --delete -x /mnt/hexblade/image/ /mnt/hexblade/cryptiso/image/
 }
 

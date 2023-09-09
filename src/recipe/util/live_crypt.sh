@@ -18,11 +18,6 @@ function cmd_sparse_mount() {
     mount /dev/mapper/LIVECRYPTEDROOT /mnt/hexblade/cryptiso/image
 }
 
-function cmd_crypt_close() {
-    ../../lib/util/lvm.sh close LIVELVM
-    ../../lib/util/crypt.sh close LIVECRYPTED
-}
-
 function cmd_sparse_umount() {
     umount /mnt/hexblade/cryptiso/image
     ../../lib/util/crypt.sh close LIVECRYPTEDROOT

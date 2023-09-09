@@ -5,8 +5,8 @@ function cmd_format() {
     ../../lib/util/crypt.sh key_check iso
     ../../lib/util/gpt.sh wipe "$HEX_TARGET_DEV"
     ../../lib/util/gpt.sh part_add "$HEX_TARGET_DEV" 1 0 +512M EF00 'EFI system partition' 
-    ../../lib/util/gpt.sh part_add "$HEX_TARGET_DEV" 2 0 +6G 8300 'PARTCRYPTEDROOT'
-    ../../lib/util/gpt.sh part_add "$HEX_TARGET_DEV" 3 0 0 8300 'PARTCRYPTEDDATA'
+    ../../lib/util/gpt.sh part_add "$HEX_TARGET_DEV" 2 0 +6G 8300 'LIVECRYPTEDROOT'
+    ../../lib/util/gpt.sh part_add "$HEX_TARGET_DEV" 3 0 0 8300 'LIVECRYPTEDDATA'
     gdisk -l "$HEX_TARGET_DEV"
 
     ../../lib/util/efi.sh format "${HEX_TARGET_DEV}1"
@@ -17,25 +17,33 @@ function cmd_format() {
     ../../lib/util/crypt.sh pass_add "${HEX_TARGET_DEV}2" iso 0
     ../../lib/util/crypt.sh pass_add "${HEX_TARGET_DEV}3" iso 0
 
-    ../../lib/util/crypt.sh open "${HEX_TARGET_DEV}2" PARTCRYPTEDROOT iso
-    ../../lib/util/crypt.sh open "${HEX_TARGET_DEV}3" PARTCRYPTEDDATA iso
+    ../../lib/util/crypt.sh open "${HEX_TARGET_DEV}2" LIVECRYPTEDROOT iso
+    ../../lib/util/crypt.sh open "${HEX_TARGET_DEV}3" LIVECRYPTEDDATA iso
     
-    ../../lib/util/mkfs.sh ext4 /dev/mapper/PARTCRYPTEDROOT PARTCRYPTEDROOT
-    ../../lib/util/mkfs.sh ext4 /dev/mapper/PARTCRYPTEDDATA PARTCRYPTEDDATA
+    ../../lib/util/mkfs.sh ext4 /dev/mapper/LIVECRYPTEDROOT LIVECRYPTEDROOT
+    ../../lib/util/mkfs.sh ext4 /dev/mapper/LIVECRYPTEDDATA LIVECRYPTEDDATA
 
-    ../../lib/util/crypt.sh close PARTCRYPTEDROOT iso
-    ../../lib/util/crypt.sh close PARTCRYPTEDDATA iso
-    
+    ../../lib/util/crypt.sh close LIVECRYPTEDROOT iso
+    ../../lib/util/crypt.sh close LIVECRYPTEDDATA iso
+}
 
-    # ../../lib/util/crypt.sh pass_add "${hex_loop_dev}p2" iso 0
-    # ../../lib/util/crypt.sh open "${hex_loop_dev}p2" LIVECRYPTEDROOT iso
-    # ../../lib/util/mkfs.sh ext4 /dev/mapper/LIVECRYPTEDROOT LIVECRYPTEDROOT
-    # ../../lib/util/crypt.sh close LIVECRYPTEDROOT iso
-    
-    # ../../lib/util/crypt.sh pass_add "${hex_loop_dev}p3" iso 0
-    # ../../lib/util/crypt.sh open "${hex_loop_dev}p3" LIVECRYPTEDDATA iso
-    # ../../lib/util/mkfs.sh ext4 /dev/mapper/LIVECRYPTEDDATA LIVECRYPTEDDATA
-    # ../../lib/util/crypt.sh close LIVECRYPTEDDATA iso
+function cmd_usb_mount() {
+    ls "$HEX_TARGET_DEV"
+    [ ! -d /mnt/hexblade/cryptiso ]
+    mkdir -p /mnt/hexblade/cryptiso/efi
+    mount "${HEX_TARGET_DEV}1" /mnt/hexblade/cryptiso/efi
+    mkdir -p /mnt/hexblade/cryptiso/image
+    ../../lib/util/crypt.sh open "${HEX_TARGET_DEV}2" LIVECRYPTEDROOT iso
+    mount /dev/mapper/LIVECRYPTEDROOT /mnt/hexblade/cryptiso/image
+}
+
+function cmd_sparse_umount() {
+    umount /mnt/hexblade/cryptiso/image
+    ../../lib/util/crypt.sh close LIVECRYPTEDROOT
+    umount /mnt/hexblade/cryptiso/efi
+    rmdir /mnt/hexblade/cryptiso/image /mnt/hexblade/cryptiso/efi /mnt/hexblade/cryptiso
+    local hex_loop_dev="$(losetup --list --raw --output NAME,BACK-FILE --noheadings | grep "/mnt/hexblade/live-crypted/block$" | cut -d" " -f1)"
+    [ "x$hex_loop_dev" == "x" ] || losetup -d "$hex_loop_dev"
 }
 
 function cmd_from_iso() {

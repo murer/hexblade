@@ -6,6 +6,8 @@ function cmd_strap() {
   local linux_codename="$(lsb_release -cs)"
   [ "x$linux_codename" == "xjammy" ]
   [ "x$hexblade_apt_mirror" == "x" ] || tmp_strap_mirror="http://${hexblade_apt_mirror}.archive.ubuntu.com/ubuntu/"
+
+  # try to kill wget (killall wget) if it stuck
   debootstrap --verbose "$linux_codename" /mnt/hexblade/system "$tmp_strap_mirror" || \
     debootstrap --verbose "$linux_codename" /mnt/hexblade/system "$tmp_strap_mirror" || \
     debootstrap --verbose "$linux_codename" /mnt/hexblade/system "$tmp_strap_mirror" || \

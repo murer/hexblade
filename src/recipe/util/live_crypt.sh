@@ -37,6 +37,17 @@ function cmd_rsync() {
     mkdir -p /mnt/hexblade/cryptiso/efi/efi/boot/
 }
 
+function cmd_customize() {
+    [ "x$HEX_TARGET_DEV" != "x" ]
+    local hexblade_crypted_data="$(sudo blkid -o value -s UUID "${HEX_TARGET_DEV}3" || sudo blkid -o value -s UUID "${HEX_TARGET_DEV}p3")"
+    [ "x$hexblade_crypted_data" != "x" ]
+    mkdir -p /mnt/hexblade/system/localdata
+    ../../lib/util/crypt.sh open "/dev/disk/by-uuid/$hexblade_crypted_data" LIVECRYPTEDDATA iso
+    mount /dev/mapper/LIVECRYPTEDDATA /mnt/hexblade/system/localdata
+    umount /mnt/hexblade/system/localdata
+    ../../lib/util/crypt.sh close LIVECRYPTEDDATA
+}
+
 function cmd_decrypt() {
     [ "x$HEX_TARGET_DEV" != "x" ]
     local hexblade_crypted_root="$(sudo blkid -o value -s UUID "${HEX_TARGET_DEV}2" || sudo blkid -o value -s UUID "${HEX_TARGET_DEV}p2")"
@@ -138,6 +149,7 @@ function cmd_from_iso() {
     
     export HEX_TARGET_DEV="$(losetup --list --raw --output NAME,BACK-FILE --noheadings | grep "/mnt/hexblade/live-crypted/block$" | cut -d" " -f1)"
 
+    cmd_customize
     cmd_decrypt
 
     cmd_grub

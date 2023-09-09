@@ -41,7 +41,9 @@ function cmd_packs() {
     ../../lib/util/installer.sh uchr ubuntu sudo -E /installer/hexblade/pack/util/graphics.sh pcmanfm
     ../../lib/util/installer.sh uchr ubuntu sudo -E /installer/hexblade/pack/util/graphics.sh firefox
     ../../lib/util/installer.sh uchr ubuntu sudo -E /installer/hexblade/pack/util/graphics.sh network_manager_gnome
-    
+
+    ../../lib/util/installer.sh uchr ubuntu sudo -E /installer/hexblade/pack/util/vscode.sh install
+
     ../../lib/util/installer.sh uchr ubuntu sudo -E /installer/hexblade/pack/util/sound.sh pulseaudio
     ../../lib/util/installer.sh uchr ubuntu sudo -E /installer/hexblade/pack/util/chrome.sh install
     

@@ -39,7 +39,7 @@ function cmd_reuser() {
     shift
     cd -
     sudo -sHu "$hex_user" -g "$hex_user" \
-        DISPLAY="$DISPLAY" PULSE_SERVER=127.0.0.1:4713 "$@"
+        NO_AT_BRIDGE=1 DISPLAY="$DISPLAY" PULSE_SERVER=127.0.0.1:4713 "$@"
 }
 
 function cmd_fork() {
@@ -47,7 +47,7 @@ function cmd_fork() {
     shift
     cd -
     sudo -sHu "$hex_user" -g "$hex_user" -b \
-        DISPLAY="$DISPLAY" PULSE_SERVER=127.0.0.1:4713 "$@"
+        NO_AT_BRIDGE=1 DISPLAY="$DISPLAY" PULSE_SERVER=127.0.0.1:4713 "$@"
 }
 
 function cmd_install() {

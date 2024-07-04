@@ -11,23 +11,32 @@ function cmd_install() {
 	# apt -y install --no-install-suggests xscreensaver
 	#apt -y install nitrogen
 
-	if [ ! -f /etc/xdg/tint2.original.tar.gz ]; then
+	if [ ! -f /etc/xdg/terminator.original.tar.gz ] && [ -d /etc/xdg/terminator ]; then
 		cd /etc/xdg
-		tar czf tint2.original.tar.gz tint2/*
-		rm -rfv tint2/*
+		tar czf terminator.original.tar.gz terminator
+		rm -rfv terminator
 		cd -
 	fi
 
-	cp -Rv etc/xdg/tint2/* /etc/xdg/tint2
+	cp -Rv etc/xdg/terminator /etc/xdg/
 
-	if [ ! -f /etc/xdg/openbox.original.tar.gz ]; then
+	if [ ! -f /etc/xdg/tint2.original.tar.gz ] && [ -d /etc/xdg/tint2 ]; then
 		cd /etc/xdg
-		tar czf openbox.original.tar.gz openbox/*
-		rm -rfv openbox/*
+		tar czf tint2.original.tar.gz tint2
+		rm -rfv tint2
 		cd -
 	fi
 
-	cp -Rv etc/xdg/openbox/* /etc/xdg/openbox
+	cp -Rv etc/xdg/tint2 /etc/xdg/
+
+	if [ ! -f /etc/xdg/openbox.original.tar.gz ] && [ -d /etc/xdg/openbox ]; then
+		cd /etc/xdg
+		tar czf openbox.original.tar.gz openbox
+		rm -rfv openbox
+		cd -
+	fi
+
+	cp -Rv etc/xdg/openbox /etc/xdg/
 	find /etc/xdg/openbox /etc/xdg/tint2 -type d -exec chmod -v 755 '{}' \;
 	find /etc/xdg/openbox /etc/xdg/tint2 -type f -exec chmod -v 644 '{}' \;
 	chmod -v 755 /etc/xdg/openbox/autostart

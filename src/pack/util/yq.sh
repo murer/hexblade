@@ -41,6 +41,7 @@ function cmd_install() {
   chmod +x "$file"
   "$file" -V
   cp "$file" /usr/local/bin/jq
+  rm "$file"
 
   wget --progress=dot -e dotbytes=1M -c \
     "https://github.com/mikefarah/yq/releases/latest/download/yq_${_os}_${_arch}" \

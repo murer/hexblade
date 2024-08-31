@@ -1,5 +1,6 @@
 #!/bin/bash -xe
 
+# sudo usermod -G netdev -a hex
 
 function cmd_hotspot_create() {
   local _wifi_interface="${1?'_wifi_interface, get from ifconfig or ip a, sample: wlp0s20f3'}"

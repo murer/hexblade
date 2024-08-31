@@ -1,8 +1,10 @@
 #!/bin/bash -xe
 
+
 function cmd_hotspot_create() {
+  local _wifi_interface="${1?'_wifi_interface, get from ifconfig or ip a, sample: wlp0s20f3'}"
   nmcli con add type wifi \
-    ifname wlp0s20f3 \
+    ifname "$_wifi_interface" \
     con-name pyrata3 \
     autoconnect no \
     ssid pyrata3

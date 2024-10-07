@@ -26,7 +26,6 @@ function cmd_disk() {
 
 function cmd_crypt_open() {
     [[ "x$HEX_TARGET_DEV" != "x" ]]
-    [[ ! -d /mnt/hexblade/system ]]    
     ../../lib/util/crypt.sh open "${HEX_TARGET_DEV}2" MAINCRYPTED master
     ../../lib/util/crypt.sh open "${HEX_TARGET_DEV}3" DATACRYPTED master
 }

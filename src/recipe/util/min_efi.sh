@@ -13,13 +13,6 @@ function cmd_disk() {
     ../../lib/util/mkfs.sh ext4 "${HEX_TARGET_DEV}2" MAIN
 }
 
-function cmd_crypt_open() {
-    [[ "x$HEX_TARGET_DEV" != "x" ]]
-    [[ ! -d /mnt/hexblade/system ]]    
-    ../../lib/util/crypt.sh open "${HEX_TARGET_DEV}2" MAINCRYPTED master
-    ../../lib/util/lvm.sh open MAINLVM 
-}
-
 function cmd_mount() {
     [[ "x$HEX_TARGET_DEV" != "x" ]]
     mkdir -p /mnt/hexblade/system
@@ -28,30 +21,9 @@ function cmd_mount() {
     mount "${HEX_TARGET_DEV}1" /mnt/hexblade/system/boot/efi
 }
 
-function cmd_crypt_close() {
-    ../../lib/util/lvm.sh close MAINLVM
-    ../../lib/util/crypt.sh close MAINCRYPTED
-}
-
 function cmd_umount() {
     umount -R /mnt/hexblade/system
     rmdir /mnt/hexblade/system
-}
-
-function cmd_bak_create() {
-    cmd_crypt_open
-    local hex_bak_tag="${1?'backup tag'}"
-    ../../lib/util/bak.sh create min_lvm_crypt_efi "$hex_bak_tag" ESP
-    ../../lib/util/bak.sh create min_lvm_crypt_efi "$hex_bak_tag" HEXROOT
-    cmd_crypt_close
-}
-
-function cmd_bak_restore() {
-    cmd_crypt_open
-    local hex_bak_tag="${1?'backup tag'}"
-    ../../lib/util/bak.sh restore min_lvm_crypt_efi "$hex_bak_tag" ESP
-    ../../lib/util/bak.sh restore min_lvm_crypt_efi "$hex_bak_tag" HEXROOT
-    cmd_crypt_close
 }
 
 function cmd_strap() {

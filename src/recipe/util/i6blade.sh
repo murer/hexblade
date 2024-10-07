@@ -40,7 +40,7 @@ function cmd_crypt_open() {
 function cmd_mount() {
     [[ "x$HEX_TARGET_DEV" != "x" ]]
     cmd_crypt_open
-    /dev/mapper/SWAPCRYPTED
+    swapon /dev/mapper/SWAPCRYPTED
     mkdir -p /mnt/hexblade/system
     mount /dev/mapper/SYSTEMCRYPTED /mnt/hexblade/system
     mkdir -p /mnt/hexblade/system/boot/efi

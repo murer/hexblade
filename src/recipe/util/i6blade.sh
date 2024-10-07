@@ -6,8 +6,9 @@ function cmd_disk() {
 
     ../../lib/util/gpt.sh wipe "$HEX_TARGET_DEV"
     ../../lib/util/gpt.sh part_add "$HEX_TARGET_DEV" 1 0 +512M EF00 'EFI system partition'
-    ../../lib/util/gpt.sh part_add "$HEX_TARGET_DEV" 2 0 +64G 8300 'SYSTEM'
-    ../../lib/util/gpt.sh part_add "$HEX_TARGET_DEV" 3 0 0 8300 'DATA'
+    ../../lib/util/gpt.sh part_add "$HEX_TARGET_DEV" 2 0 +16G 8300 'SWAP'
+    ../../lib/util/gpt.sh part_add "$HEX_TARGET_DEV" 3 0 +64G 8300 'SYSTEM'
+    ../../lib/util/gpt.sh part_add "$HEX_TARGET_DEV" 4 0 0 8300 'DATA'
     gdisk -l "$HEX_TARGET_DEV"
 
     ../../lib/util/crypt.sh format "${HEX_TARGET_DEV}p2" master 1
@@ -17,6 +18,10 @@ function cmd_disk() {
     ../../lib/util/crypt.sh format "${HEX_TARGET_DEV}p3" master 1
     ../../lib/util/crypt.sh pass_add "${HEX_TARGET_DEV}p3" master 0
     ../../lib/util/crypt.sh open "${HEX_TARGET_DEV}p3" DATACRYPTED master
+
+    ../../lib/util/crypt.sh format "${HEX_TARGET_DEV}p4" master 1
+    ../../lib/util/crypt.sh pass_add "${HEX_TARGET_DEV}p4" master 0
+    ../../lib/util/crypt.sh open "${HEX_TARGET_DEV}p4" DATACRYPTED master
 
     ../../lib/util/efi.sh format "${HEX_TARGET_DEV}p1"
     ../../lib/util/mkfs.sh ext4 /dev/mapper/SYSTEMCRYPTED SYSTEMCRYPTED

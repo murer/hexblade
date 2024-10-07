@@ -19,8 +19,8 @@ function cmd_disk() {
     # ../../lib/util/lvm.sh add MAINLVM MAINDATA '100%FREE'
 
     # ../../lib/util/mkfs.sh swap /dev/mapper/MAINLVM-MAINSWAP
-    # ../../lib/util/efi.sh format "${HEX_TARGET_DEV}1"
-    # ../../lib/util/mkfs.sh ext4 /dev/mapper/MAINLVM-MAINROOT HEXROOT
+    ../../lib/util/efi.sh format "${HEX_TARGET_DEV}1"
+    ../../lib/util/mkfs.sh ext4 "${HEX_TARGET_DEV}2" MAIN
     # ../../lib/util/mkfs.sh ext4 /dev/mapper/MAINLVM-MAINDATA HEXDATA
 
     # ../../lib/util/lvm.sh close MAINLVM

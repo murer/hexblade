@@ -18,6 +18,8 @@ function cmd_mount() {
     mount "${HEX_TARGET_DEV}2" /mnt/hexblade/system
     mkdir -p /mnt/hexblade/system/boot/efi
     mount "${HEX_TARGET_DEV}1" /mnt/hexblade/system/boot/efi
+    mkdir -p /mnt/hexblade/system/localdata
+    mount "${HEX_TARGET_DEV}3" /mnt/hexblade/system/localdata
 }
 
 function cmd_umount() {

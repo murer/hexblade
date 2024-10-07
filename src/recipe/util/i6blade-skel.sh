@@ -33,7 +33,7 @@ function cmd_strap() {
 }
 
 function cmd_base() {
-    export HEX_TARGET_USER='i6'
+    export HEX_TARGET_USER='hex'
     export HEX_TARGET_PASS='$6$NI0AqicDKVuIhVdG$WLlVpgkjeKYxIywunabL7BrtMYVNATLjI8wE00gOVG3aXLXYyJHjHLiGeHJlXaKJyjYEe2JvIIzkpeFCBtDUR0'
     [[ -d /mnt/hexblade/system ]]
     ../../lib/basesys/basesys.sh hostname hex

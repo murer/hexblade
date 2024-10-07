@@ -74,6 +74,7 @@ function cmd_boot() {
     [[ "x$HEX_TARGET_DEV" != "x" ]]
     ../../lib/util/crypt.sh crypttab_start
     ../../lib/util/crypt.sh crypttab_add SYSTEMCRYPTED master
+    ../../lib/util/crypt.sh crypttab_add DATACRYPTED master
     ../../lib/util/fstab.sh gen
     ../../lib/util/boot.sh boot "$HEX_TARGET_DEV"
 }

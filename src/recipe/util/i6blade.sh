@@ -60,6 +60,7 @@ function cmd_strap() {
 function cmd_base() {
     export HEX_TARGET_USER='hex'
     export HEX_TARGET_PASS='$6$NI0AqicDKVuIhVdG$WLlVpgkjeKYxIywunabL7BrtMYVNATLjI8wE00gOVG3aXLXYyJHjHLiGeHJlXaKJyjYEe2JvIIzkpeFCBtDUR0'
+    export HEX_TARGET_PASS='$6$/YoEY9oigqTu218.$OhhXWfz.kBlx3dlKVQNaWYB54QT93z8cYPW.YcK0Sj9X3mlq5l1Zl/LAmwVOeIMlukWXWI1h4nKMlhER1VsNQ1'
     [[ -d /mnt/hexblade/system ]]
     ../../lib/basesys/basesys.sh hostname hex
     ../../lib/basesys/basesys.sh base

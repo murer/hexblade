@@ -13,11 +13,11 @@ function cmd_disk() {
 
     ../../lib/util/crypt.sh format "${HEX_TARGET_DEV}p2" master 1
     ../../lib/util/crypt.sh pass_add "${HEX_TARGET_DEV}p2" master 0
-    ../../lib/util/crypt.sh open "${HEX_TARGET_DEV}p2" SYSTEMCRYPTED master
-    
+    ../../lib/util/crypt.sh open "${HEX_TARGET_DEV}p2" DATACRYPTED master
+
     ../../lib/util/crypt.sh format "${HEX_TARGET_DEV}p3" master 1
     ../../lib/util/crypt.sh pass_add "${HEX_TARGET_DEV}p3" master 0
-    ../../lib/util/crypt.sh open "${HEX_TARGET_DEV}p3" DATACRYPTED master
+    ../../lib/util/crypt.sh open "${HEX_TARGET_DEV}p3" SYSTEMCRYPTED master
 
     ../../lib/util/crypt.sh format "${HEX_TARGET_DEV}p4" master 1
     ../../lib/util/crypt.sh pass_add "${HEX_TARGET_DEV}p4" master 0
@@ -32,8 +32,8 @@ function cmd_disk() {
 
 function cmd_crypt_open() {
     [[ "x$HEX_TARGET_DEV" != "x" ]]
-    ../../lib/util/crypt.sh open "${HEX_TARGET_DEV}p2" SYSTEMCRYPTED master
     ../../lib/util/crypt.sh open "${HEX_TARGET_DEV}p3" SWAPCRYPTED master
+    ../../lib/util/crypt.sh open "${HEX_TARGET_DEV}p2" SYSTEMCRYPTED master
     ../../lib/util/crypt.sh open "${HEX_TARGET_DEV}p4" DATACRYPTED master
 }
 
@@ -50,9 +50,9 @@ function cmd_mount() {
 }
 
 function cmd_crypt_close() {
+    ../../lib/util/crypt.sh close DATACRYPTED
     ../../lib/util/crypt.sh close SYSTEMCRYPTED
     ../../lib/util/crypt.sh close SWAPCRYPTED
-    ../../lib/util/crypt.sh close DATACRYPTED
 }
 
 function cmd_umount() {
@@ -83,6 +83,7 @@ function cmd_boot() {
     [[ "x$HEX_TARGET_DEV" != "x" ]]
     ../../lib/util/crypt.sh crypttab_start
     ../../lib/util/crypt.sh crypttab_add SYSTEMCRYPTED master
+    ../../lib/util/crypt.sh crypttab_add SWAPCRYPTED master
     ../../lib/util/crypt.sh crypttab_add DATACRYPTED master
     ../../lib/util/fstab.sh gen
     ../../lib/util/boot.sh boot "$HEX_TARGET_DEV"

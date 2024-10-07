@@ -27,11 +27,11 @@ function cmd_disk() {
 function cmd_mount() {
     [[ "x$HEX_TARGET_DEV" != "x" ]]
     mkdir -p /mnt/hexblade/system
-    mount "${HEX_TARGET_DEV}2" /mnt/hexblade/system
+    mount /dev/mapper/SYSTEMCRYPTED /mnt/hexblade/system
     mkdir -p /mnt/hexblade/system/boot/efi
     mount "${HEX_TARGET_DEV}1" /mnt/hexblade/system/boot/efi
     mkdir -p /mnt/hexblade/system/localdata
-    mount "${HEX_TARGET_DEV}3" /mnt/hexblade/system/localdata
+    mount /dev/mapper/DATACRYPTED /mnt/hexblade/system/localdata
 }
 
 function cmd_crypt_close() {

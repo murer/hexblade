@@ -2,6 +2,8 @@
 
 function cmd_disk() {
     [[ "x$HEX_TARGET_DEV" != "x" ]]
+    ../../lib/util/crypt.sh key_check master
+
     ../../lib/util/gpt.sh wipe "$HEX_TARGET_DEV"
     ../../lib/util/gpt.sh part_add "$HEX_TARGET_DEV" 1 0 +512M EF00 'EFI system partition'
     ../../lib/util/gpt.sh part_add "$HEX_TARGET_DEV" 2 0 +64G 8300 'SYSTEM'

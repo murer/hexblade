@@ -32,9 +32,9 @@ function cmd_disk() {
 
 function cmd_crypt_open() {
     [[ "x$HEX_TARGET_DEV" != "x" ]]
-    ../../lib/util/crypt.sh open "${HEX_TARGET_DEV}p3" SWAPCRYPTED master
+    ../../lib/util/crypt.sh open "${HEX_TARGET_DEV}p1" SWAPCRYPTED master
     ../../lib/util/crypt.sh open "${HEX_TARGET_DEV}p2" SYSTEMCRYPTED master
-    ../../lib/util/crypt.sh open "${HEX_TARGET_DEV}p4" DATACRYPTED master
+    ../../lib/util/crypt.sh open "${HEX_TARGET_DEV}p3" DATACRYPTED master
 }
 
 function cmd_mount() {

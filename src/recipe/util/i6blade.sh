@@ -24,6 +24,7 @@ function cmd_disk() {
     ../../lib/util/crypt.sh open "${HEX_TARGET_DEV}p4" DATACRYPTED master
 
     ../../lib/util/efi.sh format "${HEX_TARGET_DEV}p1"
+    ../../lib/util/mkfs.sh swap /dev/mapper/SWAPCRYPTED SWAPCRYPTED
     ../../lib/util/mkfs.sh ext4 /dev/mapper/SYSTEMCRYPTED SYSTEMCRYPTED
     ../../lib/util/mkfs.sh ext4 /dev/mapper/DATACRYPTED DATACRYPTED
     cmd_crypt_close
@@ -32,12 +33,14 @@ function cmd_disk() {
 function cmd_crypt_open() {
     [[ "x$HEX_TARGET_DEV" != "x" ]]
     ../../lib/util/crypt.sh open "${HEX_TARGET_DEV}p2" SYSTEMCRYPTED master
-    ../../lib/util/crypt.sh open "${HEX_TARGET_DEV}p3" DATACRYPTED master
+    ../../lib/util/crypt.sh open "${HEX_TARGET_DEV}p3" SWAPCRYPTED master
+    ../../lib/util/crypt.sh open "${HEX_TARGET_DEV}p4" DATACRYPTED master
 }
 
 function cmd_mount() {
-    cmd_crypt_open
     [[ "x$HEX_TARGET_DEV" != "x" ]]
+    cmd_crypt_open
+    /dev/mapper/SWAPCRYPTED
     mkdir -p /mnt/hexblade/system
     mount /dev/mapper/SYSTEMCRYPTED /mnt/hexblade/system
     mkdir -p /mnt/hexblade/system/boot/efi
@@ -48,6 +51,7 @@ function cmd_mount() {
 
 function cmd_crypt_close() {
     ../../lib/util/crypt.sh close SYSTEMCRYPTED
+    ../../lib/util/crypt.sh close SWAPCRYPTED
     ../../lib/util/crypt.sh close DATACRYPTED
 }
 

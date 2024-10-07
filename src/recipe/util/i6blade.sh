@@ -57,7 +57,7 @@ function cmd_base() {
     ../../lib/basesys/basesys.sh hostname hex
     ../../lib/basesys/basesys.sh base
     ../../lib/basesys/basesys.sh keyboard
-    # ../../lib/basesys/basesys.sh kernel
+    ../../lib/basesys/basesys.sh kernel
     ../../lib/util/user.sh add "$HEX_TARGET_USER" "$HEX_TARGET_PASS"
     ../../lib/util/installer.sh uchr hex sudo -E /installer/hexblade/pack/util/tools.sh install
 }

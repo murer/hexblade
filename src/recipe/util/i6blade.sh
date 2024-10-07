@@ -19,8 +19,8 @@ function cmd_disk() {
     ../../lib/util/crypt.sh open "${HEX_TARGET_DEV}3" DATACRYPTED master
 
     ../../lib/util/efi.sh format "${HEX_TARGET_DEV}1"
-    ../../lib/util/mkfs.sh ext4 "${HEX_TARGET_DEV}2" /dev/mapper/SYSTEMCRYPTED
-    ../../lib/util/mkfs.sh ext4 "${HEX_TARGET_DEV}3" /dev/mapper/DATACRYPTED
+    ../../lib/util/mkfs.sh ext4 "${HEX_TARGET_DEV}2" SYSTEMCRYPTED
+    ../../lib/util/mkfs.sh ext4 "${HEX_TARGET_DEV}3" DATACRYPTED
 }
 
 function cmd_mount() {

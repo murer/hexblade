@@ -9,23 +9,8 @@ function cmd_disk() {
     ../../lib/util/gpt.sh part_add "$HEX_TARGET_DEV" 2 0 0 8300 'MAIN'
     gdisk -l "$HEX_TARGET_DEV"
 
-    # ../../lib/util/crypt.sh format "${HEX_TARGET_DEV}2" master 1
-    # ../../lib/util/crypt.sh pass_add "${HEX_TARGET_DEV}2" master 0
-    # ../../lib/util/crypt.sh open "${HEX_TARGET_DEV}2" MAINCRYPTED master
-    
-    # ../../lib/util/lvm.sh format /dev/mapper/MAINCRYPTED MAINLVM
-    # ../../lib/util/lvm.sh add MAINLVM MAINSWAP 1G
-    # ../../lib/util/lvm.sh add MAINLVM MAINROOT 12G
-    # ../../lib/util/lvm.sh add MAINLVM MAINDATA '100%FREE'
-
-    # ../../lib/util/mkfs.sh swap /dev/mapper/MAINLVM-MAINSWAP
     ../../lib/util/efi.sh format "${HEX_TARGET_DEV}1"
     ../../lib/util/mkfs.sh ext4 "${HEX_TARGET_DEV}2" MAIN
-    # ../../lib/util/mkfs.sh ext4 /dev/mapper/MAINLVM-MAINDATA HEXDATA
-
-    # ../../lib/util/lvm.sh close MAINLVM
-    # ../../lib/util/crypt.sh close MAINCRYPTED
-    # ../../lib/util/crypt.sh dump "${HEX_TARGET_DEV}2"
 }
 
 function cmd_crypt_open() {
@@ -36,14 +21,10 @@ function cmd_crypt_open() {
 }
 
 function cmd_mount() {
-    cmd_crypt_open
-    swapon /dev/mapper/MAINLVM-MAINSWAP
     mkdir -p /mnt/hexblade/system
-    mount /dev/mapper/MAINLVM-MAINROOT /mnt/hexblade/system
+    mount "${HEX_TARGET_DEV}2" /mnt/hexblade/system
     mkdir -p /mnt/hexblade/system/boot/efi
     mount "${HEX_TARGET_DEV}1" /mnt/hexblade/system/boot/efi
-    mkdir -p /mnt/hexblade/system/localdata
-    mount /dev/mapper/MAINLVM-MAINDATA /mnt/hexblade/system/localdata
 }
 
 function cmd_crypt_close() {

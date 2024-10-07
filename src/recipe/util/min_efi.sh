@@ -21,6 +21,7 @@ function cmd_crypt_open() {
 }
 
 function cmd_mount() {
+    [[ "x$HEX_TARGET_DEV" != "x" ]]
     mkdir -p /mnt/hexblade/system
     mount "${HEX_TARGET_DEV}2" /mnt/hexblade/system
     mkdir -p /mnt/hexblade/system/boot/efi
@@ -35,8 +36,6 @@ function cmd_crypt_close() {
 function cmd_umount() {
     umount -R /mnt/hexblade/system
     rmdir /mnt/hexblade/system
-    swapoff /dev/mapper/MAINLVM-MAINSWAP
-    cmd_crypt_close
 }
 
 function cmd_bak_create() {

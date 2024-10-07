@@ -33,9 +33,15 @@ function cmd_mount() {
     mount "${HEX_TARGET_DEV}3" /mnt/hexblade/system/localdata
 }
 
+function cmd_crypt_close() {
+    ../../lib/util/crypt.sh close SYSTEMCRYPTED
+    ../../lib/util/crypt.sh close DATACRYPTED
+}
+
 function cmd_umount() {
     umount -R /mnt/hexblade/system
     rmdir /mnt/hexblade/system
+    cmd_crypt_close
 }
 
 function cmd_strap() {

@@ -9,9 +9,18 @@ function cmd_disk() {
     ../../lib/util/gpt.sh part_add "$HEX_TARGET_DEV" 2 0 +64G 8300 'SYSTEM'
     ../../lib/util/gpt.sh part_add "$HEX_TARGET_DEV" 3 0 0 8300 'DATA'
     gdisk -l "$HEX_TARGET_DEV"
-    ../../lib/util/efi.sh format "${HEX_TARGET_DEV}1"
-    ../../lib/util/mkfs.sh ext4 "${HEX_TARGET_DEV}2" SYSTEM
-    ../../lib/util/mkfs.sh ext4 "${HEX_TARGET_DEV}3" DATA
+
+    ../../lib/util/crypt.sh format "${HEX_TARGET_DEV}2" master 1
+    ../../lib/util/crypt.sh pass_add "${HEX_TARGET_DEV}2" master 0
+    ../../lib/util/crypt.sh open "${HEX_TARGET_DEV}2" SYSTEMCRYPTED master
+    
+    ../../lib/util/crypt.sh format "${HEX_TARGET_DEV}3" master 1
+    ../../lib/util/crypt.sh pass_add "${HEX_TARGET_DEV}3" master 0
+    ../../lib/util/crypt.sh open "${HEX_TARGET_DEV}3" SYSTEMCRYPTED master
+
+    # ../../lib/util/efi.sh format "${HEX_TARGET_DEV}1"
+    # ../../lib/util/mkfs.sh ext4 "${HEX_TARGET_DEV}2" SYSTEM
+    # ../../lib/util/mkfs.sh ext4 "${HEX_TARGET_DEV}3" DATA
 }
 
 function cmd_mount() {

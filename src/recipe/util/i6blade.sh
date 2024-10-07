@@ -13,7 +13,7 @@ function cmd_disk() {
 
     ../../lib/util/crypt.sh format "${HEX_TARGET_DEV}p2" master 1
     ../../lib/util/crypt.sh pass_add "${HEX_TARGET_DEV}p2" master 0
-    ../../lib/util/crypt.sh open "${HEX_TARGET_DEV}p2" DATACRYPTED master
+    ../../lib/util/crypt.sh open "${HEX_TARGET_DEV}p2" SWAPCRYPTED master
 
     ../../lib/util/crypt.sh format "${HEX_TARGET_DEV}p3" master 1
     ../../lib/util/crypt.sh pass_add "${HEX_TARGET_DEV}p3" master 0

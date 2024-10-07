@@ -10,15 +10,15 @@ function cmd_disk() {
     ../../lib/util/gpt.sh part_add "$HEX_TARGET_DEV" 3 0 0 8300 'DATA'
     gdisk -l "$HEX_TARGET_DEV"
 
-    ../../lib/util/crypt.sh format "${HEX_TARGET_DEV}2" master 1
-    ../../lib/util/crypt.sh pass_add "${HEX_TARGET_DEV}2" master 0
-    ../../lib/util/crypt.sh open "${HEX_TARGET_DEV}2" SYSTEMCRYPTED master
+    ../../lib/util/crypt.sh format "${HEX_TARGET_DEV}p2" master 1
+    ../../lib/util/crypt.sh pass_add "${HEX_TARGET_DEV}p2" master 0
+    ../../lib/util/crypt.sh open "${HEX_TARGET_DEV}p2" SYSTEMCRYPTED master
     
-    ../../lib/util/crypt.sh format "${HEX_TARGET_DEV}3" master 1
-    ../../lib/util/crypt.sh pass_add "${HEX_TARGET_DEV}3" master 0
-    ../../lib/util/crypt.sh open "${HEX_TARGET_DEV}3" DATACRYPTED master
+    ../../lib/util/crypt.sh format "${HEX_TARGET_DEV}p3" master 1
+    ../../lib/util/crypt.sh pass_add "${HEX_TARGET_DEV}p3" master 0
+    ../../lib/util/crypt.sh open "${HEX_TARGET_DEV}p3" DATACRYPTED master
 
-    ../../lib/util/efi.sh format "${HEX_TARGET_DEV}1"
+    ../../lib/util/efi.sh format "${HEX_TARGET_DEV}p1"
     ../../lib/util/mkfs.sh ext4 /dev/mapper/SYSTEMCRYPTED SYSTEMCRYPTED
     ../../lib/util/mkfs.sh ext4 /dev/mapper/DATACRYPTED DATACRYPTED
     cmd_crypt_close
@@ -26,8 +26,8 @@ function cmd_disk() {
 
 function cmd_crypt_open() {
     [[ "x$HEX_TARGET_DEV" != "x" ]]
-    ../../lib/util/crypt.sh open "${HEX_TARGET_DEV}2" SYSTEMCRYPTED master
-    ../../lib/util/crypt.sh open "${HEX_TARGET_DEV}3" DATACRYPTED master
+    ../../lib/util/crypt.sh open "${HEX_TARGET_DEV}p2" SYSTEMCRYPTED master
+    ../../lib/util/crypt.sh open "${HEX_TARGET_DEV}p3" DATACRYPTED master
 }
 
 function cmd_mount() {
@@ -36,7 +36,7 @@ function cmd_mount() {
     mkdir -p /mnt/hexblade/system
     mount /dev/mapper/SYSTEMCRYPTED /mnt/hexblade/system
     mkdir -p /mnt/hexblade/system/boot/efi
-    mount "${HEX_TARGET_DEV}1" /mnt/hexblade/system/boot/efi
+    mount "${HEX_TARGET_DEV}p1" /mnt/hexblade/system/boot/efi
     mkdir -p /mnt/hexblade/system/localdata
     mount /dev/mapper/DATACRYPTED /mnt/hexblade/system/localdata
 }

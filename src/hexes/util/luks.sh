@@ -18,6 +18,13 @@ function cmd_pass_add() {
   cryptsetup luksAddKey --key-slot "$hexblade_crypt_slot" "$hexblade_crypt_dev"
 }
 
+function cmd_keyfile_add() {
+  local hexblade_crypt_dev="${1?'hexblade_crypt_dev is required'}"
+  local hexblade_crypt_slot="${2?'slot, from 0 to 7'}"
+  local hexblade_crypt_key="${3?'keyname, like: master'}"
+  cryptsetup luksAddKey --key-slot "$hexblade_crypt_slot" "$hexblade_crypt_dev" "$hexblade_crypt_key"
+}
+
 function cmd_drop_slot() {
   local hexblade_crypt_dev="${1?'hexblade_crypt_dev is required'}"
   local hexblade_crypt_slot="${2?'slot, from 0 to 7'}"

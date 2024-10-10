@@ -28,7 +28,6 @@ function cmd_key_save() {
 }
 
 function cmd_dump() {
-  pwd
   ../../hexes/util/luks.sh dump "$@"
 }
 

@@ -28,8 +28,8 @@ function cmd_key_save() {
 }
 
 function cmd_dump() {
-  local hexblade_crypt_dev="${1?'hexblade_crypt_dev is required'}"
-  cryptsetup luksDump "$hexblade_crypt_dev"
+  pwd
+  ../../hexes/util/luks.sh dump "$@"
 }
 
 function cmd_close() {

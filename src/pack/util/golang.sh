@@ -8,7 +8,10 @@ function cmd_install() {
   [[ "x$UID" == "x0" ]]
 
   if ! go version; then
-    _version="$HEXBLADE_GO_VERSION"
+    local _version=""
+    if [ ! -z "$HEXBLADE_GO_VERSION" ]; then
+      _version="/dl/go$HEXBLADE_GO_VERSION.linux-amd64.tar.gz"
+    fi
     [ ! -z "$_version" ] || _version="$(cmd_version)"
   
     file="$(mktemp)"

@@ -8,7 +8,8 @@ function cmd_install() {
   [[ "x$UID" == "x0" ]]
 
   if ! go version; then
-    _version="$(cmd_version)"
+    _version="$HEXBLADE_GO_VERSION"
+    [ ! -z "$_version" ] || _version="$(cmd_version)"
   
     file="$(mktemp)"
     _cleanup() {

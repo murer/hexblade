@@ -42,8 +42,9 @@ function cmd_create() {
     losetup -d /dev/loop5
     
     qemu-img convert -f raw -O vdi /mnt/hexbase/out.raw /mnt/hexbase/out.vdi
-
-    
+    du -hs /mnt/hexbase/out.vdi
+    vboxmanage modifymedium --compact /mnt/hexbase/out.vdi
+    du -hs /mnt/hexbase/out.vdi
 }
 
 cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; "cmd_${_cmd}" "$@"

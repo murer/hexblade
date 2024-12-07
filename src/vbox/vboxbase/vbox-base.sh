@@ -19,9 +19,12 @@ function cmd_create() {
     kpartx -dv /dev/loop6 || true
     losetup -d /dev/loop6 || true
     qemu-img convert -f vdi -O raw /mnt/hexbase/blank.vdi /mnt/hexbase/out.raw
+    ../../lib/util/mbr.sh wipe /mnt/hexbase/out.raw
+    ../../lib/util/mbr.sh part_add /mnt/hexbase/out.raw 1 0 0 0x83
     losetup loop6 /mnt/hexbase/out.raw
-    # kpartx -arv /dev/loop6
-    # mount -r /dev/mapper/loop6p1 /mnt/hexbase/files
+    kpartx -av /dev/loop6
+    ../../lib/util/mkfs.sh ext4 /dev/mapper/loop6p1 SYS
+    mount /dev/mapper/loop6p1 /mnt/hexbase/out
 
     # VBoxManage closemedium disk /mnt/hexbase/hexblade.vdi --delete || true
     # VBoxManage createhd --filename  /mnt/hexbase/hexblade.vdi --size 262144 --format VDI

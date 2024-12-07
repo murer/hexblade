@@ -2,19 +2,27 @@
 
 
 function cmd_create() {
+    mkdir -p /mnt/hexbase/files /mnt/hexbase/out
+    cp images/blank.vdi /mnt/hexbase/blank.vdi
 
     umount /mnt/hexbase/files || true
     kpartx -dv /dev/loop5 || true
     losetup -d /dev/loop5 || true
     [ -f /tmp/hexblade-base.vdi ]
-    mkdir -p /mnt/hexbase/files
     # [ ! -f /mnt/hexbase/my_disk_image.raw ] || rm /mnt/hexbase/my_disk_image.raw
     # qemu-img convert -f vdi -O raw /tmp/hexblade-base.vdi /mnt/hexbase/my_disk_image.raw
     losetup loop5 /mnt/hexbase/my_disk_image.raw
     kpartx -arv /dev/loop5
     mount -r /dev/mapper/loop5p1 /mnt/hexbase/files
 
-    cp images/blank.vdi /mnt/hexbase/hexblade.vdi
+    umount /mnt/hexbase/out || true
+    kpartx -dv /dev/loop6 || true
+    losetup -d /dev/loop6 || true
+    qemu-img convert -f vdi -O raw /mnt/hexbase/blank.vdi /mnt/hexbase/out.raw
+    losetup loop6 /mnt/hexbase/out.raw
+    # kpartx -arv /dev/loop6
+    # mount -r /dev/mapper/loop6p1 /mnt/hexbase/files
+
     # VBoxManage closemedium disk /mnt/hexbase/hexblade.vdi --delete || true
     # VBoxManage createhd --filename  /mnt/hexbase/hexblade.vdi --size 262144 --format VDI
 

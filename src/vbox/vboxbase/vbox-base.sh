@@ -29,7 +29,7 @@ function cmd_create() {
     mount /dev/mapper/loop6p1 /mnt/hexbase/out
 
     rsync -a --delete /mnt/hexbase/files/ /mnt/hexbase/out/
-    genfstab -U /mnt/hexbase/out/ > /mnt/hexbase/out/etc/fstab
+    genfstab -U /mnt/hexbase/out/ | tee /mnt/hexbase/out/etc/fstab
     arch-chroot /mnt/hexbase/out/ grub-install /dev/loop6
 
     umount /mnt/hexbase/out

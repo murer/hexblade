@@ -8,6 +8,7 @@ function cmd_clean() {
 
 function cmd_create() {
     # cmd_clean
+    vboxmanage modifymedium disk "$_vms/hex0/hex0.vdi" --compact
     if [ -f "$_vms/disk/hex0-base.vdi" ]; then
         chmod ugo+w "$_vms/disk/hex0-base.vdi"
         vboxmanage clonemedium "$_vms/hex0/hex0.vdi" "$_vms/disk/hex0-base.vdi" --existing

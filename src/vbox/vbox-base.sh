@@ -8,7 +8,11 @@ function cmd_clean() {
 
 function cmd_create() {
     # cmd_clean
-    vboxmanage clonemedium "$_vms/hex0/hex0.vdi" "$_vms/disk/hex0-base.vdi" --existing
+    if [ -f "$_vms/disk/hex0-base.vdi" ]; then
+        vboxmanage clonemedium "$_vms/hex0/hex0.vdi" "$_vms/disk/hex0-base.vdi" --existing
+    else
+        vboxmanage clonemedium "$_vms/hex0/hex0.vdi" "$_vms/disk/hex0-base.vdi"
+    fi
     du -hs "$_vms/hex0/hex0.vdi" "$_vms/disk/hex0-base.vdi"
     vboxmanage modifymedium "$_vms/disk/hex0-base.vdi" --type immutable
 

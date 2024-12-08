@@ -9,10 +9,12 @@ function cmd_clean() {
 function cmd_create() {
     # cmd_clean
     if [ -f "$_vms/disk/hex0-base.vdi" ]; then
+        chmod ugo+w "$_vms/disk/hex0-base.vdi"
         vboxmanage clonemedium "$_vms/hex0/hex0.vdi" "$_vms/disk/hex0-base.vdi" --existing
     else
         vboxmanage clonemedium "$_vms/hex0/hex0.vdi" "$_vms/disk/hex0-base.vdi"
     fi
+    chmod ugo-w "$_vms/disk/hex0-base.vdi"
     du -hs "$_vms/hex0/hex0.vdi" "$_vms/disk/hex0-base.vdi"
     vboxmanage modifymedium "$_vms/disk/hex0-base.vdi" --type immutable
 

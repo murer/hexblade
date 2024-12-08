@@ -10,7 +10,7 @@ function cmd_create() {
     # cmd_clean
     vboxmanage clonemedium "$_vms/hex0/hex0.vdi" "$_vms/disk/hex0.vdi" --existing
     du -hs "$_vms/hex0/hex0.vdi" "$_vms/disk/hex0.vdi"
-    vboxmanage modifymedium "$_vms/disk/hex0.vdi" --type readonly
+    vboxmanage modifymedium "$_vms/disk/hex0.vdi" --type immutable
 
     # mkdir -p /mnt/hexbase/files /mnt/hexbase/out
     # cp images/blank.vdi /mnt/hexbase/blank.vdi

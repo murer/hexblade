@@ -28,7 +28,8 @@ function cmd_disk() {
 
     ../../lib/util/crypt.sh close MAINCRYPTED
     ../../lib/util/crypt.sh close MAINSWAP
-    ../../lib/util/crypt.sh dump "$HEX_TARGET_DEV"
+    ../../lib/util/crypt.sh dump "$HEX_TARGET_DEV_SWAP"
+    ../../lib/util/crypt.sh dump "$HEX_TARGET_DEV_ROOT"
 }
 
 function cmd_crypt_open() {

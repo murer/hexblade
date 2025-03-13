@@ -11,7 +11,7 @@ function cmd_disk() {
     ../../lib/util/gpt.sh wipe "$HEX_TARGET_DEV"
     ../../lib/util/gpt.sh part_add "$HEX_TARGET_DEV" 1 0 +512M EF00 'EFI system partition'
     ../../lib/util/gpt.sh part_add "$HEX_TARGET_DEV" 2 0 +32G 8300 'SWAP'
-    ../../lib/util/gpt.sh part_add "$HEX_TARGET_DEV" 2 0 0 8300 'PARTCRYPT'
+    ../../lib/util/gpt.sh part_add "$HEX_TARGET_DEV" 3 0 0 8300 'PARTCRYPT'
     gdisk -l "$HEX_TARGET_DEV"
 
     ../../lib/util/crypt.sh format "$HEX_TARGET_DEV_SWAP" master 1

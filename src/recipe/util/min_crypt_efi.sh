@@ -35,8 +35,8 @@ function cmd_disk() {
 function cmd_crypt_open() {
     [[ "x$HEX_TARGET_DEV" != "x" ]]
     [[ ! -d /mnt/hexblade/system ]]    
-    ../../lib/util/crypt.sh open "${HEX_TARGET_DEV}2" MAINCRYPTED master
-    ../../lib/util/lvm.sh open MAINLVM 
+    ../../lib/util/crypt.sh open "$HEX_TARGET_DEV_SWAP" MAINSWAP master
+    ../../lib/util/crypt.sh open "$HEX_TARGET_DEV_ROOT" MAINCRYPTED master
 }
 
 function cmd_mount() {

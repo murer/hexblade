@@ -22,7 +22,7 @@ function cmd_disk() {
     ../../lib/util/crypt.sh pass_add "$HEX_TARGET_DEV_ROOT" master 0
     ../../lib/util/crypt.sh open "$HEX_TARGET_DEV_ROOT" MAINCRYPTED master
     
-    ../../lib/util/mkfs.sh swap /dev/mapper/MAINSWAP
+    ../../lib/util/mkfs.sh swap /dev/mapper/MAINSWAP MAINSWAP
     ../../lib/util/efi.sh format "$HEX_TARGET_DEV_EFI"
     ../../lib/util/mkfs.sh ext4 /dev/mapper/MAINCRYPTED MAINCRYPTED
 

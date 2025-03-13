@@ -50,8 +50,8 @@ function cmd_mount() {
 }
 
 function cmd_crypt_close() {
-    ../../lib/util/lvm.sh close MAINLVM
     ../../lib/util/crypt.sh close MAINCRYPTED
+    ../../lib/util/crypt.sh close MAINSWAP
 }
 
 function cmd_umount() {

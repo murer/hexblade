@@ -16,10 +16,11 @@ function cmd_disk() {
 
     ../../lib/util/crypt.sh format "$HEX_TARGET_DEV_SWAP" master 1
     ../../lib/util/crypt.sh pass_add "$HEX_TARGET_DEV_SWAP" master 0
-    ../../lib/util/crypt.sh open "$HEX_TARGET_DEV_SWAP" MAINSWAP master
 
     ../../lib/util/crypt.sh format "$HEX_TARGET_DEV_ROOT" master 1
     ../../lib/util/crypt.sh pass_add "$HEX_TARGET_DEV_ROOT" master 0
+
+    ../../lib/util/crypt.sh open "$HEX_TARGET_DEV_SWAP" MAINSWAP master
     ../../lib/util/crypt.sh open "$HEX_TARGET_DEV_ROOT" MAINCRYPTED master
     
     ../../lib/util/mkfs.sh swap /dev/mapper/MAINSWAP MAINSWAP

@@ -62,37 +62,10 @@ function cmd_umount() {
     cmd_crypt_close
 }
 
-function cmd_bak_create() {
-    cmd_crypt_open
-    local hex_bak_tag="${1?'backup tag'}"
-    ../../lib/util/bak.sh create min_lvm_crypt_efi "$hex_bak_tag" ESP
-    ../../lib/util/bak.sh create min_lvm_crypt_efi "$hex_bak_tag" HEXROOT
-    cmd_crypt_close
-}
-
-function cmd_bak_restore() {
-    cmd_crypt_open
-    local hex_bak_tag="${1?'backup tag'}"
-    ../../lib/util/bak.sh restore min_lvm_crypt_efi "$hex_bak_tag" ESP
-    ../../lib/util/bak.sh restore min_lvm_crypt_efi "$hex_bak_tag" HEXROOT
-    cmd_crypt_close
-}
-
-function cmd_strap() {
-    [[ -d /mnt/hexblade/system ]]
-    ../../lib/basesys/basesys.sh strap br
-}
-
-function cmd_base() {
-    [[ "x$HEX_TARGET_USER" != "x" ]]
-    [[ "x$HEX_TARGET_PASS" != "x" ]] # export HEX_TARGET_PASS="$(openssl passwd -6)"
-    [[ -d /mnt/hexblade/system ]]
-    ../../lib/basesys/basesys.sh hostname hex
-    ../../lib/basesys/basesys.sh base
-    ../../lib/basesys/basesys.sh keyboard
-    ../../lib/basesys/basesys.sh kernel
-    ../../lib/util/user.sh add "$HEX_TARGET_USER" "$HEX_TARGET_PASS"
-    ../../lib/util/installer.sh uchr hex sudo -E /installer/hexblade/pack/util/tools.sh install
+function cmd_download_tcp() {
+    cd /mnt/hexblade
+    ncat -vl 5005 | sudo tar xp --acls --xattrs --same-owner -f -
+    cd - 1>&2
 }
 
 function cmd_boot() {

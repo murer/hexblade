@@ -41,13 +41,11 @@ function cmd_crypt_open() {
 
 function cmd_mount() {
     cmd_crypt_open
-    swapon /dev/mapper/MAINLVM-MAINSWAP
+    swapon /dev/mapper/MAINSWAP
     mkdir -p /mnt/hexblade/system
-    mount /dev/mapper/MAINLVM-MAINROOT /mnt/hexblade/system
+    mount /dev/mapper/MAINROOT /mnt/hexblade/system
     mkdir -p /mnt/hexblade/system/boot/efi
-    mount "${HEX_TARGET_DEV}1" /mnt/hexblade/system/boot/efi
-    mkdir -p /mnt/hexblade/system/localdata
-    mount /dev/mapper/MAINLVM-MAINDATA /mnt/hexblade/system/localdata
+    mount "$HEX_TARGET_DEV_EFI" /mnt/hexblade/system/boot/efi
 }
 
 function cmd_crypt_close() {
@@ -58,7 +56,7 @@ function cmd_crypt_close() {
 function cmd_umount() {
     umount -R /mnt/hexblade/system
     rmdir /mnt/hexblade/system
-    swapoff /dev/mapper/MAINLVM-MAINSWAP
+    swapoff /dev/mapper/MAINSWAP
     cmd_crypt_close
 }
 

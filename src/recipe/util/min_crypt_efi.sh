@@ -62,7 +62,7 @@ function cmd_umount() {
 
 function cmd_download_tcp() {
     cd /mnt/hexblade
-    ncat -vl 5005 | sudo tar xp --acls --xattrs --same-owner -f -
+    ncat -vl 5005 | sudo tar xzp --acls --xattrs --same-owner -f -
     cd - 1>&2
 }
 

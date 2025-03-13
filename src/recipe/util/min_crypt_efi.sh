@@ -43,7 +43,7 @@ function cmd_mount() {
     cmd_crypt_open
     swapon /dev/mapper/MAINSWAP
     mkdir -p /mnt/hexblade/system
-    mount /dev/mapper/MAINROOT /mnt/hexblade/system
+    mount /dev/mapper/MAINCRYPTED /mnt/hexblade/system
     mkdir -p /mnt/hexblade/system/boot/efi
     mount "$HEX_TARGET_DEV_EFI" /mnt/hexblade/system/boot/efi
 }

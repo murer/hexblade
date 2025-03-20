@@ -76,6 +76,6 @@ https://github.com/murer/hexblade/blob/master/src/recipe/util/min_crypt_efi.sh
 
 | Version | On top of | Branch |
 |---------|-----------|--------|
-| 3.x.x | Ubuntu 20.04 | master |
+| 3.x.x | Ubuntu 22.04 | master |
 | 2.x.x | Ubuntu 20.04 | ubuntu20 |
 | 1.x.x | Ubuntu 18.04 | ubuntu18 |

@@ -62,7 +62,7 @@ https://github.com/murer/hexblade/blob/master/src/recipe/util/min_crypt_mbr.sh
 
 ### Install EFI
 
-https://github.com/murer/hexblade/blob/master/src/recipe/util/min_lvm_crypt_efi.sh
+https://github.com/murer/hexblade/blob/master/src/recipe/util/min_crypt_efi.sh
 
 ```shell
 ./src/recipe/util/min_lvm_crypt_efi.sh from_scratch

@@ -1,6 +1,6 @@
 # Hexblade
 
-My own Linux desktop and docker image on top of [Ubuntu 20.04](#versions)
+My own Linux desktop and docker image on top of [Ubuntu](#versions)
 
 
 [<img src="https://github.com/murer/hexblade/raw/master/docs/Hexblade_Login.png" width="280" />](https://github.com/murer/hexblade)

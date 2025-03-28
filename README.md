@@ -1,6 +1,6 @@
 # Hexblade
 
-My own Linux desktop and docker image on top of [Ubuntu 20.04](#versions)
+My own Linux desktop and docker image on top of [Ubuntu](#versions)
 
 
 [<img src="https://github.com/murer/hexblade/raw/master/docs/Hexblade_Login.png" width="280" />](https://github.com/murer/hexblade)
@@ -62,7 +62,7 @@ https://github.com/murer/hexblade/blob/master/src/recipe/util/min_crypt_mbr.sh
 
 ### Install EFI
 
-https://github.com/murer/hexblade/blob/master/src/recipe/util/min_lvm_crypt_efi.sh
+https://github.com/murer/hexblade/blob/master/src/recipe/util/min_crypt_efi.sh
 
 ```shell
 ./src/recipe/util/min_lvm_crypt_efi.sh from_scratch
@@ -76,6 +76,6 @@ https://github.com/murer/hexblade/blob/master/src/recipe/util/min_lvm_crypt_efi.
 
 | Version | On top of | Branch |
 |---------|-----------|--------|
-| 3.x.x | Ubuntu 20.04 | master |
+| 3.x.x | Ubuntu 22.04 | master |
 | 2.x.x | Ubuntu 20.04 | ubuntu20 |
 | 1.x.x | Ubuntu 18.04 | ubuntu18 |

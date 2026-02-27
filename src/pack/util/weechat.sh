@@ -7,7 +7,7 @@ function cmd_install() {
 }
 
 function cmd_config() {
-  weechat -a -r '/set irc.server_default.username libera"guest46723678"; /quit'
+  weechat -a -r '/set irc.server_default.username "guest46723678"; /quit'
   weechat -a -r '/set irc.server_default.realname "guest46723678"; /quit'
   weechat -a -r '/set irc.server_default.nicks "guest46723678"; /quit' 
   
@@ -24,6 +24,9 @@ function cmd_config() {
     weechat -a -r "/set irc.server.libera.sasl_username \"$_libera_user\"; /quit"
     weechat -a -r "/set irc.server.libera.sasl_password \"$_libera_pass\"; /quit"
   fi
+
+  weechat -a -r '/server add hackint irc.hackint.org/6697 -ssl; /quit'
+  
   
 }
 

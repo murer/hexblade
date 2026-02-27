@@ -14,15 +14,22 @@ function cmd_config() {
   #weechat -a -r '/server del libera; /quit'
   weechat -a -r '/server add libera irc.libera.chat/6697 -ssl; /quit'
 
-  local _libera_user="$(cat "$HOME/.ssh/irc/libera.chat/username.txt")"
-  if [ ! -z "$_libera_user" ]; then
-    local _libera_pass="$(cat "$HOME/.ssh/irc/libera.chat/password.txt")"
+  local _libera_pass="$(cat "$HOME/.ssh/irc/libera.chat/password.txt")"
+  if [ ! -z "$_libera_pass" ]; then
+    local _libera_user="$(cat "$HOME/.ssh/irc/libera.chat/username.txt")"
     weechat -a -r "/set irc.server.libera.username \"$_libera_user\"; /quit"
     weechat -a -r "/set irc.server.libera.realname \"$_libera_user\"; /quit"
     weechat -a -r "/set irc.server.libera.nicks \"$_libera_user\"; /quit"
     weechat -a -r "/set irc.server.libera.sasl_mechanism plain; /quit"
     weechat -a -r "/set irc.server.libera.sasl_username \"$_libera_user\"; /quit"
     weechat -a -r "/set irc.server.libera.sasl_password \"$_libera_pass\"; /quit"
+  fi
+
+  local _libera_pubkey="$(cat "$HOME/.ssh/irc/libera.chat/pubkey.txt")"
+  if [ ! -z "$_libera_pubkey" ]; then
+    [ -f "$HOME/.ssh/irc/libera.chat/ecdsa.pem" ]
+    weechat -a -r "/set irc.server.libera.sasl_mechanism ecdsa-nist256p-challenge"
+    weechat -a -r "/set irc.server.libera.sasl_key "\${env:HOME}/.ssh/irc/libera.chat/ecdsa.pem"; /quit"
   fi
 
   weechat -a -r '/server add hackint irc.hackint.org/6697 -ssl; /quit'

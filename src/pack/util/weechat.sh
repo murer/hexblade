@@ -7,6 +7,16 @@ function cmd_install() {
 }
 
 function cmd_config() {
+  weechat -a -r '/set irc.ctcp.version ""; /quit'
+  weechat -a -r '/set irc.ctcp.ping ""; /quit'
+  weechat -a -r '/set irc.ctcp.time ""; /quit'
+  weechat -a -r '/set irc.ctcp.finger ""; /quit'
+  weechat -a -r '/set irc.ctcp.userinfo ""; /quit'
+  weechat -a -r '/set irc.ctcp.source ""; /quit'
+  weechat -a -r '/set irc.ctcp.clientinfo ""; /quit'
+  weechat -a -r '/set irc.ctcp.action ""; /quit'
+  weechat -a -r '/set irc.ctcp.dcc ""; /quit'
+
   weechat -a -r '/set irc.server_default.username "guest46723678"; /quit'
   weechat -a -r '/set irc.server_default.realname "guest46723678"; /quit'
   weechat -a -r '/set irc.server_default.nicks "guest46723678"; /quit' 

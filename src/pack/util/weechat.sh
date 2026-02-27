@@ -22,7 +22,7 @@ function cmd_config() {
     weechat -a -r "/set irc.server.libera.nicks \"$_libera_user\"; /quit"
     weechat -a -r "/set irc.server.libera.sasl_mechanism plain; /quit"
     weechat -a -r "/set irc.server.libera.sasl_username \"$_libera_user\"; /quit"
-    weechat -a -r "/set irc.server.libera.sasl_password \"$_libera_password\"; /quit"
+    weechat -a -r "/set irc.server.libera.sasl_password \"$_libera_pass\"; /quit"
   fi
   
 }

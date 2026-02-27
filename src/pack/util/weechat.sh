@@ -7,8 +7,8 @@ function cmd_install() {
 }
 
 function cmd_config() {
-  echo weechat -a -r '/server del libera; /quit'
-  echo weechat -a -r '/server add libera irc.libera.chat/6697 -ssl; /quit'
+  weechat -a -r '/server del libera; /quit'
+  weechat -a -r '/server add libera irc.libera.chat/6697 -ssl; /quit'
 }
 
 cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; "cmd_${_cmd}" "$@"

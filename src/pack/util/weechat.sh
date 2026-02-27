@@ -7,6 +7,8 @@ function cmd_install() {
 }
 
 function cmd_config() {
+  weechat -a -r '/set irc.server_default.realname "guest46723678"; /quit'
+  weechat -a -r '/set irc.server_default.nicks guest46723678; /quit' 
   weechat -a -r '/server del libera; /quit'
   weechat -a -r '/server add libera irc.libera.chat/6697 -ssl; /quit'
 }

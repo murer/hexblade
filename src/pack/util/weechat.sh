@@ -28,8 +28,8 @@ function cmd_config() {
   local _libera_pubkey="$(cat "$HOME/.ssh/irc/libera.chat/pubkey.txt")"
   if [ ! -z "$_libera_pubkey" ]; then
     [ -f "$HOME/.ssh/irc/libera.chat/ecdsa.pem" ]
-    weechat -a -r "/set irc.server.libera.sasl_mechanism ecdsa-nist256p-challenge"
-    weechat -a -r "/set irc.server.libera.sasl_key "\${env:HOME}/.ssh/irc/libera.chat/ecdsa.pem"; /quit"
+    weechat -a -r "/set irc.server.libera.sasl_mechanism ecdsa-nist256p-challenge; /quit"
+    weechat -a -r '/set irc.server.libera.sasl_key "${env:HOME}/.ssh/irc/libera.chat/ecdsa.pem"; /quit'
   fi
 
   weechat -a -r '/server add hackint irc.hackint.org/6697 -ssl; /quit'

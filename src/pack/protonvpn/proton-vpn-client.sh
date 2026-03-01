@@ -11,7 +11,7 @@ function cmd_install() {
 function cmd_config() {
     protonvpn config set ipv6 off
     protonvpn config set kill-switch standard
-    [ "x$USER" == "xroot" ] || usermod -aG netdev "$USER"
+    [ "x$USER" == "xroot" ] || sudo usermod -aG netdev "$USER"
 }
 
 set +x; cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; set -x; "cmd_${_cmd}" "$@"

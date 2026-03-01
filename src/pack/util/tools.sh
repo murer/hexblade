@@ -26,7 +26,8 @@ function cmd_install() {
     dnsutils \
     iputils-ping \
     bzip2 \
-    qemu-utils
+    qemu-utils \
+    pv
 }
 
 set +x; cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; set -x; "cmd_${_cmd}" "$@"

@@ -5,7 +5,7 @@ function cmd_install() {
     wget -q -O - https://repo.protonvpn.com/debian/public_key.asc | gpg --dearmor > /etc/apt/hardkeys/protonvpn-stable-archive-keyring.gpg
     echo "deb [signed-by=/etc/apt/hardkeys/protonvpn-stable-archive-keyring.gpg] https://repo.protonvpn.com/debian stable main" > /etc/apt/sources.list.d/proton-vpn.list
     apt update
-    apt -y install proton-vpn-cli # proton-vpn-gtk-app proton-vpn-gnome-desktop
+    apt -y install proton-vpn-gtk-app #proton-vpn-gnome-desktop proton-vpn-cli
 }
 
 function cmd_config() {

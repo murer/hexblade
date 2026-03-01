@@ -8,5 +8,10 @@ function cmd_install() {
     apt -y install proton-vpn-cli # proton-vpn-gtk-app proton-vpn-gnome-desktop
 }
 
+function cmd_config() {
+    protonvpn config set ipv6 off
+    protonvpn config set kill-switch standard
+}
+
 set +x; cd "$(dirname "$0")"; _cmd="${1?"cmd is required"}"; shift; set -x; "cmd_${_cmd}" "$@"
 
